@@ -219,9 +219,9 @@ but are not necessarily limited to the following:</p>
 </ul>
 </div></blockquote>
 <p>TMIP-EMAT can be used to systematically explore uncertainties in input variables
-and model parameters and the impact that those uncertainties have on performance
+and model parameters, and the impact that those uncertainties have on performance
 metrics.  It is useful for examining model forecasts as a range of model outcomes
-rather than a single outcome, and it provides an mechanism for defining
+rather than a single outcome, and it provides a mechanism for defining
 uncertainties and visualizing outputs.</p>
 <p>TMIP-EMAT can also be used to understand how uncertainties interact with policy
 decisions (e.g., extending a transit line), where <em>uncertainties</em> relate to model
@@ -320,7 +320,8 @@ ability to specify the number of simulations that are performed.</li>
 levers, and metrics are themselves outputs of TMIP-EMAT (this only applies when
 meta-models are used).  The meta-models serve as direct input to the EMA Workbench
 to support guided exploratory analysis and can be useful for validating the core
-model runs.</li>
+model runs (e.g., to verify that model sensitivities to input variables and/or
+parameters are reasonable and appropriate).</li>
 <li>A variety of tools are built into TMIP-EMAT that can be used to generate
 visualizations and tables to better understand the outputs.  Such tools include
 the following:<ul>
@@ -347,13 +348,15 @@ specific targets in metrics under different policies.</li>
 </ul>
 </li>
 <li>Guided Exploratory Analysis Visualizations<ul>
-<li>PRIM tradeoff curves and performance tabulations illustrate the number of
+<li>Patient Rule Induction Method (<a class="reference internal" href="emat.glossary.html#term-prim"><span class="xref std std-term">PRIM</span></a>) tradeoff curves and
+performance tabulations illustrate the number of
 scenarios meeting specific performance metric criteria for scenario
 discovery.</li>
-<li>Other PRIM visualizations indicate the restricted ranges of uncertainties
+<li>Other <a class="reference internal" href="emat.glossary.html#term-prim"><span class="xref std std-term">PRIM</span></a> visualizations indicate the restricted ranges of uncertainties
 and levers that were identified by the algorithm.</li>
 <li>Robust search outputs can be tabulated or plotted in parallel axis charts
-to show.  Such visualizations illustrate the set of scenarios that represent
+to show the relationships between different policies and corresponding
+objectives. Such visualizations illustrate the set of scenarios that represent
 the Pareto optimal solutions to achieve a set of optimization criteria
 specified by the user for the robust search algorithm.</li>
 </ul>

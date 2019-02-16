@@ -24,9 +24,9 @@ but are not necessarily limited to the following:
     * Corridor-level travel model
 
 TMIP-EMAT can be used to systematically explore uncertainties in input variables
-and model parameters and the impact that those uncertainties have on performance
+and model parameters, and the impact that those uncertainties have on performance
 metrics.  It is useful for examining model forecasts as a range of model outcomes
-rather than a single outcome, and it provides an mechanism for defining
+rather than a single outcome, and it provides a mechanism for defining
 uncertainties and visualizing outputs.
 
 TMIP-EMAT can also be used to understand how uncertainties interact with policy
@@ -136,7 +136,8 @@ Outputs
     levers, and metrics are themselves outputs of TMIP-EMAT (this only applies when
     meta-models are used).  The meta-models serve as direct input to the EMA Workbench
     to support guided exploratory analysis and can be useful for validating the core
-    model runs.
+    model runs (e.g., to verify that model sensitivities to input variables and/or
+    parameters are reasonable and appropriate).
 
 *   A variety of tools are built into TMIP-EMAT that can be used to generate
     visualizations and tables to better understand the outputs.  Such tools include
@@ -166,13 +167,15 @@ Outputs
 
     -   Guided Exploratory Analysis Visualizations
 
-        +   PRIM tradeoff curves and performance tabulations illustrate the number of
+        +   Patient Rule Induction Method (:term:`PRIM`) tradeoff curves and
+            performance tabulations illustrate the number of
             scenarios meeting specific performance metric criteria for scenario
             discovery.
-        +   Other PRIM visualizations indicate the restricted ranges of uncertainties
+        +   Other :term:`PRIM` visualizations indicate the restricted ranges of uncertainties
             and levers that were identified by the algorithm.
         +   Robust search outputs can be tabulated or plotted in parallel axis charts
-            to show.  Such visualizations illustrate the set of scenarios that represent
+            to show the relationships between different policies and corresponding
+            objectives. Such visualizations illustrate the set of scenarios that represent
             the Pareto optimal solutions to achieve a set of optimization criteria
             specified by the user for the robust search algorithm.
 
