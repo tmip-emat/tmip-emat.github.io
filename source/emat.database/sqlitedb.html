@@ -1,0 +1,1103 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SQLite Database &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Examples" href="../emat.examples/index.html" />
+    <link rel="prev" title="Basic EMAT Database API" href="abstract.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Databases</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Basic EMAT Database API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SQLite Database</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scopes">Scopes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#scope-features">Scope Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#boxes">Boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#meta-models">Meta-Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Databases</a> &raquo;</li>
+        
+      <li>SQLite Database</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/source/emat.database/sqlitedb.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
+documented are shown for illustration and are not guaranteed to be stable 
+in future releases of TMIP-EMAT.</p>
+<p class="last">The views expressed in this draft documentation do not necessarily 
+represent the opinions of FHWA, and do not constitute an endorsement, 
+recommendation, or specification by FHWA.</p>
+</div>
+<div class="section" id="sqlite-database">
+<h1>SQLite Database<a class="headerlink" href="#sqlite-database" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="emat.database.SQLiteDB">
+<em class="property">class </em><code class="descclassname">emat.database.</code><code class="descname">SQLiteDB</code><span class="sig-paren">(</span><em>database_path: str = ':memory:'</em>, <em>initialize: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.database.database.Database</span></code></p>
+<p>SQLite implementation of the <a class="reference internal" href="abstract.html#emat.database.Database" title="emat.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> abstract base class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>database_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – file path and name of database file
+If not given, a database is initialized in-memory.</li>
+<li><strong>initialize</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Whether to initialize emat database file.  The value of this argument
+is ignored if <cite>database_path</cite> is not given (as in-memory databases
+must always be initialized).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="emat.database.SQLiteDB.add_scope_meas">
+<code class="descname">add_scope_meas</code><span class="sig-paren">(</span><em>scope_name</em>, <em>scp_m</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.add_scope_meas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.add_scope_meas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the set of performance measures associated with the scope</p>
+<p>Use this function when the core model runs are complete to add
+performance measures to the scope and post-process against the
+archived results</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>scp_m</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – scope performance measures</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#KeyError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">KeyError</span></code></a> – If scope name does not exist or the
+performance measures are not initialized in the database.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.get_db_info">
+<code class="descname">get_db_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.get_db_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.get_db_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a short string describing this Database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.init_xlm">
+<code class="descname">init_xlm</code><span class="sig-paren">(</span><em>parameter_list: List[tuple], measure_list: List[tuple]</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.init_xlm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.init_xlm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize or extend set of experiment variables and measures</p>
+<p>Initialize database with universe of risk variables,
+policy variables, and performance measures. All variables and measures
+defined in scopes must be defined in this set.
+This method only needs to be run
+once after creating a new database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parameter_list</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>]</em>) – Experiment variable tuples
+(variable name, type)
+where variable name is a string and
+type is ‘uncertainty’, ‘lever’, or ‘constant’</li>
+<li><strong>measure_list</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>]</em>) – Performance measure tuples
+(performance measure name, type)
+where type is ‘regional’, ‘transit’, ‘corridor’, etc.
+See scope yaml file for all categories</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_experiment_id">
+<code class="descname">read_experiment_id</code><span class="sig-paren">(</span><em>scope_name</em>, <em>design_name: str</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the experiment id previously defined in the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a>) – experiment design name.  Set to None
+to find experiments across all designs.</li>
+<li><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – keys are experiment parameters, values are the
+experimental values to look up.  Subsequent positional or keyword
+arguments are used to update parameters.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the experiment id of the identified experiment</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – If scope name does not exist</li>
+<li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – If multiple experiments match an experiment definition.
+This can happen, for example, if the definition is incomplete.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.write_ex_m_1">
+<code class="descname">write_ex_m_1</code><span class="sig-paren">(</span><em>scope_name</em>, <em>source: int</em>, <em>ex_id</em>, <em>m_name</em>, <em>m_value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_ex_m_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_ex_m_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a single performance measure result for an experiment</p>
+<p>Write the performance measure result for an experiment
+in the scope - if the scope does not exist, nothing is recorded</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – indicator of performance measure source
+(0 = core model or non-zero = meta-model id)</li>
+<li><strong>ex_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – experiment id</li>
+<li><strong>m_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – performance measure name</li>
+<li><strong>m_value</strong> (<em>numeric</em>) – performance measure value</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#UserWarning" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UserWarning</span></code></a> – If scope name does not exist</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="scopes">
+<h2>Scopes<a class="headerlink" href="#scopes" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="emat.database.SQLiteDB.write_scope">
+<code class="descclassname">SQLiteDB.</code><code class="descname">write_scope</code><span class="sig-paren">(</span><em>scope_name</em>, <em>sheet</em>, <em>scp_xl</em>, <em>scp_m</em>, <em>content=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_scope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the emat scope information to the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>sheet</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – yaml file name with scope definition</li>
+<li><strong>scp_m</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – scope variables - risk variables and
+strategy variables</li>
+<li><strong>m_list</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – scope performance measures</li>
+<li><strong>content</strong> (<a class="reference internal" href="../emat.scope/scope.html#emat.Scope" title="emat.Scope"><em>Scope</em></a>) – scope object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#KeyError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">KeyError</span></code></a> – If scope name already exists, the scp_vars are not
+available, or the performance measures are not initialized
+in the database.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_scope">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_scope</code><span class="sig-paren">(</span><em>scope_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_scope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the pickled scope from the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Scope</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.delete_scope">
+<code class="descclassname">SQLiteDB.</code><code class="descname">delete_scope</code><span class="sig-paren">(</span><em>scope_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.delete_scope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.delete_scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the scope from the database</p>
+<p>Deletes the scope as well as any experiments and results associated
+with the scope</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_scope_names">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_scope_names</code><span class="sig-paren">(</span><em>design_name=None</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_scope_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_scope_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of all available scopes in the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – If a design name, is given, only
+scopes containing a design with this name are returned.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="scope-features">
+<h3>Scope Features<a class="headerlink" href="#scope-features" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_uncertainties">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_uncertainties</code><span class="sig-paren">(</span><em>scope_name: str</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_uncertainties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_uncertainties" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of all uncertainties for a given scope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_levers">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_levers</code><span class="sig-paren">(</span><em>scope_name: str</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_levers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_levers" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of all levers for a given scope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_constants">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_constants</code><span class="sig-paren">(</span><em>scope_name: str</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_constants"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_constants" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of all constants for a given scope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_measures">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_measures</code><span class="sig-paren">(</span><em>scope_name: str</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of all performance measures for a given scope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="boxes">
+<h2>Boxes<a class="headerlink" href="#boxes" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="emat.database.SQLiteDB.write_box">
+<code class="descclassname">SQLiteDB.</code><code class="descname">write_box</code><span class="sig-paren">(</span><em>box</em>, <em>scope_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a single box to the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>box</strong> (<a class="reference internal" href="../emat.scope/boxes.html#emat.Box" title="emat.Box"><em>Box</em></a>) – The Box to write to the database.</li>
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The scope name to use when writing to the database. If
+the <cite>boxes</cite> has a particular scope assigned, the name
+of that scope is used.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – If the <cite>box</cite> has a particular scope assigned, and
+<cite>scope_name</cite> is given but it is not the same name
+of the assigned scope.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.write_boxes">
+<code class="descclassname">SQLiteDB.</code><code class="descname">write_boxes</code><span class="sig-paren">(</span><em>boxes</em>, <em>scope_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_boxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_boxes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write Boxes to the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>boxes</strong> (<a class="reference internal" href="../emat.scope/boxes.html#emat.Boxes" title="emat.Boxes"><em>Boxes</em></a>) – The collection of Boxes to write to the database.</li>
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The scope name to use when writing to the database. If
+the <cite>boxes</cite> has a particular scope assigned, the name
+of that scope is used.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – If the <cite>boxes</cite> has a particular scope assigned, and
+<cite>scope_name</cite> is given but it is not the same name
+of the assigned scope.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_box">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_box</code><span class="sig-paren">(</span><em>scope_name: str</em>, <em>box_name: str</em>, <em>scope=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a Box from the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the scope from which to read the box.</li>
+<li><strong>box_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the box to read.</li>
+<li><strong>scope</strong> (<a class="reference internal" href="../emat.scope/scope.html#emat.Scope" title="emat.Scope"><em>Scope</em></a><em>, </em><em>optional</em>) – The Scope to assign to the Box that is returned.
+If not given, no Scope object is assigned to the
+box.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Box</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_boxes">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_boxes</code><span class="sig-paren">(</span><em>scope_name: str = None</em>, <em>scope=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_boxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_boxes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read Boxes from the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the scope from which to load Boxes. This
+is used exclusively to identify the Boxes to load from
+the database, and the scope by this name is not attached
+to the Boxes, unless <cite>scope</cite> is given, in which case this
+argument is ignored.</li>
+<li><strong>scope</strong> (<a class="reference internal" href="../emat.scope/scope.html#emat.Scope" title="emat.Scope"><em>Scope</em></a><em>, </em><em>optional</em>) – The scope to assign to the Boxes.  If not given,
+no Scope object is assigned.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Boxes</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_box_names">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_box_names</code><span class="sig-paren">(</span><em>scope_name: str</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_box_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_box_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the names of all boxes associated with a particular scope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the scope from which to read the Box names.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list[str]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_box_parent_name">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_box_parent_name</code><span class="sig-paren">(</span><em>scope_name: str</em>, <em>box_name: str</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_box_parent_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_box_parent_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the name of the parent box for a particular box in the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the scope from which to read the Box parent.</li>
+<li><strong>box_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the box from which to read the parent.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">If the identified box has a parent, this is the name of that
+parent, otherwise None is returned.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a> or <a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)">None</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_box_parent_names">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_box_parent_names</code><span class="sig-paren">(</span><em>scope_name: str</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_box_parent_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_box_parent_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the name of the parent box for each box in the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the scope from which to read Box parents.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>dict</dt>
+<dd>A dictionary, with keys giving Box names and values
+giving the respective Box parent names.</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="experiments">
+<h2>Experiments<a class="headerlink" href="#experiments" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="emat.database.SQLiteDB.write_experiment_parameters">
+<code class="descclassname">SQLiteDB.</code><code class="descname">write_experiment_parameters</code><span class="sig-paren">(</span><em>scope_name</em>, <em>design_name: str</em>, <em>xl_df: pandas.core.frame.DataFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_experiment_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write experiment definitions</p>
+<p>Records values for each experiment variable per experiment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – experiment design type:
+‘uni’ - generated by univariate sensitivity test design
+‘lhs’ - generated by latin hypercube sample design</li>
+<li><strong>xl_df</strong> (<em>pandas Dataframe</em>) – columns are experiment variables,
+each row is a full experiment</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the experiment id’s of the newly recorded experiments</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#UserWarning" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UserWarning</span></code></a> – If scope name does not exist</li>
+<li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a> – If not all scope variables are defined in the
+exp_def</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.write_experiment_parameters_1">
+<code class="descclassname">SQLiteDB.</code><code class="descname">write_experiment_parameters_1</code><span class="sig-paren">(</span><em>scope_name</em>, <em>design_name: str</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_parameters_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write experiment definitions for a single experiment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – experiment design name.</li>
+<li><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – keys are experiment parameters, values are the
+experimental values to look up.  Subsequent positional or keyword
+arguments are used to update parameters.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the experiment id’s of the newly recorded experiments</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#UserWarning" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UserWarning</span></code></a> – If scope name does not exist</li>
+<li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a> – If not all scope variables are defined in the
+exp_def</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.write_experiment_measures">
+<code class="descclassname">SQLiteDB.</code><code class="descname">write_experiment_measures</code><span class="sig-paren">(</span><em>scope_name</em>, <em>source: int</em>, <em>m_df: pandas.core.frame.DataFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_experiment_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write experiment results</p>
+<p>Write the performance measure results for each experiment
+in the scope - if the scope does not exist, nothing is recorded</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>cm_src</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – indicator of performance measure source
+(0 = core model or non-zero = meta-model id)</li>
+<li><strong>m_df</strong> (<em>pandas Dataframe</em>) – columns are the performance
+measure names, row indexes are the experiment id</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#UserWarning" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UserWarning</span></code></a> – If scope name does not exist</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.write_experiment_all">
+<code class="descclassname">SQLiteDB.</code><code class="descname">write_experiment_all</code><span class="sig-paren">(</span><em>scope_name</em>, <em>design: str</em>, <em>source: int</em>, <em>xlm_df: pandas.core.frame.DataFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_experiment_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write experiment definitions and results</p>
+<p>Writes the values from each experiment variable and the
+results for each performance measure per experiment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>design</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – experiment design type:
+‘uni’ - generated by univariate sensitivity test design
+‘lhs’ - generated by latin hypercube sample design</li>
+<li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – indicator of performance measure source
+(0 = core model or non-zero = meta-model id)</li>
+<li><strong>xlm_df</strong> (<em>pandas.Dataframe</em>) – columns are the experiment
+variables and measure names</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#UserWarning" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UserWarning</span></code></a> – If scope and design already exist</li>
+<li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a> – If not all scope variables are defined in the
+experiment</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_experiment_parameters">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_parameters</code><span class="sig-paren">(</span><em>scope_name: str</em>, <em>design: str = None</em>, <em>only_pending: bool = False</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read experiment definitions</p>
+<p>Read the values from each experiment variable per experiment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>design</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – If given, only experiments associated
+with the named design are returned, otherwise all
+experiments are returned.</li>
+<li><strong>only_pending</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – If True, only pending
+experiments (which have no performance measure results
+stored in the database) are returned.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">experiment definitions</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)">pandas.DataFrame</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – if <cite>scope_name</cite> is not stored in this database</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_experiment_measures">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_measures</code><span class="sig-paren">(</span><em>scope_name: str</em>, <em>design: str</em>, <em>experiment_id=None</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read experiment results</p>
+<p>Read the
+results for each performance measure per experiment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>design</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – experiment design type:
+‘uni’ - generated by univariate sensitivity test design
+‘lhs’ - generated by latin hypercube sample design</li>
+<li><strong>experiment_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The id of the experiment to
+retrieve.  If omitted, get all experiments matching the
+scope and design.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">performance measures</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">results (<a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)">pandas.DataFrame</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_experiment_all">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_all</code><span class="sig-paren">(</span><em>scope_name: str</em>, <em>design: str</em>, <em>only_pending=False</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read experiment definitions and results</p>
+<p>Read the values from each experiment variable and the
+results for each performance measure per experiment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>design</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – experiment design type:
+‘uni’ - generated by univariate sensitivity test design
+‘lhs’ - generated by latin hypercube sample design</li>
+<li><strong>only_pending</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – If True, only pending
+experiments (which have no performance measure results
+stored in the database) are returned.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">experiment definition and
+performance measures</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">experiment (<a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)">pandas.DataFrame</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_experiment_ids">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_ids</code><span class="sig-paren">(</span><em>scope_name: str</em>, <em>design_name: str = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of all experiments ids for a given scope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – If given, only return experiment ids
+within this named experimental design.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_design_names">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_design_names</code><span class="sig-paren">(</span><em>scope_name: str</em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_design_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_design_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of all available designs for a given scope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.delete_experiments">
+<code class="descclassname">SQLiteDB.</code><code class="descname">delete_experiments</code><span class="sig-paren">(</span><em>scope_name: str</em>, <em>design: str</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.delete_experiments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.delete_experiments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete experiment definitions and results</p>
+<p>Deletes all records from an experiment design</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>design</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – experiment design type:
+‘uni’ - generated by univariate sensitivity test design
+‘lhs’ - generated by latin hypercube sample design</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="meta-models">
+<h2>Meta-Models<a class="headerlink" href="#meta-models" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="emat.database.SQLiteDB.get_new_metamodel_id">
+<code class="descclassname">SQLiteDB.</code><code class="descname">get_new_metamodel_id</code><span class="sig-paren">(</span><em>scope_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.get_new_metamodel_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.get_new_metamodel_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a new unused metamodel id for a given scope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.write_metamodel">
+<code class="descclassname">SQLiteDB.</code><code class="descname">write_metamodel</code><span class="sig-paren">(</span><em>scope_name</em>, <em>metamodel=None</em>, <em>metamodel_id=None</em>, <em>metamodel_name=''</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_metamodel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_metamodel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store a meta-model in the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name</li>
+<li><strong>metamodel</strong> (<a class="reference internal" href="../emat.metamodels.html#emat.MetaModel" title="emat.MetaModel"><em>emat.MetaModel</em></a>) – The meta-model to be stored.
+If a PythonCoreModel containing a MetaModel is given,
+the MetaModel will be extracted.</li>
+<li><strong>metamodel_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – A unique id number for this
+metamodel.  If no id number is given and it cannot be
+inferred from <cite>metamodel</cite>, a unique id number
+will be created.</li>
+<li><strong>metamodel_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – A name for this meta-model.
+If no name is given and it cannot be
+inferred from <cite>metamodel</cite>, an empty string is used.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_metamodel_ids">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_metamodel_ids</code><span class="sig-paren">(</span><em>scope_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_metamodel_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_metamodel_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of all metamodel id’s for a given scope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_metamodel">
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_metamodel</code><span class="sig-paren">(</span><em>scope_name</em>, <em>metamodel_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_metamodel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_metamodel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a meta-model from the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name</li>
+<li><strong>metamodel_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – A unique id number for this
+metamodel.  If not given but there is exactly one
+metamodel stored for the given scope, that metamodel
+will be returned.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The meta-model, ready to use</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="../emat.models/python_based.html#emat.model.PythonCoreModel" title="emat.model.PythonCoreModel">PythonCoreModel</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../emat.examples/index.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="abstract.html" class="btn btn-neutral" title="Basic EMAT Database API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

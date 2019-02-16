@@ -1,0 +1,417 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Parameters &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Performance Measures" href="measures.html" />
+    <link rel="prev" title="Scope" href="scope.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Exploratory Scoping</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scope.html">Scope</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="measures.html">Performance Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boxes.html">Boxes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Exploratory Scoping</a> &raquo;</li>
+        
+      <li>Parameters</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/source/emat.scope/parameters.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
+documented are shown for illustration and are not guaranteed to be stable 
+in future releases of TMIP-EMAT.</p>
+<p class="last">The views expressed in this draft documentation do not necessarily 
+represent the opinions of FHWA, and do not constitute an endorsement, 
+recommendation, or specification by FHWA.</p>
+</div>
+<div class="section" id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h1>
+<p>A <a class="reference internal" href="#emat.Parameter" title="emat.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameter</span></code></a> is used to provide scoping information for
+a single model input.  This can be a constant, an exogenous
+uncertainty, or a policy lever.</p>
+<dl class="class">
+<dt id="emat.Parameter">
+<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Parameter</code><span class="sig-paren">(</span><em>name</em>, <em>ptype='constant'</em>, <em>desc='missing description'</em>, <em>min=None</em>, <em>max=None</em>, <em>dist=None</em>, <em>default=None</em>, <em>corr=None</em>, <em>address=None</em>, <em>dtype='infer'</em>, <em>values=None</em>, <em>resolution=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#Parameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Definitions for a particular input for a model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – A name for this parameter. The name must be a <cite>str</cite>
+and ideally a valid Python identifier (i.e., begins with
+a letter or underscore, contains only letters, numerals, and
+underscores).</li>
+<li><strong>ptype</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>default 'constant'</em>) – The type for this parameter, one
+of {‘constant’, ‘uncertainty’, ‘lever’}.</li>
+<li><strong>min</strong> (<em>numeric</em><em>, </em><em>optional</em>) – The minimum value for this parameter.</li>
+<li><strong>max</strong> (<em>numeric</em><em>, </em><em>optional</em>) – The maximum value for this parameter.</li>
+<li><strong>dist</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>Mapping</em><em>, </em><em>optional</em>) – A definition of a distribution
+to use for this parameter, which is only relevant for uncertainty
+parameters.  Can be specified just as the name of the distribution
+when that distribution is parameterized only by the min and max
+(e.g., ‘uniform’). If the distribution requires other parameters,
+this argument should be a Mapping, with keys including ‘name’ for
+the name of the distribution, as well as giving one or more
+named distributional parameters as appropriate.</li>
+<li><strong>default</strong> (<em>Any</em><em>, </em><em>optional</em>) – A default value for this parameter. The default
+value is used as the actual value for constant parameters. It is also
+used during univariate sensitivity testing as the value for this
+parameter when other parameters are being evaluated at non-default
+values.</li>
+<li><strong>corr</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – A correlation definition that relates this parameter
+to others. Only applicable for uncertainty parameters.</li>
+<li><strong>address</strong> (<em>Any</em><em>, </em><em>optional</em>) – The address to use to access this parameter in
+the model.  This is an implementation-specific detail. For example,
+in an Excel-based model, the address could be a sheet and cell reference
+given as a string.</li>
+<li><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>default 'infer'</em>) – A dtype for this parameter, one
+of {‘cat’, ‘int’, ‘real’, ‘bool’} or some sub-class variant or specialization
+thereof (e.g., int64).</li>
+<li><strong>values</strong> (<em>Collection</em><em>, </em><em>optional</em>) – A collection of possible values, relevant only
+for categorical parameters.</li>
+<li><strong>resolution</strong> (<em>Collection</em><em>, </em><em>optional</em>) – A collection of possible particular values,
+used to set the possible values considered when sampling with factorial-based
+designs.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="emat.Parameter.default">
+<code class="descname">default</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.default" title="Permalink to this definition">¶</a></dt>
+<dd><p>A default value for this parameter, used for constants or in univariate sensitivity testing</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Parameter.desc">
+<code class="descname">desc</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Human readable description of this parameter, for reference only</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Parameter.dist">
+<code class="descname">dist</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>definition of a distribution to use for this parameter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.Parameter.get_parameter">
+<code class="descname">get_parameter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#Parameter.get_parameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Parameter.get_parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an ema_workbench.Parameter from this emat.Parameter.</p>
+<p>This method returns an
+<a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.Parameter" title="(in ema_workbench v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.Parameter</span></code></a>
+of the correct type for this <a class="reference internal" href="#emat.Parameter" title="emat.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">emat.Parameter</span></code></a>.  This will be one of:</p>
+<ul class="simple">
+<li><code class="xref py py-class docutils literal notranslate"><span class="pre">Constant</span></code></li>
+<li><a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.CategoricalParameter" title="(in ema_workbench v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalParameter</span></code></a></li>
+<li><a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.IntegerParameter" title="(in ema_workbench v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerParameter</span></code></a></li>
+<li><a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.RealParameter" title="(in ema_workbench v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RealParameter</span></code></a></li>
+<li><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanParameter</span></code></li>
+</ul>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Parameter.max">
+<code class="descname">max</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upper bound for this parameter, or None</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">numeric</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Parameter.min">
+<code class="descname">min</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lower bound for this parameter, or None</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">numeric</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Parameter.name">
+<code class="descname">name</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter name, used to identify parameter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Parameter.ptype">
+<code class="descname">ptype</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.ptype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter type, one of {‘constant’, ‘uncertainty’, ‘lever’}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="measures.html" class="btn btn-neutral float-right" title="Performance Measures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="scope.html" class="btn btn-neutral" title="Scope" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

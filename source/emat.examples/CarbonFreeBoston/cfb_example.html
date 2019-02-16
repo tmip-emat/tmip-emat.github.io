@@ -1,0 +1,2727 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Carbon Free Boston &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Carbon Free Boston</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/source/emat.examples/CarbonFreeBoston/cfb_example.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="Carbon-Free-Boston">
+<h1>Carbon Free Boston<a class="headerlink" href="#Carbon-Free-Boston" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">emat</span>
+<span class="n">emat</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="stderr output_area docutils container">
+<div class="highlight"><pre>
+C:\Users\jnewman\AppData\Local\Continuum\anaconda3\envs\EMAT\lib\importlib\_bootstrap.py:219: ImportWarning: can&#39;t resolve package from __spec__ or __package__, falling back on __name__ and __path__
+  return f(*args, **kwds)
+c:\users\jnewman\git\emaworkbench\ema_workbench\connectors\__init__.py:8: ImportWarning: vensim connector not available
+  warnings.warn(&#34;vensim connector not available&#34;, ImportWarning)
+c:\users\jnewman\git\emaworkbench\ema_workbench\connectors\__init__.py:18: ImportWarning: netlogo connector not available
+  warnings.warn(&#34;netlogo connector not available&#34;, ImportWarning)
+c:\users\jnewman\git\emaworkbench\ema_workbench\connectors\__init__.py:23: ImportWarning: pysd connector not available
+  warnings.warn(&#34;pysd connector not available&#34;, ImportWarning)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[1]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&#39;0.1.1&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">ema_workbench</span>
+
+<span class="kn">from</span> <span class="nn">ema_workbench</span> <span class="k">import</span> <span class="n">TimeSeriesOutcome</span><span class="p">,</span> <span class="n">ema_logging</span><span class="p">,</span> <span class="n">perform_experiments</span>
+<span class="kn">from</span> <span class="nn">ema_workbench.connectors.excel</span> <span class="k">import</span> <span class="n">ExcelModel</span>
+<span class="kn">from</span> <span class="nn">ema_workbench.em_framework.evaluators</span> <span class="k">import</span> <span class="n">MultiprocessingEvaluator</span><span class="p">,</span> <span class="n">SequentialEvaluator</span>
+<span class="kn">from</span> <span class="nn">ema_workbench</span> <span class="k">import</span> <span class="n">BooleanParameter</span><span class="p">,</span> <span class="n">IntegerParameter</span><span class="p">,</span> <span class="n">RealParameter</span><span class="p">,</span> <span class="n">ScalarOutcome</span><span class="p">,</span> <span class="n">Constraint</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ema_logging</span><span class="o">.</span><span class="n">log_to_stderr</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">ema_logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[4]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;Logger EMA (DEBUG)&gt;
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">excel_file</span> <span class="o">=</span> <span class="s2">&quot;./CFB/CFB-Trans_v1.3.3.xlsm&quot;</span>
+<span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">excel_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">scope_file</span> <span class="o">=</span> <span class="s1">&#39;./CFB/CFB-emat.yaml&#39;</span>
+<span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">scope_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">wd</span><span class="p">,</span> <span class="n">model_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">excel_file</span><span class="p">)</span>
+<span class="n">wd</span><span class="p">,</span> <span class="n">model_file</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>(&#39;./CFB&#39;, &#39;CFB-Trans_v1.3.3.xlsm&#39;)
+</pre></div>
+</div>
+</div>
+The model scope is defined in a YAML file.  For this CFB example, the scope file is named
+:ref:`CFB-emat.yaml <cfb_scope_file>`.  Because interfacing with Excel-based models is
+relatively standard, the configuration for writing the "hooks" to write in parmeters and
+read out levers can simply be written in to the scope configuration file, by adding "address"
+keys to each parameter and performance measure.  These provide the cell address (including
+optional sheet name) for each item.<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">emat</span><span class="o">.</span><span class="n">ExcelCoreModel</span><span class="p">(</span>
+    <span class="n">wd</span><span class="o">=</span><span class="n">wd</span><span class="p">,</span>
+    <span class="n">model_file</span><span class="o">=</span><span class="n">model_file</span><span class="p">,</span>
+    <span class="n">scope</span><span class="o">=</span><span class="n">scope_file</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Using-a-Database">
+<h2>Using a Database<a class="headerlink" href="#Using-a-Database" title="Permalink to this headline">¶</a></h2>
+<p>The exploratory modeling process will typically generate many different
+sets of outputs, for different explored modeling scopes, or for
+different applications. It is convenient to organize these outputs in a
+database structure, so they are stored consistently and readily
+available for subsequent analysis.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SQLiteDB</span></code> object will create a database to store results. When
+instantiated with no arguments, the database is initialized in-memory,
+which will not store anything to disk (which is convenient for this
+example, but in practice you will generally want to store data to disk
+so that it can persist after this Python session ends).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">db</span> <span class="o">=</span> <span class="n">emat</span><span class="o">.</span><span class="n">SQLiteDB</span><span class="p">(</span><span class="s1">&#39;./CFB/CFB3.sqldb&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>An EMAT Scope can be stored in the database, to provide needed
+information about what the various inputs and outputs represent.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">store_scope</span><span class="p">(</span><span class="n">db</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">db</span>
+</pre></div>
+</div>
+</div>
+<p>Trying to store another scope with the same name (or the same scope)
+raises a KeyError.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">emat.experiment.experimental_design</span> <span class="k">import</span> <span class="n">design_experiments</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">design</span> <span class="o">=</span> <span class="n">design_experiments</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">scope</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">sampler</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">)</span>
+<span class="n">design</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>% CAV market penetration: LDV</th>
+      <th>% CAV market penetration: MDT</th>
+      <th>Active Transportation: Bike growth factor</th>
+      <th>Active Transportation: E-bike % of bike miles</th>
+      <th>Active Transportation: New bike facility miles</th>
+      <th>Active Transportation: Prior drive mode share of new bike &amp; walk trips:</th>
+      <th>Active Transportation: Share of &lt;2 mi trips converted to walk</th>
+      <th>Active Transportation: Use growth factor or elasticity?</th>
+      <th>CAV (Private)</th>
+      <th>CAV - % VMT change: LDV</th>
+      <th>...</th>
+      <th>Transit vehicles</th>
+      <th>Transit</th>
+      <th>Operational improvements</th>
+      <th>New service</th>
+      <th>Active Transportation</th>
+      <th>Smart Mobility</th>
+      <th>Ridehailing</th>
+      <th>Demand response/microtransit:</th>
+      <th>TDM</th>
+      <th>constant</th>
+    </tr>
+    <tr>
+      <th>experiment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>13</td>
+      <td>67</td>
+      <td>21</td>
+      <td>23</td>
+      <td>14</td>
+      <td>54</td>
+      <td>10</td>
+      <td>growth factor</td>
+      <td>0</td>
+      <td>89</td>
+      <td>...</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>84</td>
+      <td>91</td>
+      <td>76</td>
+      <td>43</td>
+      <td>57</td>
+      <td>30</td>
+      <td>50</td>
+      <td>growth factor</td>
+      <td>1</td>
+      <td>24</td>
+      <td>...</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>70</td>
+      <td>82</td>
+      <td>55</td>
+      <td>0</td>
+      <td>163</td>
+      <td>98</td>
+      <td>4</td>
+      <td>growth factor</td>
+      <td>1</td>
+      <td>68</td>
+      <td>...</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>72</td>
+      <td>99</td>
+      <td>74</td>
+      <td>54</td>
+      <td>144</td>
+      <td>54</td>
+      <td>3</td>
+      <td>growth factor</td>
+      <td>0</td>
+      <td>55</td>
+      <td>...</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>22</td>
+      <td>33</td>
+      <td>56</td>
+      <td>55</td>
+      <td>16</td>
+      <td>90</td>
+      <td>47</td>
+      <td>elasticity</td>
+      <td>0</td>
+      <td>98</td>
+      <td>...</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 76 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">with</span> <span class="n">MultiprocessingEvaluator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">n_processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="k">as</span> <span class="n">evaluator</span><span class="p">:</span>
+    <span class="n">lhs_results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">design</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">,</span> <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">)</span>
+<span class="n">lhs_results</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="stderr output_area docutils container">
+<div class="highlight"><pre>
+[Mon Feb 04 16:52:58 MainProcess/INFO] pool started
+[Mon Feb 04 16:52:58 MainProcess/INFO] performing 500 scenarios/policies * 1 model(s) = 500 experiments
+[Mon Feb 04 16:54:48 MainProcess/INFO] 50 cases completed
+[Mon Feb 04 16:56:25 MainProcess/INFO] 100 cases completed
+[Mon Feb 04 16:58:05 MainProcess/INFO] 150 cases completed
+[Mon Feb 04 16:59:39 MainProcess/INFO] 200 cases completed
+[Mon Feb 04 17:01:23 MainProcess/INFO] 250 cases completed
+[Mon Feb 04 17:02:57 MainProcess/INFO] 300 cases completed
+[Mon Feb 04 17:04:38 MainProcess/INFO] 350 cases completed
+[Mon Feb 04 17:06:14 MainProcess/INFO] 400 cases completed
+[Mon Feb 04 17:07:57 MainProcess/INFO] 450 cases completed
+[Mon Feb 04 17:09:25 MainProcess/INFO] 500 cases completed
+[Mon Feb 04 17:09:25 MainProcess/INFO] experiments finished
+[Mon Feb 04 17:09:25 MainProcess/INFO] terminating pool
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Grid GHG intensity</th>
+      <th>Light-duty vehicles: % of LDV stock: EV</th>
+      <th>Light-duty vehicles: % of LDV stock: PHEV</th>
+      <th>Trucks: % of MDT stock: EV</th>
+      <th>Transit vehicles: % of transit bus fleet: EV</th>
+      <th>Transit vehicles: % of school bus fleet: EV</th>
+      <th>Transit vehicles: % of commuter rail electrified</th>
+      <th>Land Use</th>
+      <th>Prior drive mode share of new riders: bus</th>
+      <th>Prior drive mode share of new riders: urban rail</th>
+      <th>...</th>
+      <th>GHG Change 2030: Combined</th>
+      <th>GHG Change 2050: Clean Vehicles</th>
+      <th>GHG Change 2050: Land Use</th>
+      <th>GHG Change 2050: Transit</th>
+      <th>GHG Change 2050: Active Transportation</th>
+      <th>GHG Change 2050: CAV</th>
+      <th>GHG Change 2050: Smart Mobility</th>
+      <th>GHG Change 2050: Travel Pricing</th>
+      <th>GHG Change 2050: TDM</th>
+      <th>GHG Change 2050: Combined</th>
+    </tr>
+    <tr>
+      <th>experiment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>328</td>
+      <td>53</td>
+      <td>46</td>
+      <td>20</td>
+      <td>93</td>
+      <td>53</td>
+      <td>68</td>
+      <td>False</td>
+      <td>37</td>
+      <td>57</td>
+      <td>...</td>
+      <td>8.157580e+05</td>
+      <td>-3019.615744</td>
+      <td>0.0</td>
+      <td>-5501.924944</td>
+      <td>-53602.354617</td>
+      <td>0.0</td>
+      <td>-133541.729707</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.002030e+06</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>396</td>
+      <td>10</td>
+      <td>35</td>
+      <td>65</td>
+      <td>66</td>
+      <td>63</td>
+      <td>60</td>
+      <td>False</td>
+      <td>26</td>
+      <td>34</td>
+      <td>...</td>
+      <td>1.094071e+06</td>
+      <td>-3022.876885</td>
+      <td>0.0</td>
+      <td>-2975.222974</td>
+      <td>-36684.320243</td>
+      <td>0.0</td>
+      <td>-135121.979234</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.017575e+06</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>362</td>
+      <td>85</td>
+      <td>96</td>
+      <td>63</td>
+      <td>79</td>
+      <td>3</td>
+      <td>62</td>
+      <td>True</td>
+      <td>79</td>
+      <td>42</td>
+      <td>...</td>
+      <td>8.061697e+06</td>
+      <td>-3023.963932</td>
+      <td>0.0</td>
+      <td>-5588.996588</td>
+      <td>-84618.750969</td>
+      <td>0.0</td>
+      <td>-141435.132026</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>9.673237e+05</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>25</td>
+      <td>55</td>
+      <td>23</td>
+      <td>40</td>
+      <td>18</td>
+      <td>54</td>
+      <td>37</td>
+      <td>True</td>
+      <td>37</td>
+      <td>57</td>
+      <td>...</td>
+      <td>6.035218e+05</td>
+      <td>-3012.006414</td>
+      <td>0.0</td>
+      <td>-5501.924944</td>
+      <td>-53602.354617</td>
+      <td>0.0</td>
+      <td>-135114.847339</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.000542e+06</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>223</td>
+      <td>64</td>
+      <td>44</td>
+      <td>63</td>
+      <td>13</td>
+      <td>64</td>
+      <td>35</td>
+      <td>True</td>
+      <td>88</td>
+      <td>36</td>
+      <td>...</td>
+      <td>7.330112e+05</td>
+      <td>-3012.821699</td>
+      <td>0.0</td>
+      <td>-5348.630919</td>
+      <td>-78979.406178</td>
+      <td>0.0</td>
+      <td>-139849.711885</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>9.739368e+05</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 81 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># model.constraints = [</span>
+
+<span class="c1"># Constraint(</span>
+<span class="c1">#     &#39;Light-duty vehicles: Total Fleet Size&#39;,</span>
+<span class="c1">#     parameter_names=[</span>
+<span class="c1">#         &quot;Light-duty vehicles: % of LDV stock: EV&quot;,</span>
+<span class="c1">#         &quot;Light-duty vehicles: % of LDV stock: PHEV&quot;,</span>
+<span class="c1">#     ],</span>
+<span class="c1">#     function= lambda *x: 100-sum(*x),</span>
+<span class="c1"># )</span>
+<span class="c1"># ]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># model.get_feature_scores(&#39;lhs&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">db</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">lhs_results</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./CFB/CFB-500.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">db</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[20]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;emat.database.sqlite.sqlite_db.SQLiteDB at 0x230cce07c18&gt;
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">db</span><span class="o">.</span><span class="n">read_experiment_all</span><span class="p">(</span><span class="s1">&#39;CFB&#39;</span><span class="p">,</span><span class="s1">&#39;lhs&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Clean Vehicles</th>
+      <th>Light-duty vehicles</th>
+      <th>Trucks</th>
+      <th>Transit vehicles</th>
+      <th>Transit</th>
+      <th>Operational improvements</th>
+      <th>New service</th>
+      <th>Active Transportation</th>
+      <th>Smart Mobility</th>
+      <th>Ridehailing</th>
+      <th>...</th>
+      <th>GHG Change 2030: Combined</th>
+      <th>GHG Change 2050: Clean Vehicles</th>
+      <th>GHG Change 2050: Land Use</th>
+      <th>GHG Change 2050: Transit</th>
+      <th>GHG Change 2050: Active Transportation</th>
+      <th>GHG Change 2050: CAV</th>
+      <th>GHG Change 2050: Smart Mobility</th>
+      <th>GHG Change 2050: Travel Pricing</th>
+      <th>GHG Change 2050: TDM</th>
+      <th>GHG Change 2050: Combined</th>
+    </tr>
+    <tr>
+      <th>experiment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>815758</td>
+      <td>-3019.62</td>
+      <td>0</td>
+      <td>-5501.92</td>
+      <td>-53602.4</td>
+      <td>0</td>
+      <td>-133542</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.00203e+06</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.09407e+06</td>
+      <td>-3022.88</td>
+      <td>0</td>
+      <td>-2975.22</td>
+      <td>-36684.3</td>
+      <td>0</td>
+      <td>-135122</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.01758e+06</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>8.0617e+06</td>
+      <td>-3023.96</td>
+      <td>0</td>
+      <td>-5589</td>
+      <td>-84618.8</td>
+      <td>0</td>
+      <td>-141435</td>
+      <td>0</td>
+      <td>0</td>
+      <td>967324</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>603522</td>
+      <td>-3012.01</td>
+      <td>0</td>
+      <td>-5501.92</td>
+      <td>-53602.4</td>
+      <td>0</td>
+      <td>-135115</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.00054e+06</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>733011</td>
+      <td>-3012.82</td>
+      <td>0</td>
+      <td>-5348.63</td>
+      <td>-78979.4</td>
+      <td>0</td>
+      <td>-139850</td>
+      <td>0</td>
+      <td>0</td>
+      <td>973937</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>830251</td>
+      <td>-3016.08</td>
+      <td>0</td>
+      <td>-8785.7</td>
+      <td>-26110.5</td>
+      <td>0</td>
+      <td>-139852</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.01729e+06</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>25142.1</td>
+      <td>-3015.81</td>
+      <td>0</td>
+      <td>-8111.7</td>
+      <td>-26110.5</td>
+      <td>0</td>
+      <td>-141430</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.01634e+06</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>563190</td>
+      <td>-3023.69</td>
+      <td>0</td>
+      <td>-5472.9</td>
+      <td>-15536.8</td>
+      <td>0</td>
+      <td>-144591</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.02474e+06</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>568101</td>
+      <td>-3013.64</td>
+      <td>0</td>
+      <td>-7740.12</td>
+      <td>-76159.7</td>
+      <td>0</td>
+      <td>-143006</td>
+      <td>0</td>
+      <td>0</td>
+      <td>971501</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.23946e+06</td>
+      <td>-3017.17</td>
+      <td>0</td>
+      <td>-2084.32</td>
+      <td>-41618.7</td>
+      <td>0</td>
+      <td>-133540</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.01551e+06</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>369363</td>
+      <td>-3020.43</td>
+      <td>0</td>
+      <td>-8814.72</td>
+      <td>-80389.2</td>
+      <td>0</td>
+      <td>-146167</td>
+      <td>0</td>
+      <td>0</td>
+      <td>964003</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.01821e+06</td>
+      <td>-3020.16</td>
+      <td>0</td>
+      <td>-2308.18</td>
+      <td>-65586</td>
+      <td>0</td>
+      <td>-133542</td>
+      <td>0</td>
+      <td>0</td>
+      <td>994140</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.23867e+06</td>
+      <td>-3017.71</td>
+      <td>0</td>
+      <td>-6085.54</td>
+      <td>-35274.5</td>
+      <td>0</td>
+      <td>-139853</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.01159e+06</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.1242e+06</td>
+      <td>-3017.99</td>
+      <td>0</td>
+      <td>-2397.86</td>
+      <td>-69815.5</td>
+      <td>0</td>
+      <td>-147744</td>
+      <td>0</td>
+      <td>0</td>
+      <td>976989</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>687024</td>
+      <td>-3012.82</td>
+      <td>0</td>
+      <td>-4235.79</td>
+      <td>-36684.3</td>
+      <td>0</td>
+      <td>-146162</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.00584e+06</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>439562</td>
+      <td>-3020.16</td>
+      <td>0</td>
+      <td>-10613.4</td>
+      <td>-57831.9</td>
+      <td>0</td>
+      <td>-147745</td>
+      <td>0</td>
+      <td>0</td>
+      <td>980604</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>752689</td>
+      <td>-3012.55</td>
+      <td>0</td>
+      <td>-5934.86</td>
+      <td>-74749.9</td>
+      <td>0</td>
+      <td>-136693</td>
+      <td>0</td>
+      <td>0</td>
+      <td>980102</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.14093e+06</td>
+      <td>-3023.42</td>
+      <td>0</td>
+      <td>-7801.12</td>
+      <td>-74749.9</td>
+      <td>0</td>
+      <td>-149325</td>
+      <td>0</td>
+      <td>0</td>
+      <td>966787</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>589622</td>
+      <td>-3017.44</td>
+      <td>0</td>
+      <td>-1673.81</td>
+      <td>-32454.8</td>
+      <td>0</td>
+      <td>-143009</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.01477e+06</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>953096</td>
+      <td>-3017.17</td>
+      <td>0</td>
+      <td>-8518.92</td>
+      <td>-49372.8</td>
+      <td>0</td>
+      <td>-133540</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.0032e+06</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.0884e+06</td>
+      <td>-3014.45</td>
+      <td>0</td>
+      <td>-7245.83</td>
+      <td>-43028.6</td>
+      <td>0</td>
+      <td>-136695</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.00684e+06</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>639577</td>
+      <td>-3021.79</td>
+      <td>0</td>
+      <td>-6415.59</td>
+      <td>-16241.7</td>
+      <td>0</td>
+      <td>-138277</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.02951e+06</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>734090</td>
+      <td>-3016.63</td>
+      <td>0</td>
+      <td>-10061.7</td>
+      <td>-66290.9</td>
+      <td>0</td>
+      <td>-149321</td>
+      <td>0</td>
+      <td>0</td>
+      <td>972264</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.03729e+06</td>
+      <td>-3011.73</td>
+      <td>0</td>
+      <td>-8820.63</td>
+      <td>-19061.4</td>
+      <td>0</td>
+      <td>-139849</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.02342e+06</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>948413</td>
+      <td>-3019.62</td>
+      <td>0</td>
+      <td>-3773.49</td>
+      <td>-56422</td>
+      <td>0</td>
+      <td>-133542</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.001e+06</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>743437</td>
+      <td>-3017.99</td>
+      <td>0</td>
+      <td>-5222.98</td>
+      <td>-20471.2</td>
+      <td>0</td>
+      <td>-138275</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.02684e+06</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>428929</td>
+      <td>-3010.92</td>
+      <td>0</td>
+      <td>-653.952</td>
+      <td>-17651.5</td>
+      <td>0</td>
+      <td>-139848</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.03174e+06</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.14226e+06</td>
+      <td>-3010.92</td>
+      <td>0</td>
+      <td>-3213.33</td>
+      <td>-78979.4</td>
+      <td>0</td>
+      <td>-136692</td>
+      <td>0</td>
+      <td>0</td>
+      <td>978633</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.15907e+06</td>
+      <td>-3010.38</td>
+      <td>0</td>
+      <td>-4437.92</td>
+      <td>-19061.4</td>
+      <td>0</td>
+      <td>-143004</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.02413e+06</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>916585</td>
+      <td>-3018.8</td>
+      <td>0</td>
+      <td>-5482.81</td>
+      <td>-83913.8</td>
+      <td>0</td>
+      <td>-133541</td>
+      <td>0</td>
+      <td>0</td>
+      <td>975336</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>471</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>455120</td>
+      <td>-3017.99</td>
+      <td>0</td>
+      <td>-4857.65</td>
+      <td>-16241.7</td>
+      <td>0</td>
+      <td>-144587</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.02467e+06</td>
+    </tr>
+    <tr>
+      <th>472</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>730396</td>
+      <td>-3014.45</td>
+      <td>0</td>
+      <td>-9057.7</td>
+      <td>-69815.5</td>
+      <td>0</td>
+      <td>-141429</td>
+      <td>0</td>
+      <td>0</td>
+      <td>977416</td>
+    </tr>
+    <tr>
+      <th>473</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>618645</td>
+      <td>-3019.34</td>
+      <td>0</td>
+      <td>-5581.7</td>
+      <td>-83913.8</td>
+      <td>0</td>
+      <td>-144588</td>
+      <td>0</td>
+      <td>0</td>
+      <td>965033</td>
+    </tr>
+    <tr>
+      <th>474</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>558896</td>
+      <td>-3015.54</td>
+      <td>0</td>
+      <td>-8884.59</td>
+      <td>-31749.9</td>
+      <td>0</td>
+      <td>-139851</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.01228e+06</td>
+    </tr>
+    <tr>
+      <th>475</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>465707</td>
+      <td>-3016.9</td>
+      <td>0</td>
+      <td>-9734.65</td>
+      <td>-77569.6</td>
+      <td>0</td>
+      <td>-147743</td>
+      <td>0</td>
+      <td>0</td>
+      <td>964241</td>
+    </tr>
+    <tr>
+      <th>476</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>770329</td>
+      <td>-3013.37</td>
+      <td>0</td>
+      <td>-6386.91</td>
+      <td>-41618.7</td>
+      <td>0</td>
+      <td>-144584</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.00124e+06</td>
+    </tr>
+    <tr>
+      <th>477</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.09658e+06</td>
+      <td>-3012.01</td>
+      <td>0</td>
+      <td>-5014.59</td>
+      <td>-44438.4</td>
+      <td>0</td>
+      <td>-143005</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.00146e+06</td>
+    </tr>
+    <tr>
+      <th>478</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>778394</td>
+      <td>-3016.63</td>
+      <td>0</td>
+      <td>-4537.16</td>
+      <td>-20471.2</td>
+      <td>0</td>
+      <td>-146165</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.01971e+06</td>
+    </tr>
+    <tr>
+      <th>479</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.16028e+06</td>
+      <td>-3015.54</td>
+      <td>0</td>
+      <td>-8272.64</td>
+      <td>-55012.2</td>
+      <td>0</td>
+      <td>-149320</td>
+      <td>0</td>
+      <td>0</td>
+      <td>983507</td>
+    </tr>
+    <tr>
+      <th>480</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>442854</td>
+      <td>-3022.06</td>
+      <td>0</td>
+      <td>-3225.15</td>
+      <td>-23995.8</td>
+      <td>0</td>
+      <td>-139856</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.02392e+06</td>
+    </tr>
+    <tr>
+      <th>481</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>459252</td>
+      <td>-3020.97</td>
+      <td>0</td>
+      <td>-2321.39</td>
+      <td>-43733.5</td>
+      <td>0</td>
+      <td>-136699</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.0104e+06</td>
+    </tr>
+    <tr>
+      <th>482</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>568283</td>
+      <td>-3013.09</td>
+      <td>0</td>
+      <td>-939.504</td>
+      <td>-43028.6</td>
+      <td>0</td>
+      <td>-143006</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.00613e+06</td>
+    </tr>
+    <tr>
+      <th>483</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.21971e+06</td>
+      <td>-3011.73</td>
+      <td>0</td>
+      <td>-3792.6</td>
+      <td>-33159.7</td>
+      <td>0</td>
+      <td>-138271</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.01694e+06</td>
+    </tr>
+    <tr>
+      <th>484</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>547261</td>
+      <td>-3011.73</td>
+      <td>0</td>
+      <td>-9423.72</td>
+      <td>-21176.1</td>
+      <td>0</td>
+      <td>-149318</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.01183e+06</td>
+    </tr>
+    <tr>
+      <th>485</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.24e+06</td>
+      <td>-3020.43</td>
+      <td>0</td>
+      <td>-9549.03</td>
+      <td>-67700.7</td>
+      <td>0</td>
+      <td>-136698</td>
+      <td>0</td>
+      <td>0</td>
+      <td>983273</td>
+    </tr>
+    <tr>
+      <th>486</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.21805e+06</td>
+      <td>-3017.17</td>
+      <td>0</td>
+      <td>-3773.83</td>
+      <td>-83208.9</td>
+      <td>0</td>
+      <td>-136696</td>
+      <td>0</td>
+      <td>0</td>
+      <td>974440</td>
+    </tr>
+    <tr>
+      <th>487</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.00199e+06</td>
+      <td>-3018.26</td>
+      <td>0</td>
+      <td>-7188.82</td>
+      <td>-19766.3</td>
+      <td>0</td>
+      <td>-147744</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.0165e+06</td>
+    </tr>
+    <tr>
+      <th>488</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>899355</td>
+      <td>-3017.99</td>
+      <td>0</td>
+      <td>-2988.78</td>
+      <td>-72635.1</td>
+      <td>0</td>
+      <td>-149322</td>
+      <td>0</td>
+      <td>0</td>
+      <td>972568</td>
+    </tr>
+    <tr>
+      <th>489</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>937287</td>
+      <td>-3023.15</td>
+      <td>0</td>
+      <td>-6945.16</td>
+      <td>-83208.9</td>
+      <td>0</td>
+      <td>-135122</td>
+      <td>0</td>
+      <td>0</td>
+      <td>973287</td>
+    </tr>
+    <tr>
+      <th>490</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>642064</td>
+      <td>-3023.96</td>
+      <td>0</td>
+      <td>-1706.13</td>
+      <td>-50782.7</td>
+      <td>0</td>
+      <td>-143013</td>
+      <td>0</td>
+      <td>0</td>
+      <td>998673</td>
+    </tr>
+    <tr>
+      <th>491</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.19359e+06</td>
+      <td>-3016.9</td>
+      <td>0</td>
+      <td>-1246.78</td>
+      <td>-81094.2</td>
+      <td>0</td>
+      <td>-149321</td>
+      <td>0</td>
+      <td>0</td>
+      <td>966627</td>
+    </tr>
+    <tr>
+      <th>492</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>375768</td>
+      <td>-3016.9</td>
+      <td>0</td>
+      <td>776.42</td>
+      <td>-44438.4</td>
+      <td>0</td>
+      <td>-133540</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.01546e+06</td>
+    </tr>
+    <tr>
+      <th>493</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>162785</td>
+      <td>-3013.91</td>
+      <td>0</td>
+      <td>-7201.34</td>
+      <td>-64881</td>
+      <td>0</td>
+      <td>-141429</td>
+      <td>0</td>
+      <td>0</td>
+      <td>983262</td>
+    </tr>
+    <tr>
+      <th>494</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>754044</td>
+      <td>-3012.01</td>
+      <td>0</td>
+      <td>-12.2841</td>
+      <td>-84618.8</td>
+      <td>0</td>
+      <td>-146162</td>
+      <td>0</td>
+      <td>0</td>
+      <td>967496</td>
+    </tr>
+    <tr>
+      <th>495</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>595565</td>
+      <td>-3010.92</td>
+      <td>0</td>
+      <td>-8997.39</td>
+      <td>-82504</td>
+      <td>0</td>
+      <td>-149317</td>
+      <td>0</td>
+      <td>0</td>
+      <td>959117</td>
+    </tr>
+    <tr>
+      <th>496</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>739598</td>
+      <td>-3010.92</td>
+      <td>0</td>
+      <td>-3572.05</td>
+      <td>-30340.1</td>
+      <td>0</td>
+      <td>-136692</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.02114e+06</td>
+    </tr>
+    <tr>
+      <th>497</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.00412e+06</td>
+      <td>-3018.8</td>
+      <td>0</td>
+      <td>-3780.78</td>
+      <td>-84618.8</td>
+      <td>0</td>
+      <td>-138276</td>
+      <td>0</td>
+      <td>0</td>
+      <td>971730</td>
+    </tr>
+    <tr>
+      <th>498</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.81928e+06</td>
+      <td>-3019.34</td>
+      <td>0</td>
+      <td>-6188.78</td>
+      <td>-61356.5</td>
+      <td>0</td>
+      <td>-147745</td>
+      <td>0</td>
+      <td>0</td>
+      <td>981219</td>
+    </tr>
+    <tr>
+      <th>499</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>298242</td>
+      <td>-3011.73</td>
+      <td>0</td>
+      <td>-6550.81</td>
+      <td>-76159.7</td>
+      <td>0</td>
+      <td>-147740</td>
+      <td>0</td>
+      <td>0</td>
+      <td>968073</td>
+    </tr>
+    <tr>
+      <th>500</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>954807</td>
+      <td>-3017.71</td>
+      <td>0</td>
+      <td>-2314.78</td>
+      <td>-65586</td>
+      <td>0</td>
+      <td>-136697</td>
+      <td>0</td>
+      <td>0</td>
+      <td>991162</td>
+    </tr>
+  </tbody>
+</table>
+<p>500 rows × 94 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">db</span><span class="o">.</span><span class="n">read_scope_names</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[22]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&#39;CFB&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">db</span><span class="o">.</span><span class="n">read_design_names</span><span class="p">(</span><span class="s1">&#39;CFB&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[24]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&#39;lhs&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-26-168085b004b5&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>db<span class="ansi-yellow-intense-fg ansi-bold">.</span>close<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>: &#39;SQLiteDB&#39; object has no attribute &#39;close&#39;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">db</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

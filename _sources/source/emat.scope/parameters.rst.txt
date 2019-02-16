@@ -1,0 +1,14 @@
+.. py:currentmodule:: emat
+
+
+Parameters
+----------
+
+A :class:`Parameter` is used to provide scoping information for
+a single model input.  This can be a constant, an exogenous
+uncertainty, or a policy lever.
+
+.. autoclass:: emat.Parameter
+    :members:
+    :inherited-members:
+

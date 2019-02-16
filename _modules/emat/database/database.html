@@ -1,0 +1,735 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>emat.database.database &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>emat.database.database</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for emat.database.database</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Tue Oct 23 10:11:05 2018</span>
+
+<span class="sd">@author: mmilkovits</span>
+
+<span class="sd">Abstract Base Class for data storage format</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<div class="viewcode-block" id="Database"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database">[docs]</a><span class="k">class</span> <span class="nc">Database</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    
+    <span class="sd">&quot;&quot;&quot; Abstract Base Class for EMAT data storage</span>
+<span class="sd">    </span>
+<span class="sd">    Database constains the design experiments, meta-model parameters, </span>
+<span class="sd">    and the core and meta-model results (performance measures)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Database.get_db_info"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.get_db_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_db_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a short string describing this Database</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;no info available&quot;</span></div>
+
+<div class="viewcode-block" id="Database.init_xlm"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.init_xlm">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">init_xlm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_list</span><span class="p">,</span> <span class="n">measure_list</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize or extend set of experiment variables and measures</span>
+<span class="sd">        </span>
+<span class="sd">        Initialize database with universe of risk variables, </span>
+<span class="sd">        policy variables, and performance measures. All variables and measures</span>
+<span class="sd">        defined in scopes must be defined in this set.</span>
+<span class="sd">        This method only needs to be run</span>
+<span class="sd">        once after creating a new database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parameter_list (List[tuple]): Experiment variable tuples</span>
+<span class="sd">                (variable name, type)</span>
+<span class="sd">                where variable name is a string and</span>
+<span class="sd">                type is &#39;uncertainty&#39;, &#39;lever&#39;, or &#39;constant&#39;</span>
+<span class="sd">            measure_list (List[tuple]): Performance measure tuples</span>
+<span class="sd">                (performance measure name, type)</span>
+<span class="sd">                where type is &#39;regional&#39;, &#39;transit&#39;, &#39;corridor&#39;, etc.</span>
+<span class="sd">                See scope yaml file for all categories</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>   </div>
+    
+<div class="viewcode-block" id="Database.write_scope"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_scope">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">write_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">scp_xl</span><span class="p">,</span> <span class="n">scp_m</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the emat scope information to the database</span>
+<span class="sd">          </span>
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            sheet (str): yaml file name with scope definition</span>
+<span class="sd">            scp_m (List[str]): scope variables - risk variables and </span>
+<span class="sd">                strategy variables</span>
+<span class="sd">            m_list (List[str]): scope performance measures</span>
+<span class="sd">            content (Scope): scope object</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: If scope name already exists, the scp_vars are not</span>
+<span class="sd">                available, or the performance measures are not initialized</span>
+<span class="sd">                in the database.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>     </div>
+
+<div class="viewcode-block" id="Database.read_scope"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_scope">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load the pickled scope from the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Scope</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.add_scope_meas"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.add_scope_meas">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_scope_meas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">scp_m</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update the set of performance measures associated with the scope</span>
+<span class="sd">        </span>
+<span class="sd">        Use this function when the core model runs are complete to add</span>
+<span class="sd">        performance measures to the scope and post-process against the </span>
+<span class="sd">        archived results</span>
+<span class="sd">          </span>
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            scp_m (List[str]): scope performance measures</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: If scope name does not exist or the </span>
+<span class="sd">                performance measures are not initialized in the database.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>     </div>
+    
+<div class="viewcode-block" id="Database.delete_scope"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.delete_scope">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete the scope from the database</span>
+<span class="sd">        </span>
+<span class="sd">        Deletes the scope as well as any experiments and results associated</span>
+<span class="sd">        with the scope</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run&quot;&quot;&quot;</span>  </div>
+        
+<div class="viewcode-block" id="Database.write_experiment_parameters"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_experiment_parameters">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">write_experiment_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">xl_df</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Write experiment definitions</span>
+<span class="sd">        </span>
+<span class="sd">        Records values for each experiment variable per experiment</span>
+<span class="sd">        </span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            design_name (str): experiment design type:</span>
+<span class="sd">                &#39;uni&#39; - generated by univariate sensitivity test design</span>
+<span class="sd">                &#39;lhs&#39; - generated by latin hypercube sample design</span>
+<span class="sd">            xl_df (pandas Dataframe): columns are experiment variables, </span>
+<span class="sd">                each row is a full experiment</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: the experiment id&#39;s of the newly recorded experiments</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            UserWarning: If scope name does not exist</span>
+<span class="sd">            TypeError: If not all scope variables are defined in the </span>
+<span class="sd">                exp_def</span>
+<span class="sd">        &quot;&quot;&quot;</span>     </div>
+
+<div class="viewcode-block" id="Database.write_experiment_parameters_1"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_experiment_parameters_1">[docs]</a>    <span class="k">def</span> <span class="nf">write_experiment_parameters_1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Write experiment definitions for a single experiment.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            design_name (str): experiment design name.</span>
+<span class="sd">            parameters (dict): keys are experiment parameters, values are the</span>
+<span class="sd">                experimental values to look up.  Subsequent positional or keyword</span>
+<span class="sd">                arguments are used to update parameters.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: the experiment id&#39;s of the newly recorded experiments</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            UserWarning: If scope name does not exist</span>
+<span class="sd">            TypeError: If not all scope variables are defined in the</span>
+<span class="sd">                exp_def</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="n">parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">xl_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_experiment_parameters</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">xl_df</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Database.read_experiment_parameters"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_parameters">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_experiment_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">only_pending</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Read experiment definitions</span>
+<span class="sd">        </span>
+<span class="sd">        Read the values from each experiment variable per experiment</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            design (str, optional): If given, only experiments associated</span>
+<span class="sd">                with the named design are returned, otherwise all</span>
+<span class="sd">                experiments are returned.</span>
+<span class="sd">            only_pending (bool, default False): If True, only pending</span>
+<span class="sd">                experiments (which have no performance measure results</span>
+<span class="sd">                stored in the database) are returned.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.DataFrame: experiment definitions</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: if `scope_name` is not stored in this database</span>
+<span class="sd">        &quot;&quot;&quot;</span>    </div>
+
+<div class="viewcode-block" id="Database.write_experiment_measures"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_experiment_measures">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">write_experiment_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">m_df</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Write experiment results  </span>
+<span class="sd">        </span>
+<span class="sd">        Write the performance measure results for each experiment </span>
+<span class="sd">        in the scope - if the scope does not exist, nothing is recorded</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            cm_src (int): indicator of performance measure source</span>
+<span class="sd">                (0 = core model or non-zero = meta-model id)</span>
+<span class="sd">            m_df (pandas Dataframe): columns are the performance</span>
+<span class="sd">                measure names, row indexes are the experiment id</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            UserWarning: If scope name does not exist        </span>
+<span class="sd">        &quot;&quot;&quot;</span>         </div>
+
+<div class="viewcode-block" id="Database.read_experiment_all"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_all">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_experiment_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">only_pending</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Read experiment definitions and results</span>
+<span class="sd">        </span>
+<span class="sd">        Read the values from each experiment variable and the </span>
+<span class="sd">        results for each performance measure per experiment</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            design (str): experiment design type:</span>
+<span class="sd">                &#39;uni&#39; - generated by univariate sensitivity test design</span>
+<span class="sd">                &#39;lhs&#39; - generated by latin hypercube sample design</span>
+<span class="sd">            only_pending (bool, default False): If True, only pending</span>
+<span class="sd">                experiments (which have no performance measure results</span>
+<span class="sd">                stored in the database) are returned.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            experiment (pandas.DataFrame): experiment definition and </span>
+<span class="sd">            performance measures</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_experiment_measures"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_measures">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_experiment_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Read experiment results</span>
+
+<span class="sd">        Read the</span>
+<span class="sd">        results for each performance measure per experiment</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            design (str): experiment design type:</span>
+<span class="sd">                &#39;uni&#39; - generated by univariate sensitivity test design</span>
+<span class="sd">                &#39;lhs&#39; - generated by latin hypercube sample design</span>
+<span class="sd">            experiment_id (int, optional): The id of the experiment to</span>
+<span class="sd">                retrieve.  If omitted, get all experiments matching the</span>
+<span class="sd">                scope and design.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            results (pandas.DataFrame): performance measures</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.delete_experiments"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.delete_experiments">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete experiment definitions and results</span>
+<span class="sd">        </span>
+<span class="sd">        Deletes all records from an experiment design</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            design (str): experiment design type:</span>
+<span class="sd">                &#39;uni&#39; - generated by univariate sensitivity test design</span>
+<span class="sd">                &#39;lhs&#39; - generated by latin hypercube sample design</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+        
+<div class="viewcode-block" id="Database.write_experiment_all"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_experiment_all">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">write_experiment_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">xlm_df</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Write experiment definitions and results</span>
+<span class="sd">        </span>
+<span class="sd">        Writes the values from each experiment variable and the </span>
+<span class="sd">        results for each performance measure per experiment</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            design (str): experiment design type:</span>
+<span class="sd">                &#39;uni&#39; - generated by univariate sensitivity test design</span>
+<span class="sd">                &#39;lhs&#39; - generated by latin hypercube sample design</span>
+<span class="sd">            source (int): indicator of performance measure source</span>
+<span class="sd">                (0 = core model or non-zero = meta-model id)</span>
+<span class="sd">            xlm_df (pandas.Dataframe): columns are the experiment</span>
+<span class="sd">                variables and measure names</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            UserWarning: If scope and design already exist </span>
+<span class="sd">            TypeError: If not all scope variables are defined in the </span>
+<span class="sd">                experiment</span>
+<span class="sd">        &quot;&quot;&quot;</span>     </div>
+
+
+<div class="viewcode-block" id="Database.read_scope_names"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_scope_names">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_scope_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A list of all available scopes in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            design_name (str, optional): If a design name, is given, only</span>
+<span class="sd">                scopes containing a design with this name are returned.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_design_names"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_design_names">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_design_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A list of all available designs for a given scope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_experiment_ids"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_ids">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_experiment_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">design_name</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A list of all experiments ids for a given scope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            design_name (str, optional): If given, only return experiment ids</span>
+<span class="sd">                within this named experimental design.</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_uncertainties"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_uncertainties">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A list of all uncertainties for a given scope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_levers"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_levers">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_levers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A list of all levers for a given scope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_constants"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_constants">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_constants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A list of all constants for a given scope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_measures"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_measures">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A list of all performance measures for a given scope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.write_metamodel"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_metamodel">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">write_metamodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">metamodel</span><span class="p">,</span> <span class="n">metamodel_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metamodel_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Store a meta-model in the database</span>
+
+<span class="sd">         Args:</span>
+<span class="sd">            scope_name (str): scope name</span>
+<span class="sd">            metamodel (emat.MetaModel): The meta-model to be stored.</span>
+<span class="sd">                If a PythonCoreModel containing a MetaModel is given,</span>
+<span class="sd">                the MetaModel will be extracted.</span>
+<span class="sd">            metamodel_id (int, optional): A unique id number for this</span>
+<span class="sd">                metamodel.  If no id number is given and it cannot be</span>
+<span class="sd">                inferred from `metamodel`, a unique id number</span>
+<span class="sd">                will be created.</span>
+<span class="sd">            metamodel_name (str, optional): A name for this meta-model.</span>
+<span class="sd">                If no name is given and it cannot be</span>
+<span class="sd">                inferred from `metamodel`, an empty string is used.</span>
+<span class="sd">       &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="Database.read_metamodel"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_metamodel">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_metamodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">metamodel_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve a meta-model from the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name</span>
+<span class="sd">            metamodel_id (int, optional): A unique id number for this</span>
+<span class="sd">                metamodel.  If not given but there is exactly one</span>
+<span class="sd">                metamodel stored for the given scope, that metamodel</span>
+<span class="sd">                will be returned.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            PythonCoreModel: The meta-model, ready to use</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_metamodel_ids"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_metamodel_ids">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_metamodel_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A list of all metamodel id&#39;s for a given scope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.get_new_metamodel_id"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.get_new_metamodel_id">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_new_metamodel_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a new unused metamodel id for a given scope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_box"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_box">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">box_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read a Box from the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str):</span>
+<span class="sd">                The name of the scope from which to read the box.</span>
+<span class="sd">            box_name (str):</span>
+<span class="sd">                The name of the box to read.</span>
+<span class="sd">            scope (Scope, optional):</span>
+<span class="sd">                The Scope to assign to the Box that is returned.</span>
+<span class="sd">                If not given, no Scope object is assigned to the</span>
+<span class="sd">                box.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Box</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_box_names"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_box_names">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_box_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the names of all boxes associated with a particular scope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str):</span>
+<span class="sd">                The name of the scope from which to read the Box names.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_box_parent_name"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_box_parent_name">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_box_parent_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">box_name</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the name of the parent box for a particular box in the database</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str):</span>
+<span class="sd">                The name of the scope from which to read the Box parent.</span>
+<span class="sd">            box_name (str):</span>
+<span class="sd">                The name of the box from which to read the parent.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str or None:</span>
+<span class="sd">                If the identified box has a parent, this is the name of that</span>
+<span class="sd">                parent, otherwise None is returned.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_box_parent_names"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_box_parent_names">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_box_parent_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the name of the parent box for each box in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str):</span>
+<span class="sd">                The name of the scope from which to read Box parents.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict</span>
+<span class="sd">                A dictionary, with keys giving Box names and values</span>
+<span class="sd">                giving the respective Box parent names.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_boxes"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_boxes">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read Boxes from the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str, optional):</span>
+<span class="sd">                The name of the scope from which to load Boxes. This</span>
+<span class="sd">                is used exclusively to identify the Boxes to load from</span>
+<span class="sd">                the database, and the scope by this name is not attached</span>
+<span class="sd">                to the Boxes, unless `scope` is given, in which case this</span>
+<span class="sd">                argument is ignored.</span>
+<span class="sd">            scope (Scope, optional):</span>
+<span class="sd">                The scope to assign to the Boxes.  If not given,</span>
+<span class="sd">                no Scope object is assigned.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Boxes</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.write_box"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_box">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">write_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write a single box to the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            box (Box):</span>
+<span class="sd">                The Box to write to the database.</span>
+<span class="sd">            scope_name (str, optional):</span>
+<span class="sd">                The scope name to use when writing to the database. If</span>
+<span class="sd">                the `boxes` has a particular scope assigned, the name</span>
+<span class="sd">                of that scope is used.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError:</span>
+<span class="sd">                If the `box` has a particular scope assigned, and</span>
+<span class="sd">                `scope_name` is given but it is not the same name</span>
+<span class="sd">                of the assigned scope.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.write_boxes"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_boxes">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">write_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write Boxes to the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            boxes (Boxes):</span>
+<span class="sd">                The collection of Boxes to write to the database.</span>
+<span class="sd">            scope_name (str, optional):</span>
+<span class="sd">                The scope name to use when writing to the database. If</span>
+<span class="sd">                the `boxes` has a particular scope assigned, the name</span>
+<span class="sd">                of that scope is used.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError:</span>
+<span class="sd">                If the `boxes` has a particular scope assigned, and</span>
+<span class="sd">                `scope_name` is given but it is not the same name</span>
+<span class="sd">                of the assigned scope.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+
+.. py:currentmodule:: emat.model
+
+Excel-based Models
+------------------
+
+.. autoclass:: emat.model.ExcelCoreModel
+    :show-inheritance:
+    :members:
+    :exclude-members: post_process, import_meas, archive, run, get_ex_archive_path, setup
+
+

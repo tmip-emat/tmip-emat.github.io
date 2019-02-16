@@ -1,0 +1,964 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>emat.model.core_model &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>emat.model.core_model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for emat.model.core_model</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot; core_model.py - define coure model API&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Mapping</span>
+<span class="kn">from</span> <span class="nn">ema_workbench.em_framework.model</span> <span class="k">import</span> <span class="n">AbstractModel</span> <span class="k">as</span> <span class="n">AbstractWorkbenchModel</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Collection</span>
+
+<span class="kn">from</span> <span class="nn">..database.database</span> <span class="k">import</span> <span class="n">Database</span>
+<span class="kn">from</span> <span class="nn">..scope.scope</span> <span class="k">import</span> <span class="n">Scope</span>
+<span class="kn">from</span> <span class="nn">.._pkg_constants</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="kn">from</span> <span class="nn">..util.loggers</span> <span class="k">import</span> <span class="n">get_module_logger</span>
+<span class="n">_logger</span> <span class="o">=</span> <span class="n">get_module_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AbstractCoreModel"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel">[docs]</a><span class="k">class</span> <span class="nc">AbstractCoreModel</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">,</span> <span class="n">AbstractWorkbenchModel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An interface for using a model with EMAT.</span>
+
+<span class="sd">    Individual models should be instantiated using derived</span>
+<span class="sd">    subclasses of this abstract base class, and not using</span>
+<span class="sd">    this class directly.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        configuration: The configuration for this</span>
+<span class="sd">            core model. This can be passed as a dict, or as a str</span>
+<span class="sd">            which gives the filename of a YAML file that will be</span>
+<span class="sd">            loaded. If there is no configuration, giving None is</span>
+<span class="sd">            also acceptable.</span>
+<span class="sd">        scope: The exploration scope, as a Scope object or as</span>
+<span class="sd">            a str which gives the filename of a YAML file that will be</span>
+<span class="sd">            loaded.</span>
+<span class="sd">        safe: Load the configuration YAML file in &#39;safe&#39; mode.</span>
+<span class="sd">            This can be disabled if the configuration requires</span>
+<span class="sd">            custom Python types or is otherwise not compatible with</span>
+<span class="sd">            safe mode. Loading configuration files with safe mode</span>
+<span class="sd">            off is not secure and should not be done with files from</span>
+<span class="sd">            untrusted sources.</span>
+<span class="sd">        db: An optional Database to store experiments and results.</span>
+<span class="sd">        name: A name for this model, given as an alphanumeric string.</span>
+<span class="sd">            The name is required by ema_workbench operations.</span>
+<span class="sd">            If not given, &quot;EMAT&quot; is used.</span>
+<span class="sd">        metamodel_id: An identifier for this model, if it is a meta-model.</span>
+<span class="sd">            Defaults to 0 (i.e., not a meta-model).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">configuration</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">Mapping</span><span class="p">,</span><span class="kc">None</span><span class="p">],</span>
+                 <span class="n">scope</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="n">Scope</span><span class="p">,</span><span class="nb">str</span><span class="p">],</span>
+                 <span class="n">safe</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">db</span><span class="p">:</span><span class="n">Database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s1">&#39;EMAT&#39;</span><span class="p">,</span>
+                 <span class="n">metamodel_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">configuration</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">configuration</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">safe</span><span class="p">:</span>
+                    <span class="n">configuration</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">configuration</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">configuration</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">configuration</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">configuration</span> <span class="k">if</span> <span class="n">configuration</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">db</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">Scope</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">Scope</span><span class="p">(</span><span class="n">scope</span><span class="p">)</span>
+
+        <span class="n">AbstractWorkbenchModel</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uncertainties</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">_x_list</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">levers</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">_l_list</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constants</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">_c_list</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outcomes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">_m_list</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">metamodel_id</span> <span class="o">=</span> <span class="n">metamodel_id</span>
+
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># don&#39;t pickle the db connection</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;db&#39;</span><span class="p">))</span>
+
+<div class="viewcode-block" id="AbstractCoreModel.setup"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.setup">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xl_di</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Configure the core model with the experiment variable values</span>
+<span class="sd">        </span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            xl_di (dict): experiment variables including both exogenous </span>
+<span class="sd">                uncertainty and policy levers</span>
+<span class="sd">                </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: if experiment variable defined is not supported</span>
+<span class="sd">                by the core model        </span>
+<span class="sd">        &quot;&quot;&quot;</span>     </div>
+ 
+<div class="viewcode-block" id="AbstractCoreModel.get_ex_archive_path"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.get_ex_archive_path">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_ex_archive_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scp_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exp_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns path to store model run outputs</span>
+<span class="sd">        </span>
+<span class="sd">        Can be useful for long model runs if additional measures will be</span>
+<span class="sd">        defined at a later time (e.g. link volumes). </span>
+<span class="sd">        </span>
+<span class="sd">        Both the scope name and experiment id can be used to create the </span>
+<span class="sd">        folder path. </span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            scp_name (str): Scope name</span>
+<span class="sd">            exp_id (int): experiment id integer (row id of experiment </span>
+<span class="sd">            in database)</span>
+<span class="sd">                </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: model result path (no trailing backslashes)</span>
+<span class="sd">        &quot;&quot;&quot;</span>     </div>
+    
+<div class="viewcode-block" id="AbstractCoreModel.run"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.run">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initiates the core model run</span>
+<span class="sd">        </span>
+<span class="sd">        Model should be &#39;setup&#39; first</span>
+<span class="sd">                </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            UserWarning: If model is not properly setup</span>
+<span class="sd">        &quot;&quot;&quot;</span>     </div>
+    
+<div class="viewcode-block" id="AbstractCoreModel.post_process"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.post_process">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xl_di</span><span class="p">,</span> <span class="n">m_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Runs post processors associated with measures.</span>
+
+<span class="sd">        The model should have previously been prepared using</span>
+<span class="sd">        the `setup` method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            xl_di (dict):</span>
+<span class="sd">                Dictionary of experiment variables - indices</span>
+<span class="sd">                are variable names, values are the experiment settings</span>
+<span class="sd">            m_names (List[str]):</span>
+<span class="sd">                List of measures to be processed</span>
+<span class="sd">            output_path (str):</span>
+<span class="sd">                Path to model outputs - if set to none</span>
+<span class="sd">                will use local values</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError:</span>
+<span class="sd">                If post process is not available for specified</span>
+<span class="sd">                measure</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+    
+<div class="viewcode-block" id="AbstractCoreModel.import_meas"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.import_meas">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">import_meas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Import selected measures into dataframe</span>
+<span class="sd">        </span>
+<span class="sd">        Imports measures from active scenario</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            m_names (List[str]): List of measures to be processed</span>
+<span class="sd">            output_path (str): Path to model output locations</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict of measure name and values from active scenario</span>
+<span class="sd">        </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: If post process is not available for specified</span>
+<span class="sd">                measure</span>
+<span class="sd">        &quot;&quot;&quot;</span>           </div>
+        
+
+<div class="viewcode-block" id="AbstractCoreModel.archive"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.archive">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xl</span><span class="p">,</span> <span class="n">mod_results_path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copies model outputs to archive location</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            xl (dict): Dictionary of experiment variables</span>
+<span class="sd">            mod_results_path (str): archive path</span>
+<span class="sd">            experiment_id (int, optional): The id number for this experiment.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="AbstractCoreModel.read_experiments"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.read_experiments">[docs]</a>    <span class="k">def</span> <span class="nf">read_experiments</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">design_name</span><span class="p">,</span>
+            <span class="n">db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">only_pending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads results from a design of experiments from the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            design_name (str): The name of the design to load.</span>
+<span class="sd">            db (Database, optional): The Database from which to read experiments.</span>
+<span class="sd">                If no db is given, the default `db` for this model is used.</span>
+<span class="sd">            only_pending (bool, default False): If True, only pending</span>
+<span class="sd">                experiments (which have no performance measure results</span>
+<span class="sd">                stored in the database) are returned.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.DataFrame:</span>
+<span class="sd">                A DataFrame that contains all uncertainties, levers, and measures</span>
+<span class="sd">                for the experiments.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError:</span>
+<span class="sd">                If there is no Database connection `db` set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">db</span> <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span>
+        <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;no database to read from&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">read_experiment_all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">only_pending</span><span class="o">=</span><span class="n">only_pending</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractCoreModel.read_experiment_parameters"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.read_experiment_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">read_experiment_parameters</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">design_name</span><span class="p">,</span>
+            <span class="n">db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">only_pending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads uncertainties and levers from a design of experiments from the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            design_name (str): The name of the design to load.</span>
+<span class="sd">            db (Database, optional): The Database from which to read experiments.</span>
+<span class="sd">                If no db is given, the default `db` for this model is used.</span>
+<span class="sd">            only_pending (bool, default False): If True, only pending</span>
+<span class="sd">                experiments (which have no performance measure results</span>
+<span class="sd">                stored in the database) are returned.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.DataFrame:</span>
+<span class="sd">                A DataFrame that contains all uncertainties, levers, and measures</span>
+<span class="sd">                for the experiments.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError:</span>
+<span class="sd">                If `db` is not given and there is no default</span>
+<span class="sd">                Database connection set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">db</span> <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span>
+
+        <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;no database to read from&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">only_pending</span><span class="o">=</span><span class="n">only_pending</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractCoreModel.read_experiment_measures"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.read_experiment_measures">[docs]</a>    <span class="k">def</span> <span class="nf">read_experiment_measures</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">design_name</span><span class="p">,</span>
+            <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads performace measures from a design of experiments from the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            design_name (str): The name of the design to load.</span>
+<span class="sd">            experiment_id (int, optional): The id of the experiment to load.</span>
+<span class="sd">            db (Database, optional): The Database from which to read experiment(s).</span>
+<span class="sd">                If no db is given, the default `db` for this model is used.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.DataFrame:</span>
+<span class="sd">                A DataFrame that contains all uncertainties, levers, and measures</span>
+<span class="sd">                for the experiments.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError:</span>
+<span class="sd">                If `db` is not given and there is no default</span>
+<span class="sd">                Database connection set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">db</span> <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span>
+
+        <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;no database to read from&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">read_experiment_measures</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractCoreModel.ensure_dtypes"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.ensure_dtypes">[docs]</a>    <span class="k">def</span> <span class="nf">ensure_dtypes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert columns of dataframe to correct dtype as needed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            df (pandas.DataFrame): A dataframe with column names</span>
+<span class="sd">                that are uncertainties, levers, or measures.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.DataFrame:</span>
+<span class="sd">                The same data as input, but with dtypes as appropriate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">df</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractCoreModel.design_experiments"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.design_experiments">[docs]</a>    <span class="k">def</span> <span class="nf">design_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a design of experiments based on this model.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            n_samples_per_factor (int, default 10): The number of samples in the</span>
+<span class="sd">                design per random factor.</span>
+<span class="sd">            n_samples (int, optional): The total number of samples in the</span>
+<span class="sd">                design.  If this value is given, it overrides `n_samples_per_factor`.</span>
+<span class="sd">            random_seed (int or None, default 1234): A random seed for reproducibility.</span>
+<span class="sd">            db (Database, optional): If provided, this design will be stored in the</span>
+<span class="sd">                database indicated.  If not provided, the `db` for this model will</span>
+<span class="sd">                be used, if one is set.</span>
+<span class="sd">            design_name (str, optional): A name for this design, to identify it in the</span>
+<span class="sd">                database. If not given, a unique name will be generated based on the</span>
+<span class="sd">                selected sampler.  Has no effect if no `db` is given.</span>
+<span class="sd">            sampler (str or AbstractSampler, default &#39;lhs&#39;): The sampler to use for this</span>
+<span class="sd">                design.</span>
+<span class="sd">            sample_from (&#39;all&#39;, &#39;uncertainties&#39;, or &#39;levers&#39;): Which scope components</span>
+<span class="sd">                from which to sample.  Components not sampled are set at their default</span>
+<span class="sd">                values in the design.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.DataFrame: The resulting design.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;scope&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;scope&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;db&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span>
+
+        <span class="kn">from</span> <span class="nn">..experiment</span> <span class="k">import</span> <span class="n">experimental_design</span>
+        <span class="k">return</span> <span class="n">experimental_design</span><span class="o">.</span><span class="n">design_experiments</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractCoreModel.run_experiments"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.run_experiments">[docs]</a>    <span class="k">def</span> <span class="nf">run_experiments</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">experiment_parameters</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">evaluator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">design</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Runs a design of combined experiments using this model.</span>
+
+<span class="sd">        A combined experiment includes a complete set of input values for</span>
+<span class="sd">        all exogenous uncertainties (a Scenario) and all policy levers</span>
+<span class="sd">        (a Policy). Unlike the perform_experiments function in the EMA Workbench,</span>
+<span class="sd">        this method pairs each Scenario and Policy in sequence, instead</span>
+<span class="sd">        of running all possible combinations of Scenario and Policy.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            experiment_parameters (pandas.DataFrame, optional): experiment definitions</span>
+<span class="sd">                given as a DataFrame, where each exogenous uncertainties and</span>
+<span class="sd">                policy levers is given as a column, and each row is an experiment.</span>
+<span class="sd">            evaluator (ema_workbench.Evaluator, optional): Optionally give an</span>
+<span class="sd">                evaluator instance.  If not given, a default SequentialEvaluator</span>
+<span class="sd">                will be instantiated.</span>
+<span class="sd">            design (str, optional): The name of a design of experiments to</span>
+<span class="sd">                load from the database.  This design is only used if</span>
+<span class="sd">                `experiment_parameters` is None.</span>
+<span class="sd">            db (Database, optional): The database to use for loading and saving experiments.</span>
+<span class="sd">                If none is given, the default database for this model is used.</span>
+<span class="sd">                If there is no default db, and none is given here,</span>
+<span class="sd">                the results are not stored in a database.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.DataFrame:</span>
+<span class="sd">                A DataFrame that contains all uncertainties, levers, and measures</span>
+<span class="sd">                for the experiments.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError:</span>
+<span class="sd">                If there are no experiments defined.  This includes</span>
+<span class="sd">                the situation where `design` is given but no database is</span>
+<span class="sd">                available.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">ema_workbench</span> <span class="k">import</span> <span class="n">Scenario</span><span class="p">,</span> <span class="n">Policy</span><span class="p">,</span> <span class="n">perform_experiments</span>
+
+        <span class="c1"># catch user gives only a design, not experiment_parameters</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">experiment_parameters</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">design</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">design</span><span class="p">,</span> <span class="n">experiment_parameters</span> <span class="o">=</span> <span class="n">experiment_parameters</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">design</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">experiment_parameters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;must give design or experiment_parameters&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">db</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span>
+
+        <span class="k">if</span> <span class="n">design</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">experiment_parameters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;cannot load design &quot;</span><span class="si">{design}</span><span class="s1">&quot;, there is no db&#39;</span><span class="p">)</span>
+            <span class="n">experiment_parameters</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">design</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">experiment_parameters</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;no experiments available&quot;</span><span class="p">)</span>
+
+        <span class="n">scenarios</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Scenario</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_uncertainty_names</span><span class="p">(),</span> <span class="n">i</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">experiment_parameters</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_uncertainty_names</span><span class="p">()]</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                                                                          <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ExperimentX&#39;</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="n">policies</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Policy</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Incognito</span><span class="si">{n}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_lever_names</span><span class="p">(),</span> <span class="n">i</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">experiment_parameters</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_lever_names</span><span class="p">()]</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                                                                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ExperimentL&#39;</span><span class="p">))</span>
+        <span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">evaluator</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">ema_workbench</span> <span class="k">import</span> <span class="n">SequentialEvaluator</span>
+            <span class="n">evaluator</span> <span class="o">=</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">experiments</span><span class="p">,</span> <span class="n">outcomes</span> <span class="o">=</span> <span class="n">perform_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scenarios</span><span class="o">=</span><span class="n">scenarios</span><span class="p">,</span> <span class="n">policies</span><span class="o">=</span><span class="n">policies</span><span class="p">,</span>
+                                                    <span class="n">zip_over</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;scenarios&#39;</span><span class="p">,</span> <span class="s1">&#39;policies&#39;</span><span class="p">},</span> <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">)</span>
+        <span class="n">experiments</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">experiment_parameters</span><span class="o">.</span><span class="n">index</span>
+
+
+
+        <span class="n">outcomes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">outcomes</span><span class="p">)</span>
+        <span class="n">outcomes</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">experiment_parameters</span><span class="o">.</span><span class="n">index</span>
+
+        <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">write_experiment_measures</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metamodel_id</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+            <span class="n">experiments</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;scenario&#39;</span><span class="p">,</span><span class="s1">&#39;policy&#39;</span><span class="p">,</span><span class="s1">&#39;model&#39;</span><span class="p">]),</span>
+            <span class="n">outcomes</span>
+        <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="AbstractCoreModel.run_experiments_from_design"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.run_experiments_from_design">[docs]</a>    <span class="k">def</span> <span class="nf">run_experiments_from_design</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">,</span> <span class="n">archive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Runs a design of experiments through this core model</span>
+
+<span class="sd">        For each experiment, the core model is called to:</span>
+
+<span class="sd">            1. set experiment variables</span>
+<span class="sd">            2. run the experiment</span>
+<span class="sd">            3. run post-processors associated with specified</span>
+<span class="sd">               performance measures</span>
+<span class="sd">            4. (optionally) archive model outputs</span>
+<span class="sd">            5. record performance measures to database</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            design (str): experiment design type:</span>
+<span class="sd">                &#39;uni&#39; - generated by univariate sensitivity test design</span>
+<span class="sd">                &#39;lhs&#39; - generated by latin hypercube sample design</span>
+<span class="sd">            archive (bool): option to call core_model archive function</span>
+<span class="sd">                that copies outputs to an archive location</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            UserWarning: If there are no experiments associated with</span>
+<span class="sd">                this type.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;run_experiments_from_design read_experiment_parameters&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">design</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">possible_designs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">read_design_names</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">possible_designs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;no experimental designs found&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">possible_designs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;multiple experimental designs found, &#39;</span>
+                                 <span class="s1">&#39;must explicitly give design name&#39;</span><span class="p">)</span>
+            <span class="n">design</span> <span class="o">=</span> <span class="n">possible_designs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">ex_xl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">design</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ex_xl</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">UserWarning</span><span class="p">(</span><span class="s2">&quot;No experiments available of design </span><span class="si">{0}</span><span class="s2">&quot;</span>
+                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">design</span><span class="p">))</span>
+
+        <span class="n">m_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">_m_list</span><span class="p">]</span>
+
+        <span class="n">m_out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">ex_id</span><span class="p">,</span> <span class="n">xl</span> <span class="ow">in</span> <span class="n">ex_xl</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+
+            <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;run_core_model setup </span><span class="si">{ex_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">xl</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+
+            <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;run_core_model run </span><span class="si">{ex_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+            <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;run_core_model post_process </span><span class="si">{ex_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="n">xl</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">m_names</span><span class="p">)</span>
+
+            <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;run_core_model wrap up </span><span class="si">{ex_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">m_di</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">import_meas</span><span class="p">(</span><span class="n">m_names</span><span class="p">)</span>
+            <span class="n">m_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">m_di</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">ex_id</span><span class="p">])</span>
+
+            <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;run_core_model write db </span><span class="si">{ex_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">write_experiment_measures</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metamodel_id</span><span class="p">,</span> <span class="n">m_df</span><span class="p">)</span>
+            <span class="n">m_out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">m_out</span><span class="p">,</span> <span class="n">m_df</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="n">archive</span><span class="p">:</span>
+                <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;run_core_model archive </span><span class="si">{ex_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">archive</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">get_ex_archive_path</span><span class="p">(</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ex_id</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="AbstractCoreModel.create_metamodel_from_data"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_data">[docs]</a>    <span class="k">def</span> <span class="nf">create_metamodel_from_data</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">experiment_inputs</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+            <span class="n">experiment_outputs</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+            <span class="n">output_transforms</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">metamodel_id</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">include_measures</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">exclude_measures</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">db</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a MetaModel from a set of input and output observations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            experiment_inputs (pandas.DataFrame): This dataframe</span>
+<span class="sd">                should contain all of the experimental inputs, including</span>
+<span class="sd">                values for each uncertainty, level, and constant.</span>
+<span class="sd">            experiment_outputs (pandas.DataFrame): This dataframe</span>
+<span class="sd">                should contain all of the experimental outputs, including</span>
+<span class="sd">                a column for each performance measure. The index</span>
+<span class="sd">                for the outputs should match the index for the</span>
+<span class="sd">                `experiment_inputs`, so that the I-O matches row-by-row.</span>
+<span class="sd">            output_transforms (dict): A mapping of performance measure</span>
+<span class="sd">                transforms to use in meta-model estimation and application.</span>
+<span class="sd">            metamodel_id (int, optional): An identifier for this meta-model.</span>
+<span class="sd">                If not given, a unique id number will be created randomly.</span>
+<span class="sd">            include_measures (Collection[str], optional): If provided, only</span>
+<span class="sd">                output performance measures with names in this set will be included.</span>
+<span class="sd">            exclude_measures (Collection[str], optional): If provided, only</span>
+<span class="sd">                output performance measures with names not in this set will be included.</span>
+<span class="sd">            db (Database, optional): The database to use for loading and saving metamodels.</span>
+<span class="sd">                If none is given, the default database for this model is used.</span>
+<span class="sd">                If there is no default db, and none is given here,</span>
+<span class="sd">                the metamodel is not stored in a database.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            MetaModel:</span>
+<span class="sd">                a callable object that, when called as if a</span>
+<span class="sd">                function, accepts keyword arguments as inputs and</span>
+<span class="sd">                returns a dictionary of (measure name: value) pairs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">.core_python</span> <span class="k">import</span> <span class="n">PythonCoreModel</span>
+        <span class="kn">from</span> <span class="nn">.meta_model</span> <span class="k">import</span> <span class="n">MetaModel</span>
+
+        <span class="n">db</span> <span class="o">=</span> <span class="n">db</span> <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span>
+
+        <span class="n">experiment_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">experiment_inputs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">metamodel_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span>
+                <span class="n">metamodel_id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_new_metamodel_id</span><span class="p">(</span><span class="n">scope_name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">metamodel_id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">**</span><span class="mi">63</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int64&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">include_measures</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">experiment_outputs</span> <span class="o">=</span> <span class="n">experiment_outputs</span><span class="p">[[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">include_measures</span>
+                                                     <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">experiment_outputs</span><span class="o">.</span><span class="n">columns</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="n">exclude_measures</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">experiment_outputs</span> <span class="o">=</span> <span class="n">experiment_outputs</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">exclude_measures</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">disabled_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">()</span>
+                            <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">experiment_outputs</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
+        <span class="n">func</span> <span class="o">=</span> <span class="n">MetaModel</span><span class="p">(</span><span class="n">experiment_inputs</span><span class="p">,</span> <span class="n">experiment_outputs</span><span class="p">,</span>
+                         <span class="n">output_transforms</span><span class="p">,</span> <span class="n">disabled_outputs</span><span class="p">)</span>
+
+        <span class="n">scope_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">strip_measure_transforms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">PythonCoreModel</span><span class="p">(</span>
+            <span class="n">func</span><span class="p">,</span>
+            <span class="n">configuration</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">scope</span><span class="o">=</span><span class="n">scope_</span><span class="p">,</span>
+            <span class="n">safe</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">db</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;Meta&quot;</span><span class="p">,</span>
+            <span class="n">metamodel_id</span><span class="o">=</span><span class="n">metamodel_id</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractCoreModel.create_metamodel_from_design"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_design">[docs]</a>    <span class="k">def</span> <span class="nf">create_metamodel_from_design</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">design</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
+            <span class="n">metamodel_id</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">include_measures</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">exclude_measures</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a MetaModel from a set of input and output observations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            design (str): The name of the design to use.</span>
+<span class="sd">            metamodel_id (int, optional): An identifier for this meta-model.</span>
+<span class="sd">                If not given, a unique id number will be created randomly.</span>
+<span class="sd">            include_measures (Collection[str], optional): If provided, only</span>
+<span class="sd">                output performance measures with names in this set will be included.</span>
+<span class="sd">            exclude_measures (Collection[str], optional): If provided, only</span>
+<span class="sd">                output performance measures with names not in this set will be included.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            MetaModel:</span>
+<span class="sd">                a callable object that, when called as if a</span>
+<span class="sd">                function, accepts keyword arguments as inputs and</span>
+<span class="sd">                returns a dictionary of (measure name: value) pairs.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the named design still has pending experiments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">db</span> <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span>
+
+        <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">check_df</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">only_pending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">check_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;design &quot;</span><span class="si">{design}</span><span class="s1">&quot; has pending experiments&#39;</span><span class="p">)</span>
+
+        <span class="n">experiment_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">design</span><span class="p">)</span>
+        <span class="n">experiment_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">read_experiment_measures</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">design</span><span class="p">)</span>
+
+        <span class="n">transforms</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">metamodeltype</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measures</span><span class="p">()</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_metamodel_from_data</span><span class="p">(</span>
+            <span class="n">experiment_inputs</span><span class="p">,</span>
+            <span class="n">experiment_outputs</span><span class="p">,</span>
+            <span class="n">transforms</span><span class="p">,</span>
+            <span class="n">metamodel_id</span><span class="o">=</span><span class="n">metamodel_id</span><span class="p">,</span>
+            <span class="n">include_measures</span><span class="o">=</span><span class="n">include_measures</span><span class="p">,</span>
+            <span class="n">exclude_measures</span><span class="o">=</span><span class="n">exclude_measures</span><span class="p">,</span>
+            <span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AbstractCoreModel.get_feature_scores"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.get_feature_scores">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_scores</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">design</span><span class="p">,</span>
+            <span class="n">return_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate feature scores based on a design of experiments.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            design (str or pandas.DataFrame): The name of the design of experiments</span>
+<span class="sd">                to use for feature scoring, or a pandas.DataFrame containing the</span>
+<span class="sd">                experimental design and results.</span>
+<span class="sd">            return_raw (bool, default False): Whether to return a raw pandas.DataFrame</span>
+<span class="sd">                containing the computed feature scores, instead of a formatted heatmap</span>
+<span class="sd">                table.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            xmle.Elem or pandas.DataFrame:</span>
+<span class="sd">                Returns a rendered SVG as xml, or a DataFrame,</span>
+<span class="sd">                depending on the `return_raw` argument.</span>
+
+<span class="sd">        This function internally uses feature_scoring from the EMA Workbench, which in turn</span>
+<span class="sd">        scores features using the &quot;extra trees&quot; regression approach.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">ema_workbench.analysis</span> <span class="k">import</span> <span class="n">feature_scoring</span>
+        <span class="kn">from</span> <span class="nn">..viz</span> <span class="k">import</span> <span class="n">heatmap_table</span>
+        <span class="kn">import</span> <span class="nn">pandas</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="n">design</span><span class="p">)</span>
+            <span class="n">outcomes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_experiment_measures</span><span class="p">(</span><span class="n">design</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">inputs</span> <span class="o">=</span> <span class="n">design</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">design</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_parameter_names</span><span class="p">()]]</span>
+            <span class="n">outcomes</span> <span class="o">=</span> <span class="n">design</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">design</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">()]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;must name design or give DataFrame&#39;</span><span class="p">)</span>
+
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">feature_scoring</span><span class="o">.</span><span class="n">get_feature_scores_all</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">return_raw</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">fs</span>
+        <span class="k">return</span> <span class="n">heatmap_table</span><span class="p">(</span>
+            <span class="n">fs</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+            <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Model Parameters&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Performance Measures&#39;</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Feature Scoring&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="n">f</span><span class="s1">&#39; [</span><span class="si">{design}</span><span class="s1">]&#39;</span> <span class="k">if</span> <span class="n">design</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="AbstractCoreModel.robust_optimize"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.robust_optimize">[docs]</a>    <span class="k">def</span> <span class="nf">robust_optimize</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">robustness_functions</span><span class="p">,</span>
+            <span class="n">scenarios</span><span class="p">,</span>
+            <span class="n">evaluator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">nfe</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+            <span class="n">convergence</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">constraints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="c1"># epsilons=None,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform robust optimization.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            robustness_functions (Collection[Measure]): A collection of</span>
+<span class="sd">                aggregate statistical performance measures.</span>
+<span class="sd">            scenarios : int, or collection</span>
+<span class="sd">            evaluator : Evaluator instance</span>
+<span class="sd">            algorithm : platypus Algorithm instance</span>
+<span class="sd">            nfe : int</span>
+<span class="sd">            constraints : list</span>
+<span class="sd">            kwargs : any additional arguments will be passed on to algorithm</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        AssertionError if robustness_function is not a ScalarOutcome,</span>
+<span class="sd">        if robustness_funcion.kind is INFO, or</span>
+<span class="sd">        if robustness_function.function is None</span>
+
+<span class="sd">        robustness functions are scalar outcomes, kind should be MINIMIZE or</span>
+<span class="sd">        MAXIMIZE, function is the robustness function you want to use.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+        <span class="k">if</span> <span class="n">evaluator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">ema_workbench.em_framework</span> <span class="k">import</span> <span class="n">SequentialEvaluator</span>
+            <span class="n">evaluator</span> <span class="o">=</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="kn">from</span> <span class="nn">ema_workbench.em_framework.samplers</span> <span class="k">import</span> <span class="n">sample_uncertainties</span><span class="p">,</span> <span class="n">sample_levers</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">n_scenarios</span> <span class="o">=</span> <span class="n">scenarios</span>
+            <span class="n">scenarios</span> <span class="o">=</span> <span class="n">sample_uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_scenarios</span><span class="p">)</span>
+
+        <span class="c1"># if epsilons is None:</span>
+        <span class="c1">#     epsilons = [0.05, ] * len(robustness_functions)</span>
+        <span class="c1">#</span>
+        <span class="k">with</span> <span class="n">evaluator</span><span class="p">:</span>
+            <span class="n">robust_results</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">robust_optimize</span><span class="p">(</span>
+                <span class="n">robustness_functions</span><span class="p">,</span>
+                <span class="n">scenarios</span><span class="p">,</span>
+                <span class="n">nfe</span><span class="o">=</span><span class="n">nfe</span><span class="p">,</span>
+                <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
+                <span class="c1"># epsilons=epsilons,</span>
+                <span class="n">convergence</span><span class="o">=</span><span class="n">convergence</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">robust_results</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">robust_results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">robust_results</span><span class="p">,</span> <span class="n">result_convergence</span> <span class="o">=</span> <span class="n">robust_results</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result_convergence</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">robust_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">robust_results</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">result_convergence</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">robust_results</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">robust_results</span><span class="p">,</span> <span class="n">result_convergence</span></div></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

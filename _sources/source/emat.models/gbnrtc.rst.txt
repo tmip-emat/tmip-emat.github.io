@@ -1,0 +1,29 @@
+
+.. py:currentmodule:: emat.model.gbnrtc
+
+GBNRTC Model
+------------
+
+.. autoclass:: GBNRTCModel
+    :show-inheritance:
+    :members:
+    :exclude-members:
+        setup, run, import_meas, post_process, get_ex_archive_path, archive,
+        start_transcad, run_model, model_init
+
+
+
+Implementation-Specific Methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+These methods are defined specifically in this GBNRTC-specific class,
+in order to interface with the TransCAD model for the GBNRTC region.
+
+.. automethod:: GBNRTCModel.setup
+.. automethod:: GBNRTCModel.start_transcad
+.. automethod:: GBNRTCModel.run
+.. automethod:: GBNRTCModel.run_model
+.. automethod:: GBNRTCModel.import_meas
+.. automethod:: GBNRTCModel.post_process
+.. automethod:: GBNRTCModel.get_ex_archive_path
+.. automethod:: GBNRTCModel.archive

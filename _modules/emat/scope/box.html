@@ -1,0 +1,848 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>emat.scope.box &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>emat.scope.box</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for emat.scope.box</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="k">import</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Mapping</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Collection</span>
+
+<span class="kn">from</span> <span class="nn">.scope</span> <span class="k">import</span> <span class="n">Scope</span><span class="p">,</span> <span class="n">ScopeError</span>
+
+<span class="n">Bounds</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Bounds&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;lowerbound&#39;</span><span class="p">,</span> <span class="s1">&#39;upperbound&#39;</span><span class="p">])</span>
+
+<span class="n">Bounds</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">A lower and upper bound as a 2-tuple.</span>
+
+<span class="s2">Args:</span>
+<span class="s2">	lowerbound (numeric or None): </span>
+<span class="s2">		The lower bound to set, or None </span>
+<span class="s2">		if there is no lower bound.</span>
+<span class="s2">	upperbound (numeric or None): </span>
+<span class="s2">		The upper bound to set, or None </span>
+<span class="s2">		if there is no upper bound.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Box"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.Box">[docs]</a><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Mapping</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	A Box defines a set of restricted dimensions for a Scope.</span>
+
+<span class="sd">	Args:</span>
+<span class="sd">		name (str): The name for this Box.</span>
+<span class="sd">		parent (str, optional):</span>
+<span class="sd">			The name of the parent for this Box.  When extracted</span>
+<span class="sd">			as a :class:`ChainedBox` from a collection of :class:`Boxes`,</span>
+<span class="sd">			the thresholds will also include any thresholds inherited</span>
+<span class="sd">			from this box&#39;s ancestor(s).</span>
+<span class="sd">		scope (Scope, optional):</span>
+<span class="sd">			A scope to associate with this box.</span>
+<span class="sd">		upper_bounds (Mapping[str, numeric], optional):</span>
+<span class="sd">			If given, a mapping with keys giving feature names</span>
+<span class="sd">			and values giving an upper bound for each feature.</span>
+<span class="sd">		lower_bounds (Mapping[str, numeric], optional):</span>
+<span class="sd">			If given, a mapping with keys giving feature names</span>
+<span class="sd">			and values giving a lower bound for each feature.</span>
+<span class="sd">		bounds (Mapping[str, Bounds], optional):</span>
+<span class="sd">			If given, a mapping with keys giving feature names</span>
+<span class="sd">			and values giving :class:`Bounds` for each feature.</span>
+<span class="sd">		allowed (Mapping[str, Set], optional):</span>
+<span class="sd">			If given, a mapping with keys giving feature names</span>
+<span class="sd">			and values giving the available :class:`Set` for</span>
+<span class="sd">			each feature.</span>
+<span class="sd">		relevant (Iterable, optional):</span>
+<span class="sd">			If given, a set of names of relevant features.</span>
+
+<span class="sd">	Attributes:</span>
+<span class="sd">		thresholds (Dict[str,Union[Bounds,Set]]):</span>
+<span class="sd">			The restricted dimensions in this Box, with feature names as</span>
+<span class="sd">			keys and :class:`Bounds` or a :class:`Set` of available discrete</span>
+<span class="sd">			values as the dictionary values.</span>
+<span class="sd">		relevant_features (Set[str]):</span>
+<span class="sd">			A :class:`Set` of features that are relevant for this Box.</span>
+<span class="sd">			These are features, which are not themselves constrained,</span>
+<span class="sd">			but should be considered in any analytical report developed</span>
+<span class="sd">			based on this Box.</span>
+
+
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+			<span class="bp">self</span><span class="p">,</span>
+			<span class="n">name</span><span class="p">,</span>
+			<span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">upper_bounds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">lower_bounds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">bounds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">allowed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">relevant</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+	<span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span> <span class="o">=</span> <span class="p">{}</span>
+
+		<span class="k">if</span> <span class="n">relevant</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">relevant_features</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">relevant_features</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">relevant</span><span class="p">)</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">parent_box_name</span> <span class="o">=</span> <span class="n">parent</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+		<span class="k">if</span> <span class="n">upper_bounds</span><span class="p">:</span>
+			<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">upper_bounds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">set_upper_bound</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">lower_bounds</span><span class="p">:</span>
+			<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">lower_bounds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">set_lower_bound</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">bounds</span><span class="p">:</span>
+			<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">bounds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">set_bounds</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">allowed</span><span class="p">:</span>
+			<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">allowed</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">replace_allowed_set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">scope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Scope: A scope associated with this Box.&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scope</span>
+
+	<span class="nd">@scope</span><span class="o">.</span><span class="n">setter</span>
+	<span class="k">def</span> <span class="nf">scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Scope</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_scope</span> <span class="o">=</span> <span class="n">x</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;scope must be Scope or None&#39;</span><span class="p">)</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">measure_thresholds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Dict[str,Union[Bounds,Set]]:</span>
+<span class="sd">			The thresholds in this Box associated with performance measures.</span>
+
+<span class="sd">			A Scope must be associated with this Box to access this property.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;need scope&quot;</span><span class="p">)</span>
+		<span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">()</span>
+		<span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">}</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">uncertainty_thresholds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Dict[str,Union[Bounds,Set]]:</span>
+<span class="sd">			The thresholds in this Box associated with exogenous uncertainties.</span>
+
+<span class="sd">			A Scope must be associated with this Box to access this property.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;need scope&quot;</span><span class="p">)</span>
+		<span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_uncertainty_names</span><span class="p">()</span>
+		<span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">}</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">lever_thresholds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Dict[str,Union[Bounds,Set]]:</span>
+<span class="sd">			The thresholds in this Box associated with policy levers.</span>
+
+<span class="sd">			A Scope must be associated with this Box to access this property.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;need scope&quot;</span><span class="p">)</span>
+		<span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_lever_names</span><span class="p">()</span>
+		<span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">}</span>
+
+	<span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Box.set_lower_bound"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.Box.set_lower_bound">[docs]</a>	<span class="k">def</span> <span class="nf">set_lower_bound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set a lower bound, retaining existing upper bound.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			key (str):</span>
+<span class="sd">				The feature name to which this lower bound</span>
+<span class="sd">				will be attached.</span>
+<span class="sd">			value (numeric or None):</span>
+<span class="sd">				The lower bound. Set explicitly to &#39;None&#39; to</span>
+<span class="sd">				leave unbounded from below.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			ScopeError:</span>
+<span class="sd">				If a scope is attached to this box but the `key` cannot</span>
+<span class="sd">				be found in the scope.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Bounds</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">))</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot set lowerbound on a set&quot;</span><span class="p">)</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_all_names</span><span class="p">():</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bounds</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="n">upperbound</span><span class="p">)</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">raise</span> <span class="n">ScopeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;cannot set threshold on &#39;</span><span class="si">{key}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bounds</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="n">upperbound</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Box.set_upper_bound"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.Box.set_upper_bound">[docs]</a>	<span class="k">def</span> <span class="nf">set_upper_bound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set an upper bound, retaining existing lower bound.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			key (str):</span>
+<span class="sd">				The feature name to which this upper bound</span>
+<span class="sd">				will be attached.</span>
+<span class="sd">			value (numeric or None):</span>
+<span class="sd">				The upper bound. Set explicitly to &#39;None&#39; to</span>
+<span class="sd">				leave unbounded from above.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			ScopeError:</span>
+<span class="sd">				If a scope is attached to this box but the `key` cannot</span>
+<span class="sd">				be found in the scope.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Bounds</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">))</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot set upperbound on a set&quot;</span><span class="p">)</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_all_names</span><span class="p">():</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bounds</span><span class="p">(</span><span class="n">current</span><span class="o">.</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">raise</span> <span class="n">ScopeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;cannot set threshold on &#39;</span><span class="si">{key}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bounds</span><span class="p">(</span><span class="n">current</span><span class="o">.</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Box.set_bounds"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.Box.set_bounds">[docs]</a>	<span class="k">def</span> <span class="nf">set_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set both lower and upper bounds.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			key (str):</span>
+<span class="sd">				The feature name to which these bounds</span>
+<span class="sd">				will be attached.</span>
+<span class="sd">			lowerbound (numeric, None, or Bounds):</span>
+<span class="sd">				The lower bound, or a Bounds object that gives</span>
+<span class="sd">				upper and lower bounds (in which case the `upperbound`</span>
+<span class="sd">				argument is ignored).  Set explicitly to &#39;None&#39; to</span>
+<span class="sd">				leave unbounded from below.</span>
+<span class="sd">			upperbound (numeric or None, default None):</span>
+<span class="sd">				The upper bound. Set to &#39;None&#39; to</span>
+<span class="sd">				leave unbounded from above.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			ScopeError:</span>
+<span class="sd">				If a scope is attached to this box but the `key` cannot</span>
+<span class="sd">				be found in the scope.</span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">Bounds</span><span class="p">):</span>
+			<span class="n">b</span> <span class="o">=</span> <span class="n">lowerbound</span>
+			<span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">upperbound</span>
+
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_all_names</span><span class="p">():</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bounds</span><span class="p">(</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span><span class="p">)</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">raise</span> <span class="n">ScopeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;cannot set threshold on &#39;</span><span class="si">{key}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bounds</span><span class="p">(</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Box.add_to_allowed_set"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.Box.add_to_allowed_set">[docs]</a>	<span class="k">def</span> <span class="nf">add_to_allowed_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Add a value to the allowed set</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			key (str):</span>
+<span class="sd">				The feature name to which these bounds</span>
+<span class="sd">				will be attached.</span>
+<span class="sd">			value (Any):</span>
+<span class="sd">				A value to add to the allowed set.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			ValueError:</span>
+<span class="sd">				If there is already a directional Bounds set for `key`.</span>
+<span class="sd">			ScopeError:</span>
+<span class="sd">				If a scope is attached to this box but the `key` cannot</span>
+<span class="sd">				be found in the scope.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">Bounds</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot add to Bounds&quot;</span><span class="p">)</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_all_names</span><span class="p">():</span>
+				<span class="n">current</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">current</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">raise</span> <span class="n">ScopeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;cannot set threshold on &#39;</span><span class="si">{key}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">current</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">current</span></div>
+
+<div class="viewcode-block" id="Box.remove_from_allowed_set"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.Box.remove_from_allowed_set">[docs]</a>	<span class="k">def</span> <span class="nf">remove_from_allowed_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Remove a value from the allowed set</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			key (str):</span>
+<span class="sd">				The feature name to which these bounds</span>
+<span class="sd">				will be attached.</span>
+<span class="sd">			value (Any):</span>
+<span class="sd">				A value to remove from the allowed set.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			ValueError:</span>
+<span class="sd">				If the threshold set for `key` is a directional Bounds</span>
+<span class="sd">				instead of a set.</span>
+<span class="sd">			ScopeError:</span>
+<span class="sd">				If a scope is attached to this box but the `key` cannot</span>
+<span class="sd">				be found in the scope.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">Bounds</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot remove from Bounds&quot;</span><span class="p">)</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_all_names</span><span class="p">():</span>
+				<span class="n">current</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">current</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">raise</span> <span class="n">ScopeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;cannot set threshold on &#39;</span><span class="si">{key}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">current</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">current</span></div>
+
+<div class="viewcode-block" id="Box.replace_allowed_set"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.Box.replace_allowed_set">[docs]</a>	<span class="k">def</span> <span class="nf">replace_allowed_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Replace the allowed set.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			key (str):</span>
+<span class="sd">				The feature name to which these bounds</span>
+<span class="sd">				will be attached.</span>
+<span class="sd">			values (set):</span>
+<span class="sd">				A set of values to use as the allowed set.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_all_names</span><span class="p">():</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">raise</span> <span class="n">ScopeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;cannot set threshold on &#39;</span><span class="si">{key}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">)</span></div>
+
+
+
+	<span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">Bounds</span><span class="p">,</span> <span class="nb">set</span><span class="p">)):</span>
+			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;thresholds must be Bounds or a set&#39;</span><span class="p">)</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_all_names</span><span class="p">():</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">raise</span> <span class="n">ScopeError</span><span class="p">(</span><span class="s2">&quot;cannot set threshold on &#39;</span><span class="si">{key}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+	<span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span>
+			<span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">),</span>
+		<span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="p">(</span>
+			<span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">)</span>
+		<span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">relevant_features</span><span class="p">:</span>
+			<span class="n">demands</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="ow">or</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="p">]</span>
+			<span class="n">relevent</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relevant_features</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="p">]</span>
+			<span class="n">m</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+				<span class="nb">max</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">demands</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+				<span class="nb">max</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">relevent</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+			<span class="p">)</span>
+			<span class="n">members</span> <span class="o">=</span> <span class="p">[]</span>
+			<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+				<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Bounds</span><span class="p">):</span>
+					<span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">lowerbound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+						<span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">upperbound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+							<span class="n">v_</span> <span class="o">=</span> <span class="s1">&#39; Unbounded&#39;</span>
+						<span class="k">else</span><span class="p">:</span>
+							<span class="n">v_</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39; &lt;= </span><span class="si">{v.upperbound}</span><span class="s1">&#39;</span>
+					<span class="k">else</span><span class="p">:</span>
+						<span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">upperbound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+							<span class="n">v_</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39; &gt;= </span><span class="si">{v.lowerbound}</span><span class="s1">&#39;</span>
+						<span class="k">else</span><span class="p">:</span>
+							<span class="n">v_</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;: </span><span class="si">{v.lowerbound}</span><span class="s1"> to </span><span class="si">{v.upperbound}</span><span class="s1">&#39;</span>
+				<span class="k">else</span><span class="p">:</span>
+					<span class="n">v_</span> <span class="o">=</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+				<span class="n">members</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;● &quot;</span><span class="o">+</span><span class="n">k</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">+</span> <span class="n">v_</span><span class="p">)</span>
+			<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">relevant_features</span><span class="p">:</span>
+				<span class="n">members</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;◌ &quot;</span><span class="o">+</span><span class="n">k</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+
+			<span class="n">head</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;</span><span class="si">{self.__class__.__name__}</span><span class="s2">: </span><span class="si">{self.name}</span><span class="s2">&quot;</span>
+			<span class="k">return</span> <span class="n">head</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">   &quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">   &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">members</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">return</span> <span class="s2">&quot;&lt;empty &quot;</span><span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ChainedBox"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.ChainedBox">[docs]</a><span class="k">class</span> <span class="nc">ChainedBox</span><span class="p">(</span><span class="n">Mapping</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	A Box defines a set of restricted dimensions for a Scope.</span>
+
+<span class="sd">	Args:</span>
+<span class="sd">		boxes (Boxes):</span>
+<span class="sd">			A collection of Boxes from which to assemble a chain.</span>
+<span class="sd">		name (str):</span>
+<span class="sd">			The name for this ChainedBox.  This must be the name of</span>
+<span class="sd">			a Box in `boxes`, which serves as the seed for the chain.</span>
+<span class="sd">			Ancestors are added recursively by finding the parent box</span>
+<span class="sd">			of each box in the chain, until a box is found with no parent.</span>
+
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		boxes : Mapping</span>
+<span class="sd">			Dictionary of {str:Box} pairs</span>
+<span class="sd">		name : str</span>
+<span class="sd">			Name of this chained box</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">c</span> <span class="o">=</span> <span class="n">boxes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">chain</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="p">]</span>
+		<span class="k">while</span> <span class="n">c</span><span class="o">.</span><span class="n">parent_box_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">parent_box_name</span><span class="p">)</span>
+			<span class="n">c</span> <span class="o">=</span> <span class="n">boxes</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">parent_box_name</span><span class="p">]</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span>
+			<span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">),</span>
+		<span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">)</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;str: The name of the last (defining) Box in this chain.&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">thresholds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Dict[str,Union[Bounds,Set]]:</span>
+<span class="sd">			The restricted dimensions in this ChainedBox, with feature names as</span>
+<span class="sd">			keys and the Bounds or available set as the values.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">t</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="k">for</span> <span class="n">single</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">:</span>
+			<span class="n">t</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">single</span><span class="o">.</span><span class="n">thresholds</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">t</span>
+
+<div class="viewcode-block" id="ChainedBox.measure_thresholds"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.ChainedBox.measure_thresholds">[docs]</a>	<span class="k">def</span> <span class="nf">measure_thresholds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		The thresholds in this Box or its ancestor(s) associated with performance measures.</span>
+
+<span class="sd">		A Scope must be associated with each Box in the chain to access this property.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">			Dict[str,Union[Bounds,Set]]</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">t</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="k">for</span> <span class="n">single</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">:</span>
+			<span class="n">t</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">single</span><span class="o">.</span><span class="n">measure_thresholds</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">t</span></div>
+
+<div class="viewcode-block" id="ChainedBox.uncertainty_thresholds"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.ChainedBox.uncertainty_thresholds">[docs]</a>	<span class="k">def</span> <span class="nf">uncertainty_thresholds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		The thresholds in this Box or its ancestor(s) associated with exogenous uncertainties.</span>
+
+<span class="sd">		A Scope must be associated with each Box in the chain to access this property.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">			Dict[str,Union[Bounds,Set]]</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">t</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="k">for</span> <span class="n">single</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">:</span>
+			<span class="n">t</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">single</span><span class="o">.</span><span class="n">uncertainty_thresholds</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">t</span></div>
+
+<div class="viewcode-block" id="ChainedBox.lever_thresholds"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.ChainedBox.lever_thresholds">[docs]</a>	<span class="k">def</span> <span class="nf">lever_thresholds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		The thresholds in this Box or its ancestor(s) associated with policy levers.</span>
+
+<span class="sd">		A Scope must be associated with each Box in the chain to access this property.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">			Dict[str,Union[Bounds,Set]]</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">t</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="k">for</span> <span class="n">single</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">:</span>
+			<span class="n">t</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">single</span><span class="o">.</span><span class="n">lever_thresholds</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">t</span></div>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">relevant_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set[str]: A set of features that are relevant at any step of the chain.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">t</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+		<span class="k">for</span> <span class="n">single</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">:</span>
+			<span class="n">t</span> <span class="o">|=</span> <span class="n">single</span><span class="o">.</span><span class="n">relevant_features</span>
+		<span class="k">return</span> <span class="n">t</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">demanded_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set[str]: A set of features upon which thresholds are set at any step of the chain.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">t</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+		<span class="k">for</span> <span class="n">single</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">:</span>
+			<span class="n">t</span> <span class="o">|=</span> <span class="nb">set</span><span class="p">(</span><span class="n">single</span><span class="o">.</span><span class="n">thresholds</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+		<span class="k">return</span> <span class="n">t</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">relevant_and_demanded_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set[str]: The union of relevant and demanded features.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">relevant_features</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">demanded_features</span>
+
+
+	<span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">relevant_features</span><span class="p">:</span>
+			<span class="n">demands</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="ow">or</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="p">]</span>
+			<span class="n">relevent</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relevant_features</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="p">]</span>
+			<span class="n">m</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+				<span class="nb">max</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">demands</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+				<span class="nb">max</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">relevent</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+			<span class="p">)</span>
+			<span class="n">members</span> <span class="o">=</span> <span class="p">[]</span>
+			<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+				<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Bounds</span><span class="p">):</span>
+					<span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">lowerbound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+						<span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">upperbound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+							<span class="n">v_</span> <span class="o">=</span> <span class="s1">&#39; Unbounded&#39;</span>
+						<span class="k">else</span><span class="p">:</span>
+							<span class="n">v_</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39; &lt;= </span><span class="si">{v.upperbound}</span><span class="s1">&#39;</span>
+					<span class="k">else</span><span class="p">:</span>
+						<span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">upperbound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+							<span class="n">v_</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39; &gt;= </span><span class="si">{v.lowerbound}</span><span class="s1">&#39;</span>
+						<span class="k">else</span><span class="p">:</span>
+							<span class="n">v_</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;: </span><span class="si">{v.lowerbound}</span><span class="s1"> to </span><span class="si">{v.upperbound}</span><span class="s1">&#39;</span>
+				<span class="k">else</span><span class="p">:</span>
+					<span class="n">v_</span> <span class="o">=</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+				<span class="n">members</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;● &quot;</span><span class="o">+</span><span class="n">k</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">+</span> <span class="n">v_</span><span class="p">)</span>
+			<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">relevant_features</span><span class="p">:</span>
+				<span class="n">members</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;◌ &quot;</span><span class="o">+</span><span class="n">k</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+
+			<span class="n">head</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;</span><span class="si">{self.__class__.__name__}</span><span class="s2">: </span><span class="si">{self.name}</span><span class="s2">&quot;</span>
+			<span class="k">return</span> <span class="n">head</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">   &quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">   &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">members</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">return</span> <span class="s2">&quot;&lt;empty &quot;</span><span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span>
+
+
+	<span class="k">def</span> <span class="nf">chain_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{repr(c)}&quot;</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">))</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">find_all_boxes_with_parent</span><span class="p">(</span><span class="n">universe</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+	<span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">clusterdef</span> <span class="ow">in</span> <span class="n">universe</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+		<span class="k">if</span> <span class="n">clusterdef</span><span class="o">.</span><span class="n">parent_box_name</span> <span class="o">==</span> <span class="n">parent</span><span class="p">:</span>
+			<span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span> <span class="nf">pseudoname_boxes</span><span class="p">(</span><span class="n">boxes</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+	<span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">fancy</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="s2">&quot;Scope: </span><span class="si">{boxes.scope.name}</span><span class="s2">&quot;</span><span class="p">]</span>
+		<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+			<span class="n">fancy</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="s2">&quot;Boxes Universe&quot;</span><span class="p">]</span>
+		<span class="n">plain</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">fancy</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="n">plain</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">tops</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">find_all_boxes_with_parent</span><span class="p">(</span><span class="n">boxes</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">root</span><span class="p">))</span>
+	<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tops</span><span class="p">:</span>
+		<span class="n">fancy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;▷ &quot;</span><span class="o">+</span><span class="n">t</span> <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="s2">&quot;▶▷&quot;</span> <span class="k">else</span> <span class="s2">&quot;▶ &quot;</span><span class="o">+</span><span class="n">t</span><span class="p">)</span>
+		<span class="n">plain</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+		<span class="n">f_</span><span class="p">,</span> <span class="n">p_</span> <span class="o">=</span> <span class="n">pseudoname_boxes</span><span class="p">(</span><span class="n">boxes</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">f1</span><span class="p">,</span> <span class="n">p1</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">f_</span><span class="p">,</span> <span class="n">p_</span><span class="p">):</span>
+			<span class="n">fancy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;▷ &quot;</span><span class="o">+</span><span class="n">f1</span> <span class="k">if</span> <span class="n">f1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="s2">&quot;▶▷&quot;</span> <span class="k">else</span> <span class="s2">&quot;▶ &quot;</span><span class="o">+</span><span class="n">f1</span><span class="p">)</span>
+			<span class="n">plain</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">fancy</span><span class="p">,</span> <span class="n">plain</span>
+
+<div class="viewcode-block" id="Boxes"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.Boxes">[docs]</a><span class="k">class</span> <span class="nc">Boxes</span><span class="p">(</span><span class="n">MutableMapping</span><span class="p">):</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_scope</span> <span class="o">=</span> <span class="n">scope</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">set</span><span class="p">)):</span>
+			<span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">kw</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+			<span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+		<span class="k">if</span> <span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">_storage</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">scope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scope</span>
+
+	<span class="nd">@scope</span><span class="o">.</span><span class="n">setter</span>
+	<span class="k">def</span> <span class="nf">scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_scope</span> <span class="o">=</span> <span class="n">s</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_storage</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">s</span>
+
+	<span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Box</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;values must be Box not {type(value)}&quot;</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;key must match name, use Boxes.add(box)&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_storage</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+	<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Box</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;values must be Box not {type(value)}&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="p">[</span><span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+	<span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+		<span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_storage</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_storage</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">plain_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">pseudoname_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">fancy_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">pseudoname_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">both_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">pseudoname_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">get_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">ChainedBox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
