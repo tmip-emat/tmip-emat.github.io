@@ -26,6 +26,8 @@ tool to perform exploratory analysis of a range of possible scenarios.
 
 The methodologies demonstrated in this toolset build on and extend the
 capabilities of the `EMA Workbench, version 2 <https://github.com/quaquel/EMAworkbench/tree/v2>`_.
+A brief discussion of the differences between these projects is
+:doc:`available <source/emat.vs.workbench>`.
 
 .. toctree::
    :maxdepth: 3

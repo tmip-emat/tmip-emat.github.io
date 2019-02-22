@@ -90,7 +90,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Core Models</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="abstract.html">Basic EMAT Model API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="python_based.html">Python-Based Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="excel.html">Excel-based Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="excel.html">Excel-Based Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Files-Based Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gbnrtc.html">GBNRTC Model</a></li>
 </ul>
 </li>
@@ -207,9 +208,13 @@ is a Python function.  Such a function can be wrapped with a
 <p>TMIP-EMAT can also be used with Excel-based models, using the
 <a class="reference internal" href="excel.html#emat.model.ExcelCoreModel" title="emat.model.ExcelCoreModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExcelCoreModel</span></code></a> interface.</p>
 <p class="rubric"><a class="reference internal" href="gbnrtc.html"><span class="doc">Bespoke Models</span></a></p>
-<p>Most advanced travel models can be set up to run programmatically.
-For example, the model for the Greater Buffalo-Niagara Regional Transportation Council
-is a TransCAD based model.  The <a class="reference internal" href="gbnrtc.html#emat.model.gbnrtc.GBNRTCModel" title="emat.model.gbnrtc.GBNRTCModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">GBNRTCModel</span></code></a> is included in TMIP-EMAT as an example
+<p>Most advanced travel models can be set up to run programmatically, generating
+a variety of performance measures to one or more arbitrarily defined files on
+disk.  TMIP-EMAT provides a <a class="reference internal" href="files.html#emat.model.FilesCoreModel" title="emat.model.FilesCoreModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">FilesCoreModel</span></code></a> to serve as the starting
+point for developing model-specific implementations for custom models than can
+be operated in this manner.</p>
+<p>For example, the model for the Greater Buffalo-Niagara Regional Transportation Council
+is a TransCAD based model.  The <a class="reference internal" href="gbnrtc.html#emat.model.GBNRTCModel" title="emat.model.GBNRTCModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">GBNRTCModel</span></code></a> is included in TMIP-EMAT as an example
 of how a more complex external travel demand model can be integrated into
 the TMIP-EMAT framework.</p>
 </div>

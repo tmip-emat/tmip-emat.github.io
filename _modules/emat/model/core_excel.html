@@ -222,9 +222,6 @@
 <span class="sd">    the constructor, not just based on an Excel workbook in isolation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">xl_di</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">cd</span> <span class="o">=</span> <span class="kc">None</span>
-
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">wd</span><span class="p">,</span>
                  <span class="n">model_file</span><span class="p">,</span>
@@ -257,7 +254,7 @@
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># If no archive path is given, a temporary directory is created.</span>
-        <span class="c1"># All archive files will be lost when this CoreDummy is deleted.</span>
+        <span class="c1"># All archive files will be lost when this ExcelCoreModel is deleted.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="kn">import</span> <span class="nn">tempfile</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_temp_archive</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span>
@@ -289,51 +286,28 @@
         <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;&lt;emat.PythonCoreModel &quot;</span><span class="si">{self.name}</span><span class="s1">&quot;</span><span class="si">{metamodel_tag}</span><span class="s1"> with {&quot;, &quot;.join(content)}&gt;&#39;</span>
 
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">setup</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xl_di</span><span class="p">):</span>
-        <span class="k">pass</span>
-        <span class="c1">#self.xl_di = xl_di</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method is not needed for Excel models.&quot;&quot;&quot;</span>
 
-    <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">get_ex_archive_path</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_ex_archive_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scp_name</span><span class="p">,</span> <span class="n">exp_id</span><span class="p">):</span>
-        <span class="c1"># &#39;&#39;&#39; Path is defined with scope name and experiment id &#39;&#39;&#39;</span>
-        <span class="c1"># mod_results_path = (self.archive_path +</span>
-        <span class="c1">#                     r&quot;\\scp_{0}\\exp_{1}&quot;.format(scp_name, exp_id))</span>
-        <span class="c1">#</span>
-        <span class="c1"># return mod_results_path</span>
-        <span class="k">pass</span>
+    <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">get_experiment_archive_path</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_experiment_archive_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method is not needed for Excel models.&quot;&quot;&quot;</span>
 
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Run method is not needed &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;This method is not needed for Excel models.&quot;&quot;&quot;</span>
 
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">post_process</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xl_di</span><span class="p">,</span> <span class="n">m_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Post process method is not needed &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">measure_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method is not needed for Excel models.&quot;&quot;&quot;</span>
 
-    <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">import_meas</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">import_meas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="c1"># &quot;&quot;&quot; Implemented measures are pm_10, pm_100 &quot;&quot;&quot;</span>
-        <span class="c1">#</span>
-        <span class="c1"># result = self.function(**self.xl_di)</span>
-        <span class="c1">#</span>
-        <span class="c1"># pm_dict = {}</span>
-        <span class="c1"># for pm in m_names:</span>
-        <span class="c1">#     if pm not in result.keys():</span>
-        <span class="c1">#         raise KeyError(&#39;Measure {0} not supported&#39;.format(pm))</span>
-        <span class="c1">#     pm_dict[pm] = result[pm]</span>
-        <span class="c1">#</span>
-        <span class="c1"># return pm_dict</span>
-        <span class="k">pass</span>
+    <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">load_measures</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">load_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">measure_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method is not needed for Excel models.&quot;&quot;&quot;</span>
 
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">archive</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xl</span><span class="p">,</span> <span class="n">mod_results_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="c1"># &quot;&quot;&quot; archive only records experiment values &quot;&quot;&quot;</span>
-        <span class="c1"># if not os.path.exists(mod_results_path):</span>
-        <span class="c1">#     os.makedirs(mod_results_path)</span>
-        <span class="c1">#</span>
-        <span class="c1"># # record experiment definitions</span>
-        <span class="c1"># xl_df.to_csv(mod_results_path + r&#39;_def.csv&#39;)</span>
-        <span class="k">pass</span></div>
+    <span class="k">def</span> <span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model_results_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method is not needed for Excel models.&quot;&quot;&quot;</span></div>
 </pre></div>
 
            </div>

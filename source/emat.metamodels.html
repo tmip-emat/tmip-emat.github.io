@@ -197,7 +197,7 @@ or <a class="reference internal" href="emat.models/abstract.html#emat.model.Abst
 methods of a core model.</p>
 <dl class="class">
 <dt id="emat.MetaModel">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">MetaModel</code><span class="sig-paren">(</span><em>input_sample</em>, <em>output_sample</em>, <em>metamodel_types=None</em>, <em>disabled_outputs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/emat/model/meta_model.html#MetaModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">MetaModel</code><span class="sig-paren">(</span><em>input_sample</em>, <em>output_sample</em>, <em>metamodel_types=None</em>, <em>disabled_outputs=None</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/emat/model/meta_model.html#MetaModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>A gaussian process regression-based meta-model.</p>
 <p>The MetaModel is a callable object that provides an EMA Workbench standard
 python interface, taking keyword arguments for parameters and returning a python
@@ -242,6 +242,7 @@ include names in <cite>disabled_outputs</cite> that are included in the columns
 of <cite>output_sample</cite>, although the principal use of this argument is to include
 names that are <em>not</em> included, as disabling outputs that are included will not
 prevent these values from being included in the computational process.</li>
+<li><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – A random state, passed to the created regression.</li>
 </ul>
 </td>
 </tr>

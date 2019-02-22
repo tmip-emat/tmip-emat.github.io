@@ -1161,7 +1161,7 @@
    ],
    "source": [
     "with SequentialEvaluator(m) as eval_seq:\n",
-    "    lhs_results = m.run_experiments(design='lhs', evaluator=eval_seq)\n",
+    "    lhs_results = m.run_experiments(design_name='lhs', evaluator=eval_seq)\n",
     "lhs_results.head()"
    ]
   },
@@ -1451,7 +1451,7 @@
    ],
    "source": [
     "with eval_dask:\n",
-    "    lhs_large_results = m.run_experiments(design='lhs_large', evaluator=eval_dask)\n",
+    "    lhs_large_results = m.run_experiments(design_name='lhs_large', evaluator=eval_dask)\n",
     "lhs_large_results.head()"
    ]
   },
@@ -6311,7 +6311,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "#### Compare Core vs Meta Model Results\n",
+    "### Compare Core vs Meta Model Results\n",
     "\n",
     "We can generate a variety of plots to compare the distribution of meta-model outcomes\n",
     "on the new design against the original model's results."

@@ -1162,7 +1162,7 @@
    ],
    "source": [
     "with SequentialEvaluator(m) as eval_seq:\n",
-    "    lhs_results = m.run_experiments(design='lhs', evaluator=eval_seq)\n",
+    "    lhs_results = m.run_experiments(design_name='lhs', evaluator=eval_seq)\n",
     "lhs_results.head()"
    ]
   },
@@ -1173,7 +1173,7 @@
    "outputs": [],
    "source": [
     "# with SequentialEvaluator(m) as eval_seq:\n",
-    "#     lhs_large_results = m.run_experiments(design='lhs_large', evaluator=eval_seq)\n",
+    "#     lhs_large_results = m.run_experiments(design_name='lhs_large', evaluator=eval_seq)\n",
     "# lhs_large_results.head()"
    ]
   },

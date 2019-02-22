@@ -10,6 +10,7 @@ Core Models
     abstract
     python_based
     excel
+    files
     gbnrtc
 
 
@@ -31,9 +32,14 @@ TMIP-EMAT can also be used with Excel-based models, using the
 
 .. rubric:: :doc:`Bespoke Models <gbnrtc>`
 
-Most advanced travel models can be set up to run programmatically.
+Most advanced travel models can be set up to run programmatically, generating
+a variety of performance measures to one or more arbitrarily defined files on
+disk.  TMIP-EMAT provides a :class:`FilesCoreModel` to serve as the starting
+point for developing model-specific implementations for custom models than can
+be operated in this manner.
+
 For example, the model for the Greater Buffalo-Niagara Regional Transportation Council
-is a TransCAD based model.  The :class:`GBNRTCModel <gbnrtc.GBNRTCModel>` is included in TMIP-EMAT as an example
+is a TransCAD based model.  The :class:`GBNRTCModel` is included in TMIP-EMAT as an example
 of how a more complex external travel demand model can be integrated into
 the TMIP-EMAT framework.
 

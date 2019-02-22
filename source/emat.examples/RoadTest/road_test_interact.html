@@ -1078,7 +1078,7 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">with</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">as</span> <span class="n">eval_seq</span><span class="p">:</span>
-    <span class="n">lhs_results</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">design</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">,</span> <span class="n">evaluator</span><span class="o">=</span><span class="n">eval_seq</span><span class="p">)</span>
+    <span class="n">lhs_results</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">,</span> <span class="n">evaluator</span><span class="o">=</span><span class="n">eval_seq</span><span class="p">)</span>
 <span class="n">lhs_results</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1285,7 +1285,7 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># with SequentialEvaluator(m) as eval_seq:</span>
-<span class="c1">#     lhs_large_results = m.run_experiments(design=&#39;lhs_large&#39;, evaluator=eval_seq)</span>
+<span class="c1">#     lhs_large_results = m.run_experiments(design_name=&#39;lhs_large&#39;, evaluator=eval_seq)</span>
 <span class="c1"># lhs_large_results.head()</span>
 </pre></div>
 </div>

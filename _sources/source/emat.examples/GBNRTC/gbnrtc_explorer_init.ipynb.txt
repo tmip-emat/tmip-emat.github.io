@@ -133,7 +133,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from emat.model.gbnrtc import GBNRTCModel"
+    "from emat.model import GBNRTCModel"
    ]
   },
   {
@@ -144,7 +144,7 @@
     {
      "data": {
       "text/plain": [
-       "<emat.model.gbnrtc.gbnrtc_model.GBNRTCModel at 0x1c262622e8>"
+       "<emat.model.GBNRTCModel at 0x1c262622e8>"
       ]
      },
      "execution_count": 8,

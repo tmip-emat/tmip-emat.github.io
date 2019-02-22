@@ -208,6 +208,8 @@
 <span class="sd">            of `output_sample`, although the principal use of this argument is to include</span>
 <span class="sd">            names that are *not* included, as disabling outputs that are included will not</span>
 <span class="sd">            prevent these values from being included in the computational process.</span>
+
+<span class="sd">        random_state (int, optional): A random state, passed to the created regression.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_metamodel_types</span> <span class="o">=</span> <span class="p">{</span>
@@ -221,7 +223,14 @@
         <span class="s1">&#39;logxp-linear&#39;</span><span class="p">:</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">x</span><span class="p">)),</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span><span class="p">)),</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_sample</span><span class="p">,</span> <span class="n">output_sample</span><span class="p">,</span> <span class="n">metamodel_types</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">disabled_outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">input_sample</span><span class="p">,</span>
+            <span class="n">output_sample</span><span class="p">,</span>
+            <span class="n">metamodel_types</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">disabled_outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_sample</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;input_sample must be DataFrame&#39;</span><span class="p">)</span>
@@ -272,7 +281,7 @@
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="n">v_func</span><span class="p">,</span><span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_transforms</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v_func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">regression</span> <span class="o">=</span> <span class="n">multitarget</span><span class="o">.</span><span class="n">DetrendedMultipleTargetRegression</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">regression</span> <span class="o">=</span> <span class="n">multitarget</span><span class="o">.</span><span class="n">DetrendedMultipleTargetRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_sample</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="p">)</span>
 
 <div class="viewcode-block" id="MetaModel.__call__"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>

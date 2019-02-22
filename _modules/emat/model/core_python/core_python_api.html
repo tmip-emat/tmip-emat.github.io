@@ -220,8 +220,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">xl_di</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">cd</span> <span class="o">=</span> <span class="kc">None</span>
-    
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">,</span>
                  <span class="n">configuration</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">Mapping</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -275,15 +274,17 @@
         <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;&lt;emat.PythonCoreModel &quot;</span><span class="si">{self.name}</span><span class="s1">&quot;</span><span class="si">{metamodel_tag}</span><span class="s1"> with {&quot;, &quot;.join(content)}&gt;&#39;</span>
 
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">setup</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xl_di</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xl_di</span> <span class="o">=</span> <span class="n">xl_di</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xl_di</span> <span class="o">=</span> <span class="n">params</span>
     
-    <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">get_ex_archive_path</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_ex_archive_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scp_name</span><span class="p">,</span> <span class="n">exp_id</span><span class="p">):</span>
+    <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">get_experiment_archive_path</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_experiment_archive_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Path is defined with scope name and experiment id &#39;&#39;&#39;</span>
-        <span class="n">mod_results_path</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span> <span class="o">+</span> 
-                            <span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">scp_</span><span class="si">{0}</span><span class="se">\\</span><span class="s2">exp_</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scp_name</span><span class="p">,</span> <span class="n">exp_id</span><span class="p">))</span>
-        
+        <span class="n">mod_results_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span><span class="p">,</span>
+            <span class="n">f</span><span class="s2">&quot;scp_</span><span class="si">{self.scope.name}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">f</span><span class="s2">&quot;exp_</span><span class="si">{experiment_id}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">mod_results_path</span>
 
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
@@ -291,16 +292,16 @@
         <span class="sd">&quot;&quot;&quot;Not used for PythonCoreModel objects.&quot;&quot;&quot;</span>
     
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">post_process</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xl_di</span><span class="p">,</span> <span class="n">m_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">measure_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Not used for PythonCoreModel objects.&quot;&quot;&quot;</span>
     
-    <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">import_meas</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">import_meas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">load_measures</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">load_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">measure_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">xl_di</span><span class="p">)</span>
 
         <span class="n">pm_dict</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">pm</span> <span class="ow">in</span> <span class="n">m_names</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">pm</span> <span class="ow">in</span> <span class="n">measure_names</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">pm</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;Measure </span><span class="si">{0}</span><span class="s1"> not supported&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pm</span><span class="p">))</span>
             <span class="n">pm_dict</span><span class="p">[</span><span class="n">pm</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">pm</span><span class="p">]</span>
@@ -308,14 +309,14 @@
         <span class="k">return</span> <span class="n">pm_dict</span>
 
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">archive</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xl</span><span class="p">,</span> <span class="n">mod_results_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model_results_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;archive only records experiment values&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">mod_results_path</span><span class="p">):</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">mod_results_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">)</span>
 
         <span class="c1"># record experiment definitions</span>
-        <span class="n">xl_df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">experiment_id</span><span class="p">])</span>
-        <span class="n">xl_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">mod_results_path</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;_def.csv&#39;</span><span class="p">)</span></div>
+        <span class="n">xl_df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">experiment_id</span><span class="p">])</span>
+        <span class="n">xl_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">model_results_path</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;_def.csv&#39;</span><span class="p">)</span></div>
 
 </pre></div>
 

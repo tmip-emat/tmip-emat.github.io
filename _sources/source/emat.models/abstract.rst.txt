@@ -14,7 +14,7 @@ Basic EMAT Model API
         run_experiments_from_design, run_experiments,
         robust_optimize, read_experiments,
         read_experiment_parameters, read_experiment_measures,
-        import_meas, post_process, get_ex_archive_path, archive,
+        load_measures, post_process, get_experiment_archive_path, archive,
         ensure_dtypes, get_feature_scores, design_experiments
 
 
@@ -27,9 +27,9 @@ for each of these methods.
 
 .. automethod:: AbstractCoreModel.setup
 .. automethod:: AbstractCoreModel.run
-.. automethod:: AbstractCoreModel.import_meas
+.. automethod:: AbstractCoreModel.load_measures
 .. automethod:: AbstractCoreModel.post_process
-.. automethod:: AbstractCoreModel.get_ex_archive_path
+.. automethod:: AbstractCoreModel.get_experiment_archive_path
 .. automethod:: AbstractCoreModel.archive
 
 

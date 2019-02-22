@@ -1,0 +1,484 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>emat.model.core_files.core_files &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/emat.install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>emat.model.core_files.core_files</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for emat.model.core_files.core_files</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Callable</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="n">copyfile</span><span class="p">,</span> <span class="n">copy</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">...model.core_model</span> <span class="k">import</span> <span class="n">AbstractCoreModel</span>
+<span class="kn">from</span> <span class="nn">...scope.scope</span> <span class="k">import</span> <span class="n">Scope</span>
+<span class="kn">from</span> <span class="nn">...database.database</span> <span class="k">import</span> <span class="n">Database</span>
+<span class="kn">from</span> <span class="nn">...util.loggers</span> <span class="k">import</span> <span class="n">get_module_logger</span>
+<span class="kn">from</span> <span class="nn">...util.docstrings</span> <span class="k">import</span> <span class="n">copydoc</span>
+<span class="kn">from</span> <span class="nn">...exceptions</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.parsers</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">_logger</span> <span class="o">=</span> <span class="n">get_module_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+
+<span class="k">def</span> <span class="nf">copy_model_outputs_1</span><span class="p">(</span>
+		<span class="n">local_model</span><span class="p">,</span>
+		<span class="n">remote_repository</span><span class="p">,</span>
+		<span class="n">file</span>
+<span class="p">):</span>
+	<span class="n">copyfile</span><span class="p">(</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">local_model</span><span class="p">,</span> <span class="s2">&quot;Outputs&quot;</span><span class="p">,</span> <span class="n">file</span><span class="p">),</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remote_repository</span><span class="p">,</span> <span class="s2">&quot;Outputs&quot;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+	<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">copy_model_outputs_ext</span><span class="p">(</span>
+		<span class="n">local_model</span><span class="p">,</span>
+		<span class="n">remote_repository</span><span class="p">,</span>
+		<span class="n">basename</span><span class="p">,</span>
+		<span class="n">ext</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;.bin&#39;</span><span class="p">,</span> <span class="s1">&#39;.dcb&#39;</span><span class="p">)</span>
+<span class="p">):</span>
+	<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ext</span><span class="p">:</span>
+		<span class="n">copy_model_outputs_1</span><span class="p">(</span>
+			<span class="n">local_model</span><span class="p">,</span>
+			<span class="n">remote_repository</span><span class="p">,</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">basename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span>
+		<span class="p">)</span>
+
+<span class="n">ALL</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="FilesCoreModel"><a class="viewcode-back" href="../../../../source/emat.models/files.html#emat.model.FilesCoreModel">[docs]</a><span class="k">class</span> <span class="nc">FilesCoreModel</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Setup connections and paths to a file reading core model</span>
+
+<span class="sd">	Args:</span>
+<span class="sd">		configuration:</span>
+<span class="sd">			The configuration for this</span>
+<span class="sd">			core model. This can be passed as a dict, or as a str</span>
+<span class="sd">			which gives the filename of a YAML file that will be</span>
+<span class="sd">			loaded.</span>
+<span class="sd">		scope:</span>
+<span class="sd">			The exploration scope, as a Scope object or as</span>
+<span class="sd">			a str which gives the filename of a YAML file that will be</span>
+<span class="sd">			loaded.</span>
+<span class="sd">		safe:</span>
+<span class="sd">			Load the configuration YAML file in &#39;safe&#39; mode.</span>
+<span class="sd">			This can be disabled if the configuration requires</span>
+<span class="sd">			custom Python types or is otherwise not compatible with</span>
+<span class="sd">			safe mode. Loading configuration files with safe mode</span>
+<span class="sd">			off is not secure and should not be done with files from</span>
+<span class="sd">			untrusted sources.</span>
+<span class="sd">		db:</span>
+<span class="sd">			An optional Database to store experiments and results.</span>
+<span class="sd">		name:</span>
+<span class="sd">			A name for this model, given as an alphanumeric string.</span>
+<span class="sd">			The name is required by ema_workbench operations.</span>
+<span class="sd">			If not given, &quot;FilesCoreModel&quot; is used.</span>
+
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+				 <span class="n">configuration</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">],</span>
+				 <span class="n">scope</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Scope</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+				 <span class="n">safe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+				 <span class="n">db</span><span class="p">:</span> <span class="n">Database</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+				 <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;FilesCoreModel&#39;</span><span class="p">,</span>
+				 <span class="p">):</span>
+		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+			<span class="n">configuration</span><span class="o">=</span><span class="n">configuration</span><span class="p">,</span>
+			<span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span>
+			<span class="n">safe</span><span class="o">=</span><span class="n">safe</span><span class="p">,</span>
+			<span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span>
+			<span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+			<span class="n">metamodel_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+		<span class="p">)</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model_path&#39;</span><span class="p">]</span>
+		<span class="sd">&quot;&quot;&quot;Path: The directory of the &#39;live&#39; model instance.&quot;&quot;&quot;</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model_archive&#39;</span><span class="p">]</span>
+		<span class="sd">&quot;&quot;&quot;Path: The directory where archived models are stored.&quot;&quot;&quot;</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">allow_short_circuit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allow_short_circuit&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+		<span class="sd">&quot;&quot;&quot;Bool: Allow model runs to be skipped if measures already appear in the database.&quot;&quot;&quot;</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">_parsers</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="FilesCoreModel.add_parser"><a class="viewcode-back" href="../../../../source/emat.models/files.html#emat.model.FilesCoreModel.add_parser">[docs]</a>	<span class="k">def</span> <span class="nf">add_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Add a FileParser to extract performance measures.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			parser (FileParser): The parser to add.</span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">FileParser</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;parser must be an instance of FileParser&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_parsers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span></div>
+
+	<span class="k">def</span> <span class="nf">model_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span>
+		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">model_init</span><span class="p">(</span><span class="n">policy</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">run_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scenario</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Runs an experiment through core model.</span>
+
+<span class="sd">		This method overloads the `run_model` method given in</span>
+<span class="sd">		the EMA Workbench, and provides the correct execution</span>
+<span class="sd">		of the GBNRTC model within that framework.</span>
+
+<span class="sd">		For each experiment, the core model is called to:</span>
+
+<span class="sd">			1. set experiment variables</span>
+<span class="sd">			2. run the experiment</span>
+<span class="sd">			3. run post-processors associated with specified</span>
+<span class="sd">			   performance measures</span>
+<span class="sd">			4. (optionally) archive model outputs</span>
+<span class="sd">			5. record performance measures to database</span>
+
+<span class="sd">		Note that this method does *not* return any outcomes.</span>
+<span class="sd">		Outcomes are instead written into self.outcomes_output,</span>
+<span class="sd">		and can be retrieved from there.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			scenario (Scenario): A dict-like object that</span>
+<span class="sd">				has key-value pairs for each uncertainty.</span>
+<span class="sd">			policy (Policy): A dict-like object that</span>
+<span class="sd">				has key-value pairs for each lever.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			UserWarning: If there are no experiments associated with</span>
+<span class="sd">				this type.</span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;run_core_model read_experiment_parameters&quot;</span><span class="p">)</span>
+
+		<span class="n">experiment_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">read_experiment_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scenario</span><span class="p">,</span> <span class="n">policy</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">experiment_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_short_circuit</span><span class="p">:</span>
+			<span class="c1"># opportunity to short-circuit run by loading pre-computed values.</span>
+			<span class="n">precomputed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">read_experiment_measures</span><span class="p">(</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+				<span class="n">design</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+				<span class="n">experiment_id</span><span class="o">=</span><span class="n">experiment_id</span><span class="p">,</span>
+			<span class="p">)</span>
+			<span class="k">if</span> <span class="ow">not</span> <span class="n">precomputed</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">outcomes_output</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">precomputed</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+				<span class="k">return</span>
+
+		<span class="k">if</span> <span class="n">experiment_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">experiment_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">write_experiment_parameters_1</span><span class="p">(</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;ad hoc&#39;</span><span class="p">,</span> <span class="n">scenario</span><span class="p">,</span> <span class="n">policy</span>
+			<span class="p">)</span>
+
+		<span class="n">xl</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="n">xl</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">scenario</span><span class="p">)</span>
+		<span class="n">xl</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">policy</span><span class="p">)</span>
+
+		<span class="n">m_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">()</span>
+
+		<span class="n">m_out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+		<span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;run_core_model setup </span><span class="si">{experiment_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">xl</span><span class="p">)</span>
+
+		<span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;run_core_model run </span><span class="si">{experiment_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+		<span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;run_core_model post_process </span><span class="si">{experiment_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">m_names</span><span class="p">)</span>
+
+		<span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;run_core_model wrap up </span><span class="si">{experiment_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="n">measures_dictionary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_measures</span><span class="p">(</span><span class="n">m_names</span><span class="p">)</span>
+		<span class="n">m_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">measures_dictionary</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">experiment_id</span><span class="p">])</span>
+
+		<span class="c1"># Assign to outcomes_output, for ema_workbench compatibility</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">outcomes_output</span> <span class="o">=</span> <span class="n">measures_dictionary</span>
+
+		<span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;run_core_model write db </span><span class="si">{experiment_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">write_experiment_measures</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metamodel_id</span><span class="p">,</span> <span class="n">m_df</span><span class="p">)</span>
+
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">archive_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_experiment_archive_path</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span>
+		<span class="k">except</span> <span class="n">MissingArchivePathError</span><span class="p">:</span>
+			<span class="k">pass</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;run_core_model archive </span><span class="si">{experiment_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">archive</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">archive_path</span><span class="p">)</span>
+
+	<span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">get_experiment_archive_path</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">get_experiment_archive_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="n">MissingArchivePathError</span><span class="p">(</span><span class="s1">&#39;no archive set for this core model&#39;</span><span class="p">)</span>
+		<span class="n">mod_results_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span><span class="p">,</span>
+			<span class="n">f</span><span class="s2">&quot;scp_</span><span class="si">{self.scope.name}</span><span class="s2">&quot;</span><span class="p">,</span>
+			<span class="n">f</span><span class="s2">&quot;exp_</span><span class="si">{experiment_id}</span><span class="s2">&quot;</span>
+		<span class="p">)</span>
+		<span class="k">return</span> <span class="n">mod_results_path</span>
+
+	<span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+		<span class="c1"># TODO: Make directory structure.  Subclass will fill it.</span>
+		<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+<div class="viewcode-block" id="FilesCoreModel.load_measures"><a class="viewcode-back" href="../../../../source/emat.models/files.html#emat.model.FilesCoreModel.load_measures">[docs]</a>	<span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">load_measures</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">load_measures</span><span class="p">(</span>
+			<span class="bp">self</span><span class="p">,</span>
+			<span class="n">measure_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+			<span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+	<span class="p">):</span>
+
+		<span class="k">if</span> <span class="n">output_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">output_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_path</span><span class="p">,</span> <span class="s2">&quot;Outputs&quot;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">output_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;Outputs&quot;</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">output_path</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">NotADirectoryError</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">measure_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">is_requested</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="kc">True</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">requested_measure_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">measure_names</span><span class="p">)</span>
+			<span class="n">is_requested</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">requested_measure_names</span>
+
+		<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+		<span class="k">for</span> <span class="n">parser</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parsers</span><span class="p">:</span>
+			<span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">is_requested</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">measure_names</span><span class="p">):</span>
+				<span class="n">measures</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+				<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">measures</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+					<span class="k">if</span> <span class="n">is_requested</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+						<span class="n">results</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+		<span class="k">return</span> <span class="n">results</span></div>
+
+<div class="viewcode-block" id="FilesCoreModel.load_archived_measures"><a class="viewcode-back" href="../../../../source/emat.models/files.html#emat.model.FilesCoreModel.load_archived_measures">[docs]</a>	<span class="k">def</span> <span class="nf">load_archived_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">measure_names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Load performance measures from an archived model run.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			experiment_id (int): The id for the experiment to load.</span>
+<span class="sd">			measure_names (Collection, optional): A subset of</span>
+<span class="sd">				performance measure names to load.  If not provided,</span>
+<span class="sd">				all measures will be loaded.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_measures</span><span class="p">(</span>
+			<span class="n">measure_names</span><span class="p">,</span>
+			<span class="n">output_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_experiment_archive_path</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span>
+		<span class="p">)</span></div>
+
+	<span class="k">def</span> <span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model_results_path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+	<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+	<span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">measure_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

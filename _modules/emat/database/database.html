@@ -461,15 +461,26 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Database.read_experiment_ids"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_ids">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_experiment_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">design_name</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;A list of all experiments ids for a given scope.</span>
+    <span class="k">def</span> <span class="nf">read_experiment_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">design_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">xl_df</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Read the experiment ids previously defined in the database</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
 <span class="sd">                performance measures, and results associated with this run</span>
-<span class="sd">            design_name (str, optional): If given, only return experiment ids</span>
-<span class="sd">                within this named experimental design.</span>
+<span class="sd">            design_name (str or None): experiment design name.  Set to None</span>
+<span class="sd">                to find experiments across all designs.</span>
+<span class="sd">            xl_df (pandas.DataFrame): columns are experiment parameters,</span>
+<span class="sd">                each row is a full experiment</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: the experiment id&#39;s of the identified experiments</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If scope name does not exist</span>
+<span class="sd">            ValueError: If multiple experiments match an experiment definition.</span>
+<span class="sd">                This can happen, for example, if the definition is incomplete.</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
+
 
 <div class="viewcode-block" id="Database.read_uncertainties"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_uncertainties">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">read_uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
