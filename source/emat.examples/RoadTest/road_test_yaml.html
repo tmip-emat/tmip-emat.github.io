@@ -83,7 +83,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../emat.intro.html">Introduction to EMAT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../emat.install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../emat.scope/index.html">Exploratory Scoping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../emat.metamodels.html">Meta-Models</a></li>
@@ -172,6 +172,11 @@
 
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
 }
 </style>
 <div class="admonition warning">
@@ -432,157 +437,157 @@ example, the scope is given by:</p>
 156</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="c1"># EMAT Road Test Scope Definition</span>
 
-<span class="nt">scope</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">EMAT Road Test</span>
-    <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">prototype run</span>
+<span class="l l-Scalar l-Scalar-Plain">scope</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">EMAT Road Test</span>
+    <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">prototype run</span>
 
 
-<span class="nt">inputs</span><span class="p">:</span>
+<span class="l l-Scalar l-Scalar-Plain">inputs</span><span class="p p-Indicator">:</span>
 
-    <span class="nt">free_flow_time</span><span class="p">:</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Free flow travel time on road segment</span>
-        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60</span>
-        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+    <span class="l l-Scalar l-Scalar-Plain">free_flow_time</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Free flow travel time on road segment</span>
+        <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">60</span>
+        <span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+        <span class="l l-Scalar l-Scalar-Plain">corr</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
 
-    <span class="nt">initial_capacity</span><span class="p">:</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Initial capacity on road segment</span>
-        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
-        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+    <span class="l l-Scalar l-Scalar-Plain">initial_capacity</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Initial capacity on road segment</span>
+        <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+        <span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+        <span class="l l-Scalar l-Scalar-Plain">corr</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
 
-    <span class="nt">alpha</span><span class="p">:</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">BPR Alpha parameter</span>
-        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.15</span>
-        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.10</span>
-        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.20</span>
-        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
-        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+    <span class="l l-Scalar l-Scalar-Plain">alpha</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">BPR Alpha parameter</span>
+        <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.15</span>
+        <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.10</span>
+        <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.20</span>
+        <span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="l l-Scalar l-Scalar-Plain">corr</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
 
-    <span class="nt">beta</span><span class="p">:</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">BPR Beta parameter</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4.0</span>
-        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3.5</span>
-        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5.5</span>
-        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
-        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+    <span class="l l-Scalar l-Scalar-Plain">beta</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">BPR Beta parameter</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">4.0</span>
+        <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">3.5</span>
+        <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">5.5</span>
+        <span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="l l-Scalar l-Scalar-Plain">corr</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
 
-    <span class="nt">input_flow</span><span class="p">:</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Average Flow input on link</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
-        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
-        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">150</span>
-        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
-        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+    <span class="l l-Scalar l-Scalar-Plain">input_flow</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Average Flow input on link</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+        <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+        <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">150</span>
+        <span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="l l-Scalar l-Scalar-Plain">corr</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
 
-    <span class="nt">value_of_time</span><span class="p">:</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Value of a unit of travel time savings per person</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.01</span>
-        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.001</span>
-        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.08</span>
-        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
-        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+    <span class="l l-Scalar l-Scalar-Plain">value_of_time</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Value of a unit of travel time savings per person</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.01</span>
+        <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.001</span>
+        <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.08</span>
+        <span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="l l-Scalar l-Scalar-Plain">corr</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
 
-    <span class="nt">unit_cost_expansion</span><span class="p">:</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Per unit cost of capacity expansion</span>
-        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
-        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">95</span>
-        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">145</span>
-        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
-        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+    <span class="l l-Scalar l-Scalar-Plain">unit_cost_expansion</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Per unit cost of capacity expansion</span>
+        <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+        <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">95</span>
+        <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">145</span>
+        <span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="l l-Scalar l-Scalar-Plain">corr</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
 
-    <span class="nt">expand_capacity</span><span class="p">:</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">policy lever</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">How much to expand capacity</span>
-        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0</span>
-        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
-        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="l l-Scalar l-Scalar-Plain">expand_capacity</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">policy lever</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">How much to expand capacity</span>
+        <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0</span>
+        <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+        <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
 
-    <span class="nt">amortization_period</span><span class="p">:</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">policy lever</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Time period over which the investment is amortized</span>
-        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">30</span>
-        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15</span>
-        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
+    <span class="l l-Scalar l-Scalar-Plain">amortization_period</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">policy lever</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Time period over which the investment is amortized</span>
+        <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">30</span>
+        <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">15</span>
+        <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
 
-    <span class="nt">debt_type</span><span class="p">:</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Type of financing</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">policy lever</span>
-        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cat</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GO Bond</span>
-        <span class="nt">values</span><span class="p">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">debt_type</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Type of financing</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">policy lever</span>
+        <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">cat</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">GO Bond</span>
+        <span class="l l-Scalar l-Scalar-Plain">values</span><span class="p p-Indicator">:</span>
             <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">GO Bond</span>
             <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Rev Bond</span>
             <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Paygo</span>
 
-    <span class="nt">interest_rate_lock</span><span class="p">:</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">policy lever</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Whether to lock in present interest rates of 0.03 (15 year) to 0.04 (50 years)</span>
-        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bool</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">False</span>
+    <span class="l l-Scalar l-Scalar-Plain">interest_rate_lock</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">policy lever</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Whether to lock in present interest rates of 0.03 (15 year) to 0.04 (50 years)</span>
+        <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">bool</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">False</span>
 
-    <span class="nt">interest_rate</span><span class="p">:</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Interest rate for investment amortization in 15 years</span>
-        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.03</span>
-        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.025</span>
-        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.04</span>
-        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
-        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+    <span class="l l-Scalar l-Scalar-Plain">interest_rate</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Interest rate for investment amortization in 15 years</span>
+        <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.03</span>
+        <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.025</span>
+        <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.04</span>
+        <span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="l l-Scalar l-Scalar-Plain">corr</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
 
-    <span class="nt">yield_curve</span><span class="p">:</span>
-        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Excess interest rate for investment amortization in 50 years</span>
-        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
-        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.01</span>
-        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">-0.0025</span>
-        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.02</span>
-        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
-        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+    <span class="l l-Scalar l-Scalar-Plain">yield_curve</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Excess interest rate for investment amortization in 50 years</span>
+        <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.01</span>
+        <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">-0.0025</span>
+        <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.02</span>
+        <span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="l l-Scalar l-Scalar-Plain">corr</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[]</span>
 
 
-<span class="nt">outputs</span><span class="p">:</span>
+<span class="l l-Scalar l-Scalar-Plain">outputs</span><span class="p p-Indicator">:</span>
 
-    <span class="nt">no_build_travel_time</span><span class="p">:</span>
-        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">info</span>
-        <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">logxp-linear(-59)</span>
+    <span class="l l-Scalar l-Scalar-Plain">no_build_travel_time</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">kind</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">info</span>
+        <span class="l l-Scalar l-Scalar-Plain">metamodeltype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">logxp-linear(-59)</span>
 
-    <span class="nt">build_travel_time</span><span class="p">:</span>
-        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-        <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">logxp-linear(-59)</span>
+    <span class="l l-Scalar l-Scalar-Plain">build_travel_time</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">kind</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
+        <span class="l l-Scalar l-Scalar-Plain">metamodeltype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">logxp-linear(-59)</span>
 
-    <span class="nt">time_savings</span><span class="p">:</span>
-        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">maximize</span>
-        <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log-linear</span>
+    <span class="l l-Scalar l-Scalar-Plain">time_savings</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">kind</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">maximize</span>
+        <span class="l l-Scalar l-Scalar-Plain">metamodeltype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">log-linear</span>
 
-    <span class="nt">value_of_time_savings</span><span class="p">:</span>
-        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">maximize</span>
-        <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log-linear</span>
+    <span class="l l-Scalar l-Scalar-Plain">value_of_time_savings</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">kind</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">maximize</span>
+        <span class="l l-Scalar l-Scalar-Plain">metamodeltype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">log-linear</span>
 
-    <span class="nt">net_benefits</span><span class="p">:</span>
-        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">maximize</span>
+    <span class="l l-Scalar l-Scalar-Plain">net_benefits</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">kind</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">maximize</span>
 
-    <span class="nt">cost_of_capacity_expansion</span><span class="p">:</span>
-        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-        <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log-linear</span>
+    <span class="l l-Scalar l-Scalar-Plain">cost_of_capacity_expansion</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">kind</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
+        <span class="l l-Scalar l-Scalar-Plain">metamodeltype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">log-linear</span>
 
-    <span class="nt">present_cost_expansion</span><span class="p">:</span>
-        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">info</span>
-        <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log-linear</span>
+    <span class="l l-Scalar l-Scalar-Plain">present_cost_expansion</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">kind</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">info</span>
+        <span class="l l-Scalar l-Scalar-Plain">metamodeltype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">log-linear</span>
 
 <span class="nn">...</span>
 </pre></div>
@@ -621,7 +626,17 @@ example, the scope is given by:</p>
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'0.1.1, February 2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>

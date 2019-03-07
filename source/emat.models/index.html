@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Basic EMAT Model API" href="abstract.html" />
-    <link rel="prev" title="Boxes" href="../emat.scope/boxes.html" /> 
+    <link rel="prev" title="Scope File" href="../emat.scope/scope.file.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -85,7 +85,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Core Models</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="abstract.html">Basic EMAT Model API</a></li>
@@ -182,6 +182,11 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -230,7 +235,7 @@ the TMIP-EMAT framework.</p>
         <a href="abstract.html" class="btn btn-neutral float-right" title="Basic EMAT Model API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../emat.scope/boxes.html" class="btn btn-neutral" title="Boxes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../emat.scope/scope.file.html" class="btn btn-neutral" title="Scope File" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -259,7 +264,17 @@ the TMIP-EMAT framework.</p>
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'0.1.1, February 2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>

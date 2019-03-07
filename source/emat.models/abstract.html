@@ -85,7 +85,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Core Models</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Basic EMAT Model API</a><ul>
@@ -189,6 +189,11 @@
 
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
 }
 </style>
 <div class="admonition warning">
@@ -317,9 +322,6 @@ implementation only sets the outputs to an empty dict.</p>
 <dt id="emat.model.AbstractCoreModel.run_model">
 <code class="descname">run_model</code><span class="sig-paren">(</span><em>scenario</em>, <em>policy</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.model.AbstractCoreModel.run_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method for running an instantiated model structure.</p>
-<p>Note that this method does <em>not</em> return any outcomes.
-Derived classes should write the resulting outcomes into
-self.outcomes_output instead of returning them directly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -903,7 +905,17 @@ returns a dictionary of (measure name: value) pairs.</p>
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'0.1.1, February 2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>

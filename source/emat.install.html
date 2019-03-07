@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  <title>Installation and Configuration &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
   
 
   
@@ -85,7 +85,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="emat.intro.html">Introduction to EMAT</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="emat.scope/index.html">Exploratory Scoping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="emat.metamodels.html">Meta-Models</a></li>
@@ -138,7 +138,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Installation</li>
+      <li>Installation and Configuration</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -175,6 +175,11 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -185,8 +190,9 @@ in future releases of TMIP-EMAT.</p>
 represent the opinions of FHWA, and do not constitute an endorsement, 
 recommendation, or specification by FHWA.</p>
 </div>
-<div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation-and-configuration">
+<h1>Installation and Configuration<a class="headerlink" href="#installation-and-configuration" title="Permalink to this headline">¶</a></h1>
+<p><strong>Installation</strong></p>
 <p>Installation of TMIP-EMAT is currently a manual process.</p>
 <p>Instructions for installing via <a class="reference external" href="https://www.anaconda.com/download">Anaconda</a>
 will be published here when that installation path is available.</p>
@@ -197,6 +203,16 @@ but only through the end of 2019.  From 2020 on,
 <a class="reference external" href="https://python3statement.org">only Python 3 will be supported</a>.
 TMIP-EMAT is compatible <em>only</em> with version 3.6 or later.</p>
 </div>
+<p><strong>Core Model Configuration</strong></p>
+<p>Depending on the particular model being used, a core model configuration file
+may be necessary to define the folder locations, paths to executables and
+other necessary information about the core model installation on the local
+system. The actual contents of this file will be determined by the requirements
+of the core model. The file is loaded when the core model is initialized.</p>
+<p>For an example of a configuration file in use, see the <a class="reference internal" href="emat.examples/index.html#gbnrtc-example-model"><span class="std std-ref">GBNRTC example model</span></a></p>
+<p>Each TMIP-EMAT deployment will have a single core model configuration file.
+Settings that are specific to a particular application are defined in the Scope
+File.</p>
 </div>
 
 
@@ -239,7 +255,17 @@ TMIP-EMAT is compatible <em>only</em> with version 3.6 or later.</p>
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'0.1.1, February 2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>

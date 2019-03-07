@@ -1,0 +1,391 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Scope File &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Core Models" href="../emat.models/index.html" />
+    <link rel="prev" title="Boxes" href="boxes.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Exploratory Scoping</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scope.html">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameters.html">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="measures.html">Performance Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boxes.html">Boxes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Scope File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scope-name-and-description">Scope Name and Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inputs">Inputs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#uncertainties">Uncertainties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#levers">Levers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#constants">Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#outputs">Outputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Exploratory Scoping</a> &raquo;</li>
+        
+      <li>Scope File</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/source/emat.scope/scope.file.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
+documented are shown for illustration and are not guaranteed to be stable 
+in future releases of TMIP-EMAT.</p>
+<p class="last">The views expressed in this draft documentation do not necessarily 
+represent the opinions of FHWA, and do not constitute an endorsement, 
+recommendation, or specification by FHWA.</p>
+</div>
+<div class="section" id="scope-file">
+<h1>Scope File<a class="headerlink" href="#scope-file" title="Permalink to this headline">¶</a></h1>
+<p>The Scope File is where the scope is defined for the analysis. The file is
+implemented in YAML and contains the selected model inputs (uncertainties, levers) and
+and outputs (measures) for the analysis and the necessary meta-data on each. The scope
+file is used when initializing an EMAT Scope.</p>
+<div class="section" id="scope-name-and-description">
+<h2>Scope Name and Description<a class="headerlink" href="#scope-name-and-description" title="Permalink to this headline">¶</a></h2>
+<p>Each scope file begins with a <strong>scope:</strong> section that defines the name and description of the
+scope. Both the <strong>name:</strong> and <strong>desc:</strong> are input as strings, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scope</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">EMAT</span> <span class="n">demo</span> <span class="n">test</span>
+    <span class="n">desc</span><span class="p">:</span> <span class="n">A</span> <span class="n">demo</span> <span class="n">test</span> <span class="n">to</span> <span class="n">fall</span> <span class="ow">in</span> <span class="n">love</span> <span class="k">with</span> <span class="n">EMAT</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="inputs">
+<h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>inputs:</strong> section contains the scoped inputs including uncertainties, levers, and
+constants that are to be set in the core model. Depending on the input types, there are
+slightly different parameters to be set.</p>
+<p>For a full set of input options, see the <a class="reference internal" href="parameters.html#input-parameters"><span class="std std-ref">Parameters</span></a> documentation.</p>
+<p>All inputs are defined by a string name and <strong>ptype:</strong> set where the name is a string value
+and the parameter is either <em>uncertainty</em>, <em>lever</em>, or <em>constant</em>.</p>
+<div class="section" id="uncertainties">
+<h3>Uncertainties<a class="headerlink" href="#uncertainties" title="Permalink to this headline">¶</a></h3>
+<p>Uncertainties are defined by the range or categories of values, and the distribution shape and
+parameters across the range. Correlations may also be defined between multiple uncertainty measures.</p>
+<p>An example uncertainty input is below. This example implements an uncertainty variable with a
+range between 0.82 and 1.37 with a PERT distribution shaped by a relative peak at 33% and a
+gamma value of 4. There is no correlation between the distribution of this uncertainty variable
+and other variables in the scope. For testing purposes, the default value of this variable is 1.0.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Uncertainty</span> <span class="n">Variable</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">ptype</span><span class="p">:</span> <span class="n">uncertainty</span>
+    <span class="n">desc</span><span class="p">:</span> <span class="n">A</span> <span class="n">test</span> <span class="n">uncertainty</span> <span class="n">variable</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">default</span><span class="p">:</span> <span class="mf">1.0</span>
+    <span class="nb">min</span><span class="p">:</span> <span class="mf">0.82</span>
+    <span class="nb">max</span><span class="p">:</span> <span class="mf">1.37</span>
+    <span class="n">dist</span><span class="p">:</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">pert</span>
+        <span class="n">rel_peak</span><span class="p">:</span> <span class="mf">0.33</span>
+        <span class="n">gamma</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="n">corr</span><span class="p">:</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="levers">
+<h3>Levers<a class="headerlink" href="#levers" title="Permalink to this headline">¶</a></h3>
+<p>Levers differ from Uncertainties as inputs because they do not have a distribution per se,
+rather levers are set in a deterministic fashion. However, it is still important for the analysis
+that scenarios are tested with levers in all possible positions.</p>
+<p>Three example lever definitions are shown below. The first has a simple boolean value, the second has
+several categorical values, and the third has a continuous value.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">boolean</span> <span class="n">lever</span><span class="p">:</span>
+    <span class="n">ptype</span><span class="p">:</span> <span class="n">policy</span> <span class="n">lever</span>
+    <span class="n">desc</span><span class="p">:</span> <span class="n">Example</span> <span class="n">boolean</span> <span class="n">lever</span> <span class="nb">input</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">default</span><span class="p">:</span> <span class="kc">False</span>
+
+<span class="n">categorical</span> <span class="n">lever</span><span class="p">:</span>
+    <span class="n">ptype</span><span class="p">:</span> <span class="n">policy</span> <span class="n">lever</span>
+    <span class="n">desc</span><span class="p">:</span> <span class="n">Example</span> <span class="n">lever</span> <span class="k">with</span> <span class="n">categorical</span> <span class="n">value</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="n">cat</span>
+    <span class="n">default</span><span class="p">:</span> <span class="n">category</span> <span class="mi">1</span>
+    <span class="n">values</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">category</span> <span class="mi">1</span>
+        <span class="o">-</span> <span class="n">category</span> <span class="mi">2</span>
+        <span class="o">-</span> <span class="n">category</span> <span class="mi">3</span>
+
+<span class="n">continuous</span> <span class="n">value</span> <span class="n">lever</span><span class="p">:</span>
+    <span class="n">ptype</span><span class="p">:</span> <span class="n">policy</span> <span class="n">lever</span>
+    <span class="n">desc</span><span class="p">:</span> <span class="n">Example</span> <span class="n">lever</span> <span class="k">with</span> <span class="n">a</span> <span class="n">continuous</span> <span class="n">value</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">default</span><span class="p">:</span> <span class="mi">30</span>
+    <span class="nb">min</span><span class="p">:</span> <span class="mi">15</span>
+    <span class="nb">max</span><span class="p">:</span> <span class="mi">50</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="constants">
+<h3>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h3>
+<p>Constants are inputs with a fixed value in the analysis. This input option is provided to allow the
+modeler to fix a set of inputs. This may also be useful as a placeholder in the scoping file. Note
+that both the ptype and the dist need to be set to ‘constant’ in the definition.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">constant</span> <span class="nb">input</span><span class="p">:</span>
+    <span class="n">ptype</span><span class="p">:</span> <span class="n">constant</span>
+    <span class="n">desc</span><span class="p">:</span> <span class="n">Example</span> <span class="n">constant</span> <span class="nb">input</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">default</span><span class="p">:</span> <span class="mi">60</span>
+    <span class="n">dist</span><span class="p">:</span> <span class="n">constant</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="outputs">
+<h2>Outputs<a class="headerlink" href="#outputs" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>outputs:</strong> section of the scoping file lists all the measures to be captured from the core model.
+Each output is declared individually along with information about any transportation that should be
+taken in development of the meta-model and how the output should be treated in the automated analysis,
+for example with <a class="reference external" href="https://github.com/quaquel/EMAworkbench/tree/v2">EMA Workbench</a>.</p>
+<p>For a full set of output options, see the <a class="reference internal" href="measures.html#output-measures"><span class="std std-ref">Measures</span></a> documentation.</p>
+<p>The example output below shows an output measure that has a log transformation (the meta-model will
+estimation the log value of this measure) and the measure should be minimized in an automated analysis.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Example</span> <span class="n">output</span> <span class="n">measure</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">transform</span><span class="p">:</span> <span class="n">log</span>
+    <span class="n">kind</span><span class="p">:</span> <span class="n">minimize</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../emat.models/index.html" class="btn btn-neutral float-right" title="Core Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="boxes.html" class="btn btn-neutral" title="Boxes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'0.1.1, February 2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

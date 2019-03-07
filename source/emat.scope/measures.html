@@ -85,12 +85,13 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Exploratory Scoping</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="scope.html">Scope</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parameters.html">Parameters</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Performance Measures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="boxes.html">Boxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scope.file.html">Scope File</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
@@ -183,6 +184,11 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -194,7 +200,7 @@ represent the opinions of FHWA, and do not constitute an endorsement,
 recommendation, or specification by FHWA.</p>
 </div>
 <div class="section" id="performance-measures">
-<h1>Performance Measures<a class="headerlink" href="#performance-measures" title="Permalink to this headline">¶</a></h1>
+<span id="output-measures"></span><h1>Performance Measures<a class="headerlink" href="#performance-measures" title="Permalink to this headline">¶</a></h1>
 <p>A <a class="reference internal" href="#emat.Measure" title="emat.Measure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Measure</span></code></a> is used to provide scoping information for
 a single model output.</p>
 <dl class="class">
@@ -236,29 +242,13 @@ as a <cite>str</cite>.</li>
 <dl class="attribute">
 <dt id="emat.Measure.name">
 <code class="descname">name</code><a class="headerlink" href="#emat.Measure.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Name of the measure.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>str</em> – Name of the measure.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Measure.kind">
 <code class="descname">kind</code><a class="headerlink" href="#emat.Measure.kind" title="Permalink to this definition">¶</a></dt>
-<dd><p>{MINIMIZE, MAXIMIZE, INFO}</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>int</em> – {MINIMIZE, MAXIMIZE, INFO}</p>
 </dd></dl>
 
 </dd></dl>
@@ -305,7 +295,17 @@ as a <cite>str</cite>.</li>
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'0.1.1, February 2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>

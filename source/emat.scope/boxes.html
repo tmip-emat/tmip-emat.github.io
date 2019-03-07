@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Core Models" href="../emat.models/index.html" />
+    <link rel="next" title="Scope File" href="scope.file.html" />
     <link rel="prev" title="Performance Measures" href="measures.html" /> 
 
   
@@ -85,7 +85,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Exploratory Scoping</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="scope.html">Scope</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parameters.html">Parameters</a></li>
@@ -96,6 +96,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#chainedbox">ChainedBox</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="scope.file.html">Scope File</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
@@ -188,6 +189,11 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -242,93 +248,45 @@ each feature.</li>
 <dl class="attribute">
 <dt id="emat.Box.thresholds">
 <code class="descname">thresholds</code><a class="headerlink" href="#emat.Box.thresholds" title="Permalink to this definition">¶</a></dt>
-<dd><p>The restricted dimensions in this Box, with feature names as
+<dd><p><em>Dict[str,Union[Bounds,Set]]</em> – The restricted dimensions in this Box, with feature names as
 keys and <a class="reference internal" href="#emat.Bounds" title="emat.Bounds"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bounds</span></code></a> or a <code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code> of available discrete
 values as the dictionary values.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Dict[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>,Union[<a class="reference internal" href="#emat.Bounds" title="emat.Bounds">Bounds</a>,Set]]</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Box.relevant_features">
 <code class="descname">relevant_features</code><a class="headerlink" href="#emat.Box.relevant_features" title="Permalink to this definition">¶</a></dt>
-<dd><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code> of features that are relevant for this Box.
+<dd><p><em>Set[str]</em> – A <code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code> of features that are relevant for this Box.
 These are features, which are not themselves constrained,
 but should be considered in any analytical report developed
 based on this Box.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Set[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>]</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Box.scope">
 <code class="descname">scope</code><a class="headerlink" href="#emat.Box.scope" title="Permalink to this definition">¶</a></dt>
-<dd><p>A scope associated with this Box.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="scope.html#emat.Scope" title="emat.Scope">Scope</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>Scope</em> – A scope associated with this Box.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Box.measure_thresholds">
 <code class="descname">measure_thresholds</code><a class="headerlink" href="#emat.Box.measure_thresholds" title="Permalink to this definition">¶</a></dt>
-<dd><p>The thresholds in this Box associated with performance measures.</p>
+<dd><p><em>Dict[str,Union[Bounds,Set]]</em> – The thresholds in this Box associated with performance measures.</p>
 <p>A Scope must be associated with this Box to access this property.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Dict[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>,Union[<a class="reference internal" href="#emat.Bounds" title="emat.Bounds">Bounds</a>,Set]]</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Box.uncertainty_thresholds">
 <code class="descname">uncertainty_thresholds</code><a class="headerlink" href="#emat.Box.uncertainty_thresholds" title="Permalink to this definition">¶</a></dt>
-<dd><p>The thresholds in this Box associated with exogenous uncertainties.</p>
+<dd><p><em>Dict[str,Union[Bounds,Set]]</em> – The thresholds in this Box associated with exogenous uncertainties.</p>
 <p>A Scope must be associated with this Box to access this property.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Dict[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>,Union[<a class="reference internal" href="#emat.Bounds" title="emat.Bounds">Bounds</a>,Set]]</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Box.lever_thresholds">
 <code class="descname">lever_thresholds</code><a class="headerlink" href="#emat.Box.lever_thresholds" title="Permalink to this definition">¶</a></dt>
-<dd><p>The thresholds in this Box associated with policy levers.</p>
+<dd><p><em>Dict[str,Union[Bounds,Set]]</em> – The thresholds in this Box associated with policy levers.</p>
 <p>A Scope must be associated with this Box to access this property.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Dict[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>,Union[<a class="reference internal" href="#emat.Bounds" title="emat.Bounds">Bounds</a>,Set]]</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </dd></dl>
@@ -648,7 +606,7 @@ if there is no upper bound.</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../emat.models/index.html" class="btn btn-neutral float-right" title="Core Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="scope.file.html" class="btn btn-neutral float-right" title="Scope File" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="measures.html" class="btn btn-neutral" title="Performance Measures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -680,7 +638,17 @@ if there is no upper bound.</li>
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'0.1.1, February 2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
