@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python-Based Models &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  <title>Python-Based Models &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -184,11 +184,6 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -204,7 +199,7 @@ recommendation, or specification by FHWA.</p>
 <dl class="class">
 <dt id="emat.model.PythonCoreModel">
 <em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">PythonCoreModel</code><span class="sig-paren">(</span><em>function: Callable</em>, <em>configuration: Union[str</em>, <em>Mapping</em>, <em>None] = None</em>, <em>scope: Union[emat.scope.scope.Scope</em>, <em>str] = None</em>, <em>safe: bool = True</em>, <em>db: emat.database.database.Database = None</em>, <em>name: str = 'EMAT'</em>, <em>metamodel_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_python/core_python_api.html#PythonCoreModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.PythonCoreModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.model.core_model.AbstractCoreModel</span></code>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/model.html#ema_workbench.em_framework.model.Model" title="(in ema_workbench v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.model.Model</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.model.core_model.AbstractCoreModel</span></code>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/model.html#ema_workbench.em_framework.model.Model" title="(in ema_workbench v2.None)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.model.Model</span></code></a></p>
 <p>An EMAT interface for a core model that is a Python function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -288,17 +283,7 @@ Defaults to 0 (i.e., not a meta-model).</li>
 
     
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../',
-              VERSION:'0.1.1, February 2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>

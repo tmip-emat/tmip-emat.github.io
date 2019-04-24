@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Parameters &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  <title>Parameters &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -190,11 +190,6 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -274,38 +269,78 @@ designs.</li>
 <dl class="class">
 <dt id="emat.Parameter">
 <em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Parameter</code><span class="sig-paren">(</span><em>name</em>, <em>dist</em>, <em>resolution=None</em>, <em>default=None</em>, <em>variable_name=None</em>, <em>pff=False</em>, <em>desc=''</em>, <em>address=None</em>, <em>ptype=None</em>, <em>corr=None</em>, <em>dist_def=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#Parameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Parameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.Parameter" title="(in ema_workbench v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.parameters.Parameter</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.Parameter" title="(in ema_workbench v2.None)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.parameters.Parameter</span></code></a></p>
 <dl class="attribute">
 <dt id="emat.Parameter.address">
 <code class="descname">address</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.address" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Any</em> – The address to use to access this parameter in the model.</p>
+<dd><p>The address to use to access this parameter in the model.</p>
 <p>This is an implementation-specific detail. For example,
 in an Excel-based model, the address could be a sheet and cell reference
 given as a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Any</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Parameter.corr">
 <code class="descname">corr</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.corr" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>List</em> – A correlation definition.  Not yet implemented.</p>
+<dd><p>A correlation definition.  Not yet implemented.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">List</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Parameter.desc">
 <code class="descname">desc</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.desc" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>str</em> – Human readable description of this parameter, for reference only</p>
+<dd><p>Human readable description of this parameter, for reference only</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Parameter.dist">
 <code class="descname">dist</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.dist" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Dict</em> – The arguments that define the underlying distribution.</p>
+<dd><p>The arguments that define the underlying distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Dict</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Parameter.ptype">
 <code class="descname">ptype</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.ptype" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>str</em> – Parameter type, one of {‘constant’, ‘uncertainty’, ‘lever’}</p>
+<dd><p>Parameter type, one of {‘constant’, ‘uncertainty’, ‘lever’}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -317,10 +352,18 @@ given as a string.</p>
 <dl class="attribute">
 <dt id="emat.Constant.address">
 <code class="descname">address</code><em class="property"> = None</em><a class="headerlink" href="#emat.Constant.address" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Any</em> – The address to use to access this parameter in the model.</p>
+<dd><p>The address to use to access this parameter in the model.</p>
 <p>This is an implementation-specific detail. For example,
 in an Excel-based model, the address could be a sheet and cell reference
 given as a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Any</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -332,25 +375,57 @@ given as a string.</p>
 <dl class="attribute">
 <dt id="emat.Constant.desc">
 <code class="descname">desc</code><em class="property"> = None</em><a class="headerlink" href="#emat.Constant.desc" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>str</em> – Human readable description of this constant, for reference only</p>
+<dd><p>Human readable description of this constant, for reference only</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Constant.dtype">
 <code class="descname">dtype</code><em class="property"> = None</em><a class="headerlink" href="#emat.Constant.dtype" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>str</em> – The dtype for the value, as a string.</p>
+<dd><p>The dtype for the value, as a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Constant.ptype">
 <code class="descname">ptype</code><em class="property"> = 'constant'</em><a class="headerlink" href="#emat.Constant.ptype" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>str</em> – Parameter type, for compatibility with Parameter.</p>
+<dd><p>Parameter type, for compatibility with Parameter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Constant.values">
 <code class="descname">values</code><a class="headerlink" href="#emat.Constant.values" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>list</em> – The value as a one-item list</p>
+<dd><p>The value as a one-item list</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -360,7 +435,7 @@ given as a string.</p>
 <dl class="class">
 <dt id="emat.scope.parameter.RealParameter">
 <em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">RealParameter</code><span class="sig-paren">(</span><em>name</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>resolution=None</em>, <em>default=None</em>, <em>variable_name=None</em>, <em>pff=False</em>, <em>dist=None</em>, <em>dist_def=None</em>, <em>desc=''</em>, <em>address=None</em>, <em>ptype=None</em>, <em>corr=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#RealParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.RealParameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.RealParameter" title="(in ema_workbench v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.parameters.RealParameter</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.RealParameter" title="(in ema_workbench v2.None)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.parameters.RealParameter</span></code></a></p>
 </dd></dl>
 
 </div>
@@ -369,7 +444,7 @@ given as a string.</p>
 <dl class="class">
 <dt id="emat.scope.parameter.IntegerParameter">
 <em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">IntegerParameter</code><span class="sig-paren">(</span><em>name</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>resolution=None</em>, <em>default=None</em>, <em>variable_name=None</em>, <em>pff=False</em>, <em>dist=None</em>, <em>dist_def=None</em>, <em>desc=''</em>, <em>address=None</em>, <em>ptype=None</em>, <em>corr=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#IntegerParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.IntegerParameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.IntegerParameter" title="(in ema_workbench v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.parameters.IntegerParameter</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.IntegerParameter" title="(in ema_workbench v2.None)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.parameters.IntegerParameter</span></code></a></p>
 </dd></dl>
 
 </div>
@@ -378,7 +453,7 @@ given as a string.</p>
 <dl class="class">
 <dt id="emat.scope.parameter.BooleanParameter">
 <em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">BooleanParameter</code><span class="sig-paren">(</span><em>name</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>resolution=None</em>, <em>default=None</em>, <em>variable_name=None</em>, <em>pff=False</em>, <em>dist=None</em>, <em>dist_def=None</em>, <em>desc=''</em>, <em>address=None</em>, <em>ptype=None</em>, <em>corr=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#BooleanParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.BooleanParameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.parameters.BooleanParameter</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.BooleanParameter" title="(in ema_workbench v2.None)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.parameters.BooleanParameter</span></code></a></p>
 </dd></dl>
 
 </div>
@@ -387,7 +462,7 @@ given as a string.</p>
 <dl class="class">
 <dt id="emat.scope.parameter.CategoricalParameter">
 <em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">CategoricalParameter</code><span class="sig-paren">(</span><em>name</em>, <em>categories</em>, <em>default=None</em>, <em>variable_name=None</em>, <em>pff=False</em>, <em>multivalue=False</em>, <em>desc=''</em>, <em>address=None</em>, <em>ptype=None</em>, <em>corr=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#CategoricalParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.CategoricalParameter" title="(in ema_workbench v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.parameters.CategoricalParameter</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.CategoricalParameter" title="(in ema_workbench v2.None)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.parameters.CategoricalParameter</span></code></a></p>
 <dl class="method">
 <dt id="emat.scope.parameter.CategoricalParameter.cat_for_index">
 <code class="descname">cat_for_index</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ema_workbench/em_framework/parameters.html#CategoricalParameter.cat_for_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.cat_for_index" title="Permalink to this definition">¶</a></dt>
@@ -443,19 +518,43 @@ given as a string.</p>
 <dl class="attribute">
 <dt id="emat.scope.parameter.CategoricalParameter.lower_bound">
 <code class="descname">lower_bound</code><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.lower_bound" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>None</em> – Categorical parameters are not characterized by a lower bound.</p>
+<dd><p>Categorical parameters are not characterized by a lower bound.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)">None</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.scope.parameter.CategoricalParameter.upper_bound">
 <code class="descname">upper_bound</code><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.upper_bound" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>None</em> – Categorical parameters are not characterized by an upper bound.</p>
+<dd><p>Categorical parameters are not characterized by an upper bound.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)">None</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.scope.parameter.CategoricalParameter.values">
 <code class="descname">values</code><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.values" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>List</em> – The possible discrete values.</p>
+<dd><p>The possible discrete values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">List</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -503,17 +602,7 @@ given as a string.</p>
 
     
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../',
-              VERSION:'0.1.1, February 2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>

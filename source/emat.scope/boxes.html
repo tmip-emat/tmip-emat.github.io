@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Boxes &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  <title>Boxes &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -189,11 +189,6 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -213,6 +208,18 @@ restrictions are expressed as limited ranges on a particular set of named
 designate a set of relevant features, which are not themselves constrained
 but should be considered in any analytical report developed based on that
 <a class="reference internal" href="#emat.Box" title="emat.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">Box</span></code></a>.</p>
+<p>A <a class="reference internal" href="#emat.Box" title="emat.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">Box</span></code></a> can be created manually as part of the scoping process. For example,
+the initially defined scope may be too broad or may include more uncertainties
+or policy levers than an analyst wishes to study at a particular time.  For this
+situation, a <a class="reference internal" href="#emat.Box" title="emat.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">Box</span></code></a> can be used to define a more limited scope for study, by
+limiting the ranges of some set of <a class="reference internal" href="../emat.glossary.html#term-parameter"><span class="xref std std-term">parameters</span></a>.  It is possible to effectively
+remove parameters from analysis by setting the minimum and maximum values to
+the same value (for scalar parameters) or by limiting the allowed set of values
+to a single value (for categorical parameters).  It is also possible to include
+<a class="reference internal" href="../emat.glossary.html#term-measure"><span class="xref std std-term">measures</span></a> in the set of restrictions, which results in a different kind of
+exploratory analysis, where the analyst can undertake scenario discovery, to
+analyze the variety of input values that might lead to certain kinds of output
+values.</p>
 <div class="section" id="box">
 <h2>Box<a class="headerlink" href="#box" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -248,45 +255,93 @@ each feature.</li>
 <dl class="attribute">
 <dt id="emat.Box.thresholds">
 <code class="descname">thresholds</code><a class="headerlink" href="#emat.Box.thresholds" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Dict[str,Union[Bounds,Set]]</em> – The restricted dimensions in this Box, with feature names as
+<dd><p>The restricted dimensions in this Box, with feature names as
 keys and <a class="reference internal" href="#emat.Bounds" title="emat.Bounds"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bounds</span></code></a> or a <code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code> of available discrete
 values as the dictionary values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Dict[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>,Union[<a class="reference internal" href="#emat.Bounds" title="emat.Bounds">Bounds</a>,Set]]</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Box.relevant_features">
 <code class="descname">relevant_features</code><a class="headerlink" href="#emat.Box.relevant_features" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Set[str]</em> – A <code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code> of features that are relevant for this Box.
+<dd><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code> of features that are relevant for this Box.
 These are features, which are not themselves constrained,
 but should be considered in any analytical report developed
 based on this Box.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Set[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>]</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Box.scope">
 <code class="descname">scope</code><a class="headerlink" href="#emat.Box.scope" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Scope</em> – A scope associated with this Box.</p>
+<dd><p>A scope associated with this Box.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="scope.html#emat.Scope" title="emat.Scope">Scope</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Box.measure_thresholds">
 <code class="descname">measure_thresholds</code><a class="headerlink" href="#emat.Box.measure_thresholds" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Dict[str,Union[Bounds,Set]]</em> – The thresholds in this Box associated with performance measures.</p>
+<dd><p>The thresholds in this Box associated with performance measures.</p>
 <p>A Scope must be associated with this Box to access this property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Dict[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>,Union[<a class="reference internal" href="#emat.Bounds" title="emat.Bounds">Bounds</a>,Set]]</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Box.uncertainty_thresholds">
 <code class="descname">uncertainty_thresholds</code><a class="headerlink" href="#emat.Box.uncertainty_thresholds" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Dict[str,Union[Bounds,Set]]</em> – The thresholds in this Box associated with exogenous uncertainties.</p>
+<dd><p>The thresholds in this Box associated with exogenous uncertainties.</p>
 <p>A Scope must be associated with this Box to access this property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Dict[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>,Union[<a class="reference internal" href="#emat.Bounds" title="emat.Bounds">Bounds</a>,Set]]</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Box.lever_thresholds">
 <code class="descname">lever_thresholds</code><a class="headerlink" href="#emat.Box.lever_thresholds" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Dict[str,Union[Bounds,Set]]</em> – The thresholds in this Box associated with policy levers.</p>
+<dd><p>The thresholds in this Box associated with policy levers.</p>
 <p>A Scope must be associated with this Box to access this property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Dict[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>,Union[<a class="reference internal" href="#emat.Bounds" title="emat.Bounds">Bounds</a>,Set]]</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -638,17 +693,7 @@ if there is no upper bound.</li>
 
     
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../',
-              VERSION:'0.1.1, February 2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>

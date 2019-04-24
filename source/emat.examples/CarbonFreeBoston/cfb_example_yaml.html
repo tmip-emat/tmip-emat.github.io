@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Carbon Free Boston Model &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  <title>Carbon Free Boston Model &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
   
 
   
@@ -56,7 +56,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -173,11 +173,6 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -193,7 +188,7 @@ recommendation, or specification by FHWA.</p>
 <div class="section" id="model-operation">
 <h2>Model Operation<a class="headerlink" href="#model-operation" title="Permalink to this headline">¶</a></h2>
 <p>This model is defined in an
-<a class="reference download internal" href="../../../_downloads/CFB-Trans_v1.3.3.xlsm" download=""><code class="xref download docutils literal notranslate"><span class="pre">excel</span> <span class="pre">workbook</span></code></a>.</p>
+<a class="reference download internal" download="" href="../../../_downloads/9d8722a5e118556e5dce0f9266a5f997/CFB-Trans_v1.3.3.xlsm"><code class="xref download docutils literal notranslate"><span class="pre">excel</span> <span class="pre">workbook</span></code></a>.</p>
 </div>
 <div class="section" id="model-scope-definition">
 <h2>Model Scope Definition<a class="headerlink" href="#model-scope-definition" title="Permalink to this headline">¶</a></h2>
@@ -815,619 +810,619 @@ example, the scope is given by:</p>
 614
 615</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># This example YAML files demonstrates setting up a scope and excel model interface.</span>
 
-<span class="l l-Scalar l-Scalar-Plain">scope</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">CFB</span>
-    <span class="l l-Scalar l-Scalar-Plain">desc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Carbon Free Boston Model</span>
+<span class="nt">scope</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CFB</span>
+    <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Carbon Free Boston Model</span>
 
 
-<span class="l l-Scalar l-Scalar-Plain">inputs</span><span class="p p-Indicator">:</span>
+<span class="nt">inputs</span><span class="p">:</span>
 
-  <span class="s">&quot;Grid</span><span class="nv"> </span><span class="s">GHG</span><span class="nv"> </span><span class="s">intensity&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E2</span>
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">400</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">228</span>
+  <span class="nt">&quot;Grid GHG intensity&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E2</span>
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">400</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">228</span>
 
   <span class="c1">### CLEAN VEHICLES ###</span>
 
-  <span class="s">&quot;Clean</span><span class="nv"> </span><span class="s">Vehicles&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E3</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">&quot;Clean Vehicles&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E3</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;Light-duty</span><span class="nv"> </span><span class="s">vehicles&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E4</span>    
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">&quot;Light-duty vehicles&quot;</span><span class="p">:</span>
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E4</span>    
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;Light-duty</span><span class="nv"> </span><span class="s">vehicles:</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">LDV</span><span class="nv"> </span><span class="s">stock:</span><span class="nv"> </span><span class="s">EV&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E5</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
+  <span class="nt">&quot;Light-duty vehicles</span><span class="p">:</span> <span class="nt">% of LDV stock</span><span class="p">:</span> <span class="nt">EV&quot;</span><span class="p">:</span>
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E5</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
 
-  <span class="s">&quot;Light-duty</span><span class="nv"> </span><span class="s">vehicles:</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">LDV</span><span class="nv"> </span><span class="s">stock:</span><span class="nv"> </span><span class="s">PHEV&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E6</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+  <span class="nt">&quot;Light-duty vehicles</span><span class="p">:</span> <span class="nt">% of LDV stock</span><span class="p">:</span> <span class="nt">PHEV&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E6</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
 
-  <span class="s">&quot;Trucks&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E7</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">&quot;Trucks&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E7</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;Trucks:</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">MDT</span><span class="nv"> </span><span class="s">stock:</span><span class="nv"> </span><span class="s">EV&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E8</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+  <span class="nt">&quot;Trucks</span><span class="p">:</span> <span class="nt">% of MDT stock</span><span class="p">:</span> <span class="nt">EV&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E8</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
 
-  <span class="s">&quot;Transit</span><span class="nv"> </span><span class="s">vehicles&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E9</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">&quot;Transit vehicles&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E9</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;Transit</span><span class="nv"> </span><span class="s">vehicles:</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">transit</span><span class="nv"> </span><span class="s">bus</span><span class="nv"> </span><span class="s">fleet:</span><span class="nv"> </span><span class="s">EV&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E10</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
+  <span class="nt">&quot;Transit vehicles</span><span class="p">:</span> <span class="nt">% of transit bus fleet</span><span class="p">:</span> <span class="nt">EV&quot;</span><span class="p">:</span>
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E10</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
 
-  <span class="s">&quot;Transit</span><span class="nv"> </span><span class="s">vehicles:</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">school</span><span class="nv"> </span><span class="s">bus</span><span class="nv"> </span><span class="s">fleet:</span><span class="nv"> </span><span class="s">EV&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E11</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;Transit vehicles</span><span class="p">:</span> <span class="nt">% of school bus fleet</span><span class="p">:</span> <span class="nt">EV&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E11</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
-  <span class="s">&quot;Transit</span><span class="nv"> </span><span class="s">vehicles:</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">commuter</span><span class="nv"> </span><span class="s">rail</span><span class="nv"> </span><span class="s">electrified&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E12</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;Transit vehicles</span><span class="p">:</span> <span class="nt">% of commuter rail electrified&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E12</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
   <span class="c1">### LAND USE ###</span>
 
-  <span class="s">&quot;Land</span><span class="nv"> </span><span class="s">Use&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E13</span>
+  <span class="nt">&quot;Land Use&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E13</span>
 
   <span class="c1">### TRANSIT ###</span>
 
-  <span class="s">&quot;Transit&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E14</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">&quot;Transit&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E14</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;Prior</span><span class="nv"> </span><span class="s">drive</span><span class="nv"> </span><span class="s">mode</span><span class="nv"> </span><span class="s">share</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">riders:</span><span class="nv"> </span><span class="s">bus&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E15</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">44</span>
+  <span class="nt">&quot;Prior drive mode share of new riders</span><span class="p">:</span> <span class="nt">bus&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E15</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">44</span>
 
-  <span class="s">&quot;Prior</span><span class="nv"> </span><span class="s">drive</span><span class="nv"> </span><span class="s">mode</span><span class="nv"> </span><span class="s">share</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">riders:</span><span class="nv"> </span><span class="s">urban</span><span class="nv"> </span><span class="s">rail&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E16</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="nt">&quot;Prior drive mode share of new riders</span><span class="p">:</span> <span class="nt">urban rail&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E16</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
 
-  <span class="s">&quot;Operational</span><span class="nv"> </span><span class="s">improvements&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E17</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">&quot;Operational improvements&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E17</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;Operational</span><span class="nv"> </span><span class="s">improvements:</span><span class="nv"> </span><span class="s">Ridership</span><span class="nv"> </span><span class="s">elasticity&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E18</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">150</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+  <span class="nt">&quot;Operational improvements</span><span class="p">:</span> <span class="nt">Ridership elasticity&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E18</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">150</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
 
-  <span class="s">&quot;Operational</span><span class="nv"> </span><span class="s">improvements:</span><span class="nv"> </span><span class="s">One-way</span><span class="nv"> </span><span class="s">length</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">bus</span><span class="nv"> </span><span class="s">routes</span><span class="nv"> </span><span class="s">w/op.</span><span class="nv"> </span><span class="s">improvements&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E19</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">500</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">155</span>
+  <span class="nt">&quot;Operational improvements</span><span class="p">:</span> <span class="nt">One-way length of bus routes w/op. improvements&quot;</span><span class="p">:</span>
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E19</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">500</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">155</span>
 
-  <span class="s">&quot;Operational</span><span class="nv"> </span><span class="s">improvements:</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">travel</span><span class="nv"> </span><span class="s">time</span><span class="nv"> </span><span class="s">savings&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E20</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">200</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">28</span>
+  <span class="nt">&quot;Operational improvements</span><span class="p">:</span> <span class="nt">% travel time savings&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E20</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">200</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">28</span>
 
-  <span class="s">&quot;New</span><span class="nv"> </span><span class="s">service&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E21</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">&quot;New service&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E21</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;New</span><span class="nv"> </span><span class="s">service:</span><span class="nv"> </span><span class="s">New</span><span class="nv"> </span><span class="s">one-way</span><span class="nv"> </span><span class="s">route-miles:</span><span class="nv"> </span><span class="s">rapid</span><span class="nv"> </span><span class="s">bus&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E22</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">150</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">21</span>
+  <span class="nt">&quot;New service</span><span class="p">:</span> <span class="nt">New one-way route-miles</span><span class="p">:</span> <span class="nt">rapid bus&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E22</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">150</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">21</span>
 
-  <span class="s">&quot;New</span><span class="nv"> </span><span class="s">service:</span><span class="nv"> </span><span class="s">New</span><span class="nv"> </span><span class="s">one-way</span><span class="nv"> </span><span class="s">route-miles:</span><span class="nv"> </span><span class="s">urban</span><span class="nv"> </span><span class="s">rail&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E23</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">150</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">17</span>
+  <span class="nt">&quot;New service</span><span class="p">:</span> <span class="nt">New one-way route-miles</span><span class="p">:</span> <span class="nt">urban rail&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E23</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">150</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">17</span>
 
-  <span class="s">&quot;New</span><span class="nv"> </span><span class="s">service:</span><span class="nv"> </span><span class="s">Average</span><span class="nv"> </span><span class="s">load</span><span class="nv"> </span><span class="s">factor:</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">rapid</span><span class="nv"> </span><span class="s">bus&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E24</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">40</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">13</span>
+  <span class="nt">&quot;New service</span><span class="p">:</span> <span class="nt">Average load factor</span><span class="p">:</span> <span class="nt">new rapid bus&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E24</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">40</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">13</span>
 
-  <span class="s">&quot;New</span><span class="nv"> </span><span class="s">service:</span><span class="nv"> </span><span class="s">Average</span><span class="nv"> </span><span class="s">load</span><span class="nv"> </span><span class="s">factor:</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">urban</span><span class="nv"> </span><span class="s">rail&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E25</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">60</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">26</span>
+  <span class="nt">&quot;New service</span><span class="p">:</span> <span class="nt">Average load factor</span><span class="p">:</span> <span class="nt">new urban rail&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E25</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">60</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">26</span>
 
-  <span class="s">&quot;New</span><span class="nv"> </span><span class="s">service:</span><span class="nv"> </span><span class="s">Fuel</span><span class="nv"> </span><span class="s">type</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">bus</span><span class="nv"> </span><span class="s">service&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">CAT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E26</span>
-    <span class="l l-Scalar l-Scalar-Plain">values</span><span class="p p-Indicator">:</span>
+  <span class="nt">&quot;New service</span><span class="p">:</span> <span class="nt">Fuel type of new bus service&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">CAT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E26</span>
+    <span class="nt">values</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">gasoline</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">diesel</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">CNG</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">electricity</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">diesel</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">diesel</span>
 
   <span class="c1">### ACTIVE TRANSPORTATION ###</span>
 
-  <span class="s">&quot;Active</span><span class="nv"> </span><span class="s">Transportation&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E27</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">&quot;Active Transportation&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E27</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;Active</span><span class="nv"> </span><span class="s">Transportation:</span><span class="nv"> </span><span class="s">Use</span><span class="nv"> </span><span class="s">growth</span><span class="nv"> </span><span class="s">factor</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">elasticity?&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">CAT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E28</span>
-    <span class="l l-Scalar l-Scalar-Plain">values</span><span class="p p-Indicator">:</span>
+  <span class="nt">&quot;Active Transportation</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Use growth factor or elasticity?&quot;</span><span class="p p-Indicator">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">CAT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E28</span>
+    <span class="nt">values</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">growth factor</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">elasticity</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">growth factor</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">growth factor</span>
 
-  <span class="s">&quot;Active</span><span class="nv"> </span><span class="s">Transportation:</span><span class="nv"> </span><span class="s">New</span><span class="nv"> </span><span class="s">bike</span><span class="nv"> </span><span class="s">facility</span><span class="nv"> </span><span class="s">miles&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E29</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">200</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;Active Transportation</span><span class="p">:</span> <span class="nt">New bike facility miles&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E29</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">200</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
-  <span class="s">&quot;Active</span><span class="nv"> </span><span class="s">Transportation:</span><span class="nv"> </span><span class="s">Bike</span><span class="nv"> </span><span class="s">growth</span><span class="nv"> </span><span class="s">factor&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E30</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">10</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;Active Transportation</span><span class="p">:</span> <span class="nt">Bike growth factor&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E30</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">10</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
-  <span class="s">&quot;Active</span><span class="nv"> </span><span class="s">Transportation:</span><span class="nv"> </span><span class="s">E-bike</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">bike</span><span class="nv"> </span><span class="s">miles&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E31</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;Active Transportation</span><span class="p">:</span> <span class="nt">E-bike % of bike miles&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E31</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
-  <span class="s">&quot;Active</span><span class="nv"> </span><span class="s">Transportation:</span><span class="nv"> </span><span class="s">Share</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">&lt;2</span><span class="nv"> </span><span class="s">mi</span><span class="nv"> </span><span class="s">trips</span><span class="nv"> </span><span class="s">converted</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">walk&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E32</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">60</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;Active Transportation</span><span class="p">:</span> <span class="nt">Share of &lt;2 mi trips converted to walk&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E32</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">60</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
-  <span class="s">&quot;Active</span><span class="nv"> </span><span class="s">Transportation:</span><span class="nv"> </span><span class="s">Prior</span><span class="nv"> </span><span class="s">drive</span><span class="nv"> </span><span class="s">mode</span><span class="nv"> </span><span class="s">share</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">bike</span><span class="nv"> </span><span class="s">&amp;</span><span class="nv"> </span><span class="s">walk</span><span class="nv"> </span><span class="s">trips:&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E33</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">45</span>
+  <span class="nt">&quot;Active Transportation</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Prior drive mode share of new bike &amp; walk trips:&quot;</span><span class="p p-Indicator">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E33</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">45</span>
 
   <span class="c1">### CAV ###</span>
 
-  <span class="s">&quot;CAV</span><span class="nv"> </span><span class="s">(Private)&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E34</span>
+  <span class="nt">&quot;CAV (Private)&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E34</span>
 
-  <span class="s">&quot;%</span><span class="nv"> </span><span class="s">CAV</span><span class="nv"> </span><span class="s">market</span><span class="nv"> </span><span class="s">penetration:</span><span class="nv"> </span><span class="s">LDV&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E35</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;% CAV market penetration</span><span class="p">:</span> <span class="nt">LDV&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E35</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
-  <span class="s">&quot;%</span><span class="nv"> </span><span class="s">CAV</span><span class="nv"> </span><span class="s">market</span><span class="nv"> </span><span class="s">penetration:</span><span class="nv"> </span><span class="s">MDT&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E36</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;% CAV market penetration</span><span class="p">:</span> <span class="nt">MDT&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E36</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
-  <span class="s">&quot;CAV</span><span class="nv"> </span><span class="s">technology:</span><span class="nv"> </span><span class="s">LDV&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">CAT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E37</span> 
-    <span class="l l-Scalar l-Scalar-Plain">values</span><span class="p p-Indicator">:</span>
+  <span class="nt">&quot;CAV technology</span><span class="p">:</span> <span class="nt">LDV&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">CAT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E37</span> 
+    <span class="nt">values</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">baseline</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">EV</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">baseline</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">baseline</span>
 
-  <span class="s">&quot;CAV</span><span class="nv"> </span><span class="s">technology:</span><span class="nv"> </span><span class="s">MDV&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">CAT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E38</span> 
-    <span class="l l-Scalar l-Scalar-Plain">values</span><span class="p p-Indicator">:</span>
+  <span class="nt">&quot;CAV technology</span><span class="p">:</span> <span class="nt">MDV&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">CAT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E38</span> 
+    <span class="nt">values</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">baseline</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">EV</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">baseline</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">baseline</span>
 
-  <span class="s">&quot;CAV</span><span class="nv"> </span><span class="s">efficiency</span><span class="nv"> </span><span class="s">improvement&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E39</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+  <span class="nt">&quot;CAV efficiency improvement&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E39</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
 
-  <span class="s">&quot;CAV</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">VMT</span><span class="nv"> </span><span class="s">change:</span><span class="nv"> </span><span class="s">LDV&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E40</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;CAV - % VMT change</span><span class="p">:</span> <span class="nt">LDV&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E40</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
-  <span class="s">&quot;CAV</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">VMT</span><span class="nv"> </span><span class="s">change:</span><span class="nv"> </span><span class="s">MDT&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E41</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;CAV - % VMT change</span><span class="p">:</span> <span class="nt">MDT&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E41</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
   <span class="c1">### SMART MOBILITY ###</span>
 
-  <span class="s">&quot;Smart</span><span class="nv"> </span><span class="s">Mobility&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E42</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">&quot;Smart Mobility&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E42</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;Smart</span><span class="nv"> </span><span class="s">Mobility:</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">auto</span><span class="nv"> </span><span class="s">owership&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E43</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">20</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;Smart Mobility</span><span class="p">:</span> <span class="nt">Change in auto owership&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E43</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">20</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
-  <span class="s">&quot;Ridehailing&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E44</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">&quot;Ridehailing&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E44</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;Ridehailing:</span><span class="nv"> </span><span class="s">Technology&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">CAT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E45</span>
-    <span class="l l-Scalar l-Scalar-Plain">values</span><span class="p p-Indicator">:</span>
+  <span class="nt">&quot;Ridehailing</span><span class="p">:</span> <span class="nt">Technology&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">CAT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E45</span>
+    <span class="nt">values</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">fleet average</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">EV</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">fleet average</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">fleet average</span>
 
-  <span class="s">&quot;Ridehailing:</span><span class="nv"> </span><span class="s">Market</span><span class="nv"> </span><span class="s">penetration&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E46</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">30</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;Ridehailing</span><span class="p">:</span> <span class="nt">Market penetration&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E46</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">30</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
-  <span class="s">&quot;Ridehailing:</span><span class="nv"> </span><span class="s">Vehicle</span><span class="nv"> </span><span class="s">occupancy:</span><span class="nv"> </span><span class="s">work&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E47</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">10</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">30</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">11</span>
+  <span class="nt">&quot;Ridehailing</span><span class="p">:</span> <span class="nt">Vehicle occupancy</span><span class="p">:</span> <span class="nt">work&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E47</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">10</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">30</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">11</span>
 
-  <span class="s">&quot;Ridehailing:</span><span class="nv"> </span><span class="s">Vehicle</span><span class="nv"> </span><span class="s">occupancy:</span><span class="nv"> </span><span class="s">non-work&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E48</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">10</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">30</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">16</span>
+  <span class="nt">&quot;Ridehailing</span><span class="p">:</span> <span class="nt">Vehicle occupancy</span><span class="p">:</span> <span class="nt">non-work&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E48</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">10</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">30</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">16</span>
 
-  <span class="s">&quot;Ridehailing:</span><span class="nv"> </span><span class="s">Circuity/deadhead</span><span class="nv"> </span><span class="s">factor&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E49</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">10</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">20</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">15</span>
+  <span class="nt">&quot;Ridehailing</span><span class="p">:</span> <span class="nt">Circuity/deadhead factor&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E49</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">10</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">20</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15</span>
 
-  <span class="s">&quot;Ridehailing:</span><span class="nv"> </span><span class="s">Prior</span><span class="nv"> </span><span class="s">drive</span><span class="nv"> </span><span class="s">mode</span><span class="nv"> </span><span class="s">share&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E50</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">40</span>
+  <span class="nt">&quot;Ridehailing</span><span class="p">:</span> <span class="nt">Prior drive mode share&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E50</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">40</span>
 
   <span class="s">&quot;Demand</span><span class="nv"> </span><span class="s">response/microtransit:&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E51</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E51</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;Demand</span><span class="nv"> </span><span class="s">Reponsive:</span><span class="nv"> </span><span class="s">Technology&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">CAT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E52</span>  
-    <span class="l l-Scalar l-Scalar-Plain">values</span><span class="p p-Indicator">:</span>
+  <span class="nt">&quot;Demand Reponsive</span><span class="p">:</span> <span class="nt">Technology&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">CAT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E52</span>  
+    <span class="nt">values</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">fleet average</span>
       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">EV</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">fleet average</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">fleet average</span>
 
-  <span class="s">&quot;Demand</span><span class="nv"> </span><span class="s">Reponsive:</span><span class="nv"> </span><span class="s">Market</span><span class="nv"> </span><span class="s">penetration&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E53</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">25</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;Demand Reponsive</span><span class="p">:</span> <span class="nt">Market penetration&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E53</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">25</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
-  <span class="s">&quot;Demand</span><span class="nv"> </span><span class="s">Reponsive:</span><span class="nv"> </span><span class="s">Vehicle</span><span class="nv"> </span><span class="s">occupancy&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E54</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">30</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">150</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="nt">&quot;Demand Reponsive</span><span class="p">:</span> <span class="nt">Vehicle occupancy&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E54</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">30</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">150</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
 
-  <span class="s">&quot;Demand</span><span class="nv"> </span><span class="s">Reponsive:</span><span class="nv"> </span><span class="s">Circuity/deadhead</span><span class="nv"> </span><span class="s">factor&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E55</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">10</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">20</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">15</span>
+  <span class="nt">&quot;Demand Reponsive</span><span class="p">:</span> <span class="nt">Circuity/deadhead factor&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E55</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">10</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">20</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15</span>
 
-  <span class="s">&quot;Demand</span><span class="nv"> </span><span class="s">Reponsive:</span><span class="nv"> </span><span class="s">Prior</span><span class="nv"> </span><span class="s">drive</span><span class="nv"> </span><span class="s">mode</span><span class="nv"> </span><span class="s">share&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E56</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">&quot;Demand Reponsive</span><span class="p">:</span> <span class="nt">Prior drive mode share&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E56</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 
-  <span class="s">&quot;Demand</span><span class="nv"> </span><span class="s">Reponsive:</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">electric</span><span class="nv"> </span><span class="s">vehicle&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E57</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="nt">&quot;Demand Reponsive</span><span class="p">:</span> <span class="nt">% electric vehicle&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E57</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
 
 <span class="c1"># Levers:</span>
-  <span class="s">&quot;Pricing&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E58</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">&quot;Pricing&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E58</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;Pricing:</span><span class="nv"> </span><span class="s">Carbon</span><span class="nv"> </span><span class="s">price</span><span class="nv"> </span><span class="s">change&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E59</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+  <span class="nt">&quot;Pricing</span><span class="p">:</span> <span class="nt">Carbon price change&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E59</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
 
-  <span class="s">&quot;Pricing:</span><span class="nv"> </span><span class="s">Fuel</span><span class="nv"> </span><span class="s">cost</span><span class="nv"> </span><span class="s">change</span><span class="nv"> </span><span class="s">(gasoline,</span><span class="nv"> </span><span class="s">diesel)&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E60</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">400</span>
+  <span class="nt">&quot;Pricing</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Fuel cost change (gasoline, diesel)&quot;</span><span class="p p-Indicator">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E60</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">400</span>
 
-  <span class="s">&quot;Pricing:</span><span class="nv"> </span><span class="s">Price</span><span class="nv"> </span><span class="s">change</span><span class="nv"> </span><span class="s">per</span><span class="nv"> </span><span class="s">vehicle-trip</span><span class="nv"> </span><span class="s">&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E61</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">10</span>
+  <span class="nt">&quot;Pricing</span><span class="p">:</span> <span class="nt">Price change per vehicle-trip &quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E61</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">10</span>
 
-  <span class="s">&quot;Pricing:</span><span class="nv"> </span><span class="s">Price</span><span class="nv"> </span><span class="s">change</span><span class="nv"> </span><span class="s">per</span><span class="nv"> </span><span class="s">VMT&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E62</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">20</span>
+  <span class="nt">&quot;Pricing</span><span class="p">:</span> <span class="nt">Price change per VMT&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E62</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">20</span>
 
-  <span class="s">&quot;Pricing:</span><span class="nv"> </span><span class="s">Elasticity:</span><span class="nv"> </span><span class="s">VMT</span><span class="nv"> </span><span class="s">w/r/t</span><span class="nv"> </span><span class="s">fuel</span><span class="nv"> </span><span class="s">price</span><span class="nv"> </span><span class="s">(LDV)&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E63</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="nt">&quot;Pricing</span><span class="p">:</span> <span class="nt">Elasticity</span><span class="p">:</span> <span class="nt">VMT w/r/t fuel price (LDV)&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E63</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
 
   <span class="c1">### TDM ###</span>
-  <span class="s">&quot;TDM&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E64</span>
-    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">&quot;TDM&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E64</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-  <span class="s">&quot;TDM:</span><span class="nv"> </span><span class="s">Additional</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">workers</span><span class="nv"> </span><span class="s">receiving</span><span class="nv"> </span><span class="s">transit</span><span class="nv"> </span><span class="s">benefit:&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E65</span>
+  <span class="nt">&quot;TDM</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Additional % workers receiving transit benefit:&quot;</span><span class="p p-Indicator">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E65</span>
 
-  <span class="s">&quot;TDM:</span><span class="nv"> </span><span class="s">Additional</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">workers</span><span class="nv"> </span><span class="s">receiving</span><span class="nv"> </span><span class="s">transit</span><span class="nv"> </span><span class="s">benefit:</span><span class="nv"> </span><span class="s">&lt;50</span><span class="nv"> </span><span class="s">workers&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E66</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="nt">&quot;TDM</span><span class="p">:</span> <span class="nt">Additional % workers receiving transit benefit</span><span class="p">:</span> <span class="nt">&lt;50 workers&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E66</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
 
-  <span class="s">&quot;TDM:</span><span class="nv"> </span><span class="s">Additional</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">workers</span><span class="nv"> </span><span class="s">receiving</span><span class="nv"> </span><span class="s">transit</span><span class="nv"> </span><span class="s">benefit:</span><span class="nv"> </span><span class="s">50-100</span><span class="nv"> </span><span class="s">workers&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E67</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="nt">&quot;TDM</span><span class="p">:</span> <span class="nt">Additional % workers receiving transit benefit</span><span class="p">:</span> <span class="nt">50-100 workers&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E67</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
 
-  <span class="s">&quot;TDM:</span><span class="nv"> </span><span class="s">Additional</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">workers</span><span class="nv"> </span><span class="s">receiving</span><span class="nv"> </span><span class="s">transit</span><span class="nv"> </span><span class="s">benefit:</span><span class="nv"> </span><span class="s">&gt;100</span><span class="nv"> </span><span class="s">workers&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E68</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="nt">&quot;TDM</span><span class="p">:</span> <span class="nt">Additional % workers receiving transit benefit</span><span class="p">:</span> <span class="nt">&gt;100 workers&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E68</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
 
-  <span class="s">&quot;TDM:</span><span class="nv"> </span><span class="s">Additional</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">workers</span><span class="nv"> </span><span class="s">at</span><span class="nv"> </span><span class="s">workplace</span><span class="nv"> </span><span class="s">w/TDM</span><span class="nv"> </span><span class="s">program&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E69</span>
+  <span class="nt">&quot;TDM</span><span class="p">:</span> <span class="nt">Additional % workers at workplace w/TDM program&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E69</span>
 
-  <span class="s">&quot;TDM:</span><span class="nv"> </span><span class="s">Additional</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">workers</span><span class="nv"> </span><span class="s">at</span><span class="nv"> </span><span class="s">workplace</span><span class="nv"> </span><span class="s">w/TDM</span><span class="nv"> </span><span class="s">program:</span><span class="nv"> </span><span class="s">&lt;50</span><span class="nv"> </span><span class="s">workers&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E70</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="nt">&quot;TDM</span><span class="p">:</span> <span class="nt">Additional % workers at workplace w/TDM program</span><span class="p">:</span> <span class="nt">&lt;50 workers&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E70</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
 
-  <span class="s">&quot;TDM:</span><span class="nv"> </span><span class="s">Additional</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">workers</span><span class="nv"> </span><span class="s">at</span><span class="nv"> </span><span class="s">workplace</span><span class="nv"> </span><span class="s">w/TDM</span><span class="nv"> </span><span class="s">program:</span><span class="nv"> </span><span class="s">50-100</span><span class="nv"> </span><span class="s">workers&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E71</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="nt">&quot;TDM</span><span class="p">:</span> <span class="nt">Additional % workers at workplace w/TDM program</span><span class="p">:</span> <span class="nt">50-100 workers&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E71</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
 
-  <span class="s">&quot;TDM:</span><span class="nv"> </span><span class="s">Additional</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">workers</span><span class="nv"> </span><span class="s">at</span><span class="nv"> </span><span class="s">workplace</span><span class="nv"> </span><span class="s">w/TDM</span><span class="nv"> </span><span class="s">program:</span><span class="nv"> </span><span class="s">&gt;100</span><span class="nv"> </span><span class="s">workers&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E72</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
+  <span class="nt">&quot;TDM</span><span class="p">:</span> <span class="nt">Additional % workers at workplace w/TDM program</span><span class="p">:</span> <span class="nt">&gt;100 workers&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E72</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">50</span>
 
-  <span class="s">&quot;TDM:</span><span class="nv"> </span><span class="s">Additional</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">workers</span><span class="nv"> </span><span class="s">at</span><span class="nv"> </span><span class="s">workplace</span><span class="nv"> </span><span class="s">w/TDM</span><span class="nv"> </span><span class="s">program:</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">drive-alone</span><span class="nv"> </span><span class="s">mode</span><span class="nv"> </span><span class="s">share</span><span class="nv"> </span><span class="s">w/TDM</span><span class="nv"> </span><span class="s">program&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E73</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+  <span class="nt">&quot;TDM</span><span class="p">:</span> <span class="nt">Additional % workers at workplace w/TDM program</span><span class="p">:</span> <span class="nt">Change in drive-alone mode share w/TDM program&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E73</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
 
   <span class="s">&quot;Residential</span><span class="nv"> </span><span class="s">TDM:&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E74</span>
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">BOOL</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E74</span>
 
-  <span class="s">&quot;Residential</span><span class="nv"> </span><span class="s">TDM:</span><span class="nv"> </span><span class="s">%</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">residential</span><span class="nv"> </span><span class="s">growth</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">TDM</span><span class="nv"> </span><span class="s">regulated</span><span class="nv"> </span><span class="s">units&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E75</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+  <span class="nt">&quot;Residential TDM</span><span class="p">:</span> <span class="nt">% of residential growth in TDM regulated units&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E75</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
 
-  <span class="s">&quot;Residential</span><span class="nv"> </span><span class="s">TDM:</span><span class="nv"> </span><span class="s">Mode</span><span class="nv"> </span><span class="s">shift</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">affected</span><span class="nv"> </span><span class="s">residents&quot;</span><span class="p p-Indicator">:</span> 
-    <span class="l l-Scalar l-Scalar-Plain">ptype</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
-    <span class="l l-Scalar l-Scalar-Plain">dtype</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E76</span> 
-    <span class="l l-Scalar l-Scalar-Plain">min</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
-    <span class="l l-Scalar l-Scalar-Plain">max</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
+  <span class="nt">&quot;Residential TDM</span><span class="p">:</span> <span class="nt">Mode shift of affected residents&quot;</span><span class="p">:</span> 
+    <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lever</span>
+    <span class="nt">dtype</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">INT</span> 
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Inputs!E76</span> 
+    <span class="nt">min</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">0</span> 
+    <span class="nt">max</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">100</span>
   
   
-<span class="l l-Scalar l-Scalar-Plain">outputs</span><span class="p p-Indicator">:</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2030:</span><span class="nv"> </span><span class="s">Clean</span><span class="nv"> </span><span class="s">Vehicles&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O4</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2030:</span><span class="nv"> </span><span class="s">Land</span><span class="nv"> </span><span class="s">Use&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O5</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2030:</span><span class="nv"> </span><span class="s">Transit&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O6</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2030:</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Transportation&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O7</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2030:</span><span class="nv"> </span><span class="s">CAV&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O8</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2030:</span><span class="nv"> </span><span class="s">Smart</span><span class="nv"> </span><span class="s">Mobility&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O9</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2030:</span><span class="nv"> </span><span class="s">Travel</span><span class="nv"> </span><span class="s">Pricing&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O10</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2030:</span><span class="nv"> </span><span class="s">TDM&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O11</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2030:</span><span class="nv"> </span><span class="s">Combined&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O12</span>
+<span class="nt">outputs</span><span class="p">:</span>
+  <span class="nt">&quot;GHG Change 2030</span><span class="p">:</span> <span class="nt">Clean Vehicles&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O4</span>
+  <span class="nt">&quot;GHG Change 2030</span><span class="p">:</span> <span class="nt">Land Use&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O5</span>
+  <span class="nt">&quot;GHG Change 2030</span><span class="p">:</span> <span class="nt">Transit&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O6</span>
+  <span class="nt">&quot;GHG Change 2030</span><span class="p">:</span> <span class="nt">Active Transportation&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O7</span>
+  <span class="nt">&quot;GHG Change 2030</span><span class="p">:</span> <span class="nt">CAV&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O8</span>
+  <span class="nt">&quot;GHG Change 2030</span><span class="p">:</span> <span class="nt">Smart Mobility&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O9</span>
+  <span class="nt">&quot;GHG Change 2030</span><span class="p">:</span> <span class="nt">Travel Pricing&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O10</span>
+  <span class="nt">&quot;GHG Change 2030</span><span class="p">:</span> <span class="nt">TDM&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O11</span>
+  <span class="nt">&quot;GHG Change 2030</span><span class="p">:</span> <span class="nt">Combined&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!O12</span>
 
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2050:</span><span class="nv"> </span><span class="s">Clean</span><span class="nv"> </span><span class="s">Vehicles&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P4</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2050:</span><span class="nv"> </span><span class="s">Land</span><span class="nv"> </span><span class="s">Use&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P5</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2050:</span><span class="nv"> </span><span class="s">Transit&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P6</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2050:</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Transportation&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P7</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2050:</span><span class="nv"> </span><span class="s">CAV&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P8</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2050:</span><span class="nv"> </span><span class="s">Smart</span><span class="nv"> </span><span class="s">Mobility&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P9</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2050:</span><span class="nv"> </span><span class="s">Travel</span><span class="nv"> </span><span class="s">Pricing&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P10</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2050:</span><span class="nv"> </span><span class="s">TDM&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P11</span>
-  <span class="s">&quot;GHG</span><span class="nv"> </span><span class="s">Change</span><span class="nv"> </span><span class="s">2050:</span><span class="nv"> </span><span class="s">Combined&quot;</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">address</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P12</span>
+  <span class="nt">&quot;GHG Change 2050</span><span class="p">:</span> <span class="nt">Clean Vehicles&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P4</span>
+  <span class="nt">&quot;GHG Change 2050</span><span class="p">:</span> <span class="nt">Land Use&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P5</span>
+  <span class="nt">&quot;GHG Change 2050</span><span class="p">:</span> <span class="nt">Transit&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P6</span>
+  <span class="nt">&quot;GHG Change 2050</span><span class="p">:</span> <span class="nt">Active Transportation&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P7</span>
+  <span class="nt">&quot;GHG Change 2050</span><span class="p">:</span> <span class="nt">CAV&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P8</span>
+  <span class="nt">&quot;GHG Change 2050</span><span class="p">:</span> <span class="nt">Smart Mobility&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P9</span>
+  <span class="nt">&quot;GHG Change 2050</span><span class="p">:</span> <span class="nt">Travel Pricing&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P10</span>
+  <span class="nt">&quot;GHG Change 2050</span><span class="p">:</span> <span class="nt">TDM&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P11</span>
+  <span class="nt">&quot;GHG Change 2050</span><span class="p">:</span> <span class="nt">Combined&quot;</span><span class="p">:</span>
+    <span class="nt">address</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">Outputs!P12</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -1464,17 +1459,7 @@ example, the scope is given by:</p>
 
     
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../../',
-              VERSION:'0.1.1, February 2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>

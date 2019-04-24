@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Performance Measures &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  <title>Performance Measures &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -184,11 +184,6 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -206,7 +201,7 @@ a single model output.</p>
 <dl class="class">
 <dt id="emat.Measure">
 <em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Measure</code><span class="sig-paren">(</span><em>name</em>, <em>kind=0</em>, <em>transform=None</em>, <em>min=None</em>, <em>max=None</em>, <em>address=None</em>, <em>variable_name=None</em>, <em>function=None</em>, <em>dtype=None</em>, <em>metamodeltype=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/measure.html#Measure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Measure" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/outcomes.html#ema_workbench.em_framework.outcomes.ScalarOutcome" title="(in ema_workbench v1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.outcomes.ScalarOutcome</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/outcomes.html#ema_workbench.em_framework.outcomes.ScalarOutcome" title="(in ema_workbench v2.None)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.outcomes.ScalarOutcome</span></code></a></p>
 <p>Measure represents an outcome measure of the model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -242,13 +237,29 @@ as a <cite>str</cite>.</li>
 <dl class="attribute">
 <dt id="emat.Measure.name">
 <code class="descname">name</code><a class="headerlink" href="#emat.Measure.name" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>str</em> – Name of the measure.</p>
+<dd><p>Name of the measure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="emat.Measure.kind">
 <code class="descname">kind</code><a class="headerlink" href="#emat.Measure.kind" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> – {MINIMIZE, MAXIMIZE, INFO}</p>
+<dd><p>{MINIMIZE, MAXIMIZE, INFO}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -295,17 +306,7 @@ as a <cite>str</cite>.</li>
 
     
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../',
-              VERSION:'0.1.1, February 2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>

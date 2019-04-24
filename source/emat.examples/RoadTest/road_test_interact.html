@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Road Test &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  <title>Road Test &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
   
 
   
@@ -17,34 +17,32 @@
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
+  
+  
     
 
   
+
   <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
+
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search">
           
 
           
@@ -58,7 +56,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -212,18 +210,18 @@ div.nblast {
 
 /* input prompt */
 div.nbinput div.prompt pre {
-    color: #307FC1;
+    color: #303F9F;
 }
 
 /* output prompt */
 div.nboutput div.prompt pre {
-    color: #BF5B3D;
+    color: #D84315;
 }
 
 /* all prompts */
 div.nbinput div.prompt,
 div.nboutput div.prompt {
-    min-width: 5ex;
+    min-width: 8ex;
     padding-top: 0.4em;
     padding-right: 0.4em;
     text-align: right;
@@ -263,9 +261,9 @@ div.nboutput div.output_area {
 
 /* input area */
 div.nbinput div.input_area {
-    border: 1px solid #e0e0e0;
+    border: 1px solid #cfcfcf;
     border-radius: 2px;
-    background: #f5f5f5;
+    background: #f7f7f7;
 }
 
 /* override MathJax center alignment in output cells */
@@ -273,7 +271,7 @@ div.nboutput div[class*=MathJax] {
     text-align: left !important;
 }
 
-/* override sphinx.ext.imgmath center alignment in output cells */
+/* override sphinx.ext.pngmath center alignment in output cells */
 div.nboutput div.math p {
     text-align: left;
 }
@@ -323,40 +321,6 @@ div.nboutput div.output_area.stderr {
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
 
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
@@ -373,16 +337,12 @@ div.rendered_html tbody tr:hover {
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="section" id="Road-Test">
 <h1>Road Test<a class="headerlink" href="#Road-Test" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -392,7 +352,8 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[1]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -401,24 +362,27 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">ema_workbench</span>
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">numpy</span><span class="o">,</span> <span class="nn">pandas</span><span class="o">,</span> <span class="nn">functools</span>
 <span class="kn">from</span> <span class="nn">emat.util.xmle</span> <span class="k">import</span> <span class="n">Show</span>
+<span class="kn">from</span> <span class="nn">emat.viz.scatter</span> <span class="k">import</span> <span class="n">scatter_graph</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
+<div class="output_area docutils container">
 <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script><script type="text/javascript">if (window.MathJax) {MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script><script>requirejs.config({paths: { 'plotly': ['https://cdn.plot.ly/plotly-latest.min']},});if(!window._Plotly) {require(['plotly'],function(plotly) {window._Plotly=plotly;});}</script></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -431,7 +395,8 @@ div.rendered_html tbody tr:hover {
 <p>The model scope is defined in a YAML file.  For this Road Test example, the scope file is named
 <a class="reference internal" href="road_test_yaml.html#road-test-scope-file"><span class="std std-ref">road_test.yaml</span></a> and is included in the model/tests directory.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -442,7 +407,8 @@ div.rendered_html tbody tr:hover {
 <p>The filename for the YAML file is the first argument when creating a <a class="reference internal" href="../../emat.scope/scope.html#emat.Scope" title="emat.Scope"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scope</span></code></a>
 object, which will load and process the content of the file.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -452,7 +418,8 @@ object, which will load and process the content of the file.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[5]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -462,7 +429,8 @@ object, which will load and process the content of the file.</p>
 </div>
 <p>A short summary of the scope can be reviewed using the <code class="docutils literal notranslate"><span class="pre">info</span></code> method.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -503,9 +471,11 @@ measures:
   present_cost_expansion
 </pre></div></div>
 </div>
-<p>Alternatively, more detailed information about each part of the scope can be accessed in four list attributes:</p>
+<p>Alternatively, more detailed information about each part of the scope
+can be accessed in four list attributes:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -514,7 +484,8 @@ measures:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[7]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -524,7 +495,8 @@ measures:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -533,7 +505,8 @@ measures:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[8]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -548,7 +521,8 @@ measures:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -557,7 +531,8 @@ measures:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[9]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -569,7 +544,8 @@ measures:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -578,7 +554,8 @@ measures:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[10]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -595,10 +572,19 @@ measures:
 </div>
 <div class="section" id="Using-a-Database">
 <h2>Using a Database<a class="headerlink" href="#Using-a-Database" title="Permalink to this headline">¶</a></h2>
-<p>The exploratory modeling process will typically generate many different sets of outputs, for different explored modeling scopes, or for different applications. It is convenient to organize these outputs in a database structure, so they are stored consistently and readily available for subsequent analysis.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">SQLiteDB</span></code> object will create a database to store results. When instantiated with no arguments, the database is initialized in-memory, which will not store anything to disk (which is convenient for this example, but in practice you will generally want to store data to disk so that it can persist after this Python session ends).</p>
+<p>The exploratory modeling process will typically generate many different
+sets of outputs, for different explored modeling scopes, or for
+different applications. It is convenient to organize these outputs in a
+database structure, so they are stored consistently and readily
+available for subsequent analysis.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SQLiteDB</span></code> object will create a database to store results. When
+instantiated with no arguments, the database is initialized in-memory,
+which will not store anything to disk (which is convenient for this
+example, but in practice you will generally want to store data to disk
+so that it can persist after this Python session ends).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -609,16 +595,18 @@ measures:
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="stderr output_area docutils container">
 <div class="highlight"><pre>
 [00:04.99] MainProcess/INFO: running script scope.sql
 [00:05.00] MainProcess/INFO: running script exp_design.sql
 [00:05.00] MainProcess/INFO: running script meta_model.sql
 </pre></div></div>
 </div>
-<p>An EMAT Scope can be stored in the database, to provide needed information about what the various inputs and outputs represent.</p>
+<p>An EMAT Scope can be stored in the database, to provide needed
+information about what the various inputs and outputs represent.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -626,9 +614,11 @@ measures:
 </pre></div>
 </div>
 </div>
-<p>Trying to store another scope with the same name (or the same scope) raises a KeyError.</p>
+<p>Trying to store another scope with the same name (or the same scope)
+raises a KeyError.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -647,9 +637,11 @@ measures:
 &#39;scope named &#34;EMAT Road Test&#34; already exists&#39;
 </pre></div></div>
 </div>
-<p>We can review the names of scopes already stored in the database using the <code class="docutils literal notranslate"><span class="pre">read_scope_names</span></code> method.</p>
+<p>We can review the names of scopes already stored in the database using
+the <code class="docutils literal notranslate"><span class="pre">read_scope_names</span></code> method.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -658,7 +650,8 @@ measures:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[14]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -669,11 +662,20 @@ measures:
 </div>
 <div class="section" id="Experimental-Design">
 <h2>Experimental Design<a class="headerlink" href="#Experimental-Design" title="Permalink to this headline">¶</a></h2>
-<p>Actually running the model can be done by the user on an <em>ad hoc</em> basis (i.e., manually defining every combination of inputs that will be evaluated) but the real power of EMAT comes from runnning the model using algorithm-created experimental designs.</p>
-<p>An important experimental design used in exploratory modeling is the Latin Hypercube. This design selects a random set of experiments across multiple input dimensions, to ensure “good” coverage of the multi-dimensional modeling space.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">design_latin_hypercube</span></code> function creates such a design based on a <code class="docutils literal notranslate"><span class="pre">Scope</span></code>, and optionally stores the design of experiments in a database.</p>
+<p>Actually running the model can be done by the user on an <em>ad hoc</em> basis
+(i.e., manually defining every combination of inputs that will be
+evaluated) but the real power of EMAT comes from runnning the model
+using algorithm-created experimental designs.</p>
+<p>An important experimental design used in exploratory modeling is the
+Latin Hypercube. This design selects a random set of experiments across
+multiple input dimensions, to ensure “good” coverage of the
+multi-dimensional modeling space.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">design_latin_hypercube</span></code> function creates such a design based on a
+<code class="docutils literal notranslate"><span class="pre">Scope</span></code>, and optionally stores the design of experiments in a
+database.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -682,7 +684,8 @@ measures:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -692,10 +695,11 @@ measures:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[16]:
 </pre></div>
 </div>
-<div class="output_area rendered_html docutils container">
+<div class="output_area docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -831,7 +835,8 @@ measures:
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -841,10 +846,11 @@ measures:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[17]:
 </pre></div>
 </div>
-<div class="output_area rendered_html docutils container">
+<div class="output_area docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -979,9 +985,12 @@ measures:
 </table>
 </div></div>
 </div>
-<p>We can review what experimental designs have already been stored in the database using the <code class="docutils literal notranslate"><span class="pre">read_design_names</span></code> method of the <code class="docutils literal notranslate"><span class="pre">Database</span></code> object.</p>
+<p>We can review what experimental designs have already been stored in the
+database using the <code class="docutils literal notranslate"><span class="pre">read_design_names</span></code> method of the <code class="docutils literal notranslate"><span class="pre">Database</span></code>
+object.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -990,7 +999,8 @@ measures:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[18]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -1006,10 +1016,22 @@ and outputs will be, and designing some experiments we would like to run with th
 interface with the model itself.</p>
 <div class="section" id="Model-Definition">
 <h3>Model Definition<a class="headerlink" href="#Model-Definition" title="Permalink to this headline">¶</a></h3>
-<p>In the simplest approach for EMAT, a model can be defined as a basic Python function, which accepts all inputs (exogenous uncertainties, policy levers, and externally defined constants) as named keyword arguments, and returns a dictionary where the dictionary keys are names of performace measures, and the mapped values are the computed values for those performance measures. The <code class="docutils literal notranslate"><span class="pre">Road_Capacity_Investment</span></code> function provided in EMAT is an example of such a function. This made-up example considers
-the investment in capacity expansion for a single roadway link. The inputs to this function are described above in the Scope, including uncertain parameters in the volume-delay function, traffic volumes, value of travel time savings, unit construction costs, and interest rates, and policy levers including the amount of capacity expansion and amortization period.</p>
+<p>In the simplest approach for EMAT, a model can be defined as a basic
+Python function, which accepts all inputs (exogenous uncertainties,
+policy levers, and externally defined constants) as named keyword
+arguments, and returns a dictionary where the dictionary keys are names
+of performace measures, and the mapped values are the computed values
+for those performance measures. The <code class="docutils literal notranslate"><span class="pre">Road_Capacity_Investment</span></code>
+function provided in EMAT is an example of such a function. This made-up
+example considers the investment in capacity expansion for a single
+roadway link. The inputs to this function are described above in the
+Scope, including uncertain parameters in the volume-delay function,
+traffic volumes, value of travel time savings, unit construction costs,
+and interest rates, and policy levers including the amount of capacity
+expansion and amortization period.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1023,7 +1045,8 @@ provides an interface that links the basic Python function that represents
 the model, the <code class="xref py py-class docutils literal notranslate"><span class="pre">Scope</span></code>, and optionally the
 <code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code> used to manage data storage.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1039,7 +1062,8 @@ the database, and return a pandas.DataFrame containing the results.</p>
 <div class="section" id="Model-Execution">
 <h3>Model Execution<a class="headerlink" href="#Model-Execution" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1048,7 +1072,8 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1061,7 +1086,7 @@ the database, and return a pandas.DataFrame containing the results.</p>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="stderr output_area docutils container">
 <div class="highlight"><pre>
 [00:06.62] MainProcess/INFO: performing 110 scenarios/policies * 1 model(s) = 110 experiments
 [00:06.63] MainProcess/INFO: performing experiments sequentially
@@ -1079,10 +1104,11 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[22]:
 </pre></div>
 </div>
-<div class="output_area rendered_html docutils container">
+<div class="output_area docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1253,7 +1279,8 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1263,9 +1290,11 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </pre></div>
 </div>
 </div>
-<p>Once a particular design has been run once, the results can be recovered from the database without re-running the model itself.</p>
+<p>Once a particular design has been run once, the results can be recovered
+from the database without re-running the model itself.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1275,10 +1304,11 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[24]:
 </pre></div>
 </div>
-<div class="output_area rendered_html docutils container">
+<div class="output_area docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1462,9 +1492,11 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </table>
 </div></div>
 </div>
-<p>It is also possible to load only the parameters, or only the performance meausures.</p>
+<p>It is also possible to load only the parameters, or only the performance
+meausures.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1474,10 +1506,11 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[25]:
 </pre></div>
 </div>
-<div class="output_area rendered_html docutils container">
+<div class="output_area docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1613,7 +1646,8 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1623,10 +1657,11 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[26]:
 </pre></div>
 </div>
-<div class="output_area rendered_html docutils container">
+<div class="output_area docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1722,9 +1757,14 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </div>
 <div class="section" id="CART">
 <h3>CART<a class="headerlink" href="#CART" title="Permalink to this headline">¶</a></h3>
-<p>Classification and Regression Trees (CART) can also be used for scenario discovery. They partition the explored space (i.e., the scope) into a number of sections, with each partition being added in such a way as to maximize the difference between observations on each side of the newly added partition divider, subject to some constraints.</p>
+<p>Classification and Regression Trees (CART) can also be used for scenario
+discovery. They partition the explored space (i.e., the scope) into a
+number of sections, with each partition being added in such a way as to
+maximize the difference between observations on each side of the newly
+added partition divider, subject to some constraints.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1739,7 +1779,8 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1748,7 +1789,8 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1762,7 +1804,8 @@ the database, and return a pandas.DataFrame containing the results.</p>
 <div class="section" id="Constraints">
 <h1>Constraints<a class="headerlink" href="#Constraints" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1770,9 +1813,14 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </pre></div>
 </div>
 </div>
-<p>The common use case for constraints in robust optimation is imposing requirements on solution outcomes. For example, we may want to limit our robust search only to solutions where the expected present cost of the capacity expansion is less than some particular value (in our example here, 4000).</p>
+<p>The common use case for constraints in robust optimation is imposing
+requirements on solution outcomes. For example, we may want to limit our
+robust search only to solutions where the expected present cost of the
+capacity expansion is less than some particular value (in our example
+here, 4000).</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1784,9 +1832,14 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </pre></div>
 </div>
 </div>
-<p>Our second constraint is based exclusively on an input: the capacity expansion must be at least 10. We could also achieve this kind of constraint by changing the exploratory scope, but we don’t necessarily want to change the scope to conduct a single robust optimization analysis with a constraint on a policy lever.</p>
+<p>Our second constraint is based exclusively on an input: the capacity
+expansion must be at least 10. We could also achieve this kind of
+constraint by changing the exploratory scope, but we don’t necessarily
+want to change the scope to conduct a single robust optimization
+analysis with a constraint on a policy lever.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1798,10 +1851,17 @@ the database, and return a pandas.DataFrame containing the results.</p>
 </pre></div>
 </div>
 </div>
-<p>It is also possible to impose constraints based on a combination of inputs and outputs. For example, suppose that the total funds available for pay-as-you-go financing are only 1500. We may thus want to restrict the robust search to only solutions that are almost certainly within the available funds at 99% confidence (a model output) but only if the Paygo financing option is used (a model input). This kind of constraint can be created by giving both <code class="docutils literal notranslate"><span class="pre">parameter_names</span></code> and <code class="docutils literal notranslate"><span class="pre">outcomes_names</span></code>,
-and writing a constraint function that takes two arguments.</p>
+<p>It is also possible to impose constraints based on a combination of
+inputs and outputs. For example, suppose that the total funds available
+for pay-as-you-go financing are only 1500. We may thus want to restrict
+the robust search to only solutions that are almost certainly within the
+available funds at 99% confidence (a model output) but only if the Paygo
+financing option is used (a model input). This kind of constraint can be
+created by giving both <code class="docutils literal notranslate"><span class="pre">parameter_names</span></code> and <code class="docutils literal notranslate"><span class="pre">outcomes_names</span></code>, and
+writing a constraint function that takes two arguments.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1815,7 +1875,8 @@ and writing a constraint function that takes two arguments.</p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1828,7 +1889,8 @@ and writing a constraint function that takes two arguments.</p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1837,7 +1899,8 @@ and writing a constraint function that takes two arguments.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1846,10 +1909,11 @@ and writing a constraint function that takes two arguments.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[36]:
 </pre></div>
 </div>
-<div class="output_area rendered_html docutils container">
+<div class="output_area docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1915,7 +1979,8 @@ and writing a constraint function that takes two arguments.</p>
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1924,7 +1989,8 @@ and writing a constraint function that takes two arguments.</p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1933,7 +1999,8 @@ and writing a constraint function that takes two arguments.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1955,7 +2022,8 @@ correct error
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1969,7 +2037,8 @@ correct error
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1984,7 +2053,8 @@ correct error
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2001,7 +2071,8 @@ correct error
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2010,7 +2081,8 @@ correct error
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2019,7 +2091,8 @@ correct error
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[44]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -2028,7 +2101,8 @@ correct error
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2037,7 +2111,8 @@ correct error
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[45]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -2054,7 +2129,8 @@ correct error
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2081,7 +2157,8 @@ Box: No Tax Dollars
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2090,7 +2167,8 @@ Box: No Tax Dollars
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2099,7 +2177,8 @@ Box: No Tax Dollars
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2108,7 +2187,8 @@ Box: No Tax Dollars
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[49]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -2117,7 +2197,8 @@ Box: No Tax Dollars
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [56]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2126,7 +2207,8 @@ Box: No Tax Dollars
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[56]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -2141,7 +2223,8 @@ Box: No Tax Dollars
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [57]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2150,7 +2233,8 @@ Box: No Tax Dollars
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[57]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -2159,7 +2243,8 @@ Box: No Tax Dollars
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [58]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2168,7 +2253,8 @@ Box: No Tax Dollars
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [59]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2184,7 +2270,8 @@ Box: No Tax Dollars
 <script type="application/vnd.jupyter.widget-view+json">{"model_id": "538949a7c1e64ff5ba4115ef46d21888", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2200,7 +2287,8 @@ Box: No Tax Dollars
 <script type="application/vnd.jupyter.widget-view+json">{"model_id": "26ef12467ab047228ab0a93b0c9f1843", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2209,7 +2297,8 @@ Box: No Tax Dollars
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [61]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2218,7 +2307,8 @@ Box: No Tax Dollars
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[61]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -2227,7 +2317,8 @@ Box: No Tax Dollars
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2264,16 +2355,25 @@ Box: No Tax Dollars
   
 
 
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

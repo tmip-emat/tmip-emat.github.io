@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Scope File &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  <title>Scope File &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -194,11 +194,6 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -236,7 +231,8 @@ and the parameter is either <em>uncertainty</em>, <em>lever</em>, or <em>constan
 <div class="section" id="uncertainties">
 <h3>Uncertainties<a class="headerlink" href="#uncertainties" title="Permalink to this headline">¶</a></h3>
 <p>Uncertainties are defined by the range or categories of values, and the distribution shape and
-parameters across the range. Correlations may also be defined between multiple uncertainty measures.</p>
+parameters across the range. Correlations may also be defined between multiple uncertainty
+measures.</p>
 <p>An example uncertainty input is below. This example implements an uncertainty variable with a
 range between 0.82 and 1.37 with a PERT distribution shaped by a relative peak at 33% and a
 gamma value of 4. There is no correlation between the distribution of this uncertainty variable
@@ -361,17 +357,7 @@ estimation the log value of this measure) and the measure should be minimized in
 
     
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../',
-              VERSION:'0.1.1, February 2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>

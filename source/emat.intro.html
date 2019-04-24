@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Introduction to EMAT &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  <title>Introduction to EMAT &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -184,11 +184,6 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -312,10 +307,10 @@ the analysis and for decision makers.</li>
 <div class="section" id="outputs">
 <h3>Outputs<a class="headerlink" href="#outputs" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>A primary output of TMIP-EMAT is a database of Monte Carlo Simulation runs of
+<li>A primary output of TMIP-EMAT is a database of simulation runs of
 the model, including the associated uncertainty and policy lever inputs for
 each simulation and the performance metric outputs for each run.
-TMIP-EMAT uses a Monte Carlo simulation to sample across the uncertainty inputs
+TMIP-EMAT uses either a Monte Carlo or Latin Hypercube approach to sample across the uncertainty inputs
 from their defined distributions and to sample across the potential values of
 each lever.  For each simulation, the collection of model inputs is used along
 with the core model (or meta-model representations of the core model) to generate
@@ -450,17 +445,7 @@ TMIP-EMAT model to perform the optimization.</li>
 
     
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'0.1.1, February 2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>

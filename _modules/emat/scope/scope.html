@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.scope.scope &mdash; TMIP-EMAT 0.1.1, February 2019 documentation</title>
+  <title>emat.scope.scope &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
   
 
   
@@ -56,7 +56,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -658,8 +658,12 @@
 <span class="sd">        Args:</span>
 <span class="sd">            n_samples_per_factor (int, default 10): The number of samples in the</span>
 <span class="sd">                design per random factor.</span>
-<span class="sd">            n_samples (int, optional): The total number of samples in the</span>
-<span class="sd">                design.  If this value is given, it overrides `n_samples_per_factor`.</span>
+<span class="sd">            n_samples (int or tuple, optional): The total number of samples in the</span>
+<span class="sd">                design.  If `jointly` is False, this is the number of samples in each</span>
+<span class="sd">                of the uncertainties and the levers, the total number of samples will</span>
+<span class="sd">                be the square of this value.  Give a 2-tuple to set values for</span>
+<span class="sd">                uncertainties and levers respectively, to set them independently.</span>
+<span class="sd">                If this argument is given, it overrides `n_samples_per_factor`.</span>
 <span class="sd">            random_seed (int or None, default 1234): A random seed for reproducibility.</span>
 <span class="sd">            db (Database, optional): If provided, this design will be stored in the</span>
 <span class="sd">                database indicated.</span>
@@ -667,10 +671,26 @@
 <span class="sd">                database. If not given, a unique name will be generated based on the</span>
 <span class="sd">                selected sampler.  Has no effect if no `db` is given.</span>
 <span class="sd">            sampler (str or AbstractSampler, default &#39;lhs&#39;): The sampler to use for this</span>
-<span class="sd">                design.</span>
+<span class="sd">                design.  Available pre-defined samplers include:</span>
+<span class="sd">                    - &#39;lhs&#39;: Latin Hypercube sampling</span>
+<span class="sd">                    - &#39;ulhs&#39;: Uniform Latin Hypercube sampling, which ignores defined</span>
+<span class="sd">                        distribution shapes from the scope and samples everything</span>
+<span class="sd">                        as if it was from a uniform distribution</span>
+<span class="sd">                    - &#39;mc&#39;: Monte carlo sampling</span>
+<span class="sd">                    - &#39;uni&#39;: Univariate sensitivity testing, whereby experiments are</span>
+<span class="sd">                        generated setting each parameter individually to minimum and</span>
+<span class="sd">                        maximum values (for numeric dtypes) or all possible values</span>
+<span class="sd">                        (for boolean and categorical dtypes).  Note that designs for</span>
+<span class="sd">                        univariate sensitivity testing are deterministic and the number</span>
+<span class="sd">                        of samples given is ignored.</span>
 <span class="sd">            sample_from (&#39;all&#39;, &#39;uncertainties&#39;, or &#39;levers&#39;): Which scope components</span>
 <span class="sd">                from which to sample.  Components not sampled are set at their default</span>
 <span class="sd">                values in the design.</span>
+<span class="sd">            jointly (bool, default True): Whether to sample jointly all uncertainties</span>
+<span class="sd">                and levers in a single design, or, if False, to generate separate samples</span>
+<span class="sd">                for levers and uncertainties, and then combine the two in a full-factorial</span>
+<span class="sd">                manner.  This argument has no effect unless `sample_from` is &#39;all&#39;.</span>
+<span class="sd">                Note that jointly may produce a very large design;</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            pandas.DataFrame: The resulting design.</span>
@@ -712,17 +732,7 @@
 
     
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../../',
-              VERSION:'0.1.1, February 2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>

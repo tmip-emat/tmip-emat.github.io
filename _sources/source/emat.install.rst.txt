@@ -19,16 +19,16 @@ will be published here when that installation path is available.
 
 **Core Model Configuration**
 
-Depending on the particular model being used, a core model configuration file 
-may be necessary to define the folder locations, paths to executables and 
-other necessary information about the core model installation on the local 
-system. The actual contents of this file will be determined by the requirements 
+Depending on the particular model being used, a core model configuration file
+may be necessary to define the folder locations, paths to executables and
+other necessary information about the core model installation on the local
+system. The actual contents of this file will be determined by the requirements
 of the core model. The file is loaded when the core model is initialized.
 
 For an example of a configuration file in use, see the :ref:`GBNRTC example model <gbnrtc-example-model>`
 
-Each TMIP-EMAT deployment will have a single core model configuration file. 
+Each TMIP-EMAT deployment will have a single core model configuration file.
 Settings that are specific to a particular application are defined in the Scope
-File. 
+File.
 
 
