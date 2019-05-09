@@ -1,0 +1,1025 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from emat.examples import road_test"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import emat\n",
+    "import pytest\n",
+    "import numpy as np\n",
+    "import pandas as pd\n",
+    "from pytest import approx"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s, db, m = road_test(yamlfile='road_test2.yaml')\n",
+    "\n",
+    "db.get_db_info()\n",
+    "\n",
+    "m.design_experiments(n_samples=10, design_name='tiny')\n",
+    "\n",
+    "db.read_experiment_all(None, None)\n",
+    "\n",
+    "with pytest.raises(emat.PendingExperimentsError):\n",
+    "    m.create_metamodel_from_design('tiny', random_state=123)\n",
+    "\n",
+    "tiny1 = m.run_experiments(design_name='tiny')\n",
+    "\n",
+    "mm = m.create_metamodel_from_design('tiny', random_state=123)\n",
+    "\n",
+    "assert mm.scope != m.scope  # now not equal as road_test2 has transforms that are stripped.\n",
+    "\n",
+    "tiny2 = m.design_experiments(n_samples=10, design_name='tiny2', random_seed=456)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "TypeError",
+     "evalue": "run_experiment() missing 1 required positional argument: 'experiment'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-4-0e666a2c3749>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mm\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrun_experiment\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;32m~/Git/EMAworkbench/ema_workbench/util/ema_logging.py\u001b[0m in \u001b[0;36mwrapper\u001b[0;34m(*args, **kwargs)\u001b[0m\n\u001b[1;32m    156\u001b[0m             \u001b[0;31m# object instance as first arguments in args\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    157\u001b[0m             \u001b[0mlogger\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdebug\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'calling {} on {}'\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mformat\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfunc\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m__name__\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mclassname\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 158\u001b[0;31m             \u001b[0mres\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mfunc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    159\u001b[0m             logger.debug(\n\u001b[1;32m    160\u001b[0m                 'completed calling {} on {}'.format(\n",
+      "\u001b[0;31mTypeError\u001b[0m: run_experiment() missing 1 required positional argument: 'experiment'"
+     ]
+    }
+   ],
+   "source": [
+    "m.run_experiment()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>alpha</th>\n",
+       "      <th>beta</th>\n",
+       "      <th>input_flow</th>\n",
+       "      <th>value_of_time</th>\n",
+       "      <th>unit_cost_expansion</th>\n",
+       "      <th>interest_rate</th>\n",
+       "      <th>yield_curve</th>\n",
+       "      <th>expand_capacity</th>\n",
+       "      <th>amortization_period</th>\n",
+       "      <th>debt_type</th>\n",
+       "      <th>interest_rate_lock</th>\n",
+       "      <th>no_build_travel_time</th>\n",
+       "      <th>build_travel_time</th>\n",
+       "      <th>log_build_travel_time</th>\n",
+       "      <th>time_savings</th>\n",
+       "      <th>value_of_time_savings</th>\n",
+       "      <th>net_benefits</th>\n",
+       "      <th>cost_of_capacity_expansion</th>\n",
+       "      <th>present_cost_expansion</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>experiment</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>0.171506</td>\n",
+       "      <td>5.165582</td>\n",
+       "      <td>92</td>\n",
+       "      <td>0.035512</td>\n",
+       "      <td>98.129415</td>\n",
+       "      <td>0.030504</td>\n",
+       "      <td>0.013704</td>\n",
+       "      <td>62.923040</td>\n",
+       "      <td>45</td>\n",
+       "      <td>Paygo</td>\n",
+       "      <td>False</td>\n",
+       "      <td>66.689206</td>\n",
+       "      <td>60.537479</td>\n",
+       "      <td>4.103263</td>\n",
+       "      <td>6.151727</td>\n",
+       "      <td>20.098108</td>\n",
+       "      <td>-157.345355</td>\n",
+       "      <td>177.443463</td>\n",
+       "      <td>6174.601134</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>0.121985</td>\n",
+       "      <td>4.062706</td>\n",
+       "      <td>130</td>\n",
+       "      <td>0.055924</td>\n",
+       "      <td>106.101811</td>\n",
+       "      <td>0.039651</td>\n",
+       "      <td>0.017071</td>\n",
+       "      <td>36.615447</td>\n",
+       "      <td>20</td>\n",
+       "      <td>GO Bond</td>\n",
+       "      <td>True</td>\n",
+       "      <td>81.250868</td>\n",
+       "      <td>65.982474</td>\n",
+       "      <td>4.189389</td>\n",
+       "      <td>15.268394</td>\n",
+       "      <td>111.002734</td>\n",
+       "      <td>-147.548080</td>\n",
+       "      <td>258.550814</td>\n",
+       "      <td>3884.965223</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>0.198152</td>\n",
+       "      <td>4.229310</td>\n",
+       "      <td>149</td>\n",
+       "      <td>0.065754</td>\n",
+       "      <td>133.110296</td>\n",
+       "      <td>0.033562</td>\n",
+       "      <td>0.013142</td>\n",
+       "      <td>88.862610</td>\n",
+       "      <td>40</td>\n",
+       "      <td>Paygo</td>\n",
+       "      <td>True</td>\n",
+       "      <td>124.210699</td>\n",
+       "      <td>64.362147</td>\n",
+       "      <td>4.164526</td>\n",
+       "      <td>59.848552</td>\n",
+       "      <td>586.361310</td>\n",
+       "      <td>245.346693</td>\n",
+       "      <td>341.014617</td>\n",
+       "      <td>11828.528259</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>0.111588</td>\n",
+       "      <td>5.309485</td>\n",
+       "      <td>128</td>\n",
+       "      <td>0.031414</td>\n",
+       "      <td>137.388358</td>\n",
+       "      <td>0.038195</td>\n",
+       "      <td>0.006252</td>\n",
+       "      <td>56.711765</td>\n",
+       "      <td>37</td>\n",
+       "      <td>Rev Bond</td>\n",
+       "      <td>False</td>\n",
+       "      <td>84.831280</td>\n",
+       "      <td>62.286178</td>\n",
+       "      <td>4.131740</td>\n",
+       "      <td>22.545102</td>\n",
+       "      <td>90.654964</td>\n",
+       "      <td>-328.663763</td>\n",
+       "      <td>419.318727</td>\n",
+       "      <td>7791.536223</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>0.101161</td>\n",
+       "      <td>4.898992</td>\n",
+       "      <td>141</td>\n",
+       "      <td>0.048088</td>\n",
+       "      <td>119.871710</td>\n",
+       "      <td>0.028837</td>\n",
+       "      <td>0.004236</td>\n",
+       "      <td>23.296808</td>\n",
+       "      <td>50</td>\n",
+       "      <td>Rev Bond</td>\n",
+       "      <td>False</td>\n",
+       "      <td>92.673011</td>\n",
+       "      <td>71.711618</td>\n",
+       "      <td>4.272653</td>\n",
+       "      <td>20.961393</td>\n",
+       "      <td>142.125673</td>\n",
+       "      <td>27.173964</td>\n",
+       "      <td>114.951709</td>\n",
+       "      <td>2792.628209</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>0.180129</td>\n",
+       "      <td>3.637847</td>\n",
+       "      <td>111</td>\n",
+       "      <td>0.011911</td>\n",
+       "      <td>103.864923</td>\n",
+       "      <td>0.035449</td>\n",
+       "      <td>0.008342</td>\n",
+       "      <td>92.073618</td>\n",
+       "      <td>35</td>\n",
+       "      <td>Paygo</td>\n",
+       "      <td>True</td>\n",
+       "      <td>75.798401</td>\n",
+       "      <td>61.470283</td>\n",
+       "      <td>4.118554</td>\n",
+       "      <td>14.328118</td>\n",
+       "      <td>18.943243</td>\n",
+       "      <td>-283.302596</td>\n",
+       "      <td>302.245838</td>\n",
+       "      <td>9563.219268</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>0.144868</td>\n",
+       "      <td>4.485909</td>\n",
+       "      <td>81</td>\n",
+       "      <td>0.003614</td>\n",
+       "      <td>110.135693</td>\n",
+       "      <td>0.026721</td>\n",
+       "      <td>0.000977</td>\n",
+       "      <td>0.116321</td>\n",
+       "      <td>30</td>\n",
+       "      <td>Paygo</td>\n",
+       "      <td>True</td>\n",
+       "      <td>63.377511</td>\n",
+       "      <td>63.359943</td>\n",
+       "      <td>4.148832</td>\n",
+       "      <td>0.017568</td>\n",
+       "      <td>0.005143</td>\n",
+       "      <td>-0.450846</td>\n",
+       "      <td>0.455989</td>\n",
+       "      <td>12.811063</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>0.153310</td>\n",
+       "      <td>4.683623</td>\n",
+       "      <td>98</td>\n",
+       "      <td>0.018861</td>\n",
+       "      <td>141.105112</td>\n",
+       "      <td>0.025044</td>\n",
+       "      <td>0.009765</td>\n",
+       "      <td>10.715434</td>\n",
+       "      <td>28</td>\n",
+       "      <td>Rev Bond</td>\n",
+       "      <td>True</td>\n",
+       "      <td>68.368130</td>\n",
+       "      <td>65.194862</td>\n",
+       "      <td>4.177381</td>\n",
+       "      <td>3.173268</td>\n",
+       "      <td>5.865491</td>\n",
+       "      <td>-78.416378</td>\n",
+       "      <td>84.281869</td>\n",
+       "      <td>1512.002547</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>0.168026</td>\n",
+       "      <td>5.095060</td>\n",
+       "      <td>105</td>\n",
+       "      <td>0.061557</td>\n",
+       "      <td>125.601642</td>\n",
+       "      <td>0.031891</td>\n",
+       "      <td>-0.000496</td>\n",
+       "      <td>47.300559</td>\n",
+       "      <td>16</td>\n",
+       "      <td>GO Bond</td>\n",
+       "      <td>False</td>\n",
+       "      <td>72.926755</td>\n",
+       "      <td>61.796710</td>\n",
+       "      <td>4.123850</td>\n",
+       "      <td>11.130045</td>\n",
+       "      <td>71.939323</td>\n",
+       "      <td>-398.779958</td>\n",
+       "      <td>470.719281</td>\n",
+       "      <td>5941.027870</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>10</th>\n",
+       "      <td>0.130983</td>\n",
+       "      <td>3.779400</td>\n",
+       "      <td>122</td>\n",
+       "      <td>0.073536</td>\n",
+       "      <td>120.876370</td>\n",
+       "      <td>0.035671</td>\n",
+       "      <td>0.019940</td>\n",
+       "      <td>79.798396</td>\n",
+       "      <td>24</td>\n",
+       "      <td>GO Bond</td>\n",
+       "      <td>False</td>\n",
+       "      <td>76.662991</td>\n",
+       "      <td>61.814744</td>\n",
+       "      <td>4.124142</td>\n",
+       "      <td>14.848247</td>\n",
+       "      <td>133.209780</td>\n",
+       "      <td>-488.451150</td>\n",
+       "      <td>621.660930</td>\n",
+       "      <td>9645.740431</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "               alpha      beta  input_flow  value_of_time  \\\n",
+       "experiment                                                  \n",
+       "1           0.171506  5.165582          92       0.035512   \n",
+       "2           0.121985  4.062706         130       0.055924   \n",
+       "3           0.198152  4.229310         149       0.065754   \n",
+       "4           0.111588  5.309485         128       0.031414   \n",
+       "5           0.101161  4.898992         141       0.048088   \n",
+       "6           0.180129  3.637847         111       0.011911   \n",
+       "7           0.144868  4.485909          81       0.003614   \n",
+       "8           0.153310  4.683623          98       0.018861   \n",
+       "9           0.168026  5.095060         105       0.061557   \n",
+       "10          0.130983  3.779400         122       0.073536   \n",
+       "\n",
+       "            unit_cost_expansion  interest_rate  yield_curve  expand_capacity  \\\n",
+       "experiment                                                                     \n",
+       "1                     98.129415       0.030504     0.013704        62.923040   \n",
+       "2                    106.101811       0.039651     0.017071        36.615447   \n",
+       "3                    133.110296       0.033562     0.013142        88.862610   \n",
+       "4                    137.388358       0.038195     0.006252        56.711765   \n",
+       "5                    119.871710       0.028837     0.004236        23.296808   \n",
+       "6                    103.864923       0.035449     0.008342        92.073618   \n",
+       "7                    110.135693       0.026721     0.000977         0.116321   \n",
+       "8                    141.105112       0.025044     0.009765        10.715434   \n",
+       "9                    125.601642       0.031891    -0.000496        47.300559   \n",
+       "10                   120.876370       0.035671     0.019940        79.798396   \n",
+       "\n",
+       "            amortization_period debt_type  interest_rate_lock  \\\n",
+       "experiment                                                      \n",
+       "1                            45     Paygo               False   \n",
+       "2                            20   GO Bond                True   \n",
+       "3                            40     Paygo                True   \n",
+       "4                            37  Rev Bond               False   \n",
+       "5                            50  Rev Bond               False   \n",
+       "6                            35     Paygo                True   \n",
+       "7                            30     Paygo                True   \n",
+       "8                            28  Rev Bond                True   \n",
+       "9                            16   GO Bond               False   \n",
+       "10                           24   GO Bond               False   \n",
+       "\n",
+       "            no_build_travel_time  build_travel_time  log_build_travel_time  \\\n",
+       "experiment                                                                   \n",
+       "1                      66.689206          60.537479               4.103263   \n",
+       "2                      81.250868          65.982474               4.189389   \n",
+       "3                     124.210699          64.362147               4.164526   \n",
+       "4                      84.831280          62.286178               4.131740   \n",
+       "5                      92.673011          71.711618               4.272653   \n",
+       "6                      75.798401          61.470283               4.118554   \n",
+       "7                      63.377511          63.359943               4.148832   \n",
+       "8                      68.368130          65.194862               4.177381   \n",
+       "9                      72.926755          61.796710               4.123850   \n",
+       "10                     76.662991          61.814744               4.124142   \n",
+       "\n",
+       "            time_savings  value_of_time_savings  net_benefits  \\\n",
+       "experiment                                                      \n",
+       "1               6.151727              20.098108   -157.345355   \n",
+       "2              15.268394             111.002734   -147.548080   \n",
+       "3              59.848552             586.361310    245.346693   \n",
+       "4              22.545102              90.654964   -328.663763   \n",
+       "5              20.961393             142.125673     27.173964   \n",
+       "6              14.328118              18.943243   -283.302596   \n",
+       "7               0.017568               0.005143     -0.450846   \n",
+       "8               3.173268               5.865491    -78.416378   \n",
+       "9              11.130045              71.939323   -398.779958   \n",
+       "10             14.848247             133.209780   -488.451150   \n",
+       "\n",
+       "            cost_of_capacity_expansion  present_cost_expansion  \n",
+       "experiment                                                      \n",
+       "1                           177.443463             6174.601134  \n",
+       "2                           258.550814             3884.965223  \n",
+       "3                           341.014617            11828.528259  \n",
+       "4                           419.318727             7791.536223  \n",
+       "5                           114.951709             2792.628209  \n",
+       "6                           302.245838             9563.219268  \n",
+       "7                             0.455989               12.811063  \n",
+       "8                            84.281869             1512.002547  \n",
+       "9                           470.719281             5941.027870  \n",
+       "10                          621.660930             9645.740431  "
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tiny1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "assert tiny2.iloc[0]['debt_type'] == 'GO Bond'\n",
+    "\n",
+    "assert dict(tiny2.iloc[0].drop('debt_type')) == approx({\n",
+    "    'alpha': 0.10428005571929212,\n",
+    "    'amortization_period': 33,\n",
+    "    'beta': 4.8792451185772014,\n",
+    "    'expand_capacity': 61.4210886403998,\n",
+    "    'input_flow': 137,\n",
+    "    'interest_rate': 0.03099304322197216,\n",
+    "    'interest_rate_lock': 0,\n",
+    "    'unit_cost_expansion': 121.85520427974882,\n",
+    "    'value_of_time': 0.002953613029133872,\n",
+    "    'yield_curve': 0.016255990123028242,\n",
+    "    'free_flow_time': 60,\n",
+    "    'initial_capacity': 100})\n",
+    "\n",
+    "result2 = mm.run_experiments('tiny2')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# print(dict(mm.read_experiment_measures('tiny2').iloc[0]))\n",
+    "#\n",
+    "# print({\n",
+    "#     'no_build_travel_time': 81.6839454971052,\n",
+    "#     'build_travel_time': 61.91038371206646,\n",
+    "#     'time_savings': 44.94189289289446,\n",
+    "#     'value_of_time_savings': 2904.081661408463,\n",
+    "#     'net_benefits': -34.09931528157315,\n",
+    "#     'cost_of_capacity_expansion': 1085.3565091745982,\n",
+    "#     'present_cost_expansion': 19923.66625500023,\n",
+    "# })\n",
+    "#\n",
+    "assert dict(mm.read_experiment_measures('tiny2').iloc[0]) == approx({\n",
+    "    'no_build_travel_time': 81.6839454971052,\n",
+    "    'build_travel_time': 61.91038371206646,\n",
+    "    'log_build_travel_time': 4.120826572003798,\n",
+    "    'time_savings': 44.94189289289446,\n",
+    "    'value_of_time_savings': 2904.081661408463,\n",
+    "    'net_benefits': -34.09931528157315,\n",
+    "    'cost_of_capacity_expansion': 1085.3565091745982,\n",
+    "    'present_cost_expansion': 19923.66625500023,\n",
+    "})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'no_build_travel_time': 89.07004237532217,\n",
+       " 'build_travel_time': 62.81032484779827,\n",
+       " 'time_savings': 26.259717527523904,\n",
+       " 'value_of_time_savings': 10.62586300480175,\n",
+       " 'present_cost_expansion': 7484.479303360477,\n",
+       " 'cost_of_capacity_expansion': 395.69034710662226,\n",
+       " 'net_benefits': -385.0644841018205}"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "m.function(**(tiny2.iloc[0]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'no_build_travel_time': 89.07004237532217,\n",
+       " 'build_travel_time': 62.81032484779827,\n",
+       " 'time_savings': 26.259717527523904,\n",
+       " 'value_of_time_savings': 10.62586300480175,\n",
+       " 'net_benefits': -385.0644841018205,\n",
+       " 'cost_of_capacity_expansion': 395.69034710662226,\n",
+       " 'present_cost_expansion': 7484.479303360477}"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "m.run_experiment(tiny2.iloc[0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m.outcomes_output = m.run_experiment(tiny2.iloc[0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'no_build_travel_time': 89.07004237532217,\n",
+       " 'build_travel_time': 62.81032484779827,\n",
+       " 'log_build_travel_time': 4.140119468365003,\n",
+       " 'time_savings': 26.259717527523904,\n",
+       " 'value_of_time_savings': 10.62586300480175,\n",
+       " 'net_benefits': -385.0644841018205,\n",
+       " 'cost_of_capacity_expansion': 395.69034710662226,\n",
+       " 'present_cost_expansion': 7484.479303360477}"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "m.outcomes_output"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[Measure('no_build_travel_time'),\n",
+       " Measure('build_travel_time'),\n",
+       " Measure('log_build_travel_time', variable_name=['build_travel_time'], function=<ufunc 'log'>),\n",
+       " Measure('time_savings'),\n",
+       " Measure('value_of_time_savings'),\n",
+       " Measure('net_benefits'),\n",
+       " Measure('cost_of_capacity_expansion'),\n",
+       " Measure('present_cost_expansion')]"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "m.scope.get_measures()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "AssertionError",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mAssertionError\u001b[0m                            Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-11-82adf710e988>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      7\u001b[0m     \u001b[0;34m'present_cost_expansion'\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0;36m7484.479303360477\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      8\u001b[0m     \u001b[0;34m'cost_of_capacity_expansion'\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0;36m395.69034710662226\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 9\u001b[0;31m     \u001b[0;34m'net_benefits'\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0;34m-\u001b[0m\u001b[0;36m385.0644841018205\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     10\u001b[0m })\n",
+      "\u001b[0;31mAssertionError\u001b[0m: "
+     ]
+    }
+   ],
+   "source": [
+    "assert m.function(**(tiny2.iloc[0])) == approx({\n",
+    "    'no_build_travel_time': 89.07004237532217,\n",
+    "    'build_travel_time': 62.81032484779827,\n",
+    "    'log_build_travel_time': np.log(62.81032484779827),\n",
+    "    'time_savings': 26.259717527523904,\n",
+    "    'value_of_time_savings': 10.62586300480175,\n",
+    "    'present_cost_expansion': 7484.479303360477,\n",
+    "    'cost_of_capacity_expansion': 395.69034710662226,\n",
+    "    'net_benefits': -385.0644841018205,\n",
+    "})"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "        with pytest.raises(ValueError):\n",
+    "            # no metamodels stored\n",
+    "            mm3 = db.read_metamodel(None, None)\n",
+    "\n",
+    "        db.write_metamodel(mm)\n",
+    "        mm2 = db.read_metamodel(None, 1)\n",
+    "        mm3 = db.read_metamodel(None, None)\n",
+    "        assert mm2 == mm == mm3\n",
+    "        assert mm2 is not mm\n",
+    "\n",
+    "        assert mm2.function(**(tiny2.iloc[0])) == approx({\n",
+    "            'no_build_travel_time': 81.6839454971052,\n",
+    "            'build_travel_time': 61.91038371206646,\n",
+    "            'log_build_travel_time': 4.120826572003798,\n",
+    "            'time_savings': 44.94189289289446,\n",
+    "            'value_of_time_savings': 2904.081661408463,\n",
+    "            'net_benefits': -34.09931528157315,\n",
+    "            'cost_of_capacity_expansion': 1085.3565091745982,\n",
+    "            'present_cost_expansion': 19923.66625500023,\n",
+    "        })\n",
+    "\n",
+    "        mm3.metamodel_id = db.get_new_metamodel_id(None)\n",
+    "        db.write_metamodel(mm3)\n",
+    "\n",
+    "        with pytest.raises(ValueError):\n",
+    "            # now too many to get without giving an ID\n",
+    "            mm4 = db.read_metamodel(None, None)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import itertools"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def zip_cycle(*args):\n",
+    "    maxlen = max(len(a) for a in args)\n",
+    "    return itertools.islice(zip(*(itertools.cycle(a) for a in args)), maxlen)\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1 41 51\n",
+      "2 42 52\n",
+      "3 43 51\n",
+      "1 44 52\n",
+      "2 45 51\n",
+      "3 46 52\n"
+     ]
+    }
+   ],
+   "source": [
+    "for a,b,c in zip_cycle([1,2,3],[41,42,43,44,45,46],[51,52]):\n",
+    "    print(a,b,c)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<generator object <genexpr> at 0x1c1f528258>"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "scenarios, model_structures, policies = [1,2,3],[41,42,43,44,45,46],[51,52]\n",
+    "\n",
+    "(\n",
+    "            (m_, p_, s_)\n",
+    "            for s_, (m_, p_) in itertools.product(\n",
+    "                scenarios, zip_cycle(model_structures, policies)\n",
+    "            )\n",
+    "        )"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/Users/jpn/anaconda/envs/EMAT/lib/python3.6/importlib/_bootstrap.py:219: ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__\n",
+      "  return f(*args, **kwds)\n",
+      "/Users/jpn/anaconda/envs/EMAT/lib/python3.6/importlib/_bootstrap.py:219: ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__\n",
+      "  return f(*args, **kwds)\n",
+      "/Users/jpn/anaconda/envs/EMAT/lib/python3.6/importlib/_bootstrap.py:219: ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__\n",
+      "  return f(*args, **kwds)\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    "##########\n",
+    "\n",
+    "\n",
+    "\n",
+    "import ema_workbench as ew\n",
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "from ema_workbench.analysis.pairs_plotting import (pairs_density, pairs_lines,\n",
+    "                                                   pairs_scatter)\n",
+    "from ema_workbench.util import load_results\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# experiments, outcomes =  utilities.load_eng_trans_data() \n",
+    "\n",
+    "fn = '/Users/jpn/Git/EMAworkbench/test/data/eng_trans.tar.gz'\n",
+    "\n",
+    "experiments, outcomes = load_results(fn)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[3.32064606e-04, 9.01235826e-03, 1.94310155e-02, ...,\n",
+       "        2.38710165e-01, 2.39251286e-01, 2.39779949e-01],\n",
+       "       [2.23291820e-04, 5.13092317e-02, 8.79614204e-02, ...,\n",
+       "        3.60425591e-01, 3.68308336e-01, 3.78874987e-01],\n",
+       "       [1.61157936e-04, 8.30425248e-02, 1.24605946e-01, ...,\n",
+       "        5.41138351e-01, 5.31972766e-01, 5.20516515e-01],\n",
+       "       ...,\n",
+       "       [3.00036860e-04, 1.03838891e-01, 1.77543938e-01, ...,\n",
+       "        8.20170760e-01, 8.16031218e-01, 8.13171923e-01],\n",
+       "       [1.56578812e-04, 7.31633380e-02, 1.15992390e-01, ...,\n",
+       "        4.31464165e-01, 4.82249439e-01, 5.00814497e-01],\n",
+       "       [2.87018920e-04, 1.97335575e-02, 4.42913026e-02, ...,\n",
+       "        8.21360767e-01, 8.20676208e-01, 8.20172906e-01]])"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "outcomes['total fraction new technologies']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[ 15320.3886719,  15329.3466797,  15486.15625  , ...,\n",
+       "        171114.859375 , 178724.578125 , 186212.28125  ],\n",
+       "       [ 14692.6142578,  15919.4355469,  16825.390625 , ...,\n",
+       "        151417.203125 , 178058.4375   , 205550.734375 ],\n",
+       "       [ 15112.6445312,  17003.1894531,  18251.6445312, ...,\n",
+       "        270896.5      , 279976.90625  , 282238.65625  ],\n",
+       "       ...,\n",
+       "       [ 14505.84375  ,  15963.6337891,  17074.671875 , ...,\n",
+       "        374554.25     , 358090.       , 347420.53125  ],\n",
+       "       [ 15825.3154297,  18085.7109375,  19653.3046875, ...,\n",
+       "        246803.1875   , 314891.40625  , 416006.8125   ],\n",
+       "       [ 14663.2373047,  14434.7382812,  14306.5742188, ...,\n",
+       "        757986.0625   , 786630.75     , 815530.9375   ]])"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "outcomes['total capacity installed']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "extents {('total fraction new technologies', 'total fraction new technologies'): (4.76568720842e-06, 0.995972454548, 4.76568720842e-06, 0.995972454548), ('total fraction new technologies', 'total capacity installed'): (4.76568720842e-06, 0.995972454548, 38316.0625, 2210685.5), ('total capacity installed', 'total fraction new technologies'): (38316.0625, 2210685.5, 4.76568720842e-06, 0.995972454548), ('total capacity installed', 'total capacity installed'): (38316.0625, 2210685.5, 38316.0625, 2210685.5)}\n",
+      "DEBUGSER 4.76568720842e-06 4.76568720842e-06\n",
+      "CM, <matplotlib.colors.LinearSegmentedColormap object at 0x1a218a5b38>\n",
+      "DEBUGSER 38316.0625 4.76568720842e-06\n",
+      "CM, <matplotlib.colors.LinearSegmentedColormap object at 0x1a218a5b38>\n",
+      "DEBUGSER 4.76568720842e-06 38316.0625\n",
+      "CM, <matplotlib.colors.LinearSegmentedColormap object at 0x1a218a5b38>\n",
+      "DEBUGSER 38316.0625 38316.0625\n",
+      "CM, <matplotlib.colors.LinearSegmentedColormap object at 0x1a218a5b38>\n",
+      "vmax 1.0\n",
+      "vmax 2.0\n",
+      "vmax 2.0\n",
+      "vmax 1.0\n"
+     ]
+    },
+    {
+     "ename": "ValueError",
+     "evalue": "values must all be positive",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mValueError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-5-af1636dcc764>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      2\u001b[0m               \u001b[0mgrouping_specifiers\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'no policy'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m                   )\n\u001b[0;32m----> 4\u001b[0;31m \u001b[0mplt\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/pyplot.py\u001b[0m in \u001b[0;36mdraw\u001b[0;34m()\u001b[0m\n\u001b[1;32m    681\u001b[0m         \u001b[0mfig\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcanvas\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw_idle\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    682\u001b[0m     \"\"\"\n\u001b[0;32m--> 683\u001b[0;31m     \u001b[0mget_current_fig_manager\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcanvas\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw_idle\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    684\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    685\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/backend_bases.py\u001b[0m in \u001b[0;36mdraw_idle\u001b[0;34m(self, *args, **kwargs)\u001b[0m\n\u001b[1;32m   1897\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_is_idle_drawing\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1898\u001b[0m             \u001b[0;32mwith\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_idle_draw_cntx\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 1899\u001b[0;31m                 \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   1900\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1901\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0mdraw_cursor\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mevent\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/backends/backend_agg.py\u001b[0m in \u001b[0;36mdraw\u001b[0;34m(self)\u001b[0m\n\u001b[1;32m    400\u001b[0m         \u001b[0mtoolbar\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtoolbar\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    401\u001b[0m         \u001b[0;32mtry\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 402\u001b[0;31m             \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfigure\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrenderer\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    403\u001b[0m             \u001b[0;31m# A GUI class may be need to update a window using this draw, so\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    404\u001b[0m             \u001b[0;31m# don't forget to call the superclass.\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py\u001b[0m in \u001b[0;36mdraw_wrapper\u001b[0;34m(artist, renderer, *args, **kwargs)\u001b[0m\n\u001b[1;32m     48\u001b[0m                 \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstart_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     49\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 50\u001b[0;31m             \u001b[0;32mreturn\u001b[0m \u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0martist\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mrenderer\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m*\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     51\u001b[0m         \u001b[0;32mfinally\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     52\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0martist\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_agg_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/figure.py\u001b[0m in \u001b[0;36mdraw\u001b[0;34m(self, renderer)\u001b[0m\n\u001b[1;32m   1647\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1648\u001b[0m             mimage._draw_list_compositing_images(\n\u001b[0;32m-> 1649\u001b[0;31m                 renderer, self, artists, self.suppressComposite)\n\u001b[0m\u001b[1;32m   1650\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1651\u001b[0m             \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mclose_group\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'figure'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/image.py\u001b[0m in \u001b[0;36m_draw_list_compositing_images\u001b[0;34m(renderer, parent, artists, suppress_composite)\u001b[0m\n\u001b[1;32m    136\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mnot_composite\u001b[0m \u001b[0;32mor\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mhas_images\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    137\u001b[0m         \u001b[0;32mfor\u001b[0m \u001b[0ma\u001b[0m \u001b[0;32min\u001b[0m \u001b[0martists\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 138\u001b[0;31m             \u001b[0ma\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mrenderer\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    139\u001b[0m     \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    140\u001b[0m         \u001b[0;31m# Composite any adjacent images together\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py\u001b[0m in \u001b[0;36mdraw_wrapper\u001b[0;34m(artist, renderer, *args, **kwargs)\u001b[0m\n\u001b[1;32m     48\u001b[0m                 \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstart_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     49\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 50\u001b[0;31m             \u001b[0;32mreturn\u001b[0m \u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0martist\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mrenderer\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m*\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     51\u001b[0m         \u001b[0;32mfinally\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     52\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0martist\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_agg_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/axes/_base.py\u001b[0m in \u001b[0;36mdraw\u001b[0;34m(self, renderer, inframe)\u001b[0m\n\u001b[1;32m   2626\u001b[0m             \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstop_rasterizing\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2627\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2628\u001b[0;31m         \u001b[0mmimage\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_draw_list_compositing_images\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mrenderer\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0martists\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2629\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2630\u001b[0m         \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mclose_group\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'axes'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/image.py\u001b[0m in \u001b[0;36m_draw_list_compositing_images\u001b[0;34m(renderer, parent, artists, suppress_composite)\u001b[0m\n\u001b[1;32m    136\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mnot_composite\u001b[0m \u001b[0;32mor\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mhas_images\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    137\u001b[0m         \u001b[0;32mfor\u001b[0m \u001b[0ma\u001b[0m \u001b[0;32min\u001b[0m \u001b[0martists\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 138\u001b[0;31m             \u001b[0ma\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mrenderer\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    139\u001b[0m     \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    140\u001b[0m         \u001b[0;31m# Composite any adjacent images together\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py\u001b[0m in \u001b[0;36mdraw_wrapper\u001b[0;34m(artist, renderer, *args, **kwargs)\u001b[0m\n\u001b[1;32m     48\u001b[0m                 \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstart_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     49\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 50\u001b[0;31m             \u001b[0;32mreturn\u001b[0m \u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0martist\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mrenderer\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m*\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     51\u001b[0m         \u001b[0;32mfinally\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     52\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0martist\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_agg_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/collections.py\u001b[0m in \u001b[0;36mdraw\u001b[0;34m(self, renderer)\u001b[0m\n\u001b[1;32m    881\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mrenderer\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    882\u001b[0m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mset_sizes\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_sizes\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfigure\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdpi\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 883\u001b[0;31m         \u001b[0mCollection\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mrenderer\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    884\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    885\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py\u001b[0m in \u001b[0;36mdraw_wrapper\u001b[0;34m(artist, renderer, *args, **kwargs)\u001b[0m\n\u001b[1;32m     48\u001b[0m                 \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstart_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     49\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 50\u001b[0;31m             \u001b[0;32mreturn\u001b[0m \u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0martist\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mrenderer\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m*\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     51\u001b[0m         \u001b[0;32mfinally\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     52\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0martist\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_agg_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/collections.py\u001b[0m in \u001b[0;36mdraw\u001b[0;34m(self, renderer)\u001b[0m\n\u001b[1;32m    258\u001b[0m         \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mopen_group\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m__class__\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m__name__\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_gid\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    259\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 260\u001b[0;31m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mupdate_scalarmappable\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    261\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    262\u001b[0m         \u001b[0mtransform\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mtransOffset\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0moffsets\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mpaths\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_prepare_points\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/collections.py\u001b[0m in \u001b[0;36mupdate_scalarmappable\u001b[0;34m(self)\u001b[0m\n\u001b[1;32m    777\u001b[0m             \u001b[0;32mreturn\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    778\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_is_filled\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 779\u001b[0;31m             \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_facecolors\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mto_rgba\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_A\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_alpha\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    780\u001b[0m         \u001b[0;32melif\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_is_stroked\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    781\u001b[0m             \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_edgecolors\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mto_rgba\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_A\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_alpha\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/cm.py\u001b[0m in \u001b[0;36mto_rgba\u001b[0;34m(self, x, alpha, bytes, norm)\u001b[0m\n\u001b[1;32m    286\u001b[0m         \u001b[0mx\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mma\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0masarray\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mx\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    287\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mnorm\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 288\u001b[0;31m             \u001b[0mx\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mnorm\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mx\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    289\u001b[0m         \u001b[0mrgba\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcmap\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mx\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0malpha\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0malpha\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mbytes\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mbytes\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    290\u001b[0m         \u001b[0;32mreturn\u001b[0m \u001b[0mrgba\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/colors.py\u001b[0m in \u001b[0;36m__call__\u001b[0;34m(self, value, clip)\u001b[0m\n\u001b[1;32m   1012\u001b[0m             \u001b[0;32mraise\u001b[0m \u001b[0mValueError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"minvalue must be less than or equal to maxvalue\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1013\u001b[0m         \u001b[0;32melif\u001b[0m \u001b[0mvmin\u001b[0m \u001b[0;34m<=\u001b[0m \u001b[0;36m0\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 1014\u001b[0;31m             \u001b[0;32mraise\u001b[0m \u001b[0mValueError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"values must all be positive\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   1015\u001b[0m         \u001b[0;32melif\u001b[0m \u001b[0mvmin\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0mvmax\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1016\u001b[0m             \u001b[0mresult\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfill\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mValueError\u001b[0m: values must all be positive"
+     ]
+    },
+    {
+     "ename": "ValueError",
+     "evalue": "values must all be positive",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mValueError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/IPython/core/formatters.py\u001b[0m in \u001b[0;36m__call__\u001b[0;34m(self, obj)\u001b[0m\n\u001b[1;32m    339\u001b[0m                 \u001b[0;32mpass\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    340\u001b[0m             \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 341\u001b[0;31m                 \u001b[0;32mreturn\u001b[0m \u001b[0mprinter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mobj\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    342\u001b[0m             \u001b[0;31m# Finally look for special method names\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    343\u001b[0m             \u001b[0mmethod\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mget_real_method\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mobj\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mprint_method\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/IPython/core/pylabtools.py\u001b[0m in \u001b[0;36m<lambda>\u001b[0;34m(fig)\u001b[0m\n\u001b[1;32m    242\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    243\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0;34m'png'\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mformats\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 244\u001b[0;31m         \u001b[0mpng_formatter\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfor_type\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mFigure\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;32mlambda\u001b[0m \u001b[0mfig\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0mprint_figure\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfig\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m'png'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    245\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0;34m'retina'\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mformats\u001b[0m \u001b[0;32mor\u001b[0m \u001b[0;34m'png2x'\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mformats\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    246\u001b[0m         \u001b[0mpng_formatter\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfor_type\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mFigure\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;32mlambda\u001b[0m \u001b[0mfig\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0mretina_figure\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfig\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/IPython/core/pylabtools.py\u001b[0m in \u001b[0;36mprint_figure\u001b[0;34m(fig, fmt, bbox_inches, **kwargs)\u001b[0m\n\u001b[1;32m    126\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    127\u001b[0m     \u001b[0mbytes_io\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mBytesIO\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 128\u001b[0;31m     \u001b[0mfig\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcanvas\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mprint_figure\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mbytes_io\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkw\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    129\u001b[0m     \u001b[0mdata\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mbytes_io\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mgetvalue\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    130\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mfmt\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'svg'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/backend_bases.py\u001b[0m in \u001b[0;36mprint_figure\u001b[0;34m(self, filename, dpi, facecolor, edgecolor, orientation, format, bbox_inches, **kwargs)\u001b[0m\n\u001b[1;32m   2047\u001b[0m                         \u001b[0morientation\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0morientation\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2048\u001b[0m                         \u001b[0mdryrun\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;32mTrue\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2049\u001b[0;31m                         **kwargs)\n\u001b[0m\u001b[1;32m   2050\u001b[0m                     \u001b[0mrenderer\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfigure\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_cachedRenderer\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2051\u001b[0m                     \u001b[0mbbox_artists\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mkwargs\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpop\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"bbox_extra_artists\"\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/backends/backend_agg.py\u001b[0m in \u001b[0;36mprint_png\u001b[0;34m(self, filename_or_obj, *args, **kwargs)\u001b[0m\n\u001b[1;32m    508\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    509\u001b[0m         \"\"\"\n\u001b[0;32m--> 510\u001b[0;31m         \u001b[0mFigureCanvasAgg\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    511\u001b[0m         \u001b[0mrenderer\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_renderer\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    512\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/backends/backend_agg.py\u001b[0m in \u001b[0;36mdraw\u001b[0;34m(self)\u001b[0m\n\u001b[1;32m    400\u001b[0m         \u001b[0mtoolbar\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtoolbar\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    401\u001b[0m         \u001b[0;32mtry\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 402\u001b[0;31m             \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfigure\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrenderer\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    403\u001b[0m             \u001b[0;31m# A GUI class may be need to update a window using this draw, so\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    404\u001b[0m             \u001b[0;31m# don't forget to call the superclass.\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py\u001b[0m in \u001b[0;36mdraw_wrapper\u001b[0;34m(artist, renderer, *args, **kwargs)\u001b[0m\n\u001b[1;32m     48\u001b[0m                 \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstart_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     49\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 50\u001b[0;31m             \u001b[0;32mreturn\u001b[0m \u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0martist\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mrenderer\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m*\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     51\u001b[0m         \u001b[0;32mfinally\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     52\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0martist\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_agg_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/figure.py\u001b[0m in \u001b[0;36mdraw\u001b[0;34m(self, renderer)\u001b[0m\n\u001b[1;32m   1647\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1648\u001b[0m             mimage._draw_list_compositing_images(\n\u001b[0;32m-> 1649\u001b[0;31m                 renderer, self, artists, self.suppressComposite)\n\u001b[0m\u001b[1;32m   1650\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1651\u001b[0m             \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mclose_group\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'figure'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/image.py\u001b[0m in \u001b[0;36m_draw_list_compositing_images\u001b[0;34m(renderer, parent, artists, suppress_composite)\u001b[0m\n\u001b[1;32m    136\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mnot_composite\u001b[0m \u001b[0;32mor\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mhas_images\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    137\u001b[0m         \u001b[0;32mfor\u001b[0m \u001b[0ma\u001b[0m \u001b[0;32min\u001b[0m \u001b[0martists\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 138\u001b[0;31m             \u001b[0ma\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mrenderer\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    139\u001b[0m     \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    140\u001b[0m         \u001b[0;31m# Composite any adjacent images together\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py\u001b[0m in \u001b[0;36mdraw_wrapper\u001b[0;34m(artist, renderer, *args, **kwargs)\u001b[0m\n\u001b[1;32m     48\u001b[0m                 \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstart_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     49\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 50\u001b[0;31m             \u001b[0;32mreturn\u001b[0m \u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0martist\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mrenderer\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m*\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     51\u001b[0m         \u001b[0;32mfinally\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     52\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0martist\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_agg_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/axes/_base.py\u001b[0m in \u001b[0;36mdraw\u001b[0;34m(self, renderer, inframe)\u001b[0m\n\u001b[1;32m   2626\u001b[0m             \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstop_rasterizing\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2627\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2628\u001b[0;31m         \u001b[0mmimage\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_draw_list_compositing_images\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mrenderer\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0martists\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2629\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2630\u001b[0m         \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mclose_group\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'axes'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/image.py\u001b[0m in \u001b[0;36m_draw_list_compositing_images\u001b[0;34m(renderer, parent, artists, suppress_composite)\u001b[0m\n\u001b[1;32m    136\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mnot_composite\u001b[0m \u001b[0;32mor\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mhas_images\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    137\u001b[0m         \u001b[0;32mfor\u001b[0m \u001b[0ma\u001b[0m \u001b[0;32min\u001b[0m \u001b[0martists\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 138\u001b[0;31m             \u001b[0ma\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mrenderer\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    139\u001b[0m     \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    140\u001b[0m         \u001b[0;31m# Composite any adjacent images together\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py\u001b[0m in \u001b[0;36mdraw_wrapper\u001b[0;34m(artist, renderer, *args, **kwargs)\u001b[0m\n\u001b[1;32m     48\u001b[0m                 \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstart_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     49\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 50\u001b[0;31m             \u001b[0;32mreturn\u001b[0m \u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0martist\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mrenderer\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m*\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     51\u001b[0m         \u001b[0;32mfinally\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     52\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0martist\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_agg_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/collections.py\u001b[0m in \u001b[0;36mdraw\u001b[0;34m(self, renderer)\u001b[0m\n\u001b[1;32m    881\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mrenderer\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    882\u001b[0m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mset_sizes\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_sizes\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfigure\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdpi\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 883\u001b[0;31m         \u001b[0mCollection\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mrenderer\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    884\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    885\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py\u001b[0m in \u001b[0;36mdraw_wrapper\u001b[0;34m(artist, renderer, *args, **kwargs)\u001b[0m\n\u001b[1;32m     48\u001b[0m                 \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstart_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     49\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 50\u001b[0;31m             \u001b[0;32mreturn\u001b[0m \u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0martist\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mrenderer\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m*\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     51\u001b[0m         \u001b[0;32mfinally\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     52\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0martist\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_agg_filter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/collections.py\u001b[0m in \u001b[0;36mdraw\u001b[0;34m(self, renderer)\u001b[0m\n\u001b[1;32m    258\u001b[0m         \u001b[0mrenderer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mopen_group\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m__class__\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m__name__\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_gid\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    259\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 260\u001b[0;31m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mupdate_scalarmappable\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    261\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    262\u001b[0m         \u001b[0mtransform\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mtransOffset\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0moffsets\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mpaths\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_prepare_points\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/collections.py\u001b[0m in \u001b[0;36mupdate_scalarmappable\u001b[0;34m(self)\u001b[0m\n\u001b[1;32m    777\u001b[0m             \u001b[0;32mreturn\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    778\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_is_filled\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 779\u001b[0;31m             \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_facecolors\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mto_rgba\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_A\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_alpha\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    780\u001b[0m         \u001b[0;32melif\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_is_stroked\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    781\u001b[0m             \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_edgecolors\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mto_rgba\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_A\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_alpha\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/cm.py\u001b[0m in \u001b[0;36mto_rgba\u001b[0;34m(self, x, alpha, bytes, norm)\u001b[0m\n\u001b[1;32m    286\u001b[0m         \u001b[0mx\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mma\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0masarray\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mx\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    287\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mnorm\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 288\u001b[0;31m             \u001b[0mx\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mnorm\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mx\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    289\u001b[0m         \u001b[0mrgba\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcmap\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mx\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0malpha\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0malpha\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mbytes\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mbytes\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    290\u001b[0m         \u001b[0;32mreturn\u001b[0m \u001b[0mrgba\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/colors.py\u001b[0m in \u001b[0;36m__call__\u001b[0;34m(self, value, clip)\u001b[0m\n\u001b[1;32m   1012\u001b[0m             \u001b[0;32mraise\u001b[0m \u001b[0mValueError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"minvalue must be less than or equal to maxvalue\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1013\u001b[0m         \u001b[0;32melif\u001b[0m \u001b[0mvmin\u001b[0m \u001b[0;34m<=\u001b[0m \u001b[0;36m0\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 1014\u001b[0;31m             \u001b[0;32mraise\u001b[0m \u001b[0mValueError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"values must all be positive\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   1015\u001b[0m         \u001b[0;32melif\u001b[0m \u001b[0mvmin\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0mvmax\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1016\u001b[0m             \u001b[0mresult\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfill\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mValueError\u001b[0m: values must all be positive"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 432x288 with 4 Axes>"
+      ]
+     },
+     "metadata": {
+      "needs_background": "light"
+     },
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "a1 = pairs_density(experiments, outcomes, group_by='policy',\n",
+    "              grouping_specifiers=['no policy']\n",
+    "                  )\n",
+    "plt.draw()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python [conda env:EMAT]",
+   "language": "python",
+   "name": "conda-env-EMAT-py"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

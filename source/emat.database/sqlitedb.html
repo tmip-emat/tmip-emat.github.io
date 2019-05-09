@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SQLite Database &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
+  <title>SQLite Database &mdash; TMIP-EMAT 0.1.3, May 2019 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.2
+                0.1.3
               </div>
             
           
@@ -190,6 +190,11 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -285,6 +290,35 @@ type is ‘uncertainty’, ‘lever’, or ‘constant’</li>
 where type is ‘regional’, ‘transit’, ‘corridor’, etc.
 See scope yaml file for all categories</li>
 </ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.database.SQLiteDB.read_all_experiment_ids">
+<code class="descname">read_all_experiment_ids</code><span class="sig-paren">(</span><em>scope_name: str</em>, <em>design_name: str = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_all_experiment_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_all_experiment_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the experiment ids previously defined in the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a>) – experiment design name.  Set to None
+to find experiments across all designs.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the experiment id’s of the identified experiments</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – If scope name does not exist</p>
 </td>
 </tr>
 </tbody>
@@ -898,7 +932,7 @@ performance measures</p>
 
 <dl class="method">
 <dt id="emat.database.SQLiteDB.read_experiment_ids">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_ids</code><span class="sig-paren">(</span><em>scope_name: str</em>, <em>design_name: str = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_ids" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_ids</code><span class="sig-paren">(</span><em>scope_name</em>, <em>design_name: str</em>, <em>xl_df: pandas.core.frame.DataFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the experiment ids previously defined in the database</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

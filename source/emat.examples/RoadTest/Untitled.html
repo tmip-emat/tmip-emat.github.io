@@ -1,0 +1,1565 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>&lt;no title&gt; &mdash; TMIP-EMAT 0.1.3, May 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+      <li>&lt;no title&gt;</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/source/emat.examples/RoadTest/Untitled.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">emat.examples</span> <span class="k">import</span> <span class="n">road_test</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">emat</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pytest</span> <span class="k">import</span> <span class="n">approx</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">s</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">road_test</span><span class="p">(</span><span class="n">yamlfile</span><span class="o">=</span><span class="s1">&#39;road_test2.yaml&#39;</span><span class="p">)</span>
+
+<span class="n">db</span><span class="o">.</span><span class="n">get_db_info</span><span class="p">()</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">design_experiments</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;tiny&#39;</span><span class="p">)</span>
+
+<span class="n">db</span><span class="o">.</span><span class="n">read_experiment_all</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">emat</span><span class="o">.</span><span class="n">PendingExperimentsError</span><span class="p">):</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">create_metamodel_from_design</span><span class="p">(</span><span class="s1">&#39;tiny&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+
+<span class="n">tiny1</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;tiny&#39;</span><span class="p">)</span>
+
+<span class="n">mm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">create_metamodel_from_design</span><span class="p">(</span><span class="s1">&#39;tiny&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">mm</span><span class="o">.</span><span class="n">scope</span> <span class="o">!=</span> <span class="n">m</span><span class="o">.</span><span class="n">scope</span>  <span class="c1"># now not equal as road_test2 has transforms that are stripped.</span>
+
+<span class="n">tiny2</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">design_experiments</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;tiny2&#39;</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">456</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">run_experiment</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-4-0e666a2c3749&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>m<span class="ansi-blue-fg">.</span>run_experiment<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/Git/EMAworkbench/ema_workbench/util/ema_logging.py</span> in <span class="ansi-cyan-fg">wrapper</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    156</span>             <span class="ansi-red-fg"># object instance as first arguments in args</span>
+<span class="ansi-green-intense-fg ansi-bold">    157</span>             logger<span class="ansi-blue-fg">.</span>debug<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;calling {} on {}&#39;</span><span class="ansi-blue-fg">.</span>format<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">.</span>__name__<span class="ansi-blue-fg">,</span> classname<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 158</span><span class="ansi-red-fg">             </span>res <span class="ansi-blue-fg">=</span> func<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    159</span>             logger.debug(
+<span class="ansi-green-intense-fg ansi-bold">    160</span>                 &#39;completed calling {} on {}&#39;.format(
+
+<span class="ansi-red-fg">TypeError</span>: run_experiment() missing 1 required positional argument: &#39;experiment&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">tiny1</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>alpha</th>
+      <th>beta</th>
+      <th>input_flow</th>
+      <th>value_of_time</th>
+      <th>unit_cost_expansion</th>
+      <th>interest_rate</th>
+      <th>yield_curve</th>
+      <th>expand_capacity</th>
+      <th>amortization_period</th>
+      <th>debt_type</th>
+      <th>interest_rate_lock</th>
+      <th>no_build_travel_time</th>
+      <th>build_travel_time</th>
+      <th>log_build_travel_time</th>
+      <th>time_savings</th>
+      <th>value_of_time_savings</th>
+      <th>net_benefits</th>
+      <th>cost_of_capacity_expansion</th>
+      <th>present_cost_expansion</th>
+    </tr>
+    <tr>
+      <th>experiment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.171506</td>
+      <td>5.165582</td>
+      <td>92</td>
+      <td>0.035512</td>
+      <td>98.129415</td>
+      <td>0.030504</td>
+      <td>0.013704</td>
+      <td>62.923040</td>
+      <td>45</td>
+      <td>Paygo</td>
+      <td>False</td>
+      <td>66.689206</td>
+      <td>60.537479</td>
+      <td>4.103263</td>
+      <td>6.151727</td>
+      <td>20.098108</td>
+      <td>-157.345355</td>
+      <td>177.443463</td>
+      <td>6174.601134</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.121985</td>
+      <td>4.062706</td>
+      <td>130</td>
+      <td>0.055924</td>
+      <td>106.101811</td>
+      <td>0.039651</td>
+      <td>0.017071</td>
+      <td>36.615447</td>
+      <td>20</td>
+      <td>GO Bond</td>
+      <td>True</td>
+      <td>81.250868</td>
+      <td>65.982474</td>
+      <td>4.189389</td>
+      <td>15.268394</td>
+      <td>111.002734</td>
+      <td>-147.548080</td>
+      <td>258.550814</td>
+      <td>3884.965223</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.198152</td>
+      <td>4.229310</td>
+      <td>149</td>
+      <td>0.065754</td>
+      <td>133.110296</td>
+      <td>0.033562</td>
+      <td>0.013142</td>
+      <td>88.862610</td>
+      <td>40</td>
+      <td>Paygo</td>
+      <td>True</td>
+      <td>124.210699</td>
+      <td>64.362147</td>
+      <td>4.164526</td>
+      <td>59.848552</td>
+      <td>586.361310</td>
+      <td>245.346693</td>
+      <td>341.014617</td>
+      <td>11828.528259</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.111588</td>
+      <td>5.309485</td>
+      <td>128</td>
+      <td>0.031414</td>
+      <td>137.388358</td>
+      <td>0.038195</td>
+      <td>0.006252</td>
+      <td>56.711765</td>
+      <td>37</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+      <td>84.831280</td>
+      <td>62.286178</td>
+      <td>4.131740</td>
+      <td>22.545102</td>
+      <td>90.654964</td>
+      <td>-328.663763</td>
+      <td>419.318727</td>
+      <td>7791.536223</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.101161</td>
+      <td>4.898992</td>
+      <td>141</td>
+      <td>0.048088</td>
+      <td>119.871710</td>
+      <td>0.028837</td>
+      <td>0.004236</td>
+      <td>23.296808</td>
+      <td>50</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+      <td>92.673011</td>
+      <td>71.711618</td>
+      <td>4.272653</td>
+      <td>20.961393</td>
+      <td>142.125673</td>
+      <td>27.173964</td>
+      <td>114.951709</td>
+      <td>2792.628209</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.180129</td>
+      <td>3.637847</td>
+      <td>111</td>
+      <td>0.011911</td>
+      <td>103.864923</td>
+      <td>0.035449</td>
+      <td>0.008342</td>
+      <td>92.073618</td>
+      <td>35</td>
+      <td>Paygo</td>
+      <td>True</td>
+      <td>75.798401</td>
+      <td>61.470283</td>
+      <td>4.118554</td>
+      <td>14.328118</td>
+      <td>18.943243</td>
+      <td>-283.302596</td>
+      <td>302.245838</td>
+      <td>9563.219268</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.144868</td>
+      <td>4.485909</td>
+      <td>81</td>
+      <td>0.003614</td>
+      <td>110.135693</td>
+      <td>0.026721</td>
+      <td>0.000977</td>
+      <td>0.116321</td>
+      <td>30</td>
+      <td>Paygo</td>
+      <td>True</td>
+      <td>63.377511</td>
+      <td>63.359943</td>
+      <td>4.148832</td>
+      <td>0.017568</td>
+      <td>0.005143</td>
+      <td>-0.450846</td>
+      <td>0.455989</td>
+      <td>12.811063</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.153310</td>
+      <td>4.683623</td>
+      <td>98</td>
+      <td>0.018861</td>
+      <td>141.105112</td>
+      <td>0.025044</td>
+      <td>0.009765</td>
+      <td>10.715434</td>
+      <td>28</td>
+      <td>Rev Bond</td>
+      <td>True</td>
+      <td>68.368130</td>
+      <td>65.194862</td>
+      <td>4.177381</td>
+      <td>3.173268</td>
+      <td>5.865491</td>
+      <td>-78.416378</td>
+      <td>84.281869</td>
+      <td>1512.002547</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.168026</td>
+      <td>5.095060</td>
+      <td>105</td>
+      <td>0.061557</td>
+      <td>125.601642</td>
+      <td>0.031891</td>
+      <td>-0.000496</td>
+      <td>47.300559</td>
+      <td>16</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>72.926755</td>
+      <td>61.796710</td>
+      <td>4.123850</td>
+      <td>11.130045</td>
+      <td>71.939323</td>
+      <td>-398.779958</td>
+      <td>470.719281</td>
+      <td>5941.027870</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.130983</td>
+      <td>3.779400</td>
+      <td>122</td>
+      <td>0.073536</td>
+      <td>120.876370</td>
+      <td>0.035671</td>
+      <td>0.019940</td>
+      <td>79.798396</td>
+      <td>24</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>76.662991</td>
+      <td>61.814744</td>
+      <td>4.124142</td>
+      <td>14.848247</td>
+      <td>133.209780</td>
+      <td>-488.451150</td>
+      <td>621.660930</td>
+      <td>9645.740431</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">tiny2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;debt_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;GO Bond&#39;</span>
+
+<span class="k">assert</span> <span class="nb">dict</span><span class="p">(</span><span class="n">tiny2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;debt_type&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="n">approx</span><span class="p">({</span>
+    <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.10428005571929212</span><span class="p">,</span>
+    <span class="s1">&#39;amortization_period&#39;</span><span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
+    <span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="mf">4.8792451185772014</span><span class="p">,</span>
+    <span class="s1">&#39;expand_capacity&#39;</span><span class="p">:</span> <span class="mf">61.4210886403998</span><span class="p">,</span>
+    <span class="s1">&#39;input_flow&#39;</span><span class="p">:</span> <span class="mi">137</span><span class="p">,</span>
+    <span class="s1">&#39;interest_rate&#39;</span><span class="p">:</span> <span class="mf">0.03099304322197216</span><span class="p">,</span>
+    <span class="s1">&#39;interest_rate_lock&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;unit_cost_expansion&#39;</span><span class="p">:</span> <span class="mf">121.85520427974882</span><span class="p">,</span>
+    <span class="s1">&#39;value_of_time&#39;</span><span class="p">:</span> <span class="mf">0.002953613029133872</span><span class="p">,</span>
+    <span class="s1">&#39;yield_curve&#39;</span><span class="p">:</span> <span class="mf">0.016255990123028242</span><span class="p">,</span>
+    <span class="s1">&#39;free_flow_time&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="s1">&#39;initial_capacity&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+
+<span class="n">result2</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="s1">&#39;tiny2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># print(dict(mm.read_experiment_measures(&#39;tiny2&#39;).iloc[0]))</span>
+<span class="c1">#</span>
+<span class="c1"># print({</span>
+<span class="c1">#     &#39;no_build_travel_time&#39;: 81.6839454971052,</span>
+<span class="c1">#     &#39;build_travel_time&#39;: 61.91038371206646,</span>
+<span class="c1">#     &#39;time_savings&#39;: 44.94189289289446,</span>
+<span class="c1">#     &#39;value_of_time_savings&#39;: 2904.081661408463,</span>
+<span class="c1">#     &#39;net_benefits&#39;: -34.09931528157315,</span>
+<span class="c1">#     &#39;cost_of_capacity_expansion&#39;: 1085.3565091745982,</span>
+<span class="c1">#     &#39;present_cost_expansion&#39;: 19923.66625500023,</span>
+<span class="c1"># })</span>
+<span class="c1">#</span>
+<span class="k">assert</span> <span class="nb">dict</span><span class="p">(</span><span class="n">mm</span><span class="o">.</span><span class="n">read_experiment_measures</span><span class="p">(</span><span class="s1">&#39;tiny2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">approx</span><span class="p">({</span>
+    <span class="s1">&#39;no_build_travel_time&#39;</span><span class="p">:</span> <span class="mf">81.6839454971052</span><span class="p">,</span>
+    <span class="s1">&#39;build_travel_time&#39;</span><span class="p">:</span> <span class="mf">61.91038371206646</span><span class="p">,</span>
+    <span class="s1">&#39;log_build_travel_time&#39;</span><span class="p">:</span> <span class="mf">4.120826572003798</span><span class="p">,</span>
+    <span class="s1">&#39;time_savings&#39;</span><span class="p">:</span> <span class="mf">44.94189289289446</span><span class="p">,</span>
+    <span class="s1">&#39;value_of_time_savings&#39;</span><span class="p">:</span> <span class="mf">2904.081661408463</span><span class="p">,</span>
+    <span class="s1">&#39;net_benefits&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">34.09931528157315</span><span class="p">,</span>
+    <span class="s1">&#39;cost_of_capacity_expansion&#39;</span><span class="p">:</span> <span class="mf">1085.3565091745982</span><span class="p">,</span>
+    <span class="s1">&#39;present_cost_expansion&#39;</span><span class="p">:</span> <span class="mf">19923.66625500023</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">**</span><span class="p">(</span><span class="n">tiny2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>{&#39;no_build_travel_time&#39;: 89.07004237532217,
+ &#39;build_travel_time&#39;: 62.81032484779827,
+ &#39;time_savings&#39;: 26.259717527523904,
+ &#39;value_of_time_savings&#39;: 10.62586300480175,
+ &#39;present_cost_expansion&#39;: 7484.479303360477,
+ &#39;cost_of_capacity_expansion&#39;: 395.69034710662226,
+ &#39;net_benefits&#39;: -385.0644841018205}
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">run_experiment</span><span class="p">(</span><span class="n">tiny2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>{&#39;no_build_travel_time&#39;: 89.07004237532217,
+ &#39;build_travel_time&#39;: 62.81032484779827,
+ &#39;time_savings&#39;: 26.259717527523904,
+ &#39;value_of_time_savings&#39;: 10.62586300480175,
+ &#39;net_benefits&#39;: -385.0644841018205,
+ &#39;cost_of_capacity_expansion&#39;: 395.69034710662226,
+ &#39;present_cost_expansion&#39;: 7484.479303360477}
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">outcomes_output</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">run_experiment</span><span class="p">(</span><span class="n">tiny2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">outcomes_output</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>{&#39;no_build_travel_time&#39;: 89.07004237532217,
+ &#39;build_travel_time&#39;: 62.81032484779827,
+ &#39;log_build_travel_time&#39;: 4.140119468365003,
+ &#39;time_savings&#39;: 26.259717527523904,
+ &#39;value_of_time_savings&#39;: 10.62586300480175,
+ &#39;net_benefits&#39;: -385.0644841018205,
+ &#39;cost_of_capacity_expansion&#39;: 395.69034710662226,
+ &#39;present_cost_expansion&#39;: 7484.479303360477}
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measures</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[Measure(&#39;no_build_travel_time&#39;),
+ Measure(&#39;build_travel_time&#39;),
+ Measure(&#39;log_build_travel_time&#39;, variable_name=[&#39;build_travel_time&#39;], function=&lt;ufunc &#39;log&#39;&gt;),
+ Measure(&#39;time_savings&#39;),
+ Measure(&#39;value_of_time_savings&#39;),
+ Measure(&#39;net_benefits&#39;),
+ Measure(&#39;cost_of_capacity_expansion&#39;),
+ Measure(&#39;present_cost_expansion&#39;)]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">m</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">**</span><span class="p">(</span><span class="n">tiny2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">==</span> <span class="n">approx</span><span class="p">({</span>
+    <span class="s1">&#39;no_build_travel_time&#39;</span><span class="p">:</span> <span class="mf">89.07004237532217</span><span class="p">,</span>
+    <span class="s1">&#39;build_travel_time&#39;</span><span class="p">:</span> <span class="mf">62.81032484779827</span><span class="p">,</span>
+    <span class="s1">&#39;log_build_travel_time&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">62.81032484779827</span><span class="p">),</span>
+    <span class="s1">&#39;time_savings&#39;</span><span class="p">:</span> <span class="mf">26.259717527523904</span><span class="p">,</span>
+    <span class="s1">&#39;value_of_time_savings&#39;</span><span class="p">:</span> <span class="mf">10.62586300480175</span><span class="p">,</span>
+    <span class="s1">&#39;present_cost_expansion&#39;</span><span class="p">:</span> <span class="mf">7484.479303360477</span><span class="p">,</span>
+    <span class="s1">&#39;cost_of_capacity_expansion&#39;</span><span class="p">:</span> <span class="mf">395.69034710662226</span><span class="p">,</span>
+    <span class="s1">&#39;net_benefits&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">385.0644841018205</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AssertionError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-11-82adf710e988&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span>     <span class="ansi-blue-fg">&#39;present_cost_expansion&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-cyan-fg">7484.479303360477</span><span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span>     <span class="ansi-blue-fg">&#39;cost_of_capacity_expansion&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-cyan-fg">395.69034710662226</span><span class="ansi-blue-fg">,</span>
+<span class="ansi-green-fg">----&gt; 9</span><span class="ansi-red-fg">     </span><span class="ansi-blue-fg">&#39;net_benefits&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">385.0644841018205</span><span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">     10</span> })
+
+<span class="ansi-red-fg">AssertionError</span>:
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="c1"># no metamodels stored</span>
+            <span class="n">mm3</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">read_metamodel</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="n">db</span><span class="o">.</span><span class="n">write_metamodel</span><span class="p">(</span><span class="n">mm</span><span class="p">)</span>
+        <span class="n">mm2</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">read_metamodel</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">mm3</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">read_metamodel</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">mm2</span> <span class="o">==</span> <span class="n">mm</span> <span class="o">==</span> <span class="n">mm3</span>
+        <span class="k">assert</span> <span class="n">mm2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">mm</span>
+
+        <span class="k">assert</span> <span class="n">mm2</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">**</span><span class="p">(</span><span class="n">tiny2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">==</span> <span class="n">approx</span><span class="p">({</span>
+            <span class="s1">&#39;no_build_travel_time&#39;</span><span class="p">:</span> <span class="mf">81.6839454971052</span><span class="p">,</span>
+            <span class="s1">&#39;build_travel_time&#39;</span><span class="p">:</span> <span class="mf">61.91038371206646</span><span class="p">,</span>
+            <span class="s1">&#39;log_build_travel_time&#39;</span><span class="p">:</span> <span class="mf">4.120826572003798</span><span class="p">,</span>
+            <span class="s1">&#39;time_savings&#39;</span><span class="p">:</span> <span class="mf">44.94189289289446</span><span class="p">,</span>
+            <span class="s1">&#39;value_of_time_savings&#39;</span><span class="p">:</span> <span class="mf">2904.081661408463</span><span class="p">,</span>
+            <span class="s1">&#39;net_benefits&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">34.09931528157315</span><span class="p">,</span>
+            <span class="s1">&#39;cost_of_capacity_expansion&#39;</span><span class="p">:</span> <span class="mf">1085.3565091745982</span><span class="p">,</span>
+            <span class="s1">&#39;present_cost_expansion&#39;</span><span class="p">:</span> <span class="mf">19923.66625500023</span><span class="p">,</span>
+        <span class="p">})</span>
+
+        <span class="n">mm3</span><span class="o">.</span><span class="n">metamodel_id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_new_metamodel_id</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">write_metamodel</span><span class="p">(</span><span class="n">mm3</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="c1"># now too many to get without giving an ID</span>
+            <span class="n">mm4</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">read_metamodel</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">itertools</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">zip_cycle</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">maxlen</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">)),</span> <span class="n">maxlen</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="n">zip_cycle</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">41</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">46</span><span class="p">],[</span><span class="mi">51</span><span class="p">,</span><span class="mi">52</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1 41 51
+2 42 52
+3 43 51
+1 44 52
+2 45 51
+3 46 52
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">scenarios</span><span class="p">,</span> <span class="n">model_structures</span><span class="p">,</span> <span class="n">policies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">41</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">46</span><span class="p">],[</span><span class="mi">51</span><span class="p">,</span><span class="mi">52</span><span class="p">]</span>
+
+<span class="p">(</span>
+            <span class="p">(</span><span class="n">m_</span><span class="p">,</span> <span class="n">p_</span><span class="p">,</span> <span class="n">s_</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">s_</span><span class="p">,</span> <span class="p">(</span><span class="n">m_</span><span class="p">,</span> <span class="n">p_</span><span class="p">)</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span>
+                <span class="n">scenarios</span><span class="p">,</span> <span class="n">zip_cycle</span><span class="p">(</span><span class="n">model_structures</span><span class="p">,</span> <span class="n">policies</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;generator object &lt;genexpr&gt; at 0x1c1f528258&gt;
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+
+
+
+
+<span></span><span class="c1">##########</span>
+
+
+
+<span class="kn">import</span> <span class="nn">ema_workbench</span> <span class="k">as</span> <span class="nn">ew</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">ema_workbench.analysis.pairs_plotting</span> <span class="k">import</span> <span class="p">(</span><span class="n">pairs_density</span><span class="p">,</span> <span class="n">pairs_lines</span><span class="p">,</span>
+                                                   <span class="n">pairs_scatter</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ema_workbench.util</span> <span class="k">import</span> <span class="n">load_results</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/jpn/anaconda/envs/EMAT/lib/python3.6/importlib/_bootstrap.py:219: ImportWarning: can&#39;t resolve package from __spec__ or __package__, falling back on __name__ and __path__
+  return f(*args, **kwds)
+/Users/jpn/anaconda/envs/EMAT/lib/python3.6/importlib/_bootstrap.py:219: ImportWarning: can&#39;t resolve package from __spec__ or __package__, falling back on __name__ and __path__
+  return f(*args, **kwds)
+/Users/jpn/anaconda/envs/EMAT/lib/python3.6/importlib/_bootstrap.py:219: ImportWarning: can&#39;t resolve package from __spec__ or __package__, falling back on __name__ and __path__
+  return f(*args, **kwds)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># experiments, outcomes =  utilities.load_eng_trans_data()</span>
+
+<span class="n">fn</span> <span class="o">=</span> <span class="s1">&#39;/Users/jpn/Git/EMAworkbench/test/data/eng_trans.tar.gz&#39;</span>
+
+<span class="n">experiments</span><span class="p">,</span> <span class="n">outcomes</span> <span class="o">=</span> <span class="n">load_results</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">outcomes</span><span class="p">[</span><span class="s1">&#39;total fraction new technologies&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>array([[3.32064606e-04, 9.01235826e-03, 1.94310155e-02, ...,
+        2.38710165e-01, 2.39251286e-01, 2.39779949e-01],
+       [2.23291820e-04, 5.13092317e-02, 8.79614204e-02, ...,
+        3.60425591e-01, 3.68308336e-01, 3.78874987e-01],
+       [1.61157936e-04, 8.30425248e-02, 1.24605946e-01, ...,
+        5.41138351e-01, 5.31972766e-01, 5.20516515e-01],
+       ...,
+       [3.00036860e-04, 1.03838891e-01, 1.77543938e-01, ...,
+        8.20170760e-01, 8.16031218e-01, 8.13171923e-01],
+       [1.56578812e-04, 7.31633380e-02, 1.15992390e-01, ...,
+        4.31464165e-01, 4.82249439e-01, 5.00814497e-01],
+       [2.87018920e-04, 1.97335575e-02, 4.42913026e-02, ...,
+        8.21360767e-01, 8.20676208e-01, 8.20172906e-01]])
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">outcomes</span><span class="p">[</span><span class="s1">&#39;total capacity installed&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>array([[ 15320.3886719,  15329.3466797,  15486.15625  , ...,
+        171114.859375 , 178724.578125 , 186212.28125  ],
+       [ 14692.6142578,  15919.4355469,  16825.390625 , ...,
+        151417.203125 , 178058.4375   , 205550.734375 ],
+       [ 15112.6445312,  17003.1894531,  18251.6445312, ...,
+        270896.5      , 279976.90625  , 282238.65625  ],
+       ...,
+       [ 14505.84375  ,  15963.6337891,  17074.671875 , ...,
+        374554.25     , 358090.       , 347420.53125  ],
+       [ 15825.3154297,  18085.7109375,  19653.3046875, ...,
+        246803.1875   , 314891.40625  , 416006.8125   ],
+       [ 14663.2373047,  14434.7382812,  14306.5742188, ...,
+        757986.0625   , 786630.75     , 815530.9375   ]])
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a1</span> <span class="o">=</span> <span class="n">pairs_density</span><span class="p">(</span><span class="n">experiments</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">,</span> <span class="n">group_by</span><span class="o">=</span><span class="s1">&#39;policy&#39;</span><span class="p">,</span>
+              <span class="n">grouping_specifiers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;no policy&#39;</span><span class="p">]</span>
+                  <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+extents {(&#39;total fraction new technologies&#39;, &#39;total fraction new technologies&#39;): (4.76568720842e-06, 0.995972454548, 4.76568720842e-06, 0.995972454548), (&#39;total fraction new technologies&#39;, &#39;total capacity installed&#39;): (4.76568720842e-06, 0.995972454548, 38316.0625, 2210685.5), (&#39;total capacity installed&#39;, &#39;total fraction new technologies&#39;): (38316.0625, 2210685.5, 4.76568720842e-06, 0.995972454548), (&#39;total capacity installed&#39;, &#39;total capacity installed&#39;): (38316.0625, 2210685.5, 38316.0625, 2210685.5)}
+DEBUGSER 4.76568720842e-06 4.76568720842e-06
+CM, &lt;matplotlib.colors.LinearSegmentedColormap object at 0x1a218a5b38&gt;
+DEBUGSER 38316.0625 4.76568720842e-06
+CM, &lt;matplotlib.colors.LinearSegmentedColormap object at 0x1a218a5b38&gt;
+DEBUGSER 4.76568720842e-06 38316.0625
+CM, &lt;matplotlib.colors.LinearSegmentedColormap object at 0x1a218a5b38&gt;
+DEBUGSER 38316.0625 38316.0625
+CM, &lt;matplotlib.colors.LinearSegmentedColormap object at 0x1a218a5b38&gt;
+vmax 1.0
+vmax 2.0
+vmax 2.0
+vmax 1.0
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-5-af1636dcc764&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span>               grouping_specifiers<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;no policy&#39;</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span>                   )
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>plt<span class="ansi-blue-fg">.</span>draw<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/pyplot.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">    681</span>         fig<span class="ansi-blue-fg">.</span>canvas<span class="ansi-blue-fg">.</span>draw_idle<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    682</span>     &#34;&#34;&#34;
+<span class="ansi-green-fg">--&gt; 683</span><span class="ansi-red-fg">     </span>get_current_fig_manager<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>canvas<span class="ansi-blue-fg">.</span>draw_idle<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    684</span>
+<span class="ansi-green-intense-fg ansi-bold">    685</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/backend_bases.py</span> in <span class="ansi-cyan-fg">draw_idle</span><span class="ansi-blue-fg">(self, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1897</span>         <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> self<span class="ansi-blue-fg">.</span>_is_idle_drawing<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">   1898</span>             <span class="ansi-green-fg">with</span> self<span class="ansi-blue-fg">.</span>_idle_draw_cntx<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">-&gt; 1899</span><span class="ansi-red-fg">                 </span>self<span class="ansi-blue-fg">.</span>draw<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1900</span>
+<span class="ansi-green-intense-fg ansi-bold">   1901</span>     <span class="ansi-green-fg">def</span> draw_cursor<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> event<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/backends/backend_agg.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    400</span>         toolbar <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>toolbar
+<span class="ansi-green-intense-fg ansi-bold">    401</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 402</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>figure<span class="ansi-blue-fg">.</span>draw<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>renderer<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    403</span>             <span class="ansi-red-fg"># A GUI class may be need to update a window using this draw, so</span>
+<span class="ansi-green-intense-fg ansi-bold">    404</span>             <span class="ansi-red-fg"># don&#39;t forget to call the superclass.</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     48</span>                 renderer<span class="ansi-blue-fg">.</span>start_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     49</span>
+<span class="ansi-green-fg">---&gt; 50</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> draw<span class="ansi-blue-fg">(</span>artist<span class="ansi-blue-fg">,</span> renderer<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     51</span>         <span class="ansi-green-fg">finally</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     52</span>             <span class="ansi-green-fg">if</span> artist<span class="ansi-blue-fg">.</span>get_agg_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/figure.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-fg">(self, renderer)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1647</span>
+<span class="ansi-green-intense-fg ansi-bold">   1648</span>             mimage._draw_list_compositing_images(
+<span class="ansi-green-fg">-&gt; 1649</span><span class="ansi-red-fg">                 renderer, self, artists, self.suppressComposite)
+</span><span class="ansi-green-intense-fg ansi-bold">   1650</span>
+<span class="ansi-green-intense-fg ansi-bold">   1651</span>             renderer<span class="ansi-blue-fg">.</span>close_group<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;figure&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/image.py</span> in <span class="ansi-cyan-fg">_draw_list_compositing_images</span><span class="ansi-blue-fg">(renderer, parent, artists, suppress_composite)</span>
+<span class="ansi-green-intense-fg ansi-bold">    136</span>     <span class="ansi-green-fg">if</span> not_composite <span class="ansi-green-fg">or</span> <span class="ansi-green-fg">not</span> has_images<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    137</span>         <span class="ansi-green-fg">for</span> a <span class="ansi-green-fg">in</span> artists<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 138</span><span class="ansi-red-fg">             </span>a<span class="ansi-blue-fg">.</span>draw<span class="ansi-blue-fg">(</span>renderer<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    139</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    140</span>         <span class="ansi-red-fg"># Composite any adjacent images together</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     48</span>                 renderer<span class="ansi-blue-fg">.</span>start_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     49</span>
+<span class="ansi-green-fg">---&gt; 50</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> draw<span class="ansi-blue-fg">(</span>artist<span class="ansi-blue-fg">,</span> renderer<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     51</span>         <span class="ansi-green-fg">finally</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     52</span>             <span class="ansi-green-fg">if</span> artist<span class="ansi-blue-fg">.</span>get_agg_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/axes/_base.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-fg">(self, renderer, inframe)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2626</span>             renderer<span class="ansi-blue-fg">.</span>stop_rasterizing<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2627</span>
+<span class="ansi-green-fg">-&gt; 2628</span><span class="ansi-red-fg">         </span>mimage<span class="ansi-blue-fg">.</span>_draw_list_compositing_images<span class="ansi-blue-fg">(</span>renderer<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">,</span> artists<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2629</span>
+<span class="ansi-green-intense-fg ansi-bold">   2630</span>         renderer<span class="ansi-blue-fg">.</span>close_group<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;axes&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/image.py</span> in <span class="ansi-cyan-fg">_draw_list_compositing_images</span><span class="ansi-blue-fg">(renderer, parent, artists, suppress_composite)</span>
+<span class="ansi-green-intense-fg ansi-bold">    136</span>     <span class="ansi-green-fg">if</span> not_composite <span class="ansi-green-fg">or</span> <span class="ansi-green-fg">not</span> has_images<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    137</span>         <span class="ansi-green-fg">for</span> a <span class="ansi-green-fg">in</span> artists<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 138</span><span class="ansi-red-fg">             </span>a<span class="ansi-blue-fg">.</span>draw<span class="ansi-blue-fg">(</span>renderer<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    139</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    140</span>         <span class="ansi-red-fg"># Composite any adjacent images together</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     48</span>                 renderer<span class="ansi-blue-fg">.</span>start_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     49</span>
+<span class="ansi-green-fg">---&gt; 50</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> draw<span class="ansi-blue-fg">(</span>artist<span class="ansi-blue-fg">,</span> renderer<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     51</span>         <span class="ansi-green-fg">finally</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     52</span>             <span class="ansi-green-fg">if</span> artist<span class="ansi-blue-fg">.</span>get_agg_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/collections.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-fg">(self, renderer)</span>
+<span class="ansi-green-intense-fg ansi-bold">    881</span>     <span class="ansi-green-fg">def</span> draw<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> renderer<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    882</span>         self<span class="ansi-blue-fg">.</span>set_sizes<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>_sizes<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>figure<span class="ansi-blue-fg">.</span>dpi<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 883</span><span class="ansi-red-fg">         </span>Collection<span class="ansi-blue-fg">.</span>draw<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> renderer<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    884</span>
+<span class="ansi-green-intense-fg ansi-bold">    885</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     48</span>                 renderer<span class="ansi-blue-fg">.</span>start_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     49</span>
+<span class="ansi-green-fg">---&gt; 50</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> draw<span class="ansi-blue-fg">(</span>artist<span class="ansi-blue-fg">,</span> renderer<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     51</span>         <span class="ansi-green-fg">finally</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     52</span>             <span class="ansi-green-fg">if</span> artist<span class="ansi-blue-fg">.</span>get_agg_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/collections.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-fg">(self, renderer)</span>
+<span class="ansi-green-intense-fg ansi-bold">    258</span>         renderer<span class="ansi-blue-fg">.</span>open_group<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>__class__<span class="ansi-blue-fg">.</span>__name__<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>get_gid<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    259</span>
+<span class="ansi-green-fg">--&gt; 260</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>update_scalarmappable<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    261</span>
+<span class="ansi-green-intense-fg ansi-bold">    262</span>         transform<span class="ansi-blue-fg">,</span> transOffset<span class="ansi-blue-fg">,</span> offsets<span class="ansi-blue-fg">,</span> paths <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_prepare_points<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/collections.py</span> in <span class="ansi-cyan-fg">update_scalarmappable</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    777</span>             <span class="ansi-green-fg">return</span>
+<span class="ansi-green-intense-fg ansi-bold">    778</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>_is_filled<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 779</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>_facecolors <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>to_rgba<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>_A<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>_alpha<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    780</span>         <span class="ansi-green-fg">elif</span> self<span class="ansi-blue-fg">.</span>_is_stroked<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    781</span>             self<span class="ansi-blue-fg">.</span>_edgecolors <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>to_rgba<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>_A<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>_alpha<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/cm.py</span> in <span class="ansi-cyan-fg">to_rgba</span><span class="ansi-blue-fg">(self, x, alpha, bytes, norm)</span>
+<span class="ansi-green-intense-fg ansi-bold">    286</span>         x <span class="ansi-blue-fg">=</span> ma<span class="ansi-blue-fg">.</span>asarray<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    287</span>         <span class="ansi-green-fg">if</span> norm<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 288</span><span class="ansi-red-fg">             </span>x <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>norm<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    289</span>         rgba <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>cmap<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">,</span> alpha<span class="ansi-blue-fg">=</span>alpha<span class="ansi-blue-fg">,</span> bytes<span class="ansi-blue-fg">=</span>bytes<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    290</span>         <span class="ansi-green-fg">return</span> rgba
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/colors.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, value, clip)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1012</span>             <span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;minvalue must be less than or equal to maxvalue&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1013</span>         <span class="ansi-green-fg">elif</span> vmin <span class="ansi-blue-fg">&lt;=</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">-&gt; 1014</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;values must all be positive&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1015</span>         <span class="ansi-green-fg">elif</span> vmin <span class="ansi-blue-fg">==</span> vmax<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">   1016</span>             result<span class="ansi-blue-fg">.</span>fill<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">ValueError</span>: values must all be positive
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/IPython/core/formatters.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, obj)</span>
+<span class="ansi-green-intense-fg ansi-bold">    339</span>                 <span class="ansi-green-fg">pass</span>
+<span class="ansi-green-intense-fg ansi-bold">    340</span>             <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 341</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">return</span> printer<span class="ansi-blue-fg">(</span>obj<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    342</span>             <span class="ansi-red-fg"># Finally look for special method names</span>
+<span class="ansi-green-intense-fg ansi-bold">    343</span>             method <span class="ansi-blue-fg">=</span> get_real_method<span class="ansi-blue-fg">(</span>obj<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>print_method<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/IPython/core/pylabtools.py</span> in <span class="ansi-cyan-fg">&lt;lambda&gt;</span><span class="ansi-blue-fg">(fig)</span>
+<span class="ansi-green-intense-fg ansi-bold">    242</span>
+<span class="ansi-green-intense-fg ansi-bold">    243</span>     <span class="ansi-green-fg">if</span> <span class="ansi-blue-fg">&#39;png&#39;</span> <span class="ansi-green-fg">in</span> formats<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 244</span><span class="ansi-red-fg">         </span>png_formatter<span class="ansi-blue-fg">.</span>for_type<span class="ansi-blue-fg">(</span>Figure<span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">lambda</span> fig<span class="ansi-blue-fg">:</span> print_figure<span class="ansi-blue-fg">(</span>fig<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;png&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    245</span>     <span class="ansi-green-fg">if</span> <span class="ansi-blue-fg">&#39;retina&#39;</span> <span class="ansi-green-fg">in</span> formats <span class="ansi-green-fg">or</span> <span class="ansi-blue-fg">&#39;png2x&#39;</span> <span class="ansi-green-fg">in</span> formats<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    246</span>         png_formatter<span class="ansi-blue-fg">.</span>for_type<span class="ansi-blue-fg">(</span>Figure<span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">lambda</span> fig<span class="ansi-blue-fg">:</span> retina_figure<span class="ansi-blue-fg">(</span>fig<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/IPython/core/pylabtools.py</span> in <span class="ansi-cyan-fg">print_figure</span><span class="ansi-blue-fg">(fig, fmt, bbox_inches, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    126</span>
+<span class="ansi-green-intense-fg ansi-bold">    127</span>     bytes_io <span class="ansi-blue-fg">=</span> BytesIO<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 128</span><span class="ansi-red-fg">     </span>fig<span class="ansi-blue-fg">.</span>canvas<span class="ansi-blue-fg">.</span>print_figure<span class="ansi-blue-fg">(</span>bytes_io<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kw<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    129</span>     data <span class="ansi-blue-fg">=</span> bytes_io<span class="ansi-blue-fg">.</span>getvalue<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    130</span>     <span class="ansi-green-fg">if</span> fmt <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#39;svg&#39;</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/backend_bases.py</span> in <span class="ansi-cyan-fg">print_figure</span><span class="ansi-blue-fg">(self, filename, dpi, facecolor, edgecolor, orientation, format, bbox_inches, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2047</span>                         orientation<span class="ansi-blue-fg">=</span>orientation<span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">   2048</span>                         dryrun<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span>
+<span class="ansi-green-fg">-&gt; 2049</span><span class="ansi-red-fg">                         **kwargs)
+</span><span class="ansi-green-intense-fg ansi-bold">   2050</span>                     renderer <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>figure<span class="ansi-blue-fg">.</span>_cachedRenderer
+<span class="ansi-green-intense-fg ansi-bold">   2051</span>                     bbox_artists <span class="ansi-blue-fg">=</span> kwargs<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;bbox_extra_artists&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/backends/backend_agg.py</span> in <span class="ansi-cyan-fg">print_png</span><span class="ansi-blue-fg">(self, filename_or_obj, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    508</span>
+<span class="ansi-green-intense-fg ansi-bold">    509</span>         &#34;&#34;&#34;
+<span class="ansi-green-fg">--&gt; 510</span><span class="ansi-red-fg">         </span>FigureCanvasAgg<span class="ansi-blue-fg">.</span>draw<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    511</span>         renderer <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>get_renderer<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    512</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/backends/backend_agg.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    400</span>         toolbar <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>toolbar
+<span class="ansi-green-intense-fg ansi-bold">    401</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 402</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>figure<span class="ansi-blue-fg">.</span>draw<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>renderer<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    403</span>             <span class="ansi-red-fg"># A GUI class may be need to update a window using this draw, so</span>
+<span class="ansi-green-intense-fg ansi-bold">    404</span>             <span class="ansi-red-fg"># don&#39;t forget to call the superclass.</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     48</span>                 renderer<span class="ansi-blue-fg">.</span>start_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     49</span>
+<span class="ansi-green-fg">---&gt; 50</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> draw<span class="ansi-blue-fg">(</span>artist<span class="ansi-blue-fg">,</span> renderer<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     51</span>         <span class="ansi-green-fg">finally</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     52</span>             <span class="ansi-green-fg">if</span> artist<span class="ansi-blue-fg">.</span>get_agg_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/figure.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-fg">(self, renderer)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1647</span>
+<span class="ansi-green-intense-fg ansi-bold">   1648</span>             mimage._draw_list_compositing_images(
+<span class="ansi-green-fg">-&gt; 1649</span><span class="ansi-red-fg">                 renderer, self, artists, self.suppressComposite)
+</span><span class="ansi-green-intense-fg ansi-bold">   1650</span>
+<span class="ansi-green-intense-fg ansi-bold">   1651</span>             renderer<span class="ansi-blue-fg">.</span>close_group<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;figure&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/image.py</span> in <span class="ansi-cyan-fg">_draw_list_compositing_images</span><span class="ansi-blue-fg">(renderer, parent, artists, suppress_composite)</span>
+<span class="ansi-green-intense-fg ansi-bold">    136</span>     <span class="ansi-green-fg">if</span> not_composite <span class="ansi-green-fg">or</span> <span class="ansi-green-fg">not</span> has_images<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    137</span>         <span class="ansi-green-fg">for</span> a <span class="ansi-green-fg">in</span> artists<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 138</span><span class="ansi-red-fg">             </span>a<span class="ansi-blue-fg">.</span>draw<span class="ansi-blue-fg">(</span>renderer<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    139</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    140</span>         <span class="ansi-red-fg"># Composite any adjacent images together</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     48</span>                 renderer<span class="ansi-blue-fg">.</span>start_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     49</span>
+<span class="ansi-green-fg">---&gt; 50</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> draw<span class="ansi-blue-fg">(</span>artist<span class="ansi-blue-fg">,</span> renderer<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     51</span>         <span class="ansi-green-fg">finally</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     52</span>             <span class="ansi-green-fg">if</span> artist<span class="ansi-blue-fg">.</span>get_agg_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/axes/_base.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-fg">(self, renderer, inframe)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2626</span>             renderer<span class="ansi-blue-fg">.</span>stop_rasterizing<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2627</span>
+<span class="ansi-green-fg">-&gt; 2628</span><span class="ansi-red-fg">         </span>mimage<span class="ansi-blue-fg">.</span>_draw_list_compositing_images<span class="ansi-blue-fg">(</span>renderer<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">,</span> artists<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2629</span>
+<span class="ansi-green-intense-fg ansi-bold">   2630</span>         renderer<span class="ansi-blue-fg">.</span>close_group<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;axes&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/image.py</span> in <span class="ansi-cyan-fg">_draw_list_compositing_images</span><span class="ansi-blue-fg">(renderer, parent, artists, suppress_composite)</span>
+<span class="ansi-green-intense-fg ansi-bold">    136</span>     <span class="ansi-green-fg">if</span> not_composite <span class="ansi-green-fg">or</span> <span class="ansi-green-fg">not</span> has_images<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    137</span>         <span class="ansi-green-fg">for</span> a <span class="ansi-green-fg">in</span> artists<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 138</span><span class="ansi-red-fg">             </span>a<span class="ansi-blue-fg">.</span>draw<span class="ansi-blue-fg">(</span>renderer<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    139</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    140</span>         <span class="ansi-red-fg"># Composite any adjacent images together</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     48</span>                 renderer<span class="ansi-blue-fg">.</span>start_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     49</span>
+<span class="ansi-green-fg">---&gt; 50</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> draw<span class="ansi-blue-fg">(</span>artist<span class="ansi-blue-fg">,</span> renderer<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     51</span>         <span class="ansi-green-fg">finally</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     52</span>             <span class="ansi-green-fg">if</span> artist<span class="ansi-blue-fg">.</span>get_agg_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/collections.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-fg">(self, renderer)</span>
+<span class="ansi-green-intense-fg ansi-bold">    881</span>     <span class="ansi-green-fg">def</span> draw<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> renderer<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    882</span>         self<span class="ansi-blue-fg">.</span>set_sizes<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>_sizes<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>figure<span class="ansi-blue-fg">.</span>dpi<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 883</span><span class="ansi-red-fg">         </span>Collection<span class="ansi-blue-fg">.</span>draw<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> renderer<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    884</span>
+<span class="ansi-green-intense-fg ansi-bold">    885</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     48</span>                 renderer<span class="ansi-blue-fg">.</span>start_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     49</span>
+<span class="ansi-green-fg">---&gt; 50</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> draw<span class="ansi-blue-fg">(</span>artist<span class="ansi-blue-fg">,</span> renderer<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     51</span>         <span class="ansi-green-fg">finally</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     52</span>             <span class="ansi-green-fg">if</span> artist<span class="ansi-blue-fg">.</span>get_agg_filter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/collections.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-fg">(self, renderer)</span>
+<span class="ansi-green-intense-fg ansi-bold">    258</span>         renderer<span class="ansi-blue-fg">.</span>open_group<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>__class__<span class="ansi-blue-fg">.</span>__name__<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>get_gid<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    259</span>
+<span class="ansi-green-fg">--&gt; 260</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>update_scalarmappable<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    261</span>
+<span class="ansi-green-intense-fg ansi-bold">    262</span>         transform<span class="ansi-blue-fg">,</span> transOffset<span class="ansi-blue-fg">,</span> offsets<span class="ansi-blue-fg">,</span> paths <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_prepare_points<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/collections.py</span> in <span class="ansi-cyan-fg">update_scalarmappable</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    777</span>             <span class="ansi-green-fg">return</span>
+<span class="ansi-green-intense-fg ansi-bold">    778</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>_is_filled<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 779</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>_facecolors <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>to_rgba<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>_A<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>_alpha<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    780</span>         <span class="ansi-green-fg">elif</span> self<span class="ansi-blue-fg">.</span>_is_stroked<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    781</span>             self<span class="ansi-blue-fg">.</span>_edgecolors <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>to_rgba<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>_A<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>_alpha<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/cm.py</span> in <span class="ansi-cyan-fg">to_rgba</span><span class="ansi-blue-fg">(self, x, alpha, bytes, norm)</span>
+<span class="ansi-green-intense-fg ansi-bold">    286</span>         x <span class="ansi-blue-fg">=</span> ma<span class="ansi-blue-fg">.</span>asarray<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    287</span>         <span class="ansi-green-fg">if</span> norm<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 288</span><span class="ansi-red-fg">             </span>x <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>norm<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    289</span>         rgba <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>cmap<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">,</span> alpha<span class="ansi-blue-fg">=</span>alpha<span class="ansi-blue-fg">,</span> bytes<span class="ansi-blue-fg">=</span>bytes<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    290</span>         <span class="ansi-green-fg">return</span> rgba
+
+<span class="ansi-green-fg">~/anaconda/envs/EMAT/lib/python3.6/site-packages/matplotlib/colors.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, value, clip)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1012</span>             <span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;minvalue must be less than or equal to maxvalue&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1013</span>         <span class="ansi-green-fg">elif</span> vmin <span class="ansi-blue-fg">&lt;=</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">-&gt; 1014</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;values must all be positive&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1015</span>         <span class="ansi-green-fg">elif</span> vmin <span class="ansi-blue-fg">==</span> vmax<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">   1016</span>             result<span class="ansi-blue-fg">.</span>fill<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">ValueError</span>: values must all be positive
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;Figure size 432x288 with 4 Axes&gt;
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

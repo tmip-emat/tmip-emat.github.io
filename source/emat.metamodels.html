@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Meta-Models &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
+  <title>Meta-Models &mdash; TMIP-EMAT 0.1.3, May 2019 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.2
+                0.1.3
               </div>
             
           
@@ -178,6 +178,11 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -220,15 +225,15 @@ include a subset of the columns in <cite>output_sample</cite>, and the values in
 the metamodel type for each performance measure, given as <cite>str</cite>.  Available
 metamodel types include:</p>
 <ul>
-<li><em>log-linear</em>: The natural log of the performance measure is taken before
+<li><em>log</em>: The natural log of the performance measure is taken before
 fitting the regression model.  This is appropriate only when the performance
 measure will always give a strictly positive outcome. If the performance
 measure can take on non-positive values, this may result in errors.</li>
-<li><em>log1p-linear</em>: The natural log of 1 plus the performance measure is taken before
+<li><em>log1p</em>: The natural log of 1 plus the performance measure is taken before
 fitting the regression model.  This is preferred to log-linear when the
 performance measure is only guaranteed to be non-negative, rather than
 strictly positive.</li>
-<li><em>logxp-linear(X)</em>: The natural log of X plus the performance measure is taken before
+<li><em>logxp(X)</em>: The natural log of X plus the performance measure is taken before
 fitting the regression model.  This allows shifting the position of the
 regression intercept to a point other than 0.</li>
 <li><em>linear</em>: No transforms are made.  This is the default when a performance

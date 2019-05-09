@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Performance Measures &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
+  <title>Performance Measures &mdash; TMIP-EMAT 0.1.3, May 2019 documentation</title>
   
 
   
@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Boxes" href="boxes.html" />
-    <link rel="prev" title="Parameters" href="parameters.html" /> 
+    <link rel="prev" title="Uniform Distribution" href="continuous_distributions.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.2
+                0.1.3
               </div>
             
           
@@ -184,6 +184,11 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -200,8 +205,8 @@ recommendation, or specification by FHWA.</p>
 a single model output.</p>
 <dl class="class">
 <dt id="emat.Measure">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Measure</code><span class="sig-paren">(</span><em>name</em>, <em>kind=0</em>, <em>transform=None</em>, <em>min=None</em>, <em>max=None</em>, <em>address=None</em>, <em>variable_name=None</em>, <em>function=None</em>, <em>dtype=None</em>, <em>metamodeltype=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/measure.html#Measure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Measure" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/outcomes.html#ema_workbench.em_framework.outcomes.ScalarOutcome" title="(in ema_workbench v2.None)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.outcomes.ScalarOutcome</span></code></a></p>
+<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Measure</code><span class="sig-paren">(</span><em>name</em>, <em>kind=0</em>, <em>min=None</em>, <em>max=None</em>, <em>address=None</em>, <em>dtype=None</em>, <em>function=None</em>, <em>transform=None</em>, <em>variable_name=None</em>, <em>metamodeltype=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/measure.html#Measure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/outcomes.html#ema_workbench.em_framework.outcomes.ScalarOutcome" title="(in ema_workbench v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.outcomes.ScalarOutcome</span></code></a></p>
 <p>Measure represents an outcome measure of the model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -212,10 +217,6 @@ a single model output.</p>
 <li><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – one of {‘info’, ‘minimize’, ‘maximize’},
 defaults to ‘info’ if not given. This represents the
 generally preferred direction of the measure.</li>
-<li><strong>transform</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – what kind of post-processing
-transformation should be applied to the measure before
-subsequent analysis, if any. Currently only “ln” is
-implemented.</li>
 <li><strong>min</strong> (<em>number</em><em>, </em><em>optional</em>) – An expected minimum value that
 might be observed under any policy and scenario.  This
 value is currently only used by the HyperVolume convergence
@@ -229,6 +230,50 @@ extract this measure from the model. This is model-specific
 and can potentially be any Python object. For example, if the
 model is an Excel model, this can be a cell reference given
 as a <cite>str</cite>.</li>
+<li><strong>dtype</strong> (<em>dtype</em><em>, </em><em>optional</em>) – The desired dtype to be enforced for this
+measure, e.g. ‘int’, ‘float32’, etc.  This is optional, and if
+not given, some default dtype will be used, typically whatever
+is returned by the core model, or a <cite>float</cite> for metamodels.</li>
+<li><strong>function</strong> (<em>callable</em><em>, </em><em>optional</em>) – A callable function that will be
+used to transform the raw measure as returned by a core model.
+This transformation will be applied to core model results by
+the evaluator before they are returned to the user or stored
+in a database. It is recommended that EMAT analysis work with the
+original untransformed raw values, and employ the <cite>metamodeltype</cite>
+functionality as required for non-linear responses.</li>
+<li><strong>transform</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – As an alternative to passing a callable
+object, use this argument to pass the name of a <cite>numpy</cite> function.
+This argument is ignored if <cite>function</cite> is given.</li>
+<li><strong>variable_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the raw measure as
+output by the underlying core model. If not given, this name is
+assumed to be the same as <cite>name</cite>.  If no <cite>transform</cite> is set,
+it is strongly recommended to not give this argument either.
+A principal use of this argument is to descriptively rename
+measures that have been transformed, for example if the raw
+output measure is ‘Total VMT’ and a log transform function is
+applied, the result can be more descriptively renamed
+as ‘log(Total VMT)’.</li>
+<li><strong>metamodeltype</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – <p>The transformation type to use for
+metamodel estimation.  This transformation is applied only
+internally within the metamodel, and all inputs and outputs
+passed to or from the metamodel will not appear in a transformed
+state, including measure values stored within the database.
+Available metamodel types include:</p>
+<ul>
+<li><em>log</em>: The natural log of the performance measure is taken before
+fitting the regression model.  This is appropriate only when the performance
+measure will always give a strictly positive outcome. If the performance
+measure can take on non-positive values, this may result in errors.</li>
+<li><em>log1p</em>: The natural log of 1 plus the performance measure is taken before
+fitting the regression model.  This is preferred to log-linear when the
+performance measure is only guaranteed to be non-negative, rather than
+strictly positive.</li>
+<li><em>logxp(X)</em>: The natural log of X plus the performance measure is taken before
+fitting the regression model.  This allows shifting the position of the
+regression intercept to a point other than 0.</li>
+<li><em>linear</em>: No transforms are made.  This is the default.</li>
+</ul>
+</li>
 </ul>
 </td>
 </tr>
@@ -262,6 +307,50 @@ as a <cite>str</cite>.</li>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="emat.Measure.transform">
+<code class="descname">transform</code><a class="headerlink" href="#emat.Measure.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the transform function, if any.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Measure.address">
+<code class="descname">address</code><a class="headerlink" href="#emat.Measure.address" title="Permalink to this definition">¶</a></dt>
+<dd><p>The address or instruction for how to
+extract this measure from the model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">obj</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Measure.metamodeltype">
+<code class="descname">metamodeltype</code><a class="headerlink" href="#emat.Measure.metamodeltype" title="Permalink to this definition">¶</a></dt>
+<dd><p>The transformation type to use for
+metamodel estimation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -277,7 +366,7 @@ as a <cite>str</cite>.</li>
         <a href="boxes.html" class="btn btn-neutral float-right" title="Boxes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="parameters.html" class="btn btn-neutral" title="Parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="continuous_distributions.html" class="btn btn-neutral" title="Uniform Distribution" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.model.core_python.core_python_api &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
+  <title>emat.model.core_python.core_python_api &mdash; TMIP-EMAT 0.1.3, May 2019 documentation</title>
   
 
   
@@ -56,7 +56,7 @@
             
             
               <div class="version">
-                0.1.2
+                0.1.3
               </div>
             
           
@@ -316,8 +316,23 @@
 
         <span class="c1"># record experiment definitions</span>
         <span class="n">xl_df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">experiment_id</span><span class="p">])</span>
-        <span class="n">xl_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">model_results_path</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;_def.csv&#39;</span><span class="p">)</span></div>
+        <span class="n">xl_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">model_results_path</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;_def.csv&#39;</span><span class="p">)</span>
 
+<div class="viewcode-block" id="PythonCoreModel.run_experiment"><a class="viewcode-back" href="../../../../source/emat.models/python_based.html#emat.model.PythonCoreModel.run_experiment">[docs]</a>    <span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Running a single instantiated model experiment.</span>
+
+<span class="sd">        The results are passed through the performance measure</span>
+<span class="sd">        processing steps to generate results.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            experiment (dict-like)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outcomes_output</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run_experiment</span><span class="p">(</span><span class="n">experiment</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">outcomes_output</span></div></div>
 </pre></div>
 
            </div>

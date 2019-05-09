@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.model.meta_model &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
+  <title>emat.model.meta_model &mdash; TMIP-EMAT 0.1.3, May 2019 documentation</title>
   
 
   
@@ -56,7 +56,7 @@
             
             
               <div class="version">
-                0.1.2
+                0.1.3
               </div>
             
           
@@ -184,17 +184,17 @@
 <span class="sd">            the metamodel type for each performance measure, given as `str`.  Available</span>
 <span class="sd">            metamodel types include:</span>
 
-<span class="sd">            + *log-linear*: The natural log of the performance measure is taken before</span>
+<span class="sd">            + *log*: The natural log of the performance measure is taken before</span>
 <span class="sd">              fitting the regression model.  This is appropriate only when the performance</span>
 <span class="sd">              measure will always give a strictly positive outcome. If the performance</span>
 <span class="sd">              measure can take on non-positive values, this may result in errors.</span>
 
-<span class="sd">            + *log1p-linear*: The natural log of 1 plus the performance measure is taken before</span>
+<span class="sd">            + *log1p*: The natural log of 1 plus the performance measure is taken before</span>
 <span class="sd">              fitting the regression model.  This is preferred to log-linear when the</span>
 <span class="sd">              performance measure is only guaranteed to be non-negative, rather than</span>
 <span class="sd">              strictly positive.</span>
 
-<span class="sd">            + *logxp-linear(X)*: The natural log of X plus the performance measure is taken before</span>
+<span class="sd">            + *logxp(X)*: The natural log of X plus the performance measure is taken before</span>
 <span class="sd">              fitting the regression model.  This allows shifting the position of the</span>
 <span class="sd">              regression intercept to a point other than 0.</span>
 

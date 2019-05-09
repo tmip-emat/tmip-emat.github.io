@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Basic EMAT Model API &mdash; TMIP-EMAT 0.1.2, April 2019 documentation</title>
+  <title>Basic EMAT Model API &mdash; TMIP-EMAT 0.1.3, May 2019 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.2
+                0.1.3
               </div>
             
           
@@ -190,6 +190,11 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
 </style>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -205,7 +210,7 @@ recommendation, or specification by FHWA.</p>
 <dl class="class">
 <dt id="emat.model.AbstractCoreModel">
 <em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">AbstractCoreModel</code><span class="sig-paren">(</span><em>configuration: Union[str, Mapping, None], scope: Union[emat.scope.scope.Scope, str], safe: bool = True, db: emat.database.database.Database = None, name: str = 'EMAT', metamodel_id: int = 0</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/abc.html#abc.ABC" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/model.html#ema_workbench.em_framework.model.AbstractModel" title="(in ema_workbench v2.None)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.model.AbstractModel</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/abc.html#abc.ABC" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/model.html#ema_workbench.em_framework.model.AbstractModel" title="(in ema_workbench v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.model.AbstractModel</span></code></a></p>
 <p>An interface for using a model with EMAT.</p>
 <p>Individual models should be instantiated using derived
 subclasses of this abstract base class, and not using
@@ -308,6 +313,50 @@ implementation only sets the outputs to an empty dict.</p>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict with the results of a model run.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.model.AbstractCoreModel.robust_evaluate">
+<code class="descname">robust_evaluate</code><span class="sig-paren">(</span><em>robustness_functions</em>, <em>scenarios</em>, <em>policies</em>, <em>evaluator=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.robust_evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.robust_evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform robust evaluation(s).</p>
+<p>The robust evaluation is used to generate statistical measures
+of outcomes, instead of generating the individual outcomes themselves.
+For each policy, the model is evaluated against all of the considered
+scenarios, and then the robustness measures are evaluated using the
+set of outcomes from the original runs.  The robustness measures
+are aggregate measures that are computed from a set of outcomes.
+For example, this may be expected value, median, n-th percentile,
+minimum, or maximum value of any individual outcome.  It is also
+possible to have joint measures, e.g. expected value of the larger
+of outcome 1 or outcome 2.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>robustness_functions</strong> (<em>Collection</em><em>[</em><a class="reference internal" href="../emat.scope/measures.html#emat.Measure" title="emat.Measure"><em>Measure</em></a><em>]</em>) – A collection of
+aggregate statistical performance measures.</li>
+<li><strong>scenarios</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em> or </em><em>Collection</em>) – A collection of scenarios to
+use in the evaluation(s), or give an integer to generate
+that number of random scenarios.</li>
+<li><strong>policies</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, or </em><em>collection</em>) – A collection of policies to
+use in the evaluation(s), or give an integer to generate
+that number of random policies.</li>
+<li><strong>evaluator</strong> (<em>Evaluator</em><em>, </em><em>optional</em>) – The evaluator to use to
+run the model. If not given, a SequentialEvaluator will
+be created.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The computed value of each item
+in <cite>robustness_functions</cite>, for each policy in <cite>policies</cite>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.2)">pandas.DataFrame</a></p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -683,45 +732,24 @@ available.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="emat.model.AbstractCoreModel.run_experiments_from_design">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">run_experiments_from_design</code><span class="sig-paren">(</span><em>design_name='lhs'</em>, <em>archive=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.run_experiments_from_design"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.run_experiments_from_design" title="Permalink to this definition">¶</a></dt>
-<dd><p>Runs a design of experiments through this core model</p>
-<p>For each experiment, the core model is called to:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>set experiment variables</li>
-<li>run the experiment</li>
-<li>run post-processors associated with specified
-performance measures</li>
-<li>(optionally) archive model outputs</li>
-<li>record performance measures to database</li>
-</ol>
-</div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – experiment design type:
-‘uni’ - generated by univariate sensitivity test design
-‘lhs’ - generated by latin hypercube sample design</li>
-<li><strong>archive</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – option to call core_model archive function
-that copies outputs to an archive location</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#UserWarning" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UserWarning</span></code></a> – If there are no experiments associated with
-this type.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="emat.model.AbstractCoreModel.robust_optimize">
 <code class="descclassname">AbstractCoreModel.</code><code class="descname">robust_optimize</code><span class="sig-paren">(</span><em>robustness_functions</em>, <em>scenarios</em>, <em>evaluator=None</em>, <em>nfe=10000</em>, <em>convergence=None</em>, <em>constraints=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.robust_optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.robust_optimize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform robust optimization.</p>
+<p>The robust optimization generally a multi-objective optimization task.
+It is undertaken using statistical measures of outcomes evaluated across
+a number of scenarios, instead of using the individual outcomes themselves.
+For each candidate policy, the model is evaluated against all of the considered
+scenarios, and then the robustness measures are evaluated using the
+set of outcomes from the original runs.  The robustness measures
+are aggregate measures that are computed from a set of outcomes.
+For example, this may be expected value, median, n-th percentile,
+minimum, or maximum value of any individual outcome.  It is also
+possible to have joint measures, e.g. expected value of the larger
+of outcome 1 or outcome 2.</p>
+<p>Each robustness function is indicated as a maximization or minimization
+target, where higher or lower values are better, respectively.
+The optimization process then tries to identify one or more
+non-dominated solutions for the possible policy levers.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -729,22 +757,76 @@ this type.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>robustness_functions</strong> (<em>Collection</em><em>[</em><a class="reference internal" href="../emat.scope/measures.html#emat.Measure" title="emat.Measure"><em>Measure</em></a><em>]</em>) – A collection of
 aggregate statistical performance measures.</li>
-<li><strong>scenarios</strong> – int, or collection</li>
-<li><strong>evaluator</strong> – Evaluator instance</li>
-<li><strong>algorithm</strong> – platypus Algorithm instance</li>
-<li><strong>nfe</strong> – int</li>
-<li><strong>constraints</strong> – list</li>
-<li><strong>kwargs</strong> – any additional arguments will be passed on to algorithm</li>
+<li><strong>scenarios</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em> or </em><em>Collection</em>) – A collection of scenarios to
+use in the evaluation(s), or give an integer to generate
+that number of random scenarios.</li>
+<li><strong>evaluator</strong> (<em>Evaluator</em><em>, </em><em>optional</em>) – The evaluator to use to
+run the model. If not given, a SequentialEvaluator will
+be created.</li>
+<li><strong>algorithm</strong> (<em>platypus.Algorithm</em><em>, </em><em>optional</em>) – Select an
+algorithm for multi-objective optimization.  See
+<cite>platypus</cite> documentation for details.</li>
+<li><strong>nfe</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 10_000</em>) – Number of function evaluations.
+This generally needs to be fairly large to achieve stable
+results in all but the most trivial applications.</li>
+<li><strong>convergence</strong> (<em>emat.optimization.ConvergenceMetrics</em><em>, </em><em>optional</em>) – </li>
+<li><strong>constraints</strong> (<em>Collection</em><em>[</em><em>Constraint</em><em>]</em><em>, </em><em>optional</em>) – </li>
+<li><strong>kwargs</strong> – any additional arguments will be passed on to the
+platypus algorithm.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
-<li>AssertionError if robustness_function is not a ScalarOutcome,</li>
-<li>if robustness_funcion.kind is INFO, or</li>
-<li>if robustness_function.function is None</li>
-<li>robustness functions are scalar outcomes, kind should be MINIMIZE or</li>
-<li>MAXIMIZE, function is the robustness function you want to use.</li>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>The set of non-dominated solutions found.</p>
+<p>When <cite>convergence</cite> is given, the convergence measures are
+also returned, as a second pandas.DataFrame.</p>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.2)">pandas.DataFrame</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">robust_evaluate</code><span class="sig-paren">(</span><em>robustness_functions</em>, <em>scenarios</em>, <em>policies</em>, <em>evaluator=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.robust_evaluate"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Perform robust evaluation(s).</p>
+<p>The robust evaluation is used to generate statistical measures
+of outcomes, instead of generating the individual outcomes themselves.
+For each policy, the model is evaluated against all of the considered
+scenarios, and then the robustness measures are evaluated using the
+set of outcomes from the original runs.  The robustness measures
+are aggregate measures that are computed from a set of outcomes.
+For example, this may be expected value, median, n-th percentile,
+minimum, or maximum value of any individual outcome.  It is also
+possible to have joint measures, e.g. expected value of the larger
+of outcome 1 or outcome 2.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>robustness_functions</strong> (<em>Collection</em><em>[</em><a class="reference internal" href="../emat.scope/measures.html#emat.Measure" title="emat.Measure"><em>Measure</em></a><em>]</em>) – A collection of
+aggregate statistical performance measures.</li>
+<li><strong>scenarios</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em> or </em><em>Collection</em>) – A collection of scenarios to
+use in the evaluation(s), or give an integer to generate
+that number of random scenarios.</li>
+<li><strong>policies</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, or </em><em>collection</em>) – A collection of policies to
+use in the evaluation(s), or give an integer to generate
+that number of random policies.</li>
+<li><strong>evaluator</strong> (<em>Evaluator</em><em>, </em><em>optional</em>) – The evaluator to use to
+run the model. If not given, a SequentialEvaluator will
+be created.</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The computed value of each item
+in <cite>robustness_functions</cite>, for each policy in <cite>policies</cite>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.2)">pandas.DataFrame</a></p>
 </td>
 </tr>
 </tbody>
