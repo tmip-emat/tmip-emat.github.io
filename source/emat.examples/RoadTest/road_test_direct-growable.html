@@ -1,0 +1,2774 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Road Test &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.git.html">Using Github to Fork TMIP-EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.analysis/index.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Road Test</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/source/emat.examples/RoadTest/road_test_direct-growable.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Road-Test">
+<h1>Road Test<a class="headerlink" href="#Road-Test" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">emat</span>
+<span class="n">emat</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/jpn/anaconda/envs/EMAT/lib/python3.6/importlib/_bootstrap.py:219: ImportWarning: can&#39;t resolve package from __spec__ or __package__, falling back on __name__ and __path__
+  return f(*args, **kwds)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&#39;0.1.3&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">ema_workbench</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">numpy</span><span class="o">,</span> <span class="nn">pandas</span><span class="o">,</span> <span class="nn">functools</span>
+<span class="kn">from</span> <span class="nn">emat.util.xmle</span> <span class="k">import</span> <span class="n">Show</span>
+<span class="kn">from</span> <span class="nn">emat.viz.scatter</span> <span class="k">import</span> <span class="n">scatter_graph</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">logger</span> <span class="o">=</span> <span class="n">emat</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">loggers</span><span class="o">.</span><span class="n">log_to_stderr</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Defining-the-Exploratory-Scope">
+<h2>Defining the Exploratory Scope<a class="headerlink" href="#Defining-the-Exploratory-Scope" title="Permalink to this headline">¶</a></h2>
+<p>The model scope is defined in a YAML file.  For this Road Test example, the scope file is named
+<a class="reference internal" href="road_test_yaml.html#road-test-scope-file"><span class="std std-ref">road_test.yaml</span></a> and is included in the model/tests directory.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">road_test_scope_file</span> <span class="o">=</span> <span class="n">emat</span><span class="o">.</span><span class="n">package_file</span><span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span><span class="s1">&#39;tests&#39;</span><span class="p">,</span><span class="s1">&#39;road_test.yaml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The filename for the YAML file is the first argument when creating a <a class="reference internal" href="../../emat.scope/scope.html#emat.Scope" title="emat.Scope"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scope</span></code></a>
+object, which will load and process the content of the file.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">road_scope</span> <span class="o">=</span> <span class="n">emat</span><span class="o">.</span><span class="n">Scope</span><span class="p">(</span><span class="n">road_test_scope_file</span><span class="p">)</span>
+<span class="n">road_scope</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;emat.Scope with 2 constants, 7 uncertainties, 4 levers, 7 measures&gt;
+</pre></div>
+</div>
+</div>
+<p>A short summary of the scope can be reviewed using the <code class="docutils literal notranslate"><span class="pre">info</span></code> method.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">road_scope</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+name: EMAT Road Test
+desc: prototype run
+constants:
+  free_flow_time = 60
+  initial_capacity = 100
+uncertainties:
+  alpha = 0.1 to 0.2
+  beta = 3.5 to 5.5
+  input_flow = 80 to 150
+  value_of_time = 0.001 to 0.08
+  unit_cost_expansion = 95.0 to 145.0
+  interest_rate = 0.025 to 0.04
+  yield_curve = -0.0025 to 0.02
+levers:
+  expand_capacity = 0.0 to 100.0
+  amortization_period = 15 to 50
+  debt_type = categorical
+  interest_rate_lock = boolean
+measures:
+  no_build_travel_time
+  build_travel_time
+  time_savings
+  value_of_time_savings
+  net_benefits
+  cost_of_capacity_expansion
+  present_cost_expansion
+</pre></div></div>
+</div>
+<p>Alternatively, more detailed information about each part of the scope can be accessed in four list attributes:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">road_scope</span><span class="o">.</span><span class="n">get_constants</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[Constant(&#39;free_flow_time&#39;, 60), Constant(&#39;initial_capacity&#39;, 100)]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">road_scope</span><span class="o">.</span><span class="n">get_uncertainties</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&lt;emat.RealParameter &#39;alpha&#39;&gt;,
+ &lt;emat.RealParameter &#39;beta&#39;&gt;,
+ &lt;emat.IntegerParameter &#39;input_flow&#39;&gt;,
+ &lt;emat.RealParameter &#39;value_of_time&#39;&gt;,
+ &lt;emat.RealParameter &#39;unit_cost_expansion&#39;&gt;,
+ &lt;emat.RealParameter &#39;interest_rate&#39;&gt;,
+ &lt;emat.RealParameter &#39;yield_curve&#39;&gt;]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">road_scope</span><span class="o">.</span><span class="n">get_levers</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&lt;emat.RealParameter &#39;expand_capacity&#39;&gt;,
+ &lt;emat.IntegerParameter &#39;amortization_period&#39;&gt;,
+ &lt;emat.CategoricalParameter &#39;debt_type&#39;&gt;,
+ &lt;emat.BooleanParameter &#39;interest_rate_lock&#39;&gt;]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">road_scope</span><span class="o">.</span><span class="n">get_measures</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[Measure(&#39;no_build_travel_time&#39;),
+ Measure(&#39;build_travel_time&#39;),
+ Measure(&#39;time_savings&#39;),
+ Measure(&#39;value_of_time_savings&#39;),
+ Measure(&#39;net_benefits&#39;),
+ Measure(&#39;cost_of_capacity_expansion&#39;),
+ Measure(&#39;present_cost_expansion&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Using-a-Database">
+<h2>Using a Database<a class="headerlink" href="#Using-a-Database" title="Permalink to this headline">¶</a></h2>
+<p>The exploratory modeling process will typically generate many different sets of outputs, for different explored modeling scopes, or for different applications. It is convenient to organize these outputs in a database structure, so they are stored consistently and readily available for subsequent analysis.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SQLiteDB</span></code> object will create a database to store results. When instantiated with no arguments, the database is initialized in-memory, which will not store anything to disk (which is convenient for this example, but in practice you will generally want to store data to disk so that it can persist after this Python session ends).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">emat_db</span> <span class="o">=</span> <span class="n">emat</span><span class="o">.</span><span class="n">SQLiteDB</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[00:03.36] MainProcess/INFO: running script scope.sql
+[00:03.36] MainProcess/INFO: running script exp_design.sql
+[00:03.36] MainProcess/INFO: running script meta_model.sql
+</pre></div></div>
+</div>
+<p>An EMAT Scope can be stored in the database, to provide needed information about what the various inputs and outputs represent.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">road_scope</span><span class="o">.</span><span class="n">store_scope</span><span class="p">(</span><span class="n">emat_db</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Trying to store another scope with the same name (or the same scope) raises a KeyError.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">road_scope</span><span class="o">.</span><span class="n">store_scope</span><span class="p">(</span><span class="n">emat_db</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;scope named &#34;EMAT Road Test&#34; already exists&#39;
+</pre></div></div>
+</div>
+<p>We can review the names of scopes already stored in the database using the <code class="docutils literal notranslate"><span class="pre">read_scope_names</span></code> method.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">emat_db</span><span class="o">.</span><span class="n">read_scope_names</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&#39;EMAT Road Test&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Experimental-Design">
+<h2>Experimental Design<a class="headerlink" href="#Experimental-Design" title="Permalink to this headline">¶</a></h2>
+<p>Actually running the model can be done by the user on an <em>ad hoc</em> basis (i.e., manually defining every combination of inputs that will be evaluated) but the real power of EMAT comes from runnning the model using algorithm-created experimental designs.</p>
+<p>An important experimental design used in exploratory modeling is the Latin Hypercube. This design selects a random set of experiments across multiple input dimensions, to ensure “good” coverage of the multi-dimensional modeling space.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">design_latin_hypercube</span></code> function creates such a design based on a <code class="docutils literal notranslate"><span class="pre">Scope</span></code>, and optionally stores the design of experiments in a database.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">emat.experiment.experimental_design</span> <span class="k">import</span> <span class="n">design_experiments</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">design</span> <span class="o">=</span> <span class="n">design_experiments</span><span class="p">(</span><span class="n">road_scope</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">emat_db</span><span class="p">,</span> <span class="n">n_samples_per_factor</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sampler</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">)</span>
+<span class="n">design</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>alpha</th>
+      <th>amortization_period</th>
+      <th>beta</th>
+      <th>debt_type</th>
+      <th>expand_capacity</th>
+      <th>input_flow</th>
+      <th>interest_rate</th>
+      <th>interest_rate_lock</th>
+      <th>unit_cost_expansion</th>
+      <th>value_of_time</th>
+      <th>yield_curve</th>
+      <th>free_flow_time</th>
+      <th>initial_capacity</th>
+    </tr>
+    <tr>
+      <th>experiment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.184682</td>
+      <td>38</td>
+      <td>5.237143</td>
+      <td>Rev Bond</td>
+      <td>18.224793</td>
+      <td>115</td>
+      <td>0.031645</td>
+      <td>False</td>
+      <td>118.213466</td>
+      <td>0.022518</td>
+      <td>0.015659</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.166133</td>
+      <td>36</td>
+      <td>4.121963</td>
+      <td>Paygo</td>
+      <td>87.525790</td>
+      <td>129</td>
+      <td>0.037612</td>
+      <td>True</td>
+      <td>141.322696</td>
+      <td>0.052306</td>
+      <td>0.007307</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.198937</td>
+      <td>44</td>
+      <td>4.719838</td>
+      <td>GO Bond</td>
+      <td>45.698048</td>
+      <td>105</td>
+      <td>0.028445</td>
+      <td>False</td>
+      <td>97.783320</td>
+      <td>0.011923</td>
+      <td>-0.001545</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.158758</td>
+      <td>42</td>
+      <td>4.915816</td>
+      <td>GO Bond</td>
+      <td>51.297546</td>
+      <td>113</td>
+      <td>0.036234</td>
+      <td>True</td>
+      <td>127.224901</td>
+      <td>0.077527</td>
+      <td>0.004342</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.157671</td>
+      <td>42</td>
+      <td>3.845952</td>
+      <td>Paygo</td>
+      <td>22.824149</td>
+      <td>133</td>
+      <td>0.039257</td>
+      <td>False</td>
+      <td>107.820482</td>
+      <td>0.027270</td>
+      <td>0.001558</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">large_design</span> <span class="o">=</span> <span class="n">design_experiments</span><span class="p">(</span><span class="n">road_scope</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">emat_db</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">sampler</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">,</span> <span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;lhs_large&#39;</span><span class="p">)</span>
+<span class="n">large_design</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>alpha</th>
+      <th>amortization_period</th>
+      <th>beta</th>
+      <th>debt_type</th>
+      <th>expand_capacity</th>
+      <th>input_flow</th>
+      <th>interest_rate</th>
+      <th>interest_rate_lock</th>
+      <th>unit_cost_expansion</th>
+      <th>value_of_time</th>
+      <th>yield_curve</th>
+      <th>free_flow_time</th>
+      <th>initial_capacity</th>
+    </tr>
+    <tr>
+      <th>experiment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>111</th>
+      <td>0.154130</td>
+      <td>21</td>
+      <td>5.061648</td>
+      <td>Rev Bond</td>
+      <td>75.542217</td>
+      <td>112</td>
+      <td>0.029885</td>
+      <td>True</td>
+      <td>124.452736</td>
+      <td>0.020584</td>
+      <td>0.001425</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>112</th>
+      <td>0.148731</td>
+      <td>29</td>
+      <td>4.088663</td>
+      <td>Rev Bond</td>
+      <td>91.184595</td>
+      <td>145</td>
+      <td>0.028659</td>
+      <td>False</td>
+      <td>131.688623</td>
+      <td>0.017927</td>
+      <td>0.007850</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>113</th>
+      <td>0.124027</td>
+      <td>34</td>
+      <td>3.956884</td>
+      <td>Paygo</td>
+      <td>60.436585</td>
+      <td>80</td>
+      <td>0.038101</td>
+      <td>False</td>
+      <td>95.462532</td>
+      <td>0.014444</td>
+      <td>0.011101</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>114</th>
+      <td>0.129724</td>
+      <td>41</td>
+      <td>4.969628</td>
+      <td>Paygo</td>
+      <td>74.271040</td>
+      <td>139</td>
+      <td>0.029665</td>
+      <td>False</td>
+      <td>98.206495</td>
+      <td>0.013711</td>
+      <td>0.010072</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>115</th>
+      <td>0.185723</td>
+      <td>22</td>
+      <td>4.485432</td>
+      <td>Paygo</td>
+      <td>61.084166</td>
+      <td>95</td>
+      <td>0.039195</td>
+      <td>False</td>
+      <td>140.792308</td>
+      <td>0.068903</td>
+      <td>0.019277</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>We can review what experimental designs have already been stored in the database using the <code class="docutils literal notranslate"><span class="pre">read_design_names</span></code> method of the <code class="docutils literal notranslate"><span class="pre">Database</span></code> object.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">emat_db</span><span class="o">.</span><span class="n">read_design_names</span><span class="p">(</span><span class="s1">&#39;EMAT Road Test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&#39;lhs&#39;, &#39;lhs_large&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Core-Model-in-Python">
+<h2>Core Model in Python<a class="headerlink" href="#Core-Model-in-Python" title="Permalink to this headline">¶</a></h2>
+<p>Up until this point, we have been considering a model in the abstract, defining in the <a class="reference internal" href="../../emat.scope/scope.html#emat.Scope" title="emat.Scope"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scope</span></code></a> what the inputs
+and outputs will be, and designing some experiments we would like to run with the model.  Now we will actually
+interface with the model itself.</p>
+<div class="section" id="Model-Definition">
+<h3>Model Definition<a class="headerlink" href="#Model-Definition" title="Permalink to this headline">¶</a></h3>
+<p>In the simplest approach for EMAT, a model can be defined as a basic Python function, which accepts all inputs (exogenous uncertainties, policy levers, and externally defined constants) as named keyword arguments, and returns a dictionary where the dictionary keys are names of performace measures, and the mapped values are the computed values for those performance measures. The <code class="docutils literal notranslate"><span class="pre">Road_Capacity_Investment</span></code> function provided in EMAT is an example of such a function. This made-up example considers
+the investment in capacity expansion for a single roadway link. The inputs to this function are described above in the Scope, including uncertain parameters in the volume-delay function, traffic volumes, value of travel time savings, unit construction costs, and interest rates, and policy levers including the amount of capacity expansion and amortization period.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">emat.model.core_python</span> <span class="k">import</span> <span class="n">PythonCoreModel</span>
+<span class="kn">from</span> <span class="nn">emat.model.core_python</span> <span class="k">import</span> <span class="n">Road_Capacity_Investment</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">PythonCoreModel</span></code> object
+provides an interface that links the basic Python function that represents
+the model, the <code class="xref py py-class docutils literal notranslate"><span class="pre">Scope</span></code>, and optionally the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code> used to manage data storage.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="n">PythonCoreModel</span><span class="p">(</span><span class="n">Road_Capacity_Investment</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">road_scope</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">emat_db</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>From the <code class="xref py py-class docutils literal notranslate"><span class="pre">PythonCoreModel</span></code>, which links the model, scope, design, and database, we can run the design of experiments.
+This will systematically run the core model with each set of input parameters in the design, store the results in
+the database, and return a pandas.DataFrame containing the results.</p>
+</div>
+<div class="section" id="Model-Execution">
+<h3>Model Execution<a class="headerlink" href="#Model-Execution" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">ema_workbench</span> <span class="k">import</span> <span class="n">SequentialEvaluator</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">with</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">as</span> <span class="n">eval_seq</span><span class="p">:</span>
+    <span class="n">lhs_results</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">,</span> <span class="n">evaluator</span><span class="o">=</span><span class="n">eval_seq</span><span class="p">)</span>
+<span class="n">lhs_results</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[00:05.14] MainProcess/INFO: performing 110 scenarios/policies * 1 model(s) = 110 experiments
+[00:05.15] MainProcess/INFO: performing experiments sequentially
+[00:05.16] MainProcess/INFO: 11 cases completed
+[00:05.16] MainProcess/INFO: 22 cases completed
+[00:05.17] MainProcess/INFO: 33 cases completed
+[00:05.17] MainProcess/INFO: 44 cases completed
+[00:05.18] MainProcess/INFO: 55 cases completed
+[00:05.18] MainProcess/INFO: 66 cases completed
+[00:05.18] MainProcess/INFO: 77 cases completed
+[00:05.19] MainProcess/INFO: 88 cases completed
+[00:05.19] MainProcess/INFO: 99 cases completed
+[00:05.20] MainProcess/INFO: 110 cases completed
+[00:05.20] MainProcess/INFO: experiments finished
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>alpha</th>
+      <th>beta</th>
+      <th>input_flow</th>
+      <th>value_of_time</th>
+      <th>unit_cost_expansion</th>
+      <th>interest_rate</th>
+      <th>yield_curve</th>
+      <th>expand_capacity</th>
+      <th>amortization_period</th>
+      <th>debt_type</th>
+      <th>interest_rate_lock</th>
+      <th>no_build_travel_time</th>
+      <th>build_travel_time</th>
+      <th>time_savings</th>
+      <th>value_of_time_savings</th>
+      <th>net_benefits</th>
+      <th>cost_of_capacity_expansion</th>
+      <th>present_cost_expansion</th>
+    </tr>
+    <tr>
+      <th>experiment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.184682</td>
+      <td>5.237143</td>
+      <td>115</td>
+      <td>0.022518</td>
+      <td>118.213466</td>
+      <td>0.031645</td>
+      <td>0.015659</td>
+      <td>18.224793</td>
+      <td>38</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+      <td>83.038716</td>
+      <td>69.586789</td>
+      <td>13.451927</td>
+      <td>34.835362</td>
+      <td>-79.515515</td>
+      <td>114.350877</td>
+      <td>2154.415985</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.166133</td>
+      <td>4.121963</td>
+      <td>129</td>
+      <td>0.052306</td>
+      <td>141.322696</td>
+      <td>0.037612</td>
+      <td>0.007307</td>
+      <td>87.525790</td>
+      <td>36</td>
+      <td>Paygo</td>
+      <td>True</td>
+      <td>88.474313</td>
+      <td>62.132583</td>
+      <td>26.341730</td>
+      <td>177.741192</td>
+      <td>-205.321480</td>
+      <td>383.062672</td>
+      <td>12369.380535</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.198937</td>
+      <td>4.719838</td>
+      <td>105</td>
+      <td>0.011923</td>
+      <td>97.783320</td>
+      <td>0.028445</td>
+      <td>-0.001545</td>
+      <td>45.698048</td>
+      <td>44</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>75.027180</td>
+      <td>62.543328</td>
+      <td>12.483852</td>
+      <td>15.629037</td>
+      <td>-151.944318</td>
+      <td>167.573355</td>
+      <td>4468.506839</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.158758</td>
+      <td>4.915816</td>
+      <td>113</td>
+      <td>0.077527</td>
+      <td>127.224901</td>
+      <td>0.036234</td>
+      <td>0.004342</td>
+      <td>51.297546</td>
+      <td>42</td>
+      <td>GO Bond</td>
+      <td>True</td>
+      <td>77.370428</td>
+      <td>62.268768</td>
+      <td>15.101660</td>
+      <td>132.298475</td>
+      <td>-167.624871</td>
+      <td>299.923347</td>
+      <td>6526.325171</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.157671</td>
+      <td>3.845952</td>
+      <td>133</td>
+      <td>0.027270</td>
+      <td>107.820482</td>
+      <td>0.039257</td>
+      <td>0.001558</td>
+      <td>22.824149</td>
+      <td>42</td>
+      <td>Paygo</td>
+      <td>False</td>
+      <td>88.328990</td>
+      <td>72.848428</td>
+      <td>15.480561</td>
+      <td>56.146908</td>
+      <td>-3.972940</td>
+      <td>60.119848</td>
+      <td>2460.910705</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Once a particular design has been run once, the results can be recovered from the database without re-running the model itself.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">reload_results</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">read_experiments</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">)</span>
+<span class="n">reload_results</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>free_flow_time</th>
+      <th>initial_capacity</th>
+      <th>alpha</th>
+      <th>beta</th>
+      <th>input_flow</th>
+      <th>value_of_time</th>
+      <th>unit_cost_expansion</th>
+      <th>interest_rate</th>
+      <th>yield_curve</th>
+      <th>expand_capacity</th>
+      <th>amortization_period</th>
+      <th>debt_type</th>
+      <th>interest_rate_lock</th>
+      <th>no_build_travel_time</th>
+      <th>build_travel_time</th>
+      <th>time_savings</th>
+      <th>value_of_time_savings</th>
+      <th>net_benefits</th>
+      <th>cost_of_capacity_expansion</th>
+      <th>present_cost_expansion</th>
+    </tr>
+    <tr>
+      <th>experiment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.184682</td>
+      <td>5.237143</td>
+      <td>115</td>
+      <td>0.022518</td>
+      <td>118.213466</td>
+      <td>0.031645</td>
+      <td>0.015659</td>
+      <td>18.224793</td>
+      <td>38</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+      <td>83.0387</td>
+      <td>69.5868</td>
+      <td>13.4519</td>
+      <td>34.8354</td>
+      <td>-79.5155</td>
+      <td>114.351</td>
+      <td>2154.42</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.166133</td>
+      <td>4.121963</td>
+      <td>129</td>
+      <td>0.052306</td>
+      <td>141.322696</td>
+      <td>0.037612</td>
+      <td>0.007307</td>
+      <td>87.525790</td>
+      <td>36</td>
+      <td>Paygo</td>
+      <td>True</td>
+      <td>88.4743</td>
+      <td>62.1326</td>
+      <td>26.3417</td>
+      <td>177.741</td>
+      <td>-205.321</td>
+      <td>383.063</td>
+      <td>12369.4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.198937</td>
+      <td>4.719838</td>
+      <td>105</td>
+      <td>0.011923</td>
+      <td>97.783320</td>
+      <td>0.028445</td>
+      <td>-0.001545</td>
+      <td>45.698048</td>
+      <td>44</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>75.0272</td>
+      <td>62.5433</td>
+      <td>12.4839</td>
+      <td>15.629</td>
+      <td>-151.944</td>
+      <td>167.573</td>
+      <td>4468.51</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.158758</td>
+      <td>4.915816</td>
+      <td>113</td>
+      <td>0.077527</td>
+      <td>127.224901</td>
+      <td>0.036234</td>
+      <td>0.004342</td>
+      <td>51.297546</td>
+      <td>42</td>
+      <td>GO Bond</td>
+      <td>True</td>
+      <td>77.3704</td>
+      <td>62.2688</td>
+      <td>15.1017</td>
+      <td>132.298</td>
+      <td>-167.625</td>
+      <td>299.923</td>
+      <td>6526.33</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.157671</td>
+      <td>3.845952</td>
+      <td>133</td>
+      <td>0.027270</td>
+      <td>107.820482</td>
+      <td>0.039257</td>
+      <td>0.001558</td>
+      <td>22.824149</td>
+      <td>42</td>
+      <td>Paygo</td>
+      <td>False</td>
+      <td>88.329</td>
+      <td>72.8484</td>
+      <td>15.4806</td>
+      <td>56.1469</td>
+      <td>-3.97294</td>
+      <td>60.1198</td>
+      <td>2460.91</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>It is also possible to load only the parameters, or only the performance meausures.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">lhs_params</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">)</span>
+<span class="n">lhs_params</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>free_flow_time</th>
+      <th>initial_capacity</th>
+      <th>alpha</th>
+      <th>beta</th>
+      <th>input_flow</th>
+      <th>value_of_time</th>
+      <th>unit_cost_expansion</th>
+      <th>interest_rate</th>
+      <th>yield_curve</th>
+      <th>expand_capacity</th>
+      <th>amortization_period</th>
+      <th>debt_type</th>
+      <th>interest_rate_lock</th>
+    </tr>
+    <tr>
+      <th>experiment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.184682</td>
+      <td>5.237143</td>
+      <td>115</td>
+      <td>0.022518</td>
+      <td>118.213466</td>
+      <td>0.031645</td>
+      <td>0.015659</td>
+      <td>18.224793</td>
+      <td>38</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.166133</td>
+      <td>4.121963</td>
+      <td>129</td>
+      <td>0.052306</td>
+      <td>141.322696</td>
+      <td>0.037612</td>
+      <td>0.007307</td>
+      <td>87.525790</td>
+      <td>36</td>
+      <td>Paygo</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.198937</td>
+      <td>4.719838</td>
+      <td>105</td>
+      <td>0.011923</td>
+      <td>97.783320</td>
+      <td>0.028445</td>
+      <td>-0.001545</td>
+      <td>45.698048</td>
+      <td>44</td>
+      <td>GO Bond</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.158758</td>
+      <td>4.915816</td>
+      <td>113</td>
+      <td>0.077527</td>
+      <td>127.224901</td>
+      <td>0.036234</td>
+      <td>0.004342</td>
+      <td>51.297546</td>
+      <td>42</td>
+      <td>GO Bond</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.157671</td>
+      <td>3.845952</td>
+      <td>133</td>
+      <td>0.027270</td>
+      <td>107.820482</td>
+      <td>0.039257</td>
+      <td>0.001558</td>
+      <td>22.824149</td>
+      <td>42</td>
+      <td>Paygo</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">lhs_outcomes</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">read_experiment_measures</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">)</span>
+<span class="n">lhs_outcomes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>no_build_travel_time</th>
+      <th>build_travel_time</th>
+      <th>time_savings</th>
+      <th>value_of_time_savings</th>
+      <th>net_benefits</th>
+      <th>cost_of_capacity_expansion</th>
+      <th>present_cost_expansion</th>
+    </tr>
+    <tr>
+      <th>experiment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>83.038716</td>
+      <td>69.586789</td>
+      <td>13.451927</td>
+      <td>34.835362</td>
+      <td>-79.515515</td>
+      <td>114.350877</td>
+      <td>2154.415985</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>88.474313</td>
+      <td>62.132583</td>
+      <td>26.341730</td>
+      <td>177.741192</td>
+      <td>-205.321480</td>
+      <td>383.062672</td>
+      <td>12369.380535</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>75.027180</td>
+      <td>62.543328</td>
+      <td>12.483852</td>
+      <td>15.629037</td>
+      <td>-151.944318</td>
+      <td>167.573355</td>
+      <td>4468.506839</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>77.370428</td>
+      <td>62.268768</td>
+      <td>15.101660</td>
+      <td>132.298475</td>
+      <td>-167.624871</td>
+      <td>299.923347</td>
+      <td>6526.325171</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>88.328990</td>
+      <td>72.848428</td>
+      <td>15.480561</td>
+      <td>56.146908</td>
+      <td>-3.972940</td>
+      <td>60.119848</td>
+      <td>2460.910705</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Creating-a-Meta-Model">
+<h2>Creating a Meta-Model<a class="headerlink" href="#Creating-a-Meta-Model" title="Permalink to this headline">¶</a></h2>
+<p>Creating a meta-model requires an existing model, plus a set of
+experiments (including inputs and outputs) run with that model
+to support the estimation of the meta-model.  After having completed
+sufficient initial runs of the core model, instantiating a meta-model
+is as simple as calling a <cite>create_metamodel_*</cite> method on the core
+model, either giving a design of experiments stored in the database
+with <code class="xref py py-meth docutils literal notranslate"><span class="pre">create_metamodel_from_design</span></code>
+or passing the experimental results directly with
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">create_metamodel_from_data</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mm</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">create_metamodel_from_design</span><span class="p">(</span><span class="s1">&#39;lhs&#39;</span><span class="p">)</span>
+<span class="n">mm</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;emat.PythonCoreModel &quot;EMATMeta&quot;, metamodel_id=1 with 2 constants, 7 uncertainties, 4 levers, 7 measures&gt;
+</pre></div>
+</div>
+</div>
+<p>To demonstrate the performance of the meta-model, we can create an alternate design of experiments. Note that to get different random values, we set the <code class="docutils literal notranslate"><span class="pre">random_seed</span></code> argument to something other than the default value.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">design2</span> <span class="o">=</span> <span class="n">design_experiments</span><span class="p">(</span><span class="n">road_scope</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">emat_db</span><span class="p">,</span> <span class="n">n_samples_per_factor</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sampler</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">design2_results</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">design2</span><span class="p">)</span>
+<span class="n">design2_results</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[00:19.42] MainProcess/INFO: performing 110 scenarios/policies * 1 model(s) = 110 experiments
+[00:19.44] MainProcess/INFO: performing experiments sequentially
+[00:19.51] MainProcess/INFO: 11 cases completed
+[00:19.59] MainProcess/INFO: 22 cases completed
+[00:19.67] MainProcess/INFO: 33 cases completed
+[00:19.74] MainProcess/INFO: 44 cases completed
+[00:19.82] MainProcess/INFO: 55 cases completed
+[00:19.89] MainProcess/INFO: 66 cases completed
+[00:19.97] MainProcess/INFO: 77 cases completed
+[00:20.04] MainProcess/INFO: 88 cases completed
+[00:20.11] MainProcess/INFO: 99 cases completed
+[00:20.19] MainProcess/INFO: 110 cases completed
+[00:20.19] MainProcess/INFO: experiments finished
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>alpha</th>
+      <th>beta</th>
+      <th>input_flow</th>
+      <th>value_of_time</th>
+      <th>unit_cost_expansion</th>
+      <th>interest_rate</th>
+      <th>yield_curve</th>
+      <th>expand_capacity</th>
+      <th>amortization_period</th>
+      <th>debt_type</th>
+      <th>interest_rate_lock</th>
+      <th>no_build_travel_time</th>
+      <th>build_travel_time</th>
+      <th>time_savings</th>
+      <th>value_of_time_savings</th>
+      <th>net_benefits</th>
+      <th>cost_of_capacity_expansion</th>
+      <th>present_cost_expansion</th>
+    </tr>
+    <tr>
+      <th>experiment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5111</th>
+      <td>0.113526</td>
+      <td>5.344274</td>
+      <td>142</td>
+      <td>0.040515</td>
+      <td>131.820315</td>
+      <td>0.033177</td>
+      <td>0.000400</td>
+      <td>75.218326</td>
+      <td>48</td>
+      <td>GO Bond</td>
+      <td>True</td>
+      <td>102.833065</td>
+      <td>62.688732</td>
+      <td>36.266819</td>
+      <td>284.723737</td>
+      <td>-196.031826</td>
+      <td>271.032897</td>
+      <td>9838.355785</td>
+    </tr>
+    <tr>
+      <th>5112</th>
+      <td>0.112148</td>
+      <td>4.579477</td>
+      <td>132</td>
+      <td>0.021664</td>
+      <td>133.709154</td>
+      <td>0.034554</td>
+      <td>0.005657</td>
+      <td>24.154443</td>
+      <td>29</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+      <td>83.908347</td>
+      <td>68.641033</td>
+      <td>15.972747</td>
+      <td>38.907614</td>
+      <td>-191.635603</td>
+      <td>186.536127</td>
+      <td>3544.451471</td>
+    </tr>
+    <tr>
+      <th>5113</th>
+      <td>0.119548</td>
+      <td>4.353462</td>
+      <td>148</td>
+      <td>0.011675</td>
+      <td>95.650097</td>
+      <td>0.032211</td>
+      <td>0.013589</td>
+      <td>84.003562</td>
+      <td>32</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+      <td>100.006295</td>
+      <td>63.168795</td>
+      <td>71.082783</td>
+      <td>129.102795</td>
+      <td>-369.047388</td>
+      <td>593.526354</td>
+      <td>8842.437317</td>
+    </tr>
+    <tr>
+      <th>5114</th>
+      <td>0.102516</td>
+      <td>4.490051</td>
+      <td>150</td>
+      <td>0.079379</td>
+      <td>136.919028</td>
+      <td>0.028362</td>
+      <td>-0.001315</td>
+      <td>51.580600</td>
+      <td>42</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>102.751368</td>
+      <td>66.356726</td>
+      <td>25.107086</td>
+      <td>450.797033</td>
+      <td>-17.574178</td>
+      <td>280.306588</td>
+      <td>7846.375512</td>
+    </tr>
+    <tr>
+      <th>5115</th>
+      <td>0.140831</td>
+      <td>5.024638</td>
+      <td>120</td>
+      <td>0.027366</td>
+      <td>115.270765</td>
+      <td>0.033885</td>
+      <td>0.009138</td>
+      <td>74.351908</td>
+      <td>17</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+      <td>80.856905</td>
+      <td>61.320195</td>
+      <td>19.363125</td>
+      <td>73.777238</td>
+      <td>-514.200181</td>
+      <td>727.206229</td>
+      <td>8643.653243</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mm</span><span class="o">.</span><span class="n">function</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;emat.MetaModel 13 inputs -&gt; 7 outputs&gt;
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">########</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+
+<span></span><span class="kn">from</span> <span class="nn">emat.experiment.experimental_design</span> <span class="k">import</span> <span class="n">minimum_weighted_distance</span><span class="p">,</span> <span class="n">batch_pick_new_experiments</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">n_augmentations</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">aug_design</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">aug_results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">design_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lhs&#39;</span><span class="p">,]</span>
+<span class="n">aug_mm</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="n">mm</span><span class="p">}</span>
+<span class="n">aug_cv</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="n">mm</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">cross_val_scores</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">aug</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_augmentations</span><span class="p">):</span>
+    <span class="n">design_pool</span> <span class="o">=</span> <span class="n">design_experiments</span><span class="p">(</span><span class="n">road_scope</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">sampler</span><span class="o">=</span><span class="s1">&#39;ulhs98&#39;</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="o">+</span><span class="n">aug</span><span class="p">)</span>
+    <span class="n">aug_design</span><span class="p">[</span><span class="n">aug</span><span class="p">]</span> <span class="o">=</span> <span class="n">aug_mm</span><span class="p">[</span><span class="n">aug</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">pick_new_experiments</span><span class="p">(</span>
+            <span class="n">design_pool</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">output_focus</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">aug_cv</span><span class="p">[</span><span class="n">aug</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="n">scope</span><span class="o">=</span><span class="n">road_scope</span><span class="p">,</span>
+            <span class="n">db</span><span class="o">=</span><span class="n">emat_db</span><span class="p">,</span>
+            <span class="n">design_name</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;aug_</span><span class="si">{aug}</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">as</span> <span class="n">eval_seq</span><span class="p">:</span>
+        <span class="n">aug_results</span><span class="p">[</span><span class="n">aug</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;aug_</span><span class="si">{aug}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">evaluator</span><span class="o">=</span><span class="n">eval_seq</span><span class="p">)</span>
+    <span class="n">design_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;aug_</span><span class="si">{aug}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">aug_mm</span><span class="p">[</span><span class="n">aug</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">create_metamodel_from_designs</span><span class="p">(</span><span class="n">design_names</span><span class="p">)</span>
+    <span class="n">aug_cv</span><span class="p">[</span><span class="n">aug</span><span class="p">]</span> <span class="o">=</span> <span class="n">aug_mm</span><span class="p">[</span><span class="n">aug</span><span class="p">]</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">cross_val_scores</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">aug_cv</span><span class="p">[</span><span class="n">aug</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[01:03.13] MainProcess/INFO: Selecting 1636
+[01:03.21] MainProcess/INFO: Selecting 33
+[01:03.29] MainProcess/INFO: Selecting 2568
+[01:03.37] MainProcess/INFO: Selecting 3733
+[01:03.44] MainProcess/INFO: Selecting 1096
+[01:03.53] MainProcess/INFO: Selecting 3364
+[01:03.60] MainProcess/INFO: Selecting 4327
+[01:03.69] MainProcess/INFO: Selecting 1377
+[01:03.77] MainProcess/INFO: Selecting 3779
+[01:03.85] MainProcess/INFO: Selecting 2211
+[01:04.64] MainProcess/INFO: 0 Fedorov Exchanges completed.
+[01:04.66] MainProcess/INFO: performing 10 scenarios/policies * 1 model(s) = 10 experiments
+[01:04.67] MainProcess/INFO: performing experiments sequentially
+[01:04.67] MainProcess/INFO: 1 cases completed
+[01:04.67] MainProcess/INFO: 2 cases completed
+[01:04.68] MainProcess/INFO: 3 cases completed
+[01:04.68] MainProcess/INFO: 4 cases completed
+[01:04.68] MainProcess/INFO: 5 cases completed
+[01:04.68] MainProcess/INFO: 6 cases completed
+[01:04.68] MainProcess/INFO: 7 cases completed
+[01:04.68] MainProcess/INFO: 8 cases completed
+[01:04.68] MainProcess/INFO: 9 cases completed
+[01:04.68] MainProcess/INFO: 10 cases completed
+[01:04.68] MainProcess/INFO: experiments finished
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+no_build_travel_time          0.992884
+build_travel_time             0.970291
+time_savings                  0.874476
+value_of_time_savings         0.874107
+net_benefits                  0.784341
+cost_of_capacity_expansion    0.901594
+present_cost_expansion        0.941528
+dtype: float64
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[02:05.99] MainProcess/INFO: Selecting 3191
+[02:06.08] MainProcess/INFO: Selecting 1814
+[02:06.15] MainProcess/INFO: Selecting 4738
+[02:06.23] MainProcess/INFO: Selecting 4065
+[02:06.31] MainProcess/INFO: Selecting 713
+[02:06.39] MainProcess/INFO: Selecting 3601
+[02:06.47] MainProcess/INFO: Selecting 1067
+[02:06.55] MainProcess/INFO: Selecting 1026
+[02:06.64] MainProcess/INFO: Selecting 4458
+[02:06.72] MainProcess/INFO: Selecting 3245
+[02:07.54] MainProcess/INFO: 0 Fedorov Exchanges completed.
+[02:07.56] MainProcess/INFO: performing 10 scenarios/policies * 1 model(s) = 10 experiments
+[02:07.57] MainProcess/INFO: performing experiments sequentially
+[02:07.57] MainProcess/INFO: 1 cases completed
+[02:07.57] MainProcess/INFO: 2 cases completed
+[02:07.57] MainProcess/INFO: 3 cases completed
+[02:07.57] MainProcess/INFO: 4 cases completed
+[02:07.58] MainProcess/INFO: 5 cases completed
+[02:07.58] MainProcess/INFO: 6 cases completed
+[02:07.58] MainProcess/INFO: 7 cases completed
+[02:07.58] MainProcess/INFO: 8 cases completed
+[02:07.58] MainProcess/INFO: 9 cases completed
+[02:07.58] MainProcess/INFO: 10 cases completed
+[02:07.58] MainProcess/INFO: experiments finished
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+no_build_travel_time          0.994168
+build_travel_time             0.961322
+time_savings                  0.940159
+value_of_time_savings         0.853358
+net_benefits                  0.750497
+cost_of_capacity_expansion    0.943484
+present_cost_expansion        0.925050
+dtype: float64
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[03:21.84] MainProcess/INFO: Selecting 625
+[03:21.93] MainProcess/INFO: Selecting 2450
+[03:22.01] MainProcess/INFO: Selecting 339
+[03:22.09] MainProcess/INFO: Selecting 903
+[03:22.18] MainProcess/INFO: Selecting 3445
+[03:22.27] MainProcess/INFO: Selecting 1540
+[03:22.35] MainProcess/INFO: Selecting 272
+[03:22.44] MainProcess/INFO: Selecting 2827
+[03:22.52] MainProcess/INFO: Selecting 158
+[03:22.61] MainProcess/INFO: Selecting 2960
+[03:22.75] MainProcess/INFO: Replacing 625 with 4313
+[03:23.25] MainProcess/INFO: Replacing 272 with 661
+[03:23.34] MainProcess/INFO: Replacing 2827 with 272
+[03:23.43] MainProcess/INFO: Replacing 158 with 2827
+[03:23.51] MainProcess/INFO: Replacing 2960 with 158
+[03:23.51] MainProcess/INFO: 5 Fedorov Exchanges completed.
+[03:24.37] MainProcess/INFO: 0 Fedorov Exchanges completed.
+[03:24.38] MainProcess/INFO: performing 10 scenarios/policies * 1 model(s) = 10 experiments
+[03:24.40] MainProcess/INFO: performing experiments sequentially
+[03:24.40] MainProcess/INFO: 1 cases completed
+[03:24.40] MainProcess/INFO: 2 cases completed
+[03:24.40] MainProcess/INFO: 3 cases completed
+[03:24.41] MainProcess/INFO: 4 cases completed
+[03:24.41] MainProcess/INFO: 5 cases completed
+[03:24.41] MainProcess/INFO: 6 cases completed
+[03:24.41] MainProcess/INFO: 7 cases completed
+[03:24.41] MainProcess/INFO: 8 cases completed
+[03:24.41] MainProcess/INFO: 9 cases completed
+[03:24.41] MainProcess/INFO: 10 cases completed
+[03:24.41] MainProcess/INFO: experiments finished
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+no_build_travel_time          0.995746
+build_travel_time             0.986188
+time_savings                  0.916574
+value_of_time_savings         0.865989
+net_benefits                  0.805475
+cost_of_capacity_expansion    0.907720
+present_cost_expansion        0.939103
+dtype: float64
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[04:53.36] MainProcess/INFO: Selecting 4082
+[04:53.45] MainProcess/INFO: Selecting 3605
+[04:53.53] MainProcess/INFO: Selecting 3636
+[04:53.62] MainProcess/INFO: Selecting 3186
+[04:53.71] MainProcess/INFO: Selecting 3858
+[04:53.80] MainProcess/INFO: Selecting 335
+[04:53.89] MainProcess/INFO: Selecting 3036
+[04:53.97] MainProcess/INFO: Selecting 106
+[04:54.06] MainProcess/INFO: Selecting 2195
+[04:54.15] MainProcess/INFO: Selecting 1934
+[04:55.02] MainProcess/INFO: 0 Fedorov Exchanges completed.
+[04:55.04] MainProcess/INFO: performing 10 scenarios/policies * 1 model(s) = 10 experiments
+[04:55.06] MainProcess/INFO: performing experiments sequentially
+[04:55.06] MainProcess/INFO: 1 cases completed
+[04:55.06] MainProcess/INFO: 2 cases completed
+[04:55.06] MainProcess/INFO: 3 cases completed
+[04:55.06] MainProcess/INFO: 4 cases completed
+[04:55.06] MainProcess/INFO: 5 cases completed
+[04:55.06] MainProcess/INFO: 6 cases completed
+[04:55.06] MainProcess/INFO: 7 cases completed
+[04:55.06] MainProcess/INFO: 8 cases completed
+[04:55.06] MainProcess/INFO: 9 cases completed
+[04:55.06] MainProcess/INFO: 10 cases completed
+[04:55.07] MainProcess/INFO: experiments finished
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+no_build_travel_time          0.997134
+build_travel_time             0.982871
+time_savings                  0.929099
+value_of_time_savings         0.879232
+net_benefits                  0.803267
+cost_of_capacity_expansion    0.915997
+present_cost_expansion        0.945378
+dtype: float64
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[06:37.01] MainProcess/INFO: Selecting 1445
+[06:37.10] MainProcess/INFO: Selecting 4267
+[06:37.19] MainProcess/INFO: Selecting 827
+[06:37.27] MainProcess/INFO: Selecting 3717
+[06:37.36] MainProcess/INFO: Selecting 3629
+[06:37.45] MainProcess/INFO: Selecting 4945
+[06:37.54] MainProcess/INFO: Selecting 2789
+[06:37.63] MainProcess/INFO: Selecting 3557
+[06:37.71] MainProcess/INFO: Selecting 2427
+[06:37.80] MainProcess/INFO: Selecting 2680
+[06:38.67] MainProcess/INFO: 0 Fedorov Exchanges completed.
+[06:38.69] MainProcess/INFO: performing 10 scenarios/policies * 1 model(s) = 10 experiments
+[06:38.70] MainProcess/INFO: performing experiments sequentially
+[06:38.70] MainProcess/INFO: 1 cases completed
+[06:38.71] MainProcess/INFO: 2 cases completed
+[06:38.71] MainProcess/INFO: 3 cases completed
+[06:38.71] MainProcess/INFO: 4 cases completed
+[06:38.71] MainProcess/INFO: 5 cases completed
+[06:38.71] MainProcess/INFO: 6 cases completed
+[06:38.71] MainProcess/INFO: 7 cases completed
+[06:38.71] MainProcess/INFO: 8 cases completed
+[06:38.71] MainProcess/INFO: 9 cases completed
+[06:38.71] MainProcess/INFO: 10 cases completed
+[06:38.71] MainProcess/INFO: experiments finished
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+no_build_travel_time          0.994190
+build_travel_time             0.985120
+time_savings                  0.942223
+value_of_time_savings         0.894755
+net_benefits                  0.817580
+cost_of_capacity_expansion    0.925033
+present_cost_expansion        0.943851
+dtype: float64
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[08:37.60] MainProcess/INFO: Selecting 499
+[08:37.69] MainProcess/INFO: Selecting 3320
+[08:37.78] MainProcess/INFO: Selecting 842
+[08:37.87] MainProcess/INFO: Selecting 512
+[08:37.96] MainProcess/INFO: Selecting 644
+[08:38.05] MainProcess/INFO: Selecting 1815
+[08:38.14] MainProcess/INFO: Selecting 34
+[08:38.24] MainProcess/INFO: Selecting 3714
+[08:38.32] MainProcess/INFO: Selecting 3948
+[08:38.42] MainProcess/INFO: Selecting 3410
+[08:39.33] MainProcess/INFO: 0 Fedorov Exchanges completed.
+[08:39.35] MainProcess/INFO: performing 10 scenarios/policies * 1 model(s) = 10 experiments
+[08:39.36] MainProcess/INFO: performing experiments sequentially
+[08:39.36] MainProcess/INFO: 1 cases completed
+[08:39.36] MainProcess/INFO: 2 cases completed
+[08:39.36] MainProcess/INFO: 3 cases completed
+[08:39.36] MainProcess/INFO: 4 cases completed
+[08:39.37] MainProcess/INFO: 5 cases completed
+[08:39.37] MainProcess/INFO: 6 cases completed
+[08:39.37] MainProcess/INFO: 7 cases completed
+[08:39.37] MainProcess/INFO: 8 cases completed
+[08:39.37] MainProcess/INFO: 9 cases completed
+[08:39.37] MainProcess/INFO: 10 cases completed
+[08:39.37] MainProcess/INFO: experiments finished
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+no_build_travel_time          0.998775
+build_travel_time             0.984953
+time_savings                  0.953420
+value_of_time_savings         0.912350
+net_benefits                  0.782990
+cost_of_capacity_expansion    0.943472
+present_cost_expansion        0.976165
+dtype: float64
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[11:35.57] MainProcess/INFO: Selecting 1014
+[11:35.66] MainProcess/INFO: Selecting 950
+[11:35.75] MainProcess/INFO: Selecting 908
+[11:35.85] MainProcess/INFO: Selecting 4975
+[11:35.94] MainProcess/INFO: Selecting 3457
+[11:36.03] MainProcess/INFO: Selecting 174
+[11:36.12] MainProcess/INFO: Selecting 797
+[11:36.21] MainProcess/INFO: Selecting 3286
+[11:36.30] MainProcess/INFO: Selecting 3830
+[11:36.39] MainProcess/INFO: Selecting 4510
+[11:37.34] MainProcess/INFO: 0 Fedorov Exchanges completed.
+[11:37.36] MainProcess/INFO: performing 10 scenarios/policies * 1 model(s) = 10 experiments
+[11:37.37] MainProcess/INFO: performing experiments sequentially
+[11:37.37] MainProcess/INFO: 1 cases completed
+[11:37.38] MainProcess/INFO: 2 cases completed
+[11:37.38] MainProcess/INFO: 3 cases completed
+[11:37.38] MainProcess/INFO: 4 cases completed
+[11:37.38] MainProcess/INFO: 5 cases completed
+[11:37.38] MainProcess/INFO: 6 cases completed
+[11:37.38] MainProcess/INFO: 7 cases completed
+[11:37.38] MainProcess/INFO: 8 cases completed
+[11:37.38] MainProcess/INFO: 9 cases completed
+[11:37.38] MainProcess/INFO: 10 cases completed
+[11:37.38] MainProcess/INFO: experiments finished
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+no_build_travel_time          0.995566
+build_travel_time             0.989221
+time_savings                  0.957067
+value_of_time_savings         0.924821
+net_benefits                  0.801601
+cost_of_capacity_expansion    0.953287
+present_cost_expansion        0.957326
+dtype: float64
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[15:09.61] MainProcess/INFO: Selecting 4177
+[15:09.70] MainProcess/INFO: Selecting 2889
+[15:09.79] MainProcess/INFO: Selecting 1281
+[15:09.89] MainProcess/INFO: Selecting 558
+[15:09.99] MainProcess/INFO: Selecting 4468
+[15:10.09] MainProcess/INFO: Selecting 4372
+[15:10.18] MainProcess/INFO: Selecting 1211
+[15:10.29] MainProcess/INFO: Selecting 454
+[15:10.39] MainProcess/INFO: Selecting 4614
+[15:10.48] MainProcess/INFO: Selecting 4983
+[15:10.62] MainProcess/INFO: Replacing 4177 with 3830
+[15:11.08] MainProcess/INFO: Replacing 4372 with 4647
+[15:11.17] MainProcess/INFO: Replacing 1211 with 4372
+[15:11.27] MainProcess/INFO: Replacing 454 with 1211
+[15:11.36] MainProcess/INFO: Replacing 4614 with 454
+[15:11.46] MainProcess/INFO: Replacing 4983 with 4614
+[15:11.46] MainProcess/INFO: 6 Fedorov Exchanges completed.
+[15:11.56] MainProcess/INFO: Replacing 3830 with 2604
+[15:12.02] MainProcess/INFO: Replacing 4647 with 2551
+[15:12.40] MainProcess/INFO: 2 Fedorov Exchanges completed.
+[15:13.32] MainProcess/INFO: 0 Fedorov Exchanges completed.
+[15:13.34] MainProcess/INFO: performing 10 scenarios/policies * 1 model(s) = 10 experiments
+[15:13.35] MainProcess/INFO: performing experiments sequentially
+[15:13.35] MainProcess/INFO: 1 cases completed
+[15:13.35] MainProcess/INFO: 2 cases completed
+[15:13.35] MainProcess/INFO: 3 cases completed
+[15:13.36] MainProcess/INFO: 4 cases completed
+[15:13.36] MainProcess/INFO: 5 cases completed
+[15:13.36] MainProcess/INFO: 6 cases completed
+[15:13.36] MainProcess/INFO: 7 cases completed
+[15:13.36] MainProcess/INFO: 8 cases completed
+[15:13.36] MainProcess/INFO: 9 cases completed
+[15:13.36] MainProcess/INFO: 10 cases completed
+[15:13.36] MainProcess/INFO: experiments finished
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+no_build_travel_time          0.997592
+build_travel_time             0.993866
+time_savings                  0.955163
+value_of_time_savings         0.929244
+net_benefits                  0.796554
+cost_of_capacity_expansion    0.967811
+present_cost_expansion        0.972703
+dtype: float64
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[19:02.01] MainProcess/INFO: Selecting 1069
+[19:02.11] MainProcess/INFO: Selecting 679
+[19:02.20] MainProcess/INFO: Selecting 3895
+[19:02.29] MainProcess/INFO: Selecting 4495
+[19:02.38] MainProcess/INFO: Selecting 3981
+[19:02.47] MainProcess/INFO: Selecting 313
+[19:02.57] MainProcess/INFO: Selecting 4944
+[19:02.67] MainProcess/INFO: Selecting 636
+[19:02.76] MainProcess/INFO: Selecting 1075
+[19:02.85] MainProcess/INFO: Selecting 745
+[19:03.79] MainProcess/INFO: 0 Fedorov Exchanges completed.
+[19:03.81] MainProcess/INFO: performing 10 scenarios/policies * 1 model(s) = 10 experiments
+[19:03.82] MainProcess/INFO: performing experiments sequentially
+[19:03.83] MainProcess/INFO: 1 cases completed
+[19:03.83] MainProcess/INFO: 2 cases completed
+[19:03.83] MainProcess/INFO: 3 cases completed
+[19:03.83] MainProcess/INFO: 4 cases completed
+[19:03.83] MainProcess/INFO: 5 cases completed
+[19:03.83] MainProcess/INFO: 6 cases completed
+[19:03.83] MainProcess/INFO: 7 cases completed
+[19:03.83] MainProcess/INFO: 8 cases completed
+[19:03.84] MainProcess/INFO: 9 cases completed
+[19:03.84] MainProcess/INFO: 10 cases completed
+[19:03.84] MainProcess/INFO: experiments finished
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+no_build_travel_time          0.998373
+build_travel_time             0.990425
+time_savings                  0.950541
+value_of_time_savings         0.920313
+net_benefits                  0.836763
+cost_of_capacity_expansion    0.976637
+present_cost_expansion        0.968634
+dtype: float64
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[23:36.32] MainProcess/INFO: Selecting 1451
+[23:36.41] MainProcess/INFO: Selecting 209
+[23:36.51] MainProcess/INFO: Selecting 96
+[23:36.60] MainProcess/INFO: Selecting 4264
+[23:36.70] MainProcess/INFO: Selecting 4096
+[23:36.80] MainProcess/INFO: Selecting 2376
+[23:36.89] MainProcess/INFO: Selecting 3072
+[23:36.99] MainProcess/INFO: Selecting 2593
+[23:37.08] MainProcess/INFO: Selecting 1258
+[23:37.18] MainProcess/INFO: Selecting 1881
+[23:38.14] MainProcess/INFO: 0 Fedorov Exchanges completed.
+[23:38.16] MainProcess/INFO: performing 10 scenarios/policies * 1 model(s) = 10 experiments
+[23:38.17] MainProcess/INFO: performing experiments sequentially
+[23:38.17] MainProcess/INFO: 1 cases completed
+[23:38.17] MainProcess/INFO: 2 cases completed
+[23:38.17] MainProcess/INFO: 3 cases completed
+[23:38.17] MainProcess/INFO: 4 cases completed
+[23:38.17] MainProcess/INFO: 5 cases completed
+[23:38.18] MainProcess/INFO: 6 cases completed
+[23:38.18] MainProcess/INFO: 7 cases completed
+[23:38.18] MainProcess/INFO: 8 cases completed
+[23:38.18] MainProcess/INFO: 9 cases completed
+[23:38.18] MainProcess/INFO: 10 cases completed
+[23:38.18] MainProcess/INFO: experiments finished
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># with SequentialEvaluator(m) as eval_seq:</span>
+<span class="c1">#     aug1_results = m.run_experiments(design_name=&#39;augment&#39;, evaluator=eval_seq)</span>
+<span class="c1"># aug1_results.head()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># mm.function.cross_val_scores()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># mm1 = m.create_metamodel_from_designs([&#39;lhs&#39;, &#39;augment&#39;])</span>
+<span class="c1"># mm1</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># mm1.function.cross_val_scores()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">raise</span> <span class="ne">RuntimeError</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">design4_pool</span> <span class="o">=</span> <span class="n">design_experiments</span><span class="p">(</span><span class="n">road_scope</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">sampler</span><span class="o">=</span><span class="s1">&#39;lhs&#39;</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">design4</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">pick_new_experiments</span><span class="p">(</span>
+            <span class="n">design4_pool</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+            <span class="n">output_focus</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;net_benefits&#39;</span><span class="p">:</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;value_of_time_savings&#39;</span><span class="p">:</span><span class="mf">0.4</span><span class="p">},</span>
+            <span class="n">scope</span><span class="o">=</span><span class="n">road_scope</span><span class="p">,</span>
+            <span class="n">db</span><span class="o">=</span><span class="n">emat_db</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">with</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">as</span> <span class="n">eval_seq</span><span class="p">:</span>
+    <span class="n">aug2_results</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;augment_2&#39;</span><span class="p">,</span> <span class="n">evaluator</span><span class="o">=</span><span class="n">eval_seq</span><span class="p">)</span>
+<span class="n">aug2_results</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mm2</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">create_metamodel_from_designs</span><span class="p">([</span><span class="s1">&#39;lhs&#39;</span><span class="p">,</span> <span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="s1">&#39;augment_2&#39;</span><span class="p">])</span>
+<span class="n">mm2</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mm2</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">cross_val_scores</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">raise</span> <span class="n">Run</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">lhs_results</span><span class="p">[[</span><span class="s1">&#39;interest_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;net_benefits&#39;</span><span class="p">,</span> <span class="s1">&#39;cost_of_capacity_expansion&#39;</span><span class="p">,</span> <span class="s1">&#39;present_cost_expansion&#39;</span><span class="p">,</span> <span class="s1">&#39;time_savings&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">lhs_results</span><span class="p">[[</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;net_benefits&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Compare-Core-vs-Meta-Model-Results">
+<h3>Compare Core vs Meta Model Results<a class="headerlink" href="#Compare-Core-vs-Meta-Model-Results" title="Permalink to this headline">¶</a></h3>
+<p>We can generate a variety of plots to compare the distribution of meta-model outcomes on the new design against the original model’s results.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Show</span><span class="p">(</span><span class="n">scatter_graph</span><span class="p">(</span>
+    <span class="n">X</span><span class="o">=</span><span class="p">[</span> <span class="n">design2_results</span><span class="p">[</span><span class="s1">&#39;input_flow&#39;</span><span class="p">],</span>
+        <span class="n">lhs_results</span><span class="p">[</span><span class="s1">&#39;input_flow&#39;</span><span class="p">]</span> <span class="p">],</span>
+    <span class="n">Y</span><span class="o">=</span><span class="p">[</span> <span class="n">design2_results</span><span class="p">[</span><span class="s1">&#39;time_savings&#39;</span><span class="p">],</span>
+        <span class="n">lhs_results</span><span class="p">[</span><span class="s1">&#39;time_savings&#39;</span><span class="p">],</span>  <span class="p">],</span>
+    <span class="n">legend_labels</span><span class="o">=</span><span class="p">[</span> <span class="s1">&#39;meta-model&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;core model&#39;</span><span class="p">,</span>  <span class="p">]</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Show</span><span class="p">(</span><span class="n">scatter_graph</span><span class="p">(</span>
+    <span class="n">X</span><span class="o">=</span><span class="p">[</span> <span class="n">design2_results</span><span class="p">[</span><span class="s1">&#39;no_build_travel_time&#39;</span><span class="p">],</span>
+        <span class="n">lhs_results</span><span class="p">[</span><span class="s1">&#39;no_build_travel_time&#39;</span><span class="p">],</span> <span class="p">],</span>
+    <span class="n">Y</span><span class="o">=</span><span class="p">[</span> <span class="n">design2_results</span><span class="p">[</span><span class="s1">&#39;time_savings&#39;</span><span class="p">],</span>
+        <span class="n">lhs_results</span><span class="p">[</span><span class="s1">&#39;time_savings&#39;</span><span class="p">],</span> <span class="p">],</span>
+    <span class="n">legend_labels</span><span class="o">=</span><span class="p">[</span> <span class="s1">&#39;meta-model&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;core model&#39;</span><span class="p">,</span> <span class="p">]</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Show</span><span class="p">(</span><span class="n">scatter_graph</span><span class="p">(</span>
+    <span class="n">X</span><span class="o">=</span><span class="p">[</span> <span class="n">design2_results</span><span class="p">[</span><span class="s1">&#39;expand_capacity&#39;</span><span class="p">],</span>
+        <span class="n">lhs_results</span><span class="p">[</span><span class="s1">&#39;expand_capacity&#39;</span><span class="p">],</span> <span class="p">],</span>
+    <span class="n">Y</span><span class="o">=</span><span class="p">[</span> <span class="n">design2_results</span><span class="p">[</span><span class="s1">&#39;present_cost_expansion&#39;</span><span class="p">],</span>
+        <span class="n">lhs_results</span><span class="p">[</span><span class="s1">&#39;present_cost_expansion&#39;</span><span class="p">],</span> <span class="p">],</span>
+    <span class="n">legend_labels</span><span class="o">=</span><span class="p">[</span> <span class="s1">&#39;meta-model&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;core model&#39;</span><span class="p">,</span> <span class="p">]</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

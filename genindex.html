@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; TMIP-EMAT 0.1.3, May 2019 documentation</title>
+  <title>Index &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
   
 
   
@@ -57,7 +57,7 @@
             
             
               <div class="version">
-                0.1.3
+                0.1.4
               </div>
             
           
@@ -85,10 +85,12 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.intro.html">Introduction to EMAT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/emat.git.html">Using Github to Fork TMIP-EMAT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.scope/index.html">Exploratory Scoping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.metamodels.html">Meta-Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.examples/index.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.references.html">References</a></li>
@@ -266,6 +268,8 @@
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.cleanup">cleanup() (emat.model.AbstractCoreModel method)</a>
 </li>
+      <li><a href="source/emat.metamodels.html#emat.MetaModel.compute_std">compute_std() (emat.MetaModel method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.scope/parameters.html#emat.Constant">Constant (class in emat)</a>
@@ -277,6 +281,10 @@
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_data">create_metamodel_from_data() (emat.model.AbstractCoreModel method)</a>
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_design">create_metamodel_from_design() (emat.model.AbstractCoreModel method)</a>
+</li>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_designs">create_metamodel_from_designs() (emat.model.AbstractCoreModel method)</a>
+</li>
+      <li><a href="source/emat.metamodels.html#emat.MetaModel.cross_val_predicts">cross_val_predicts() (emat.MetaModel method)</a>
 </li>
       <li><a href="source/emat.metamodels.html#emat.MetaModel.cross_val_scores">cross_val_scores() (emat.MetaModel method)</a>
 
@@ -406,6 +414,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.metamodels.html#emat.MetaModel.get_length_scales">get_length_scales() (emat.MetaModel method)</a>
+</li>
       <li><a href="source/emat.scope/scope.html#emat.Scope.get_lever_names">get_lever_names() (emat.Scope method)</a>
 </li>
       <li><a href="source/emat.scope/scope.html#emat.Scope.get_levers">get_levers() (emat.Scope method)</a>
@@ -520,10 +530,10 @@
       </ul></li>
       <li><a href="source/emat.scope/boxes.html#emat.Box.measure_thresholds">measure_thresholds (emat.Box attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.measure_thresholds">measure_thresholds() (emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#emat.ChainedBox.measure_thresholds">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.glossary.html#term-meta-model"><strong>meta-model</strong></a>
 </li>
       <li><a href="source/emat.metamodels.html#emat.MetaModel">MetaModel (class in emat)</a>
@@ -531,6 +541,8 @@
       <li><a href="source/emat.scope/measures.html#emat.Measure.metamodeltype">metamodeltype (emat.Measure attribute)</a>
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.min">min (emat.scope.parameter.CategoricalParameter attribute)</a>
+</li>
+      <li><a href="source/emat.metamodels.html#emat.MetaModel.mix_length_scales">mix_length_scales() (emat.MetaModel method)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-model"><strong>model</strong></a>
 </li>
@@ -564,6 +576,8 @@
 </li>
       <li><a href="source/emat.scope/continuous_distributions.html#emat.util.distributions.pert">pert() (in module emat.util.distributions)</a>
 </li>
+      <li><a href="source/emat.metamodels.html#emat.MetaModel.pick_new_experiments">pick_new_experiments() (emat.MetaModel method)</a>
+</li>
       <li><a href="source/emat.glossary.html#term-policy"><strong>policy</strong></a>
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.post_process">post_process() (emat.model.AbstractCoreModel method)</a>
@@ -574,7 +588,13 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.predict">predict() (emat.multitarget.DetrendedMultipleTargetRegression method)</a>
+      <li><a href="source/emat.metamodels.html#emat.MetaModel.predict">predict() (emat.MetaModel method)</a>
+
+      <ul>
+        <li><a href="source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.predict">(emat.multitarget.DetrendedMultipleTargetRegression method)</a>
+</li>
+      </ul></li>
+      <li><a href="source/emat.metamodels.html#emat.MetaModel.preprocess_raw_input">preprocess_raw_input() (emat.MetaModel method)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-prim"><strong>PRIM</strong></a>
 </li>

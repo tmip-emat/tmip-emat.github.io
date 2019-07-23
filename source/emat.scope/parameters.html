@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Parameters &mdash; TMIP-EMAT 0.1.3, May 2019 documentation</title>
+  <title>Parameters &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.3
+                0.1.4
               </div>
             
           
@@ -86,6 +86,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.git.html">Using Github to Fork TMIP-EMAT</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Exploratory Scoping</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="scope.html">Scope</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Parameters</a><ul>
@@ -109,6 +110,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.metamodels.html">Meta-Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
@@ -241,14 +243,18 @@ of {‘constant’, ‘uncertainty’, ‘lever’}.</li>
 <li><strong>min</strong> (<em>numeric</em><em>, </em><em>optional</em>) – The minimum value for this parameter.</li>
 <li><strong>max</strong> (<em>numeric</em><em>, </em><em>optional</em>) – The maximum value for this parameter.</li>
 <li><strong>dist</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>Mapping</em><em> or </em><em>rv_frozen</em><em>, </em><em>optional</em>) – A definition of a distribution
-to use for this parameter, which is only relevant for uncertainty
-parameters.  Can be specified just as the name of the distribution
+to use for this parameter.  Can be specified just as the name of the distribution
 when that distribution is parameterized only by the min and max
 (e.g., ‘uniform’). If the distribution requires other parameters,
 this argument should be a Mapping, with keys including ‘name’ for
 the name of the distribution, as well as giving one or more
 named distributional parameters as appropriate. Or, just pass
-a rv_frozen object directly (see scipy.stats).</li>
+a rv_frozen object directly (see scipy.stats).  The distribution
+defined here is of primary use for uncertainty parameters, as the
+features of defined uncertainty distributions can be used to
+derive probability distributions on outputs.  However, distributions
+can also be used for policy lever parameters to guide the development
+of appropriate experimental designs.</li>
 <li><strong>default</strong> (<em>Any</em><em>, </em><em>optional</em>) – A default value for this parameter. The default
 value is used as the actual value for constant parameters. It is also
 used during univariate sensitivity testing as the value for this
@@ -453,7 +459,7 @@ given as a string.</p>
 <div class="section" id="continuous-distributions">
 <h3>Continuous Distributions<a class="headerlink" href="#continuous-distributions" title="Permalink to this headline">¶</a></h3>
 <p>Float-valued parameters can use any continuous distribution available
-in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.2.1)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>.  For convenience, a few extra (and simplified)
+in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.3.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>.  For convenience, a few extra (and simplified)
 distributions are available in the <code class="docutils literal notranslate"><span class="pre">emat.util.distributions</span></code>
 module.</p>
 <div class="toctree-wrapper compound">
@@ -477,7 +483,7 @@ module.</p>
 <div class="section" id="discrete-distributions">
 <h3>Discrete Distributions<a class="headerlink" href="#discrete-distributions" title="Permalink to this headline">¶</a></h3>
 <p>Integer-valued parameters can use any discrete distribution available
-in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.2.1)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>.  Note that actually using a discrete distribution
+in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.3.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>.  Note that actually using a discrete distribution
 is required, one cannot use a continuous distribution that loosely
 approximates a discrete distribution.  The only exception to this rule
 is for “uniform”, which is technically a continuous distribution,
@@ -549,7 +555,7 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 <h2>Categorical Parameters<a class="headerlink" href="#categorical-parameters" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="emat.scope.parameter.CategoricalParameter">
-<em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">CategoricalParameter</code><span class="sig-paren">(</span><em>name</em>, <em>categories</em>, <em>*</em>, <em>default=None</em>, <em>variable_name=None</em>, <em>pff=False</em>, <em>multivalue=False</em>, <em>desc=''</em>, <em>address=None</em>, <em>ptype=None</em>, <em>corr=None</em>, <em>dist=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#CategoricalParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">CategoricalParameter</code><span class="sig-paren">(</span><em>name</em>, <em>categories</em>, <em>*</em>, <em>default=None</em>, <em>variable_name=None</em>, <em>pff=False</em>, <em>multivalue=False</em>, <em>desc=''</em>, <em>address=None</em>, <em>ptype=None</em>, <em>corr=None</em>, <em>dist=None</em>, <em>singleton_ok=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#CategoricalParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/parameters.html#ema_workbench.em_framework.parameters.CategoricalParameter" title="(in ema_workbench v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.parameters.CategoricalParameter</span></code></a></p>
 <dl class="method">
 <dt id="emat.scope.parameter.CategoricalParameter.cat_for_index">
