@@ -1,4 +1,11 @@
 
+======================
+Installing from Source
+======================
+
+Instructions for installing TMIP-EMAT directly from source code will
+be published soon.
+
 
 Using Github to Fork TMIP-EMAT
 ==============================
