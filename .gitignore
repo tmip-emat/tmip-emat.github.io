@@ -1,3 +1,4 @@
 *.doctree
 .buildinfo
 environment.pickle
+.doctrees
