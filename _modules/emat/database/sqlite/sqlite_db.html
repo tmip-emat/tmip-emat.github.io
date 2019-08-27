@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
-
-  
-  <script src="../../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -714,15 +716,20 @@
 
 
 <div class="viewcode-block" id="SQLiteDB.read_experiment_all"><a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_all">[docs]</a>    <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_experiment_all</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_experiment_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">design</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">only_pending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">read_experiment_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">only_pending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="s1">&#39;design&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">design</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">design_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ex_xlm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_EX_XLM_ALL</span><span class="p">,</span>
                                                    <span class="p">[</span><span class="n">scope_name</span><span class="p">,])</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">design_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">ex_xlm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_EX_XLM</span><span class="p">,</span>
                                                    <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span>
-                                                    <span class="n">design</span><span class="p">])</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+                                                    <span class="n">design_name</span><span class="p">])</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ex_xlm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+                <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_EX_XLM</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">dn</span><span class="p">])</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+                <span class="k">for</span> <span class="n">dn</span> <span class="ow">in</span> <span class="n">design_name</span>
+            <span class="p">])</span>
         <span class="k">if</span> <span class="n">ex_xlm</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="n">ex_xlm</span> <span class="o">=</span> <span class="n">ex_xlm</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">ex_xlm</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;experiment&#39;</span>
@@ -1037,25 +1044,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

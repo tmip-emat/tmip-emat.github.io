@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -180,6 +182,7 @@
 <span class="kn">from</span> <span class="nn">.detrend</span> <span class="k">import</span> <span class="n">DetrendMixin</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">MultiOutputRegressor</span>
 <span class="kn">from</span> <span class="nn">.select</span> <span class="k">import</span> <span class="n">SelectNAndKBest</span><span class="p">,</span> <span class="n">feature_concat</span>
+<span class="kn">from</span> <span class="nn">.frameable</span> <span class="k">import</span> <span class="n">FrameableMixin</span>
 
 <span class="k">def</span> <span class="nf">_make_as_vector</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
 	<span class="c1"># if isinstance(y, (pandas.DataFrame, pandas.Series)):</span>
@@ -192,6 +195,7 @@
 		<span class="n">BaseEstimator</span><span class="p">,</span>
 		<span class="n">RegressorMixin</span><span class="p">,</span>
 		<span class="n">CrossValMixin</span><span class="p">,</span>
+		<span class="n">FrameableMixin</span><span class="p">,</span>
 <span class="p">):</span>
 
 	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
@@ -226,6 +230,7 @@
 <span class="sd">		self : MultipleTargetRegression</span>
 <span class="sd">			Returns an instance of self, the the sklearn standard practice.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_pre_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
 
 		<span class="k">with</span> <span class="n">ignore_warnings</span><span class="p">(</span><span class="n">DataConversionWarning</span><span class="p">):</span>
 
@@ -246,13 +251,6 @@
 				<span class="bp">self</span><span class="o">.</span><span class="n">standardize_Y</span> <span class="o">=</span> <span class="kc">None</span>
 
 			<span class="bp">self</span><span class="o">.</span><span class="n">step1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y_train_</span><span class="p">)</span>
-
-			<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">Y_columns</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">columns</span>
-			<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">Y_columns</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">Y_columns</span> <span class="o">=</span> <span class="kc">None</span>
 
 		<span class="k">return</span> <span class="bp">self</span>
 
@@ -283,10 +281,10 @@
 		<span class="k">if</span> <span class="n">return_cov</span><span class="p">:</span>
 			<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;return_cov&#39;</span><span class="p">)</span>
 
-		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-			<span class="n">idx</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">index</span>
-		<span class="k">else</span><span class="p">:</span>
-			<span class="n">idx</span> <span class="o">=</span> <span class="kc">None</span>
+		<span class="c1"># if isinstance(X, pandas.DataFrame):</span>
+		<span class="c1"># 	idx = X.index</span>
+		<span class="c1"># else:</span>
+		<span class="c1"># 	idx = None</span>
 
 		<span class="k">if</span> <span class="n">return_std</span><span class="p">:</span>
 			<span class="n">Yhat1</span><span class="p">,</span> <span class="n">Yhat1_std</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step1</span><span class="o">.</span><span class="n">predict_std</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -299,25 +297,28 @@
 			<span class="k">if</span> <span class="n">Yhat1_std</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 				<span class="n">Yhat1_std</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_Y</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
 
-		<span class="n">cols</span> <span class="o">=</span> <span class="kc">None</span>
-		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y_columns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Y_columns</span><span class="p">)</span> <span class="o">==</span> <span class="n">Yhat1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-				<span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y_columns</span>
+		<span class="n">Yhat1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Yhat1</span><span class="p">)</span>
 
-		<span class="k">if</span> <span class="n">idx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">cols</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-			<span class="n">Yhat1</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-				<span class="n">Yhat1</span><span class="p">,</span>
-				<span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span>
-				<span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span>
-			<span class="p">)</span>
+		<span class="c1"># cols = None</span>
+		<span class="c1"># if self.Y_columns is not None:</span>
+		<span class="c1"># 	if len(self.Y_columns) == Yhat1.shape[1]:</span>
+		<span class="c1"># 		cols = self.Y_columns</span>
+		<span class="c1">#</span>
+		<span class="c1"># if idx is not None or cols is not None:</span>
+		<span class="c1"># 	Yhat1 = pandas.DataFrame(</span>
+		<span class="c1"># 		Yhat1,</span>
+		<span class="c1"># 		index=idx,</span>
+		<span class="c1"># 		columns=cols,</span>
+		<span class="c1"># 	)</span>
 
 		<span class="k">if</span> <span class="n">Yhat1_std</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-			<span class="k">if</span> <span class="n">idx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">cols</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-				<span class="n">Yhat1_std</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-					<span class="n">Yhat1_std</span><span class="p">,</span>
-					<span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span>
-					<span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span>
-				<span class="p">)</span>
+			<span class="n">Yhat1_std</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Yhat1_std</span><span class="p">)</span>
+			<span class="c1"># if idx is not None or cols is not None:</span>
+			<span class="c1"># 	Yhat1_std = pandas.DataFrame(</span>
+			<span class="c1"># 		Yhat1_std,</span>
+			<span class="c1"># 		index=idx,</span>
+			<span class="c1"># 		columns=cols,</span>
+			<span class="c1"># 	)</span>
 			<span class="k">return</span> <span class="n">Yhat1</span><span class="p">,</span> <span class="n">Yhat1_std</span>
 		<span class="k">return</span> <span class="n">Yhat1</span>
 
@@ -488,23 +489,23 @@
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="n">Yhat</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">detrend_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-
-		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-			<span class="n">idx</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">index</span>
-		<span class="k">else</span><span class="p">:</span>
-			<span class="n">idx</span> <span class="o">=</span> <span class="kc">None</span>
-
-		<span class="n">cols</span> <span class="o">=</span> <span class="kc">None</span>
-		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y_columns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Y_columns</span><span class="p">)</span> <span class="o">==</span> <span class="n">Yhat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-				<span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y_columns</span>
-
-		<span class="k">if</span> <span class="n">idx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">cols</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-			<span class="k">return</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-				<span class="n">Yhat</span><span class="p">,</span>
-				<span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span>
-				<span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span>
-			<span class="p">)</span>
+		<span class="n">Yhat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Yhat</span><span class="p">)</span>
+		<span class="c1"># if isinstance(X, pandas.DataFrame):</span>
+		<span class="c1"># 	idx = X.index</span>
+		<span class="c1"># else:</span>
+		<span class="c1"># 	idx = None</span>
+		<span class="c1">#</span>
+		<span class="c1"># cols = None</span>
+		<span class="c1"># if self.Y_columns is not None:</span>
+		<span class="c1"># 	if len(self.Y_columns) == Yhat.shape[1]:</span>
+		<span class="c1"># 		cols = self.Y_columns</span>
+		<span class="c1">#</span>
+		<span class="c1"># if idx is not None or cols is not None:</span>
+		<span class="c1"># 	return pandas.DataFrame(</span>
+		<span class="c1"># 		Yhat,</span>
+		<span class="c1"># 		index=idx,</span>
+		<span class="c1"># 		columns=cols,</span>
+		<span class="c1"># 	)</span>
 		<span class="k">return</span> <span class="n">Yhat</span></div>
 
 <div class="viewcode-block" id="DetrendedMultipleTargetRegression.predict"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.predict">[docs]</a>	<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_cov</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -632,25 +633,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

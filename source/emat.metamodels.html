@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Databases" href="emat.database/index.html" />
     <link rel="prev" title="GBNRTC Model" href="emat.models/gbnrtc.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -203,7 +205,7 @@ or <a class="reference internal" href="emat.models/abstract.html#emat.model.Abst
 methods of a core model.</p>
 <dl class="class">
 <dt id="emat.MetaModel">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">MetaModel</code><span class="sig-paren">(</span><em>input_sample</em>, <em>output_sample</em>, <em>metamodel_types=None</em>, <em>disabled_outputs=None</em>, <em>random_state=None</em>, <em>sample_stratification=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/emat/model/meta_model.html#MetaModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">MetaModel</code><span class="sig-paren">(</span><em>input_sample</em>, <em>output_sample</em>, <em>metamodel_types=None</em>, <em>disabled_outputs=None</em>, <em>random_state=None</em>, <em>sample_stratification=None</em>, <em>suppress_converge_warnings=False</em>, <em>regressor=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/emat/model/meta_model.html#MetaModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>A gaussian process regression-based meta-model.</p>
 <p>The MetaModel is a callable object that provides an EMA Workbench standard
 python interface, taking keyword arguments for parameters and returning a python
@@ -213,11 +215,11 @@ dictionary of named outcomes.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>input_sample</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.0)"><em>pandas.DataFrame</em></a>) – A set of experimental parameters, where
+<li><strong>input_sample</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)"><em>pandas.DataFrame</em></a>) – A set of experimental parameters, where
 each row in the dataframe is an experiment that has already been evaluated
 using the core model.  Each column will be a required keyword parameter
 when calling this meta-model.</li>
-<li><strong>output_sample</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.0)"><em>pandas.DataFrame</em></a>) – A set of experimental performance measures, where
+<li><strong>output_sample</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)"><em>pandas.DataFrame</em></a>) – A set of experimental performance measures, where
 each row in the dataframe is the results of the experiment evaluated using the
 core model.  Each column of this dataframe will be a named output value
 in the returned dictionary from calling this meta-model.</li>
@@ -249,6 +251,9 @@ of <cite>output_sample</cite>, although the principal use of this argument is to
 names that are <em>not</em> included, as disabling outputs that are included will not
 prevent these values from being included in the computational process.</li>
 <li><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – A random state, passed to the created regression.</li>
+<li><strong>regressor</strong> (<em>Estimator</em><em>, </em><em>optional</em>) – A scikit-learn estimator implementing a
+multi-target regression.  If not given, a detrended simple Gaussian
+process regression is used.</li>
 </ul>
 </td>
 </tr>
@@ -282,7 +287,7 @@ arguments, including both uncertainties and levers.</td>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.0)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – </li>
+<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – </li>
 <li><strong>**kwargs</strong> – All defined (meta)model parameters are passed as keyword
 arguments, including both uncertainties and levers.</li>
 </ul>
@@ -314,7 +319,7 @@ quite slow.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The cross-validated predictions.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.0)">pandas.DataFrame</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)">pandas.DataFrame</a></td>
 </tr>
 </tbody>
 </table>
@@ -342,7 +347,7 @@ using the linear regression meta-model alone.)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The cross-validation scores, by output.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v0.25.0)">pandas.Series</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v0.25.1)">pandas.Series</a></p>
 </td>
 </tr>
 </tbody>
@@ -364,7 +369,7 @@ instantiated.</p>
 input (not raw input) and the rows correspond to the
 outputs.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.0)">pandas.DataFrame</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)">pandas.DataFrame</a></td>
 </tr>
 </tbody>
 </table>
@@ -447,7 +452,7 @@ debugging.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A subset of rows from <cite>possible_experiments</cite></p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.0)">pandas.DataFrame</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)">pandas.DataFrame</a></p>
 </td>
 </tr>
 </tbody>
@@ -471,7 +476,7 @@ debugging.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.0)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – </li>
+<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – </li>
 <li><strong>residual_only</strong> (<em>trend_only</em><em>,</em>) – </li>
 <li><strong>**kwargs</strong> – All defined (meta)model parameters are passed as keyword
 arguments, including both uncertainties and levers.</li>
@@ -500,7 +505,7 @@ raw data input DataFrame into the format used for regression.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.0)"><em>pandas.DataFrame</em></a>) – The raw input data to process, which can include input
+<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)"><em>pandas.DataFrame</em></a>) – The raw input data to process, which can include input
 values for multiple experiments.</li>
 <li><strong>to_type</strong> (<em>dtype</em><em>, </em><em>optional</em>) – If given, the entire resulting DataFrame is cast to
 this data type.</li>
@@ -713,7 +718,7 @@ arrays.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The cross-validation scores, by output.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v0.25.0)">pandas.Series</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v0.25.1)">pandas.Series</a></p>
 </td>
 </tr>
 </tbody>
@@ -773,7 +778,7 @@ samples used in the fitting for the estimator.</li>
         <a href="emat.database/index.html" class="btn btn-neutral float-right" title="Databases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="emat.models/gbnrtc.html" class="btn btn-neutral" title="GBNRTC Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="emat.models/gbnrtc.html" class="btn btn-neutral float-left" title="GBNRTC Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -798,25 +803,16 @@ samples used in the fitting for the estimator.</li>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

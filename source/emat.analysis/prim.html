@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Examples" href="../emat.examples/index.html" />
     <link rel="prev" title="Analysis" href="index.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -458,7 +460,7 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 </div>
 <p>Having defined the cases of interest, to use PRIM we pass the explanatory data (i.e., the inputs) and the ‘of_interest’ variable to the <code class="docutils literal notranslate"><span class="pre">Prim</span></code> object, and then invoke the <code class="docutils literal notranslate"><span class="pre">find_box</span></code> method.</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
@@ -466,17 +468,6 @@ The step size for these variables is controlled by the analyst.</li>
 <span></span><span class="kn">from</span> <span class="nn">emat.analysis.prim</span> <span class="k">import</span> <span class="n">Prim</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/jpn/anaconda/envs/EMAT/lib/python3.6/importlib/_bootstrap.py:219: ImportWarning: can&#39;t resolve package from __spec__ or __package__, falling back on __name__ and __path__
-  return f(*args, **kwds)
-/Users/jpn/anaconda/envs/EMAT/lib/python3.6/importlib/_bootstrap.py:219: ImportWarning: can&#39;t resolve package from __spec__ or __package__, falling back on __name__ and __path__
-  return f(*args, **kwds)
-</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -500,7 +491,7 @@ The step size for these variables is controlled by the analyst.</li>
 </pre></div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">find_box</span></code> command actually provides a number of different possible boxes along a (heuristically) optimal trajectory, trading off coverage against density.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">find_box</span></code> command actually provides a number of different possible boxes along a (heuristically) optimal trajectory, trading off coverage against density. We can plot a static figure showing the tradeoff curve using the <code class="docutils literal notranslate"><span class="pre">show_tradeoff</span></code> command:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -517,11 +508,13 @@ The step size for these variables is controlled by the analyst.</li>
 <img alt="../../_images/source_emat.analysis_prim_12_0.png" src="../../_images/source_emat.analysis_prim_12_0.png" />
 </div>
 </div>
+<p>This figure shows the trade-off between coverage and density.</p>
 <ul class="simple">
 <li><strong>Coverage</strong> is percentage of the cases of interest that are in the box (i.e., number of cases of interest in the box divided by total number of cases of interest). The starting point of the PRIM algorithm is the unrestricted full set of cases, which includes all outcomes of interest, and therefore, the coverage starts at 1.0 and drops as the algorithm progresses.</li>
 <li><strong>Density</strong> is the share of cases in the box that are case of interest (i.e., number of cases of interest in the box divided by the total number of cases in the box). As the box is reduced, the density will increase (as that is the objective of the PRIM algorithm).</li>
 </ul>
-<p>By default, the PRIM algorithm returns the particular box at the end of the peeling trajectory (the top of the tradeoff curve), which has the highest density, but the smallest coverage.</p>
+<p>For the statistically minded, this tradeoff can also be interpreted as the tradeoff between Type I (false positive) and Type II (false negative) error. High coverage minimizes the false negatives, while high density minimizes false positives.</p>
+<p>By default, the PRIM algorithm sets the “selected” box position as the particular box at the end of the peeling trajectory (highest density, at the top of the top of the tradeoff curve), which has the highest density, but the smallest coverage.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -552,9 +545,20 @@ The step size for these variables is controlled by the analyst.</li>
 </pre></div>
 </div>
 </div>
-<p>The analyst can choose to manually override that at this point, selecting a preferred box that trades off density and coverage differently.</p>
-<div class="nbinput docutils container">
+<p>In a Jupyter notebook, the analyst can interactively view other possible boxes using the <code class="docutils literal notranslate"><span class="pre">inspect_tradeoff</span></code> method:</p>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">box1</span><span class="o">.</span><span class="n">inspect_tradeoff</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<img alt="../../_images/PRIM-Interactive-480.gif" src="../../_images/PRIM-Interactive-480.gif" />
+<p>If it appears that a different selection box is better than the maximum density option, the analyst can choose to manually override the selection at this point, selecting a preferred box (by index) that trades off density and coverage differently.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -564,7 +568,7 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -584,21 +588,13 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 </div>
 <p>One of the features of the <code class="docutils literal notranslate"><span class="pre">ema_workbench</span></code> implementation of PRIM is the ability to generate a plot of the resulting box, overlaid on a ‘pairs’ scatter plot of the various restricted dimensions.</p>
+<p>In the figure below, each of the five restricted dimensions represents both a row and a column of figures. The off-diagonal charts show bi-dimensional distribution of the data across two of the five actively restricted dimensions. These charts are overlaid with a red rectangle denoting the selected box. The on-diagonal charts show the relative distribution of cases that are and are not of interest (unconditional on the selected box).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">box1</span><span class="o">.</span><span class="n">show_pairs_scatter</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;seaborn.axisgrid.PairGrid at 0x1c1f2500f0&gt;
+<span></span><span class="n">box1</span><span class="o">.</span><span class="n">show_pairs_scatter</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
@@ -606,11 +602,11 @@ The step size for these variables is controlled by the analyst.</li>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/source_emat.analysis_prim_18_1.png" src="../../_images/source_emat.analysis_prim_18_1.png" />
+<img alt="../../_images/source_emat.analysis_prim_21_0.png" src="../../_images/source_emat.analysis_prim_21_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -619,7 +615,7 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -641,7 +637,7 @@ The step size for these variables is controlled by the analyst.</li>
 <p>Regardless of any analyst intervention in box selection using the <code class="docutils literal notranslate"><span class="pre">select</span></code> method, initial box identified using PRIM will always be a rectangle (or, more generally, a hyper-rectangle). Every restricted dimension is specified independently, not conditional on any other dimension.</p>
 <p>A second box can be overlaid after the first to expand the solution to include a non-rectangular area. The second tier box itself is still another rectangle, but it can be defined using different boundaries, possibly on different dimensions, to give in aggregate a non-convex shape. Creating such a second box is done by calling the <code class="docutils literal notranslate"><span class="pre">find_box</span></code> method again, after the particulars of the first box are finalized.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -650,7 +646,7 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -659,7 +655,7 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -678,13 +674,13 @@ The step size for these variables is controlled by the analyst.</li>
 </pre></div>
 </div>
 </div>
-<p>The cases considered for the second box are only those cases not within the first box. Because our first box had a relatively high coverage and high density, we have already captured most of the cases of interest and not too many other cases, so the second box has a much diminished trade-off curve. The maximum value of the coverage for this second box is one minus the selected final coverage of the first box.</p>
+<p>The cases considered for the second box are <em>only</em> those cases not within the first box. Because our first box had a relatively high coverage and high density, we have already captured most of the cases of interest and not too many other cases, so the second box has a much diminished trade-off curve. The maximum value of the coverage for this second box is one minus the selected final coverage of the first box.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">box2</span><span class="o">.</span><span class="n">show_tradeoff</span><span class="p">()</span>
+<span></span><span class="n">box2</span><span class="o">.</span><span class="n">show_tradeoff</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
@@ -692,25 +688,16 @@ The step size for these variables is controlled by the analyst.</li>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/source_emat.analysis_prim_26_0.png" src="../../_images/source_emat.analysis_prim_26_0.png" />
+<img alt="../../_images/source_emat.analysis_prim_29_0.png" src="../../_images/source_emat.analysis_prim_29_0.png" />
 </div>
 </div>
-<p>We can also make a similar scatter plot for this second box. By setting the <code class="docutils literal notranslate"><span class="pre">only_current</span></code> to True, we’ll only plot the points that remain (i.e.&nbsp;the ones not included in the first box).</p>
+<p>We can also make a similar scatter plot for this second box. Because this is the second box, the method will only plot the points that remain (i.e.&nbsp;the ones not included in the first box). This results in a “blotchy” appearance for may of the graphs in this figure, as most of the “of interest” cases were captured previously.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">box2</span><span class="o">.</span><span class="n">show_pairs_scatter</span><span class="p">(</span><span class="n">only_current</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;seaborn.axisgrid.PairGrid at 0x1c1ec0c550&gt;
+<span></span><span class="n">box2</span><span class="o">.</span><span class="n">show_pairs_scatter</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
@@ -718,16 +705,7 @@ The step size for these variables is controlled by the analyst.</li>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/source_emat.analysis_prim_28_1.png" src="../../_images/source_emat.analysis_prim_28_1.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
+<img alt="../../_images/source_emat.analysis_prim_31_0.png" src="../../_images/source_emat.analysis_prim_31_0.png" />
 </div>
 </div>
 </div>
@@ -744,7 +722,7 @@ The step size for these variables is controlled by the analyst.</li>
         <a href="../emat.examples/index.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -769,25 +747,16 @@ The step size for these variables is controlled by the analyst.</li>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

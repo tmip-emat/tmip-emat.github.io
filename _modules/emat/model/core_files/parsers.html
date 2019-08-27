@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
-
-  
-  <script src="../../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -169,6 +171,12 @@
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	A tool to parse performance measure(s) from an arbitrary file format.</span>
 
+<span class="sd">	This is an abstract base class, which defines the basic API for</span>
+<span class="sd">	file parsing objects.  Most users will want to use `TableParser`</span>
+<span class="sd">	for reading perforamce measures from any kind of file that</span>
+<span class="sd">	contains a table of data (including one-column, one-row, and</span>
+<span class="sd">	one-value tables).</span>
+
 <span class="sd">	Args:</span>
 <span class="sd">		filename (str):</span>
 <span class="sd">			The name of the file in which the measure(s) are stored.</span>
@@ -209,20 +217,30 @@
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	A tool to parse performance measure from an arbitrary table format.</span>
 
+<span class="sd">	This object provides a way to systematically extract values</span>
+<span class="sd">	from an output file that has a well defined name and format.  This is</span>
+<span class="sd">	exactly what we would expect for a files-based core model, which when</span>
+<span class="sd">	run (and post-processed, if applicable) will generate one or more</span>
+<span class="sd">	named and regularly formatted output files.</span>
+
 <span class="sd">	Args:</span>
 <span class="sd">		filename (str):</span>
 <span class="sd">			The name of the file in which the tabular data is stored.</span>
 <span class="sd">			The filename is a relative path to the file, and will be</span>
 <span class="sd">			evaluated relative to the `from_dir` argument in the `read`</span>
-<span class="sd">			method.</span>
+<span class="sd">			method.  Generally the `from_dir` will be a directory</span>
+<span class="sd">			containing a set of model output files from a single model</span>
+<span class="sd">			run, and this `filename` will be just the name of the file,</span>
+<span class="sd">			unless the core model run constructs a sub-directory hierarchy</span>
+<span class="sd">			within the output directory (this is unusual).</span>
 <span class="sd">		measure_getters (Mapping[str, Getter]): A mapping that</span>
 <span class="sd">			relates scalar performance measure values to Getters that</span>
 <span class="sd">			extract values from the tabular data.</span>
 <span class="sd">		reader_method (Callable, default pandas.read_csv): A function that</span>
 <span class="sd">			accepts one positional argument (the filename to be read) and</span>
 <span class="sd">			optionally some keyword arguments, and returns a pandas.DataFrame.</span>
-<span class="sd">		handle_errors (str, default &#39;raise&#39;): How to handle errors when reading a table, one</span>
-<span class="sd">			of {&#39;raise&#39;, &#39;nan&#39;}</span>
+<span class="sd">		handle_errors (str, default &#39;raise&#39;): How to handle errors when</span>
+<span class="sd">			reading a table, one of {&#39;raise&#39;, &#39;nan&#39;}</span>
 <span class="sd">		**kwargs (Mapping, optional): A set of fixed keyword arguments</span>
 <span class="sd">			that will be passed to `reader_method` each time it is called.</span>
 
@@ -249,6 +267,14 @@
 <div class="viewcode-block" id="TableParser.raw"><a class="viewcode-back" href="../../../../source/emat.models/files.html#emat.model.core_files.parsers.TableParser.raw">[docs]</a>	<span class="k">def</span> <span class="nf">raw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_dir</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Read the raw tabular data.</span>
+
+<span class="sd">		This method will read the raw file, using the `reader_method`</span>
+<span class="sd">		defined for this `TableParser` and any designated keyword</span>
+<span class="sd">		arguments for that reader, but it will not actually run</span>
+<span class="sd">		any of the `measure_getters` that convert the table into</span>
+<span class="sd">		individual performance measures.  This method is exposed for</span>
+<span class="sd">		users primarily to test be able to conveniently test `TableParser`</span>
+<span class="sd">		objects during development.</span>
 
 <span class="sd">		Args:</span>
 <span class="sd">			from_dir (Path-like): The base directory from which to read the data.</span>
@@ -442,25 +468,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

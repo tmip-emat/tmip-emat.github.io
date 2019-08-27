@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -160,8 +162,10 @@
 <span class="kn">import</span> <span class="nn">pandas</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Mapping</span>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">multitarget</span>
 <span class="kn">from</span> <span class="nn">..util.one_hot</span> <span class="k">import</span> <span class="n">OneHotCatEncoder</span>
+<span class="kn">from</span> <span class="nn">..util.variance_threshold</span> <span class="k">import</span> <span class="n">VarianceThreshold</span>
 <span class="kn">from</span> <span class="nn">..experiment.experimental_design</span> <span class="k">import</span> <span class="n">batch_pick_new_experiments</span><span class="p">,</span> <span class="n">minimum_weighted_distance</span>
 <span class="kn">from</span> <span class="nn">..database.database</span> <span class="k">import</span> <span class="n">Database</span>
 <span class="kn">from</span> <span class="nn">..scope.scope</span> <span class="k">import</span> <span class="n">Scope</span>
@@ -218,6 +222,10 @@
 <span class="sd">            prevent these values from being included in the computational process.</span>
 
 <span class="sd">        random_state (int, optional): A random state, passed to the created regression.</span>
+
+<span class="sd">        regressor (Estimator, optional): A scikit-learn estimator implementing a</span>
+<span class="sd">            multi-target regression.  If not given, a detrended simple Gaussian</span>
+<span class="sd">            process regression is used.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_metamodel_types</span> <span class="o">=</span> <span class="p">{</span>
@@ -239,6 +247,8 @@
             <span class="n">disabled_outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">sample_stratification</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">suppress_converge_warnings</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">regressor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_sample</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
@@ -255,6 +265,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cat_encoder</span> <span class="o">=</span> <span class="n">OneHotCatEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">input_sample</span><span class="p">)</span>
         <span class="n">input_sample</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cat_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">input_sample</span><span class="p">)</span>
         <span class="n">input_sample</span> <span class="o">=</span> <span class="n">input_sample</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_thresh</span> <span class="o">=</span> <span class="n">VarianceThreshold</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">input_sample</span><span class="p">)</span>
+        <span class="n">input_sample</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_thresh</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">input_sample</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">input_sample</span> <span class="o">=</span> <span class="n">input_sample</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span> <span class="o">=</span> <span class="n">output_sample</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="p">(</span><span class="n">metamodel_types</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">))</span>
@@ -291,8 +304,24 @@
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="n">v_func</span><span class="p">,</span><span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_transforms</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v_func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">regression</span> <span class="o">=</span> <span class="n">multitarget</span><span class="o">.</span><span class="n">DetrendedMultipleTargetRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_sample</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">regressor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">regressor</span> <span class="o">=</span> <span class="n">multitarget</span><span class="o">.</span><span class="n">DetrendedMultipleTargetRegression</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">regression</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">regressor</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">regression</span> <span class="o">=</span> <span class="n">regressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span>
+
+        <span class="k">if</span> <span class="n">suppress_converge_warnings</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">sklearn.gaussian_process.gpr</span> <span class="k">import</span> <span class="n">ConvergenceWarning</span>
+            <span class="kn">import</span> <span class="nn">warnings</span>
+            <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">ConvergenceWarning</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_sample</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_sample</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="p">)</span>
 
 <div class="viewcode-block" id="MetaModel.preprocess_raw_input"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel.preprocess_raw_input">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_raw_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">to_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -315,6 +344,7 @@
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cat_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_input_columns</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">to_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">to_type</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_thresh</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="MetaModel.__call__"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -344,7 +374,7 @@
                             <span class="n">f</span><span class="s1">&#39;positional argument, not {len(args)}&#39;</span><span class="p">)</span>
 
         <span class="n">input_row</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_input_columns</span><span class="p">]</span>
-        <span class="n">input_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cat_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">input_row</span><span class="p">)</span>
+        <span class="n">input_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_raw_input</span><span class="p">(</span><span class="n">input_row</span><span class="p">,</span> <span class="n">to_type</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
 
         <span class="n">output_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_row</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">output_row</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -387,7 +417,7 @@
                             <span class="n">f</span><span class="s1">&#39;positional argument, not {len(args)}&#39;</span><span class="p">)</span>
 
         <span class="n">input_row</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_input_columns</span><span class="p">]</span>
-        <span class="n">input_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cat_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">input_row</span><span class="p">)</span>
+        <span class="n">input_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_raw_input</span><span class="p">(</span><span class="n">input_row</span><span class="p">,</span> <span class="n">to_type</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
 
         <span class="n">output_row</span><span class="p">,</span> <span class="n">output_std</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_row</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -432,7 +462,7 @@
                             <span class="n">f</span><span class="s1">&#39;positional argument, not {len(args)}&#39;</span><span class="p">)</span>
 
         <span class="n">input_row</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_input_columns</span><span class="p">]</span>
-        <span class="n">input_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cat_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">input_row</span><span class="p">)</span>
+        <span class="n">input_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_raw_input</span><span class="p">(</span><span class="n">input_row</span><span class="p">,</span> <span class="n">to_type</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">trend_only</span><span class="p">:</span>
             <span class="n">output_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">detrend_predict</span><span class="p">(</span><span class="n">input_row</span><span class="p">)</span>
@@ -805,25 +835,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

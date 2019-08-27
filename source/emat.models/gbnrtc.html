@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Meta-Models" href="../emat.metamodels.html" />
     <link rel="prev" title="Files-Based Model" href="files.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -207,7 +209,7 @@ recommendation, or specification by FHWA.</p>
 <h1>GBNRTC Model<a class="headerlink" href="#gbnrtc-model" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="emat.model.GBNRTCModel">
-<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">GBNRTCModel</code><span class="sig-paren">(</span><em>configuration: Union[str, Mapping], scope: Union[emat.scope.scope.Scope, str], safe: bool = True, db: emat.database.database.Database = None, name: str = 'GBNRTC'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">GBNRTCModel</code><span class="sig-paren">(</span><em>configuration: Union[str, Mapping[KT, VT_co]], scope: Union[emat.scope.scope.Scope, str], safe: bool = True, db: emat.database.database.Database = None, name: str = 'GBNRTC'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.model.core_files.core_files.FilesCoreModel</span></code></p>
 <p>Setup connections and paths to GBNRTC core model</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -325,23 +327,28 @@ this type.</p>
 
 <dl class="method">
 <dt id="emat.model.GBNRTCModel.load_measures">
-<code class="descclassname">GBNRTCModel.</code><code class="descname">load_measures</code><span class="sig-paren">(</span><em>measure_names: List[str], output_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.model.GBNRTCModel.load_measures" title="Permalink to this definition">¶</a></dt>
-<dd><p>Import selected measures into dataframe</p>
+<code class="descclassname">GBNRTCModel.</code><code class="descname">load_measures</code><span class="sig-paren">(</span><em>measure_names: List[str], *, rel_output_path=None, abs_output_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.model.GBNRTCModel.load_measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import selected measures from the core model.</p>
 <p>Imports measures from active scenario</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>measure_names</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – List of measures to be processed</li>
-<li><strong>output_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to model output locations</li>
+<li><strong>measure_names</strong> (<em>Collection</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – Collection of measures to be processed</li>
+<li><strong>abs_output_path</strong> (<em>rel_output_path</em><em>,</em>) – Path to model output locations, either relative
+to the <cite>model_path</cite> directory (when a subclass
+is a type that has a model path) or as an absolute
+directory.  If neither is given, the default
+value is equivalent to setting <cite>rel_output_path</cite> to
+‘Outputs’.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">dict of measure name and values from active scenario</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#KeyError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">KeyError</span></code></a> – If post process is not available for specified
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#KeyError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">KeyError</span></code></a> – If load_measures is not available for specified
 measure</p>
 </td>
 </tr>
@@ -433,7 +440,7 @@ folder path.</p>
         <a href="../emat.metamodels.html" class="btn btn-neutral float-right" title="Meta-Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="files.html" class="btn btn-neutral" title="Files-Based Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="files.html" class="btn btn-neutral float-left" title="Files-Based Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -458,25 +465,16 @@ folder path.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

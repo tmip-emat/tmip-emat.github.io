@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -164,8 +166,13 @@
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">from</span> <span class="nn">..util.distributions</span> <span class="k">import</span> <span class="n">truncated</span><span class="p">,</span> <span class="n">get_distribution_bounds</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">isclose</span>
 
 <span class="kn">from</span> <span class="nn">.scope</span> <span class="k">import</span> <span class="n">Scope</span><span class="p">,</span> <span class="n">ScopeError</span>
+<span class="kn">from</span> <span class="nn">.parameter</span> <span class="k">import</span> <span class="n">IntegerParameter</span><span class="p">,</span> <span class="n">CategoricalParameter</span><span class="p">,</span> <span class="n">BooleanParameter</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">styles</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widget</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
 
 <span class="n">Bounds</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Bounds&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;lowerbound&#39;</span><span class="p">,</span> <span class="s1">&#39;upperbound&#39;</span><span class="p">])</span>
 
@@ -181,7 +188,7 @@
 <span class="s2">		if there is no upper bound.</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
-<span class="k">class</span> <span class="nc">GenericBoxMixin</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">GenericBox</span><span class="p">:</span>
 	<span class="c1"># Generic methods applicable to both Box and ChainedBox</span>
 
 	<span class="k">def</span> <span class="nf">inside</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
@@ -198,13 +205,398 @@
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">within</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 		<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">bounds</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-			<span class="k">if</span> <span class="n">bounds</span><span class="o">.</span><span class="n">lowerbound</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-				<span class="n">within</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">bounds</span><span class="o">.</span><span class="n">lowerbound</span><span class="p">)</span>
-			<span class="k">if</span> <span class="n">bounds</span><span class="o">.</span><span class="n">upperbound</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-				<span class="n">within</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">bounds</span><span class="o">.</span><span class="n">upperbound</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
+				<span class="n">within</span> <span class="o">&amp;=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">label</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">bounds</span><span class="p">))</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">bounds</span><span class="o">.</span><span class="n">lowerbound</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+					<span class="n">within</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">bounds</span><span class="o">.</span><span class="n">lowerbound</span><span class="p">)</span>
+				<span class="k">if</span> <span class="n">bounds</span><span class="o">.</span><span class="n">upperbound</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+					<span class="n">within</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">bounds</span><span class="o">.</span><span class="n">upperbound</span><span class="p">)</span>
 		<span class="k">return</span> <span class="n">within</span>
 
-<div class="viewcode-block" id="Box"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.Box">[docs]</a><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Mapping</span><span class="p">,</span> <span class="n">GenericBoxMixin</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_figures</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span> <span class="o">=</span> <span class="kc">None</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">demanded_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set[str]: A set of features upon which thresholds are set.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">relevant_and_demanded_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set[str]: The union of relevant and demanded features.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">relevant_features</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">demanded_features</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">scope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Scope: A scope associated with this Box.&quot;&quot;&quot;</span>
+		<span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+	<span class="k">def</span> <span class="nf">_compute_histogram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">return</span>
+		<span class="n">bar_heights</span><span class="p">,</span> <span class="n">bar_x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+		<span class="n">bar_heights_select</span><span class="p">,</span> <span class="n">bar_x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="n">selection</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bar_x</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+			<span class="s1">&#39;Total Freq&#39;</span><span class="p">:</span> <span class="n">bar_heights</span><span class="p">,</span>
+			<span class="s1">&#39;Inside Freq&#39;</span><span class="p">:</span> <span class="n">bar_heights_select</span><span class="p">,</span>
+			<span class="s1">&#39;Bins_Left&#39;</span><span class="p">:</span> <span class="n">bar_x</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+			<span class="s1">&#39;Bins_Width&#39;</span><span class="p">:</span> <span class="n">bar_x</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">bar_x</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+		<span class="p">})</span>
+
+	<span class="k">def</span> <span class="nf">_compute_frequencies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">return</span>
+		<span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+			<span class="n">pandas</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(</span><span class="n">categories</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+		<span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span>
+		<span class="n">bar_heights</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+		<span class="n">bar_heights_select</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">selection</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+		<span class="k">return</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+			<span class="s1">&#39;Total Freq&#39;</span><span class="p">:</span> <span class="n">bar_heights</span><span class="p">,</span>
+			<span class="s1">&#39;Inside Freq&#39;</span><span class="p">:</span> <span class="n">bar_heights_select</span><span class="p">,</span>
+			<span class="s1">&#39;Label&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span>
+		<span class="p">})</span>
+
+	<span class="k">def</span> <span class="nf">_update_histogram_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figures</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">fig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figures</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+			<span class="n">bins</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">_bins</span>
+			<span class="k">if</span> <span class="n">selection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inside</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span><span class="p">)</span>
+			<span class="n">h_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_histogram</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+			<span class="k">with</span> <span class="n">fig</span><span class="o">.</span><span class="n">batch_update</span><span class="p">():</span>
+				<span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Inside Freq&#39;</span><span class="p">]</span>
+				<span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Total Freq&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Inside Freq&#39;</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">_update_frequencies_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figures</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">fig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figures</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+			<span class="n">labels</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">_labels</span>
+			<span class="k">if</span> <span class="n">selection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inside</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span><span class="p">)</span>
+			<span class="n">h_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_frequencies</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+			<span class="k">with</span> <span class="n">fig</span><span class="o">.</span><span class="n">batch_update</span><span class="p">():</span>
+				<span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Inside Freq&#39;</span><span class="p">]</span>
+				<span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Total Freq&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Inside Freq&#39;</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">_update_all_histogram_figures</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inside</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figures</span><span class="p">:</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figures</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">_figure_kind</span> <span class="o">==</span> <span class="s1">&#39;histogram&#39;</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">_update_histogram_figure</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">)</span>
+			<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figures</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">_figure_kind</span> <span class="o">==</span> <span class="s1">&#39;frequency&#39;</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">_update_frequencies_figure</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">_create_histogram_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">return</span>
+		<span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figures</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_update_histogram_figure</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inside</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span><span class="p">)</span>
+			<span class="n">h_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_histogram</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+			<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">FigureWidget</span><span class="p">(</span>
+				<span class="n">data</span><span class="o">=</span><span class="p">[</span>
+					<span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+						<span class="n">x</span><span class="o">=</span><span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Bins_Left&#39;</span><span class="p">],</span>
+						<span class="n">y</span><span class="o">=</span><span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Inside Freq&#39;</span><span class="p">],</span>
+						<span class="n">width</span><span class="o">=</span><span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Bins_Width&#39;</span><span class="p">],</span>
+						<span class="n">name</span><span class="o">=</span><span class="s1">&#39;Inside&#39;</span><span class="p">,</span>
+						<span class="n">marker_color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span>
+					<span class="p">),</span>
+					<span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+						<span class="n">x</span><span class="o">=</span><span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Bins_Left&#39;</span><span class="p">],</span>
+						<span class="n">y</span><span class="o">=</span><span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Total Freq&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Inside Freq&#39;</span><span class="p">],</span>
+						<span class="n">width</span><span class="o">=</span><span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Bins_Width&#39;</span><span class="p">],</span>
+						<span class="n">name</span><span class="o">=</span><span class="s1">&#39;Outside&#39;</span><span class="p">,</span>
+						<span class="n">marker_color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+					<span class="p">),</span>
+				<span class="p">],</span>
+				<span class="n">layout</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+					<span class="n">barmode</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">,</span>
+					<span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+					<span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+					<span class="o">**</span><span class="n">styles</span><span class="o">.</span><span class="n">figure_dims</span><span class="p">,</span>
+				<span class="p">),</span>
+			<span class="p">)</span>
+			<span class="n">fig</span><span class="o">.</span><span class="n">_bins</span> <span class="o">=</span> <span class="n">bins</span>
+			<span class="n">fig</span><span class="o">.</span><span class="n">_figure_kind</span> <span class="o">=</span> <span class="s1">&#39;histogram&#39;</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_figures</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">fig</span>
+
+	<span class="k">def</span> <span class="nf">_create_frequencies_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">return</span>
+		<span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figures</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_update_frequencies_figure</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inside</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span><span class="p">)</span>
+			<span class="n">h_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_frequencies</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+			<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">FigureWidget</span><span class="p">(</span>
+				<span class="n">data</span><span class="o">=</span><span class="p">[</span>
+					<span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+						<span class="n">x</span><span class="o">=</span><span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">],</span>
+						<span class="n">y</span><span class="o">=</span><span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Inside Freq&#39;</span><span class="p">],</span>
+						<span class="n">name</span><span class="o">=</span><span class="s1">&#39;Inside&#39;</span><span class="p">,</span>
+						<span class="n">marker_color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span>
+					<span class="p">),</span>
+					<span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+						<span class="n">x</span><span class="o">=</span><span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">],</span>
+						<span class="n">y</span><span class="o">=</span><span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Total Freq&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">h_data</span><span class="p">[</span><span class="s1">&#39;Inside Freq&#39;</span><span class="p">],</span>
+						<span class="n">name</span><span class="o">=</span><span class="s1">&#39;Outside&#39;</span><span class="p">,</span>
+						<span class="n">marker_color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+					<span class="p">),</span>
+				<span class="p">],</span>
+				<span class="n">layout</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+					<span class="n">barmode</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">,</span>
+					<span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+					<span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+					<span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+					<span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+				<span class="p">),</span>
+			<span class="p">)</span>
+			<span class="n">fig</span><span class="o">.</span><span class="n">_labels</span> <span class="o">=</span> <span class="n">labels</span>
+			<span class="n">fig</span><span class="o">.</span><span class="n">_figure_kind</span> <span class="o">=</span> <span class="s1">&#39;frequency&#39;</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_figures</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">fig</span>
+
+
+	<span class="k">def</span> <span class="nf">set_viz_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span> <span class="o">=</span> <span class="n">df</span>
+
+	<span class="k">def</span> <span class="nf">get_histogram_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">this_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_dtype</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="n">this_type</span> <span class="o">=</span> <span class="s1">&#39;float&#39;</span>
+		<span class="k">if</span> <span class="n">this_type</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span><span class="s1">&#39;bool&#39;</span><span class="p">):</span>
+			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_frequency_figure</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_create_histogram_figure</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figures</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">get_frequency_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_dtype</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;cat&#39;</span><span class="p">:</span>
+			<span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_cat_values</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_create_frequencies_figure</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figures</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">_make_range_widget</span><span class="p">(</span>
+			<span class="bp">self</span><span class="p">,</span>
+			<span class="n">i</span><span class="p">,</span>
+			<span class="n">min_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">max_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">readout_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">integer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+			<span class="n">steps</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+	<span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Construct a RangeSlider to manipulate a Box threshold.&quot;&quot;&quot;</span>
+
+		<span class="n">current_setting</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+
+		<span class="c1"># Use current setting as min and max if still unknown</span>
+		<span class="k">if</span> <span class="n">current_setting</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">min_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">min_value</span> <span class="o">=</span> <span class="n">current_setting</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">current_setting</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">max_value</span> <span class="o">=</span> <span class="n">current_setting</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+		<span class="k">if</span> <span class="n">min_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;min_value cannot be None if there is no current setting&quot;</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">max_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;max_value cannot be None if there is no current setting&quot;</span><span class="p">)</span>
+
+		<span class="n">current_min</span> <span class="o">=</span> <span class="n">min_value</span> <span class="k">if</span> <span class="n">current_setting</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">current_setting</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="n">current_max</span> <span class="o">=</span> <span class="n">max_value</span> <span class="k">if</span> <span class="n">current_setting</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">current_setting</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+		<span class="n">slider_type</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">IntRangeSlider</span> <span class="k">if</span> <span class="n">integer</span> <span class="k">else</span> <span class="n">widget</span><span class="o">.</span><span class="n">FloatRangeSlider</span>
+
+		<span class="n">controller</span> <span class="o">=</span> <span class="n">slider_type</span><span class="p">(</span>
+			<span class="n">value</span><span class="o">=</span><span class="p">[</span><span class="n">current_min</span><span class="p">,</span> <span class="n">current_max</span><span class="p">],</span>
+			<span class="nb">min</span><span class="o">=</span><span class="n">min_value</span><span class="p">,</span>
+			<span class="nb">max</span><span class="o">=</span><span class="n">max_value</span><span class="p">,</span>
+			<span class="n">step</span><span class="o">=</span><span class="p">((</span><span class="n">max_value</span> <span class="o">-</span> <span class="n">min_value</span><span class="p">)</span> <span class="o">/</span> <span class="n">steps</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">integer</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+			<span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+			<span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+			<span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span>
+			<span class="n">readout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+			<span class="n">readout_format</span><span class="o">=</span><span class="n">readout_format</span><span class="p">,</span>
+			<span class="n">description</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+			<span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">slider_style</span><span class="p">,</span>
+			<span class="n">layout</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">slider_layout</span><span class="p">,</span>
+		<span class="p">)</span>
+
+		<span class="k">def</span> <span class="nf">on_value_change</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+			<span class="n">new_setting</span> <span class="o">=</span> <span class="n">change</span><span class="p">[</span><span class="s1">&#39;new&#39;</span><span class="p">]</span>
+			<span class="k">if</span> <span class="n">new_setting</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">min_value</span> <span class="ow">or</span> <span class="n">isclose</span><span class="p">(</span><span class="n">new_setting</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">min_value</span><span class="p">):</span>
+				<span class="n">new_setting</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_setting</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+			<span class="k">if</span> <span class="n">new_setting</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">max_value</span> <span class="ow">or</span> <span class="n">isclose</span><span class="p">(</span><span class="n">new_setting</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">max_value</span><span class="p">):</span>
+				<span class="n">new_setting</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_setting</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">set_bounds</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">*</span><span class="n">new_setting</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_update_all_histogram_figures</span><span class="p">()</span>
+
+		<span class="n">controller</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">on_value_change</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="n">controller</span>
+
+	<span class="k">def</span> <span class="nf">_make_togglebutton_widget</span><span class="p">(</span>
+			<span class="bp">self</span><span class="p">,</span>
+			<span class="n">i</span><span class="p">,</span>
+			<span class="n">cats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="o">*</span><span class="p">,</span>
+			<span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+	<span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Construct a MultiToggleButtons to manipulate a Box categorical set.&quot;&quot;&quot;</span>
+
+		<span class="k">if</span> <span class="n">cats</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">):</span>
+				<span class="n">cats</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
+
+		<span class="n">current_setting</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+
+		<span class="kn">from</span> <span class="nn">..interactive.multitoggle</span> <span class="k">import</span> <span class="n">MultiToggleButtons</span>
+		<span class="n">controller</span> <span class="o">=</span> <span class="n">MultiToggleButtons</span><span class="p">(</span>
+			<span class="n">description</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+			<span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">slider_style</span><span class="p">,</span>
+			<span class="n">options</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">cats</span><span class="p">),</span>
+			<span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+			<span class="n">button_style</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># &#39;success&#39;, &#39;info&#39;, &#39;warning&#39;, &#39;danger&#39; or &#39;&#39;</span>
+			<span class="n">layout</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">slider_layout</span><span class="p">,</span>
+		<span class="p">)</span>
+		<span class="n">controller</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">current_setting</span>
+
+		<span class="k">def</span> <span class="nf">on_value_change</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+			<span class="n">new_setting</span> <span class="o">=</span> <span class="n">change</span><span class="p">[</span><span class="s1">&#39;new&#39;</span><span class="p">]</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">replace_allowed_set</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">new_setting</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_update_all_histogram_figures</span><span class="p">()</span>
+
+		<span class="n">controller</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">on_value_change</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="n">controller</span>
+
+
+	<span class="k">def</span> <span class="nf">get_widget</span><span class="p">(</span>
+			<span class="bp">self</span><span class="p">,</span>
+			<span class="n">i</span><span class="p">,</span>
+			<span class="n">min_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">max_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">readout_format</span><span class="o">=</span><span class="s1">&#39;.0f&#39;</span><span class="p">,</span>
+			<span class="n">steps</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+			<span class="o">*</span><span class="p">,</span>
+			<span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">histogram</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+			<span class="n">tall</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+	<span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Get a control widget for a Box threshold.&quot;&quot;&quot;</span>
+
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot get_widget with no scope&#39;</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_widgets&#39;</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span> <span class="o">=</span> <span class="p">{}</span>
+
+		<span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">:</span>
+			<span class="c1"># Extract min and max from scope if not given explicitly</span>
+			<span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">():</span>
+				<span class="k">if</span> <span class="n">min_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+					<span class="n">min_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">min</span>
+				<span class="k">if</span> <span class="n">max_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+					<span class="n">max_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span>
+
+			<span class="c1"># Extract min and max from `df` if still missing (i.e. for Measures)</span>
+			<span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">min_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+					<span class="n">min_value</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+				<span class="k">if</span> <span class="n">max_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+					<span class="n">max_value</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+			<span class="c1"># Extract min and max from `_viz_data` if still missing</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">min_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+					<span class="n">min_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+				<span class="k">if</span> <span class="n">max_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+					<span class="n">max_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viz_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+			<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">BooleanParameter</span><span class="p">):</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_togglebutton_widget</span><span class="p">(</span>
+					<span class="n">i</span><span class="p">,</span>
+					<span class="n">cats</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+				<span class="p">)</span>
+			<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">CategoricalParameter</span><span class="p">):</span>
+				<span class="n">cats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_cat_values</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_togglebutton_widget</span><span class="p">(</span>
+					<span class="n">i</span><span class="p">,</span>
+					<span class="n">cats</span><span class="o">=</span><span class="n">cats</span><span class="p">,</span>
+				<span class="p">)</span>
+			<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">IntegerParameter</span><span class="p">):</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_range_widget</span><span class="p">(</span>
+					<span class="n">i</span><span class="p">,</span>
+					<span class="n">min_value</span><span class="o">=</span><span class="n">min_value</span><span class="p">,</span>
+					<span class="n">max_value</span><span class="o">=</span><span class="n">max_value</span><span class="p">,</span>
+					<span class="n">readout_format</span><span class="o">=</span><span class="n">readout_format</span><span class="p">,</span>
+					<span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+					<span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">,</span>
+				<span class="p">)</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_range_widget</span><span class="p">(</span>
+					<span class="n">i</span><span class="p">,</span>
+					<span class="n">min_value</span><span class="o">=</span><span class="n">min_value</span><span class="p">,</span>
+					<span class="n">max_value</span><span class="o">=</span><span class="n">max_value</span><span class="p">,</span>
+					<span class="n">readout_format</span><span class="o">=</span><span class="n">readout_format</span><span class="p">,</span>
+					<span class="n">integer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+					<span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">,</span>
+				<span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">tall</span><span class="p">:</span>
+			<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">histogram</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+				<span class="n">histogram</span> <span class="o">=</span> <span class="p">{}</span>
+			<span class="k">return</span> <span class="n">widget</span><span class="o">.</span><span class="n">VBox</span><span class="p">(</span>
+				<span class="p">[</span>
+					<span class="n">widget</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">get_histogram_figure</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">**</span><span class="n">histogram</span><span class="p">),</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+				<span class="p">],</span>
+				<span class="n">layout</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">widget_frame</span><span class="p">,</span>
+			<span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">histogram</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">histogram</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+				<span class="n">histogram</span> <span class="o">=</span> <span class="p">{}</span>
+			<span class="k">return</span> <span class="n">widget</span><span class="o">.</span><span class="n">HBox</span><span class="p">(</span>
+				<span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_histogram_figure</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">**</span><span class="n">histogram</span><span class="p">)],</span>
+				<span class="n">layout</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">align_items</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span><span class="p">),</span>
+			<span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+	<span class="k">def</span> <span class="nf">visualization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot create visualization with no scope&#39;</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">set_viz_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_figures</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+		<span class="k">if</span> <span class="n">include</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">include</span> <span class="o">=</span> <span class="p">[]</span>
+
+		<span class="n">viz_widgets</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="n">include</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">include</span><span class="p">)</span>
+		<span class="n">include</span> <span class="o">=</span> <span class="n">include</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">relevant_and_demanded_features</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_parameter_names</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">():</span>
+			<span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">include</span><span class="p">:</span>
+				<span class="n">viz_widgets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_widget</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+		<span class="k">return</span> <span class="n">widget</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">viz_widgets</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">widget</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">flex_flow</span><span class="o">=</span><span class="s1">&#39;row wrap&#39;</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="Box"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.Box">[docs]</a><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Mapping</span><span class="p">,</span> <span class="n">GenericBox</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	A Box defines a set of restricted dimensions for a Scope.</span>
 
@@ -257,6 +649,7 @@
 			<span class="n">allowed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 			<span class="n">relevant</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 	<span class="p">):</span>
+		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span> <span class="o">=</span> <span class="p">{}</span>
 
 		<span class="k">if</span> <span class="n">relevant</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -337,6 +730,14 @@
 
 	<span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">demanded_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set[str]: A set of features upon which thresholds are set at any step of the chain.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">t</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+		<span class="k">return</span> <span class="n">t</span>
 
 <div class="viewcode-block" id="Box.set_lower_bound"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.Box.set_lower_bound">[docs]</a>	<span class="k">def</span> <span class="nf">set_lower_bound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
@@ -548,7 +949,7 @@
 				<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Bounds</span><span class="p">):</span>
 					<span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">lowerbound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 						<span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">upperbound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-							<span class="n">v_</span> <span class="o">=</span> <span class="s1">&#39; Unbounded&#39;</span>
+							<span class="n">v_</span> <span class="o">=</span> <span class="s1">&#39;: unbounded&#39;</span>
 						<span class="k">else</span><span class="p">:</span>
 							<span class="n">v_</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39; &lt;= </span><span class="si">{v.upperbound}</span><span class="s1">&#39;</span>
 					<span class="k">else</span><span class="p">:</span>
@@ -636,7 +1037,8 @@
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measures</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="ChainedBox"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.ChainedBox">[docs]</a><span class="k">class</span> <span class="nc">ChainedBox</span><span class="p">(</span><span class="n">Mapping</span><span class="p">,</span> <span class="n">GenericBoxMixin</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ChainedBox"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.ChainedBox">[docs]</a><span class="k">class</span> <span class="nc">ChainedBox</span><span class="p">(</span><span class="n">Mapping</span><span class="p">,</span> <span class="n">GenericBox</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	A Box defines a set of restricted dimensions for a Scope.</span>
 
@@ -661,6 +1063,7 @@
 <span class="sd">		name : str</span>
 <span class="sd">			Name of this chained box</span>
 <span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">GenericBox</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 		<span class="n">c</span> <span class="o">=</span> <span class="n">boxes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">chain</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">]</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="p">]</span>
@@ -759,14 +1162,6 @@
 			<span class="n">t</span> <span class="o">|=</span> <span class="nb">set</span><span class="p">(</span><span class="n">single</span><span class="o">.</span><span class="n">thresholds</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 		<span class="k">return</span> <span class="n">t</span>
 
-	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">relevant_and_demanded_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Set[str]: The union of relevant and demanded features.</span>
-<span class="sd">		&quot;&quot;&quot;</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">relevant_features</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">demanded_features</span>
-
-
 	<span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">relevant_features</span><span class="p">:</span>
 			<span class="n">demands</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="ow">or</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="p">]</span>
@@ -780,7 +1175,7 @@
 				<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Bounds</span><span class="p">):</span>
 					<span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">lowerbound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 						<span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">upperbound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-							<span class="n">v_</span> <span class="o">=</span> <span class="s1">&#39; Unbounded&#39;</span>
+							<span class="n">v_</span> <span class="o">=</span> <span class="s1">&#39;: unbounded&#39;</span>
 						<span class="k">else</span><span class="p">:</span>
 							<span class="n">v_</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39; &lt;= </span><span class="si">{v.upperbound}</span><span class="s1">&#39;</span>
 					<span class="k">else</span><span class="p">:</span>
@@ -807,8 +1202,57 @@
 
 
 	<span class="k">def</span> <span class="nf">chain_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{repr(c)}&quot;</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">))</span></div>
+		<span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{repr(c)}&quot;</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">))</span>
 
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">scope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Scope: A scope associated with this Box.&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">_scope</span>
+
+	<span class="nd">@scope</span><span class="o">.</span><span class="n">setter</span>
+	<span class="k">def</span> <span class="nf">scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Scope</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">_scope</span> <span class="o">=</span> <span class="n">x</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;scope must be Scope or None&#39;</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">replace_allowed_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Replace the allowed set in the last Box on the chain.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			key (str):</span>
+<span class="sd">				The feature name to which these bounds</span>
+<span class="sd">				will be attached.</span>
+<span class="sd">			values (set):</span>
+<span class="sd">				A set of values to use as the allowed set.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace_allowed_set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">set_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set both lower and upper bounds in the last Box on the chain.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			key (str):</span>
+<span class="sd">				The feature name to which these bounds</span>
+<span class="sd">				will be attached.</span>
+<span class="sd">			lowerbound (numeric, None, or Bounds):</span>
+<span class="sd">				The lower bound, or a Bounds object that gives</span>
+<span class="sd">				upper and lower bounds (in which case the `upperbound`</span>
+<span class="sd">				argument is ignored).  Set explicitly to &#39;None&#39; to</span>
+<span class="sd">				leave unbounded from below.</span>
+<span class="sd">			upperbound (numeric or None, default None):</span>
+<span class="sd">				The upper bound. Set to &#39;None&#39; to</span>
+<span class="sd">				leave unbounded from above.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			ScopeError:</span>
+<span class="sd">				If a scope is attached to this box but the `key` cannot</span>
+<span class="sd">				be found in the scope.</span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_bounds</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">find_all_boxes_with_parent</span><span class="p">(</span><span class="n">universe</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -926,25 +1370,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
