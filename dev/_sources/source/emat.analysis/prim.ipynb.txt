@@ -312,7 +312,7 @@
     "raw_mimetype": "text/restructuredtext"
    },
    "source": [
-    ".. image:: PRIM-Interactive-480.gif"
+    ".. image:: TODO-Update-Animated-PRIM-Interactive-480.gif"
    ]
   },
   {
