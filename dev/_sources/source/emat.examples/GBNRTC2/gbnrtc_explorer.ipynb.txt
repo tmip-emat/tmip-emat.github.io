@@ -1,0 +1,259 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'0.1.3'"
+      ]
+     },
+     "execution_count": 1,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import emat\n",
+    "emat.__version__"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "db = emat.SQLiteDB('gbnrtc_1.sqlitedb.gz')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'/var/folders/gg/1fy5jt8j3m59tht8b3ft59l40000gn/T/tmp71ckif6o/gbnrtc_1.sqlitedb'"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "db.database_path"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/Users/jpn/anaconda/envs/EMAT/lib/python3.6/importlib/_bootstrap.py:219: ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__\n",
+      "  return f(*args, **kwds)\n"
+     ]
+    }
+   ],
+   "source": [
+    "from emat.interactive import Explorer\n",
+    "explorer = Explorer(db)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "17ab87f59a21470e973491417fb00655",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Explorer(children=(VBox(children=(HBox(children=(Output(layout=Layout(flex='1 1 0%', width='auto'), outputs=({…"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "explorer"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "35644cc0f05e467e9a9b53d6e6c89fd4",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "Output(layout=Layout(border='1px solid red'))"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "from emat.interactive import prototype_logging\n",
+    "prototype_logging.handler.out"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<emat.Scope with 4 uncertainties, 2 levers, 46 measures>"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "explorer.scope"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['Scope: GBNRTC',\n",
+       " '▶ High Population Growth',\n",
+       " '▷ ▶ Automated Vehicles',\n",
+       " '▷ ▶ Kensington Strategy Off',\n",
+       " '▷ ▶ Kensington Strategy On',\n",
+       " '▶ Kensington Off & Low Pop',\n",
+       " '▷ ▶ LRT Strategy Off',\n",
+       " '▷ ▶ LRT Strategy On']"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "explorer.box_universe.fancy_names()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "bx = explorer.box_universe['Automated Vehicles']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "ChainedBox: Automated Vehicles\n",
+       "   ●             Land Use - CBD Focus >= 1\n",
+       "   ●                 Freeway Capacity >= 1.25\n",
+       "   ●            Auto IVTT Sensitivity <= 0.9\n",
+       "   ◌           AM Trip Length (miles)\n",
+       "   ◌          Total Transit Boardings\n",
+       "   ◌    Corridor Kensington Daily VMT\n",
+       "   ◌              Total LRT Boardings\n",
+       "   ◌           AM Trip Time (minutes)\n",
+       "   ◌  Downtown to Airport Travel Time\n",
+       "   ◌                  Region-wide VMT\n",
+       "   ◌               Peak Transit Share"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "explorer.box_universe.get_chain('Automated Vehicles')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "ItemsView(Box: Automated Vehicles\n",
+       "   ●       Freeway Capacity >= 1.25\n",
+       "   ●  Auto IVTT Sensitivity <= 0.9)"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "bx."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python [conda env:EMAT]",
+   "language": "python",
+   "name": "conda-env-EMAT-py"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

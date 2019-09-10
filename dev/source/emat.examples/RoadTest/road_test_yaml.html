@@ -1,0 +1,640 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Road Test Demonstration Model &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.analysis/index.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Road Test Demonstration Model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/source/emat.examples/RoadTest/road_test_yaml.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
+documented are shown for illustration and are not guaranteed to be stable 
+in future releases of TMIP-EMAT.</p>
+<p class="last">The views expressed in this draft documentation do not necessarily 
+represent the opinions of FHWA, and do not constitute an endorsement, 
+recommendation, or specification by FHWA.</p>
+</div>
+<div class="section" id="road-test-demonstration-model">
+<h1>Road Test Demonstration Model<a class="headerlink" href="#road-test-demonstration-model" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="model-operation">
+<span id="road-test-model-operation"></span><h2>Model Operation<a class="headerlink" href="#model-operation" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="emat.model.core_python.core_python_examples.Road_Capacity_Investment">
+<code class="descclassname">emat.model.core_python.core_python_examples.</code><code class="descname">Road_Capacity_Investment</code><span class="sig-paren">(</span><em>free_flow_time=60</em>, <em>initial_capacity=100</em>, <em>alpha=0.15</em>, <em>beta=4.0</em>, <em>input_flow=100</em>, <em>value_of_time=0.01</em>, <em>unit_cost_expansion=1</em>, <em>interest_rate=0.03</em>, <em>yield_curve=0.01</em>, <em>expand_capacity=10</em>, <em>amortization_period=30</em>, <em>interest_rate_lock=False</em>, <em>debt_type='GO Bond'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/emat/model/core_python/core_python_examples.html#Road_Capacity_Investment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_python.core_python_examples.Road_Capacity_Investment" title="Permalink to this definition">¶</a></dt>
+<dd><p>A fictitious example model for road capacity investment.</p>
+<p>This model simulates a capacity expansion investment on a single
+network link.  The link volume-delay function is governed by the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Route_assignment#Frank-Wolfe_algorithm">BPR function</a>.</p>
+<p>This model is a bit contrived, because it is designed to explicitly demonstrate
+a wide variety of EMAT features in a transportation planning model that is as simple
+as possible.  For example, the policy levers are structured so that there is one
+of each dtype (float, int, bool, and categorical).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>free_flow_time</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 60</em>) – The free flow travel time on the link.</li>
+<li><strong>initial_capacity</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 100</em>) – The pre-expansion capacity on the link.</li>
+<li><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 0.15</em>) – Alpha parameter to the BPR volume-delay function.</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 4.0</em>) – Beta parameter to the BPR volume-delay function.</li>
+<li><strong>input_flow</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 100</em>) – The future input flow on the link.</li>
+<li><strong>value_of_time</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 0.01</em>) – The value of a unit of travel time savings
+per unit of flow on the link.</li>
+<li><strong>unit_cost_expansion</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 1</em>) – The present marginal cost of adding one
+unit of capacity to the link (assumes no economies of scale on expansion cost)</li>
+<li><strong>interest_rate</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 0.03</em>) – The interest rate actually incurred for
+revenue bonds amortized over 15 years.  The interest rate for general obligation
+bonds is assumed to be 0.0025 less than this value.</li>
+<li><strong>yield_curve</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 0.01</em>) – The marginal increase in the interest_rate if
+the amortization period is 50 years instead of 15.  The yield curve is assumed
+to be linearly projected to all other possible amortization periods</li>
+<li><strong>expand_capacity</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 10</em>) – The amount of capacity expansion actually
+constructed.</li>
+<li><strong>amortization_period</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 30</em>) – The time period over which the construction
+costs are amortized.</li>
+<li><strong>interest_rate_lock</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Whether interest rates are locked at
+the assumed current rate of 0.03 / 0.01 or allowed to float.</li>
+<li><strong>debt_type</strong> (<em>'GO Bond'</em><em>, </em><em>'Rev Bond'</em><em>, </em><em>'Paygo'</em>) – Type of financing.  General obligation
+bonds are assumed to have a lower interest rate than revenue bonds, but
+may be politically less desirable.  Pay-as-you-go financing incurs no actual
+interest costs, but requires actually having the funds available.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>no_build_travel_time</dt>
+<dd><p class="first last">The average travel time on the link if no
+capacity expansion was constructed.</p>
+</dd>
+<dt>build_travel_time</dt>
+<dd><p class="first last">The average travel time on the link after expansion.</p>
+</dd>
+<dt>time_savings</dt>
+<dd><p class="first last">The average travel time savings as a result of the
+expansion.</p>
+</dd>
+<dt>value_of_time_savings</dt>
+<dd><p class="first last">The total value of the travel time savings,
+accounting for the time savings per traveler, the total flow, and
+the value of time.</p>
+</dd>
+<dt>present_cost_expansion</dt>
+<dd><p class="first last">The present cost of building the expansion</p>
+</dd>
+<dt>cost_of_capacity_expansion</dt>
+<dd><p class="first last">The annual payment to finance the expansion,
+when amortized.</p>
+</dd>
+<dt>net_benefits</dt>
+<dd><p class="first last">The value of the time savings minus the annual payment.</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="model-scope-definition">
+<h2>Model Scope Definition<a class="headerlink" href="#model-scope-definition" title="Permalink to this headline">¶</a></h2>
+<p>The model exploratory scope is defined in a YAML text file.  In this
+example, the scope is given by:</p>
+<div class="highlight-yaml notranslate" id="road-test-scope-file"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="c1"># EMAT Road Test Scope Definition</span>
+
+<span class="nt">scope</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">EMAT Road Test</span>
+    <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">prototype run</span>
+
+
+<span class="nt">inputs</span><span class="p">:</span>
+
+    <span class="nt">free_flow_time</span><span class="p">:</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Free flow travel time on road segment</span>
+        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60</span>
+        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+
+    <span class="nt">initial_capacity</span><span class="p">:</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Initial capacity on road segment</span>
+        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">constant</span>
+        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+
+    <span class="nt">alpha</span><span class="p">:</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">BPR Alpha parameter</span>
+        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.15</span>
+        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.10</span>
+        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.20</span>
+        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+
+    <span class="nt">beta</span><span class="p">:</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">BPR Beta parameter</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4.0</span>
+        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3.5</span>
+        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5.5</span>
+        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+
+    <span class="nt">input_flow</span><span class="p">:</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Average Flow input on link</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">150</span>
+        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+
+    <span class="nt">value_of_time</span><span class="p">:</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Value of a unit of travel time savings per person</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.01</span>
+        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.001</span>
+        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.08</span>
+        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+
+    <span class="nt">unit_cost_expansion</span><span class="p">:</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Per unit cost of capacity expansion</span>
+        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">95</span>
+        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">145</span>
+        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+
+    <span class="nt">expand_capacity</span><span class="p">:</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">policy lever</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">How much to expand capacity</span>
+        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0</span>
+        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+
+    <span class="nt">amortization_period</span><span class="p">:</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">policy lever</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Time period over which the investment is amortized</span>
+        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">30</span>
+        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15</span>
+        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
+
+    <span class="nt">debt_type</span><span class="p">:</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Type of financing</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">policy lever</span>
+        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cat</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GO Bond</span>
+        <span class="nt">values</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">GO Bond</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Rev Bond</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Paygo</span>
+
+    <span class="nt">interest_rate_lock</span><span class="p">:</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">policy lever</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Whether to lock in present interest rates of 0.03 (15 year) to 0.04 (50 years)</span>
+        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bool</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">False</span>
+
+    <span class="nt">interest_rate</span><span class="p">:</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Interest rate for investment amortization in 15 years</span>
+        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.03</span>
+        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.025</span>
+        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.04</span>
+        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+
+    <span class="nt">yield_curve</span><span class="p">:</span>
+        <span class="nt">ptype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+        <span class="nt">desc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Excess interest rate for investment amortization in 50 years</span>
+        <span class="nt">dtype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">float</span>
+        <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.01</span>
+        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">-0.0025</span>
+        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.02</span>
+        <span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uniform</span>
+        <span class="nt">corr</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+
+
+<span class="nt">outputs</span><span class="p">:</span>
+
+    <span class="nt">no_build_travel_time</span><span class="p">:</span>
+        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">info</span>
+        <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">logxp-linear(-59)</span>
+
+    <span class="nt">build_travel_time</span><span class="p">:</span>
+        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
+        <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">logxp-linear(-59)</span>
+
+    <span class="nt">time_savings</span><span class="p">:</span>
+        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">maximize</span>
+        <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log-linear</span>
+
+    <span class="nt">value_of_time_savings</span><span class="p">:</span>
+        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">maximize</span>
+        <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log-linear</span>
+
+    <span class="nt">net_benefits</span><span class="p">:</span>
+        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">maximize</span>
+
+    <span class="nt">cost_of_capacity_expansion</span><span class="p">:</span>
+        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
+        <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log-linear</span>
+
+    <span class="nt">present_cost_expansion</span><span class="p">:</span>
+        <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">info</span>
+        <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log-linear</span>
+
+<span class="nn">...</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

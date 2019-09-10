@@ -1,0 +1,762 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PRIM &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Examples" href="../emat.examples/index.html" />
+    <link rel="prev" title="Analysis" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Analysis</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#scenario-discovery">Scenario Discovery</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">PRIM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#The-Mechanics-of-using-PRIM">The Mechanics of using PRIM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Non-Rectangular-Boxes">Non-Rectangular Boxes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#robust-optimization">Robust Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Analysis</a> &raquo;</li>
+        
+      <li>PRIM</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/source/emat.analysis/prim.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">emat</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="PRIM">
+<h1>PRIM<a class="headerlink" href="#PRIM" title="Permalink to this headline">¶</a></h1>
+<p>Patient rule induction method (PRIM) is a scenario discovery algorithm that operates on an existing set of data with model inputs and outputs (i.e., you have already designed and run a set of experiments using either a core model or a meta-model.) Generally, a decently size set of experiments (hundreds or thousands) is used to describe the solution space, although no minimum number of experiments is formally required.</p>
+<p>PRIM is used for locating areas of an outcome space that are of particular interest, which it does by reducing the data size incrementally by small amounts in an iterative process as follows:</p>
+<ul class="simple">
+<li>Candidate boxes are generated. These boxes represent incrementally smaller sets of the data. Each box removes a portion of the data based on the levels of a single input variable.<ul>
+<li>For categorical input variables, there is one box generated for each category with each box removing one category from the data set.</li>
+<li>For integer and continuous variables, two boxes are generated – one box that removes a portion of data representing the smallest set of values for that input variable and another box that removes a portion of data representing the largest set of values for that input.
+The step size for these variables is controlled by the analyst.</li>
+</ul>
+</li>
+<li>For each candidate box, the relative improvement in the number of outcomes of interest inside the box is calculated and the candidate box with the highest improvement is selected.</li>
+<li>The data in the selected candidate box replaces the starting data and the process is repeated.</li>
+</ul>
+<div class="line-block">
+<div class="line">The process ends based on a stopping criteria.</div>
+<div class="line">For more details on the algorithm, see <a class="reference external" href="http://statweb.stanford.edu/~jhf/ftp/prim.pdf">Friedman and Fisher (1999)</a> or <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S1364815215301092">Kwakkel and Jaxa-Rozen (2016)</a>.</div>
+</div>
+<div class="line-block">
+<div class="line">The PRIM algorithm is particularly useful for scenario discovery, which broadly is the process of identifying particular scenarios of interest in a large and deeply uncertain dataset.</div>
+<div class="line">In the context of exploratory modeling, scenario discovery is often used to obtain a better understanding of areas of the uncertainty space where a policy or collection of policies performs poorly because it is often used in tandem with robust search methods for identifying policies that perform well (<a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S1364815215301092">Kwakkel and Jaxa-Rozen (2016)</a>).</div>
+</div>
+<div class="section" id="The-Mechanics-of-using-PRIM">
+<h2>The Mechanics of using PRIM<a class="headerlink" href="#The-Mechanics-of-using-PRIM" title="Permalink to this headline">¶</a></h2>
+<p>In order to use PRIM for scenario discovery, the analyst must first conduct a set of experiments. This includes having both the inputs and outputs of the experiments (i.e., you’ve already run the model or meta-model).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">emat.examples</span>
+<span class="n">scope</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">emat</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">road_test</span><span class="p">()</span>
+<span class="n">designed</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">design_experiments</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">sampler</span><span class="o">=</span><span class="s1">&#39;mc&#39;</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;mc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>In order to use PRIM for scenario discovery, the analyst must also identify what constitutes a case that is “of interest”. This is essentially generating a True/False label for every case, using some combination of values of the output performance measures as well as (possibly) the values of the inputs. Some examples of possible definitions of “of interest” might include:</p>
+<ul class="simple">
+<li>Cases where total predicted VMT (a performance measure) is below some threshold.</li>
+<li>Cases where transit farebox revenue (a performance measure) is above some threshold.</li>
+<li>Cases where transit farebox revenue (a performance measure) is above above 50% of budgeted transit operating cost (a policy lever).</li>
+<li>Cases where the average speed of tolled lanes (a performance measure) is less than free-flow speed but greater than 85% of free-flow speed (i.e., bounded both from above and from below).</li>
+</ul>
+<p>The salient features of a definitions for “of interest” is that it can be calculated for each case independently if given the set of inputs and outputs, and that the result is a True or False value.</p>
+<p>For this example, we will define “of interest” as cases from the Road Test example that have positive net benefits.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">of_interest</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;net_benefits&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<p>Having defined the cases of interest, to use PRIM we pass the explanatory data (i.e., the inputs) and the ‘of_interest’ variable to the <code class="docutils literal notranslate"><span class="pre">Prim</span></code> object, and then invoke the <code class="docutils literal notranslate"><span class="pre">find_box</span></code> method.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">emat.analysis.prim</span> <span class="k">import</span> <span class="n">Prim</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">discovery</span> <span class="o">=</span> <span class="n">Prim</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;mc&#39;</span><span class="p">),</span>
+    <span class="n">of_interest</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">box1</span> <span class="o">=</span> <span class="n">discovery</span><span class="o">.</span><span class="n">find_box</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">find_box</span></code> command actually provides a number of different possible boxes along a (heuristically) optimal trajectory, trading off coverage against density. We can plot a static figure showing the tradeoff curve using the <code class="docutils literal notranslate"><span class="pre">show_tradeoff</span></code> command:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">box1</span><span class="o">.</span><span class="n">show_tradeoff</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/source_emat.analysis_prim_12_0.png" src="../../_images/source_emat.analysis_prim_12_0.png" />
+</div>
+</div>
+<p>This figure shows the trade-off between coverage and density.</p>
+<ul class="simple">
+<li><strong>Coverage</strong> is percentage of the cases of interest that are in the box (i.e., number of cases of interest in the box divided by total number of cases of interest). The starting point of the PRIM algorithm is the unrestricted full set of cases, which includes all outcomes of interest, and therefore, the coverage starts at 1.0 and drops as the algorithm progresses.</li>
+<li><strong>Density</strong> is the share of cases in the box that are case of interest (i.e., number of cases of interest in the box divided by the total number of cases in the box). As the box is reduced, the density will increase (as that is the objective of the PRIM algorithm).</li>
+</ul>
+<p>For the statistically minded, this tradeoff can also be interpreted as the tradeoff between Type I (false positive) and Type II (false negative) error. High coverage minimizes the false negatives, while high density minimizes false positives.</p>
+<p>By default, the PRIM algorithm sets the “selected” box position as the particular box at the end of the peeling trajectory (highest density, at the top of the top of the tradeoff curve), which has the highest density, but the smallest coverage.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">box1</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;PrimBox peel 66 of 66&gt;
+   coverage: 0.40805
+   density:  0.80682
+   mean: 0.80682
+   mass: 0.05280
+   restricted dims: 6
+                                 min        max
+     expand_capacity      0.00481239    52.3027
+     input_flow                  127        150
+     value_of_time         0.0449284  0.0799966
+     beta                    3.66673    5.49961
+     amortization_period          18         50
+     alpha                  0.108098   0.199972
+</pre></div>
+</div>
+</div>
+<p>In a Jupyter notebook, the analyst can interactively view other possible boxes using the <code class="docutils literal notranslate"><span class="pre">inspect_tradeoff</span></code> method:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">box1</span><span class="o">.</span><span class="n">inspect_tradeoff</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<img alt="../../_images/PRIM-Interactive-480.gif" src="../../_images/PRIM-Interactive-480.gif" />
+<p>If it appears that a different selection box is better than the maximum density option, the analyst can choose to manually override the selection at this point, selecting a preferred box (by index) that trades off density and coverage differently.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">box1</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">box1</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;PrimBox peel 51 of 66&gt;
+   coverage: 0.63410
+   density:  0.60291
+   mean: 0.60291
+   mass: 0.10980
+   restricted dims: 5
+                                 min        max
+     expand_capacity      0.00481239    60.3242
+     input_flow                  124        150
+     value_of_time         0.0358683  0.0799966
+     amortization_period          17         50
+     beta                    3.59671    5.49961
+</pre></div>
+</div>
+</div>
+<p>One of the features of the <code class="docutils literal notranslate"><span class="pre">ema_workbench</span></code> implementation of PRIM is the ability to generate a plot of the resulting box, overlaid on a ‘pairs’ scatter plot of the various restricted dimensions.</p>
+<p>In the figure below, each of the five restricted dimensions represents both a row and a column of figures. The off-diagonal charts show bi-dimensional distribution of the data across two of the five actively restricted dimensions. These charts are overlaid with a red rectangle denoting the selected box. The on-diagonal charts show the relative distribution of cases that are and are not of interest (unconditional on the selected box).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">box1</span><span class="o">.</span><span class="n">show_pairs_scatter</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/source_emat.analysis_prim_21_0.png" src="../../_images/source_emat.analysis_prim_21_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">box1</span><span class="o">.</span><span class="n">to_emat_box</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Box: prim box 50
+   coverage: 0.63410
+   density:  0.60291
+   mass:     0.10980
+   ●                 beta &gt;= 3.596707222226851
+   ●           input_flow &gt;= 124
+   ●        value_of_time &gt;= 0.035868264493137895
+   ●      expand_capacity &lt;= 60.32420632136244
+   ●  amortization_period &gt;= 17
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Non-Rectangular-Boxes">
+<h2>Non-Rectangular Boxes<a class="headerlink" href="#Non-Rectangular-Boxes" title="Permalink to this headline">¶</a></h2>
+<p>Regardless of any analyst intervention in box selection using the <code class="docutils literal notranslate"><span class="pre">select</span></code> method, initial box identified using PRIM will always be a rectangle (or, more generally, a hyper-rectangle). Every restricted dimension is specified independently, not conditional on any other dimension.</p>
+<p>A second box can be overlaid after the first to expand the solution to include a non-rectangular area. The second tier box itself is still another rectangle, but it can be defined using different boundaries, possibly on different dimensions, to give in aggregate a non-convex shape. Creating such a second box is done by calling the <code class="docutils literal notranslate"><span class="pre">find_box</span></code> method again, after the particulars of the first box are finalized.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">box2</span> <span class="o">=</span> <span class="n">discovery</span><span class="o">.</span><span class="n">find_box</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">box2</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;PrimBox peel 44 of 44&gt;
+   coverage: 0.16092
+   density:  0.32558
+   mean: 0.32558
+   mass: 0.05160
+   restricted dims: 5
+                             min        max
+     expand_capacity  0.00481239    97.2013
+     input_flow              110        150
+     debt_type           {Paygo}    {Paygo}
+     value_of_time     0.0287804  0.0799966
+     alpha              0.137424   0.199972
+</pre></div>
+</div>
+</div>
+<p>The cases considered for the second box are <em>only</em> those cases not within the first box. Because our first box had a relatively high coverage and high density, we have already captured most of the cases of interest and not too many other cases, so the second box has a much diminished trade-off curve. The maximum value of the coverage for this second box is one minus the selected final coverage of the first box.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">box2</span><span class="o">.</span><span class="n">show_tradeoff</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/source_emat.analysis_prim_29_0.png" src="../../_images/source_emat.analysis_prim_29_0.png" />
+</div>
+</div>
+<p>We can also make a similar scatter plot for this second box. Because this is the second box, the method will only plot the points that remain (i.e.&nbsp;the ones not included in the first box). This results in a “blotchy” appearance for may of the graphs in this figure, as most of the “of interest” cases were captured previously.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">box2</span><span class="o">.</span><span class="n">show_pairs_scatter</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/source_emat.analysis_prim_31_0.png" src="../../_images/source_emat.analysis_prim_31_0.png" />
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../emat.examples/index.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python-Based Models &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Excel-Based Models" href="excel.html" />
+    <link rel="prev" title="Basic EMAT Model API" href="abstract.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Core Models</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Basic EMAT Model API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python-Based Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="excel.html">Excel-Based Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Files-Based Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbnrtc.html">GBNRTC Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Core Models</a> &raquo;</li>
+        
+      <li>Python-Based Models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/source/emat.models/python_based.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
+documented are shown for illustration and are not guaranteed to be stable 
+in future releases of TMIP-EMAT.</p>
+<p class="last">The views expressed in this draft documentation do not necessarily 
+represent the opinions of FHWA, and do not constitute an endorsement, 
+recommendation, or specification by FHWA.</p>
+</div>
+<div class="section" id="python-based-models">
+<h1>Python-Based Models<a class="headerlink" href="#python-based-models" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="emat.model.PythonCoreModel">
+<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">PythonCoreModel</code><span class="sig-paren">(</span><em>function: Callable, configuration: Union[str, Mapping[KT, VT_co], None] = None, scope: Union[emat.scope.scope.Scope, str] = None, safe: bool = True, db: emat.database.database.Database = None, name: str = 'EMAT', metamodel_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_python/core_python_api.html#PythonCoreModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.PythonCoreModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.model.core_model.AbstractCoreModel</span></code>, <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/model.html#ema_workbench.em_framework.model.Model" title="(in ema_workbench v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.model.Model</span></code></a></p>
+<p>An EMAT interface for a core model that is a Python function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>function</strong> (<em>callable</em>) – The Python function to be evaluated.  This function
+must accept keyword arguments that include all
+of the uncertainties and levers, and return a dict
+that contains key-value pairs that map the names
+of performance measures to the computed performance
+measure outputs.</li>
+<li><strong>configuration</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a>) – The configuration for this core model. This can be
+passed as a dict, or as a str which gives the filename
+of a yaml file that will be loaded. A core model that
+is a stand-alone Python function will not often not
+require any configuration.</li>
+<li><strong>scope</strong> (<a class="reference internal" href="../emat.scope/scope.html#emat.Scope" title="emat.Scope"><em>Scope</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The Scope for this exploratory analysis. Can be given as
+an explicit Scope object, or as a str which gives the
+filename of a yaml file that will be loaded.</li>
+<li><strong>safe</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Load the configuration yaml file in ‘safe’ mode.
+This can be disabled if the configuration requires
+custom Python types or is otherwise not compatible with
+safe mode. Loading configuration files with safe mode
+off is not secure and should not be done with files from
+untrusted sources.</li>
+<li><strong>db</strong> (<a class="reference internal" href="../emat.database/abstract.html#emat.database.Database" title="emat.database.Database"><em>Database</em></a>) – An optional default Database to store experiments
+and results.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – A name for this model, given as an alphanumeric string.
+The name is required by ema_workbench operations.
+If not given, the name of the function is extracted, or
+failing that, “EMAT” is used.</li>
+<li><strong>metamodel_id</strong> – An identifier for this model, if it is a meta-model.
+Defaults to 0 (i.e., not a meta-model).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="emat.model.PythonCoreModel.run_experiment">
+<code class="descname">run_experiment</code><span class="sig-paren">(</span><em>experiment</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_python/core_python_api.html#PythonCoreModel.run_experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.PythonCoreModel.run_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Running a single instantiated model experiment.</p>
+<p>The results are passed through the performance measure
+processing steps to generate results.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>experiment</strong> (<em>dict-like</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="excel.html" class="btn btn-neutral float-right" title="Excel-Based Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="abstract.html" class="btn btn-neutral float-left" title="Basic EMAT Model API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,278 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Core Models &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Basic EMAT Model API" href="abstract.html" />
+    <link rel="prev" title="Scope File" href="../emat.scope/scope.file.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Core Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Basic EMAT Model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_based.html">Python-Based Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="excel.html">Excel-Based Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Files-Based Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbnrtc.html">GBNRTC Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Core Models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/source/emat.models/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
+documented are shown for illustration and are not guaranteed to be stable 
+in future releases of TMIP-EMAT.</p>
+<p class="last">The views expressed in this draft documentation do not necessarily 
+represent the opinions of FHWA, and do not constitute an endorsement, 
+recommendation, or specification by FHWA.</p>
+</div>
+<div class="section" id="core-models">
+<h1>Core Models<a class="headerlink" href="#core-models" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>The <a class="reference internal" href="abstract.html#emat.model.AbstractCoreModel" title="emat.model.AbstractCoreModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractCoreModel</span></code></a> provides a basic interface structure
+for interacting with models used in exploratory analysis. All
+specific model types included with TMIP-EMAT and all new model connections
+should inherit from this base class.</p>
+<p class="rubric"><a class="reference internal" href="python_based.html"><span class="doc">Python Models</span></a></p>
+<p>The simplest instantiation of an exploratory model for use with TMIP-EMAT
+is a Python function.  Such a function can be wrapped with a
+<a class="reference internal" href="python_based.html#emat.model.PythonCoreModel" title="emat.model.PythonCoreModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">PythonCoreModel</span></code></a>.</p>
+<p class="rubric"><a class="reference internal" href="excel.html"><span class="doc">Excel Models</span></a></p>
+<p>TMIP-EMAT can also be used with Excel-based models, using the
+<a class="reference internal" href="excel.html#emat.model.ExcelCoreModel" title="emat.model.ExcelCoreModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExcelCoreModel</span></code></a> interface.</p>
+<p class="rubric"><a class="reference internal" href="gbnrtc.html"><span class="doc">Bespoke Models</span></a></p>
+<p>Most advanced travel models can be set up to run programmatically, generating
+a variety of performance measures to one or more arbitrarily defined files on
+disk.  TMIP-EMAT provides a <a class="reference internal" href="files.html#emat.model.FilesCoreModel" title="emat.model.FilesCoreModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">FilesCoreModel</span></code></a> to serve as the starting
+point for developing model-specific implementations for custom models than can
+be operated in this manner.</p>
+<p>For example, the model for the Greater Buffalo-Niagara Regional Transportation Council
+is a TransCAD based model.  The <a class="reference internal" href="gbnrtc.html#emat.model.GBNRTCModel" title="emat.model.GBNRTCModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">GBNRTCModel</span></code></a> is included in TMIP-EMAT as an example
+of how a more complex external travel demand model can be integrated into
+the TMIP-EMAT framework.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="abstract.html" class="btn btn-neutral float-right" title="Basic EMAT Model API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../emat.scope/scope.file.html" class="btn btn-neutral float-left" title="Scope File" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

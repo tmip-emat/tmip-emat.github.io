@@ -1,0 +1,648 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>emat.multitarget.simple &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.analysis/index.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>emat.multitarget.simple</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for emat.multitarget.simple</h1><div class="highlight"><pre>
+<span></span>
+
+<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="k">import</span> <span class="n">cholesky</span><span class="p">,</span> <span class="n">cho_solve</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">RegressorMixin</span><span class="p">,</span> <span class="n">BaseEstimator</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="k">import</span> <span class="n">GaussianProcessRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="k">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.exceptions</span> <span class="k">import</span> <span class="n">DataConversionWarning</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">cross_val_predict</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">r2_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="k">import</span> <span class="n">RBF</span><span class="p">,</span> <span class="n">ConstantKernel</span> <span class="k">as</span> <span class="n">C</span><span class="p">,</span> <span class="n">RationalQuadratic</span> <span class="k">as</span> <span class="n">RQ</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="k">import</span> <span class="n">SelectKBest</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="k">import</span> <span class="n">f_regression</span><span class="p">,</span> <span class="n">mutual_info_regression</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">ignore_warnings</span>
+<span class="kn">from</span> <span class="nn">.linear</span> <span class="k">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">.cross_val</span> <span class="k">import</span> <span class="n">CrossValMixin</span>
+<span class="kn">from</span> <span class="nn">.detrend</span> <span class="k">import</span> <span class="n">DetrendMixin</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">MultiOutputRegressor</span>
+<span class="kn">from</span> <span class="nn">.select</span> <span class="k">import</span> <span class="n">SelectNAndKBest</span><span class="p">,</span> <span class="n">feature_concat</span>
+<span class="kn">from</span> <span class="nn">.frameable</span> <span class="k">import</span> <span class="n">FrameableMixin</span>
+
+<span class="k">def</span> <span class="nf">_make_as_vector</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+	<span class="c1"># if isinstance(y, (pandas.DataFrame, pandas.Series)):</span>
+	<span class="c1"># 	y = y.values.ravel()</span>
+	<span class="k">return</span> <span class="n">y</span>
+
+
+
+<span class="k">class</span> <span class="nc">MultipleTargetRegression</span><span class="p">(</span>
+		<span class="n">BaseEstimator</span><span class="p">,</span>
+		<span class="n">RegressorMixin</span><span class="p">,</span>
+		<span class="n">CrossValMixin</span><span class="p">,</span>
+		<span class="n">FrameableMixin</span><span class="p">,</span>
+<span class="p">):</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+			<span class="bp">self</span><span class="p">,</span>
+			<span class="n">standardize_before_fit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+			<span class="n">n_restarts_optimizer</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+			<span class="n">copy_X_train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+			<span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+	<span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">standardize_before_fit</span> <span class="o">=</span> <span class="n">standardize_before_fit</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">n_restarts_optimizer</span> <span class="o">=</span> <span class="n">n_restarts_optimizer</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">copy_X_train</span> <span class="o">=</span> <span class="n">copy_X_train</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+		<span class="k">if</span> <span class="n">standardize_before_fit</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_kernel_generator</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">dims</span><span class="p">:</span> <span class="n">RBF</span><span class="p">([</span><span class="mf">1.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dims</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_kernel_generator</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">dims</span><span class="p">:</span> <span class="n">C</span><span class="p">()</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">([</span><span class="mf">1.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dims</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Fit a multi-target gaussian regression model.</span>
+
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		X : array-like or sparse matrix of shape [n_samples, n_features]</span>
+<span class="sd">			Training data</span>
+<span class="sd">		Y : array-like of shape [n_samples, n_targets]</span>
+<span class="sd">			Target values.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		self : MultipleTargetRegression</span>
+<span class="sd">			Returns an instance of self, the the sklearn standard practice.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_pre_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+		<span class="k">with</span> <span class="n">ignore_warnings</span><span class="p">(</span><span class="n">DataConversionWarning</span><span class="p">):</span>
+
+			<span class="bp">self</span><span class="o">.</span><span class="n">X_train_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy_X_train</span> <span class="k">else</span> <span class="n">X</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">Y_train_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">copy_X_train</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_before_fit</span><span class="p">)</span> <span class="k">else</span> <span class="n">Y</span>
+
+			<span class="bp">self</span><span class="o">.</span><span class="n">step1</span> <span class="o">=</span> <span class="n">MultiOutputRegressor</span><span class="p">(</span><span class="n">GaussianProcessRegressor</span><span class="p">(</span>
+				<span class="n">kernel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_kernel_generator</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+				<span class="n">n_restarts_optimizer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_restarts_optimizer</span><span class="p">,</span>
+				<span class="n">copy_X_train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+				<span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
+			<span class="p">))</span>
+
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_before_fit</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">standardize_Y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y_train_</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">Y_train_</span> <span class="o">/=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_Y</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">standardize_Y</span> <span class="o">=</span> <span class="kc">None</span>
+
+			<span class="bp">self</span><span class="o">.</span><span class="n">step1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y_train_</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="bp">self</span>
+
+	<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_cov</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Predict using the model</span>
+
+<span class="sd">		This function will return a pandas DataFrame instead of</span>
+<span class="sd">		a simple numpy array if there is information available</span>
+<span class="sd">		to populate the index (if the X argument to this function</span>
+<span class="sd">		is a DataFrame) or the columns (if the Y argument to `fit`</span>
+<span class="sd">		was a DataFrame).</span>
+
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		X : {array-like, sparse matrix}, shape = (n_samples, n_features)</span>
+<span class="sd">			Samples.</span>
+<span class="sd">		return_std, return_cov : bool</span>
+<span class="sd">			Not implemented.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		C : array-like, shape = (n_samples, n_targets)</span>
+<span class="sd">			Returns predicted values. The n_targets dimension is</span>
+<span class="sd">			determined in the `fit` method.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="k">if</span> <span class="n">return_cov</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;return_cov&#39;</span><span class="p">)</span>
+
+		<span class="c1"># if isinstance(X, pandas.DataFrame):</span>
+		<span class="c1"># 	idx = X.index</span>
+		<span class="c1"># else:</span>
+		<span class="c1"># 	idx = None</span>
+
+		<span class="k">if</span> <span class="n">return_std</span><span class="p">:</span>
+			<span class="n">Yhat1</span><span class="p">,</span> <span class="n">Yhat1_std</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step1</span><span class="o">.</span><span class="n">predict_std</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">Yhat1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+			<span class="n">Yhat1_std</span> <span class="o">=</span> <span class="kc">None</span>
+
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_Y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">Yhat1</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_Y</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+			<span class="k">if</span> <span class="n">Yhat1_std</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="n">Yhat1_std</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_Y</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+
+		<span class="n">Yhat1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Yhat1</span><span class="p">)</span>
+
+		<span class="c1"># cols = None</span>
+		<span class="c1"># if self.Y_columns is not None:</span>
+		<span class="c1"># 	if len(self.Y_columns) == Yhat1.shape[1]:</span>
+		<span class="c1"># 		cols = self.Y_columns</span>
+		<span class="c1">#</span>
+		<span class="c1"># if idx is not None or cols is not None:</span>
+		<span class="c1"># 	Yhat1 = pandas.DataFrame(</span>
+		<span class="c1"># 		Yhat1,</span>
+		<span class="c1"># 		index=idx,</span>
+		<span class="c1"># 		columns=cols,</span>
+		<span class="c1"># 	)</span>
+
+		<span class="k">if</span> <span class="n">Yhat1_std</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">Yhat1_std</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Yhat1_std</span><span class="p">)</span>
+			<span class="c1"># if idx is not None or cols is not None:</span>
+			<span class="c1"># 	Yhat1_std = pandas.DataFrame(</span>
+			<span class="c1"># 		Yhat1_std,</span>
+			<span class="c1"># 		index=idx,</span>
+			<span class="c1"># 		columns=cols,</span>
+			<span class="c1"># 	)</span>
+			<span class="k">return</span> <span class="n">Yhat1</span><span class="p">,</span> <span class="n">Yhat1_std</span>
+		<span class="k">return</span> <span class="n">Yhat1</span>
+
+	<span class="k">def</span> <span class="nf">scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Returns the coefficients of determination R^2 of the prediction.</span>
+
+<span class="sd">		The coefficient R^2 is defined as (1 - u/v), where u is the residual</span>
+<span class="sd">		sum of squares ((y_true - y_pred) ** 2).sum() and v is the total</span>
+<span class="sd">		sum of squares ((y_true - y_true.mean()) ** 2).sum().</span>
+<span class="sd">		The best possible score is 1.0 and it can be negative (because the</span>
+<span class="sd">		model can be arbitrarily worse). A constant model that always</span>
+<span class="sd">		predicts the expected value of y, disregarding the input features,</span>
+<span class="sd">		would get a R^2 score of 0.0.</span>
+
+<span class="sd">		Notes</span>
+<span class="sd">		-----</span>
+<span class="sd">		R^2 is calculated by weighting all the targets equally using</span>
+<span class="sd">		`multioutput=&#39;raw_values&#39;`.  See documentation for</span>
+<span class="sd">		sklearn.metrics.r2_score for more information.</span>
+
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		X : array-like, shape = (n_samples, n_features)</span>
+<span class="sd">			Test samples. For some estimators this may be a</span>
+<span class="sd">			precomputed kernel matrix instead, shape = (n_samples,</span>
+<span class="sd">			n_samples_fitted], where n_samples_fitted is the number of</span>
+<span class="sd">			samples used in the fitting for the estimator.</span>
+
+<span class="sd">		Y : array-like, shape = (n_samples, n_outputs)</span>
+<span class="sd">			True values for X.</span>
+
+<span class="sd">		sample_weight : array-like, shape = [n_samples], optional</span>
+<span class="sd">			Sample weights.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		score : ndarray</span>
+<span class="sd">			R^2 of self.predict(X) wrt. Y.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">,</span>
+						<span class="n">multioutput</span><span class="o">=</span><span class="s1">&#39;raw_values&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="DetrendedMultipleTargetRegression"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression">[docs]</a><span class="k">class</span> <span class="nc">DetrendedMultipleTargetRegression</span><span class="p">(</span>
+	<span class="n">MultipleTargetRegression</span><span class="p">,</span>
+	<span class="n">DetrendMixin</span>
+<span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Multi-target de-trended Gaussian process regression (GPR).</span>
+
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	standardize_before_fit : bool, optional (default: True)</span>
+<span class="sd">		Whether to rescale the columns of Y to have unit variance</span>
+<span class="sd">		before fitting.  This may improve performance.  The standardization</span>
+<span class="sd">		is inverted on prediction, so that predictions are still properly</span>
+<span class="sd">		scaled.</span>
+
+<span class="sd">	n_restarts_optimizer : int, optional (default: 0)</span>
+<span class="sd">		The number of restarts of the optimizer for finding the kernel&#39;s</span>
+<span class="sd">		parameters which maximize the log-marginal likelihood. The first run</span>
+<span class="sd">		of the optimizer is performed from the kernel&#39;s initial parameters,</span>
+<span class="sd">		the remaining ones (if any) from thetas sampled log-uniform randomly</span>
+<span class="sd">		from the space of allowed theta-values. If greater than 0, all bounds</span>
+<span class="sd">		must be finite. Note that n_restarts_optimizer == 0 implies that one</span>
+<span class="sd">		run is performed.</span>
+
+<span class="sd">	copy_X_train : bool, optional (default: True)</span>
+<span class="sd">		If True, a persistent copy of the training data is stored in the</span>
+<span class="sd">		object. Otherwise, just a reference to the training data is stored,</span>
+<span class="sd">		which might cause predictions to change if the data is modified</span>
+<span class="sd">		externally.</span>
+
+<span class="sd">	random_state : int, RandomState instance or None, optional (default: None)</span>
+<span class="sd">		The generator used to initialize the centers. If int, random_state is</span>
+<span class="sd">		the seed used by the random number generator; If RandomState instance,</span>
+<span class="sd">		random_state is the random number generator; If None, the random number</span>
+<span class="sd">		generator is the RandomState instance used by `np.random`.</span>
+
+<span class="sd">	Attributes</span>
+<span class="sd">	----------</span>
+
+<span class="sd">	lr : LinearRegression</span>
+<span class="sd">		The de-trending linear regression model.</span>
+
+
+
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+			<span class="bp">self</span><span class="p">,</span>
+			<span class="n">standardize_before_fit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+			<span class="n">n_restarts_optimizer</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+			<span class="n">copy_X_train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+			<span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+	<span class="p">):</span>
+		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+			<span class="n">standardize_before_fit</span><span class="o">=</span><span class="n">standardize_before_fit</span><span class="p">,</span>
+			<span class="n">n_restarts_optimizer</span><span class="o">=</span><span class="n">n_restarts_optimizer</span><span class="p">,</span>
+			<span class="n">copy_X_train</span><span class="o">=</span><span class="n">copy_X_train</span><span class="p">,</span>
+			<span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+		<span class="p">)</span>
+
+<div class="viewcode-block" id="DetrendedMultipleTargetRegression.fit"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.fit">[docs]</a>	<span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Fit a multi-target linear and gaussian regression model.</span>
+
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		X : array-like or sparse matrix of shape [n_samples, n_features]</span>
+<span class="sd">			Training data</span>
+<span class="sd">		Y : array-like of shape [n_samples, n_targets]</span>
+<span class="sd">			Target values.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		self : DetrendedMultipleTargetRegression</span>
+<span class="sd">			Returns an instance of self, the the sklearn standard practice.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">detrend_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="DetrendedMultipleTargetRegression.residual_predict"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.residual_predict">[docs]</a>	<span class="k">def</span> <span class="nf">residual_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_cov</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Predict using the only the Gaussian regression model</span>
+
+<span class="sd">		This function will return a pandas DataFrame instead of</span>
+<span class="sd">		a simple numpy array if there is information available</span>
+<span class="sd">		to populate the index (if the X argument to this function</span>
+<span class="sd">		is a DataFrame) or the columns (if the Y argument to `fit`</span>
+<span class="sd">		was a DataFrame).</span>
+
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		X : {array-like, sparse matrix}, shape = (n_samples, n_features)</span>
+<span class="sd">			Samples.</span>
+<span class="sd">		return_std, return_cov : bool</span>
+<span class="sd">			Not implemented.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		C : array-like, shape = (n_samples, n_targets)</span>
+<span class="sd">			Returns predicted values. The n_targets dimension is</span>
+<span class="sd">			determined in the `fit` method.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="n">return_std</span><span class="p">,</span> <span class="n">return_cov</span><span class="o">=</span><span class="n">return_cov</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DetrendedMultipleTargetRegression.detrend_predict"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.detrend_predict">[docs]</a>	<span class="k">def</span> <span class="nf">detrend_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Predict using the only the detrending linear regression model</span>
+
+<span class="sd">		This function will return a pandas DataFrame instead of</span>
+<span class="sd">		a simple numpy array if there is information available</span>
+<span class="sd">		to populate the index (if the X argument to this function</span>
+<span class="sd">		is a DataFrame) or the columns (if the Y argument to `fit`</span>
+<span class="sd">		was a DataFrame).</span>
+
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		X : {array-like, sparse matrix}, shape = (n_samples, n_features)</span>
+<span class="sd">			Samples.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		C : array-like, shape = (n_samples, n_targets)</span>
+<span class="sd">			Returns predicted values. The n_targets dimension is</span>
+<span class="sd">			determined in the `fit` method.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="n">Yhat</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">detrend_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+		<span class="n">Yhat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Yhat</span><span class="p">)</span>
+		<span class="c1"># if isinstance(X, pandas.DataFrame):</span>
+		<span class="c1"># 	idx = X.index</span>
+		<span class="c1"># else:</span>
+		<span class="c1"># 	idx = None</span>
+		<span class="c1">#</span>
+		<span class="c1"># cols = None</span>
+		<span class="c1"># if self.Y_columns is not None:</span>
+		<span class="c1"># 	if len(self.Y_columns) == Yhat.shape[1]:</span>
+		<span class="c1"># 		cols = self.Y_columns</span>
+		<span class="c1">#</span>
+		<span class="c1"># if idx is not None or cols is not None:</span>
+		<span class="c1"># 	return pandas.DataFrame(</span>
+		<span class="c1"># 		Yhat,</span>
+		<span class="c1"># 		index=idx,</span>
+		<span class="c1"># 		columns=cols,</span>
+		<span class="c1"># 	)</span>
+		<span class="k">return</span> <span class="n">Yhat</span></div>
+
+<div class="viewcode-block" id="DetrendedMultipleTargetRegression.predict"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.predict">[docs]</a>	<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_cov</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Predict using the model</span>
+
+<span class="sd">		This function will return a pandas DataFrame instead of</span>
+<span class="sd">		a simple numpy array if there is information available</span>
+<span class="sd">		to populate the index (if the X argument to this function</span>
+<span class="sd">		is a DataFrame) or the columns (if the Y argument to `fit`</span>
+<span class="sd">		was a DataFrame).</span>
+
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		X : {array-like, sparse matrix}, shape = (n_samples, n_features)</span>
+<span class="sd">			Samples.</span>
+<span class="sd">		return_std, return_cov : bool</span>
+<span class="sd">			Not implemented.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		C : array-like, shape = (n_samples, n_targets)</span>
+<span class="sd">			Returns predicted values. The n_targets dimension is</span>
+<span class="sd">			determined in the `fit` method.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="n">return_std</span><span class="p">:</span>
+			<span class="n">rp</span><span class="p">,</span> <span class="n">se</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">residual_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="n">return_std</span><span class="p">)</span>
+			<span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">detrend_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">rp</span><span class="p">,</span> <span class="n">se</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">detrend_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">residual_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div>
+
+	<span class="c1"># def cross_val_scores(self, X=None, Y=None, cv=3):</span>
+	<span class="c1"># 	if X is None and Y is None:</span>
+	<span class="c1"># 		X = self.step1.estimators_[0].X_train_,</span>
+	<span class="c1"># 		Y = numpy.stack([i.y_train_ for i in self.step1.estimators_]).T</span>
+	<span class="c1"># 	return super().cross_val_scores(X,Y,cv)</span>
+
+	<span class="k">def</span> <span class="nf">_change_training_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Swap out X and Y in training data for new arrays.</span>
+
+<span class="sd">		This method will also pass the new array references to the step1</span>
+<span class="sd">		submodels.</span>
+
+<span class="sd">		The replacement Y should be pre-standardized if the previous</span>
+<span class="sd">		Y was standardized.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">X_train_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy_X_train</span> <span class="k">else</span> <span class="n">X</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Y_train_</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">copy_X_train</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_before_fit</span><span class="p">)</span> <span class="k">else</span> <span class="n">Y</span>
+
+		<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;step1&#39;</span><span class="p">):</span>
+			<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">estimator</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step1</span><span class="o">.</span><span class="n">estimators_</span><span class="p">):</span>
+				<span class="n">estimator</span><span class="o">.</span><span class="n">X_train_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train_</span>
+				<span class="n">estimator</span><span class="o">.</span><span class="n">y_train_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y_train_</span><span class="p">[:,</span><span class="n">n</span><span class="p">]</span>
+
+				<span class="c1"># Precompute quantities required for predictions which are independent</span>
+				<span class="c1"># of actual query points</span>
+				<span class="n">K</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">kernel_</span><span class="p">(</span><span class="n">estimator</span><span class="o">.</span><span class="n">X_train_</span><span class="p">)</span>
+				<span class="n">K</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">diag_indices_from</span><span class="p">(</span><span class="n">K</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">alpha</span>
+				<span class="k">try</span><span class="p">:</span>
+					<span class="n">estimator</span><span class="o">.</span><span class="n">L_</span> <span class="o">=</span> <span class="n">cholesky</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Line 2</span>
+					<span class="n">estimator</span><span class="o">.</span><span class="n">_K_inv</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># because self.L_ changed</span>
+				<span class="k">except</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+					<span class="n">exc</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;The kernel, </span><span class="si">%s</span><span class="s2">, is not returning a &quot;</span>
+								<span class="s2">&quot;positive definite matrix. Try gradually &quot;</span>
+								<span class="s2">&quot;increasing the &#39;alpha&#39; parameter of your &quot;</span>
+								<span class="s2">&quot;GaussianProcessRegressor estimator.&quot;</span>
+								<span class="o">%</span> <span class="n">estimator</span><span class="o">.</span><span class="n">kernel_</span><span class="p">,)</span> <span class="o">+</span> <span class="n">exc</span><span class="o">.</span><span class="n">args</span>
+					<span class="k">raise</span>
+				<span class="n">estimator</span><span class="o">.</span><span class="n">alpha_</span> <span class="o">=</span> <span class="n">cho_solve</span><span class="p">((</span><span class="n">estimator</span><span class="o">.</span><span class="n">L_</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span> <span class="n">estimator</span><span class="o">.</span><span class="n">y_train_</span><span class="p">)</span>  <span class="c1"># Line 3</span>
+
+	<span class="k">def</span> <span class="nf">set_hypothetical_training_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hX</span><span class="p">):</span>
+
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;X_train_original_&#39;</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">X_train_original_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train_</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Y_train_original_&#39;</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">Y_train_original_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y_train_</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+		<span class="k">if</span> <span class="n">hX</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">hY</span> <span class="o">=</span> <span class="kc">None</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_Y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="n">hY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">residual_predict</span><span class="p">(</span><span class="n">hX</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">hY</span> <span class="o">=</span> <span class="p">(</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">residual_predict</span><span class="p">(</span><span class="n">hX</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardize_Y</span>
+				<span class="p">)</span><span class="o">.</span><span class="n">values</span>
+
+		<span class="n">extra_X</span> <span class="o">=</span> <span class="p">[</span><span class="n">hX</span><span class="p">]</span> <span class="k">if</span> <span class="n">hX</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+		<span class="n">extra_Y</span> <span class="o">=</span> <span class="p">[</span><span class="n">hY</span><span class="p">]</span> <span class="k">if</span> <span class="n">hY</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">_change_training_data</span><span class="p">(</span>
+			<span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train_original_</span><span class="p">]</span><span class="o">+</span><span class="n">extra_X</span><span class="p">),</span>
+			<span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">Y_train_original_</span><span class="p">]</span><span class="o">+</span><span class="n">extra_Y</span><span class="p">)</span>
+		<span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">clear_hypothetical_training_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_hypothetical_training_points</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
