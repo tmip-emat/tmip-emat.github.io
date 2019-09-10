@@ -545,20 +545,26 @@ The step size for these variables is controlled by the analyst.</li>
 </pre></div>
 </div>
 </div>
-<p>In a Jupyter notebook, the analyst can interactively view other possible boxes using the <code class="docutils literal notranslate"><span class="pre">inspect_tradeoff</span></code> method:</p>
-<div class="nbinput nblast docutils container">
+<p>In a Jupyter notebook, the analyst can interactively view and select other possible boxes using the <code class="docutils literal notranslate"><span class="pre">tradeoff_selector</span></code> method. This method opens a dynamic viewer which shows the same basic figure as the static one above, but when hovering over each possible tradeoff point, a pop-up box appears with more details about that point, including which dimensions are restricted, and what the restrictions are. A selection of the preferred tradeoff can be made by clicking on any point.</p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">box1</span><span class="o">.</span><span class="n">inspect_tradeoff</span><span class="p">()</span>
+<span></span><span class="n">box1</span><span class="o">.</span><span class="n">tradeoff_selector</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a42c41e569ab4b2eb5c6095b1f2a9042", "version_major": 2, "version_minor": 0}</script></div>
+</div>
 <img alt="../../_images/PRIM-Interactive-480.gif" src="../../_images/PRIM-Interactive-480.gif" />
-<p>If it appears that a different selection box is better than the maximum density option, the analyst can choose to manually override the selection at this point, selecting a preferred box (by index) that trades off density and coverage differently.</p>
+<p>The analyst can choose to manually override the selection programmatically using Python code, selecting a preferred box (by index) that trades off density and coverage.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -568,7 +574,7 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -590,7 +596,7 @@ The step size for these variables is controlled by the analyst.</li>
 <p>One of the features of the <code class="docutils literal notranslate"><span class="pre">ema_workbench</span></code> implementation of PRIM is the ability to generate a plot of the resulting box, overlaid on a ‘pairs’ scatter plot of the various restricted dimensions.</p>
 <p>In the figure below, each of the five restricted dimensions represents both a row and a column of figures. The off-diagonal charts show bi-dimensional distribution of the data across two of the five actively restricted dimensions. These charts are overlaid with a red rectangle denoting the selected box. The on-diagonal charts show the relative distribution of cases that are and are not of interest (unconditional on the selected box).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -606,7 +612,7 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -615,7 +621,7 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -637,7 +643,7 @@ The step size for these variables is controlled by the analyst.</li>
 <p>Regardless of any analyst intervention in box selection using the <code class="docutils literal notranslate"><span class="pre">select</span></code> method, initial box identified using PRIM will always be a rectangle (or, more generally, a hyper-rectangle). Every restricted dimension is specified independently, not conditional on any other dimension.</p>
 <p>A second box can be overlaid after the first to expand the solution to include a non-rectangular area. The second tier box itself is still another rectangle, but it can be defined using different boundaries, possibly on different dimensions, to give in aggregate a non-convex shape. Creating such a second box is done by calling the <code class="docutils literal notranslate"><span class="pre">find_box</span></code> method again, after the particulars of the first box are finalized.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -646,7 +652,7 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -655,7 +661,7 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -676,7 +682,7 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 <p>The cases considered for the second box are <em>only</em> those cases not within the first box. Because our first box had a relatively high coverage and high density, we have already captured most of the cases of interest and not too many other cases, so the second box has a much diminished trade-off curve. The maximum value of the coverage for this second box is one minus the selected final coverage of the first box.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -693,7 +699,7 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 <p>We can also make a similar scatter plot for this second box. Because this is the second box, the method will only plot the points that remain (i.e.&nbsp;the ones not included in the first box). This results in a “blotchy” appearance for may of the graphs in this figure, as most of the “of interest” cases were captured previously.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -706,6 +712,15 @@ The step size for these variables is controlled by the analyst.</li>
 </div>
 <div class="output_area docutils container">
 <img alt="../../_images/source_emat.analysis_prim_31_0.png" src="../../_images/source_emat.analysis_prim_31_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
 </div>
 </div>
 </div>
