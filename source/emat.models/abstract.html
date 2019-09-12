@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Basic EMAT Model API &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>Basic EMAT Model API &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -333,6 +335,77 @@ returns a dictionary of (measure name: value) pairs.</p>
 <p class="last">This method should always be implemented. Although in
 simple cases, a simple pass can suffice.</p>
 </div>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.model.AbstractCoreModel.optimize">
+<code class="descname">optimize</code><span class="sig-paren">(</span><em>search_over='levers'</em>, <em>evaluator=None</em>, <em>nfe=10000</em>, <em>convergence='default'</em>, <em>display_convergence=True</em>, <em>convergence_freq=100</em>, <em>constraints=None</em>, <em>reference=None</em>, <em>reverse_targets=False</em>, <em>epsilons=0.1</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform multi-objective optimization over levers or uncertainties.</p>
+<p>The targets for the multi-objective optimization (i.e. whether each
+individual performance measures is to be maximized or minimized) are
+read from the model’s scope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>searchover</strong> (<em>{'levers'</em><em>, </em><em>'uncertainties'}</em>) – Which group of inputs to search over.  The other group
+will be set at their default values, unless other values
+are provided in the <cite>reference</cite> argument.</li>
+<li><strong>evaluator</strong> (<em>Evaluator</em><em>, </em><em>optional</em>) – The evaluator to use to
+run the model. If not given, a SequentialEvaluator will
+be created.</li>
+<li><strong>nfe</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 10_000</em>) – Number of function evaluations.
+This generally needs to be fairly large to achieve stable
+results in all but the most trivial applications.</li>
+<li><strong>convergence</strong> (<em>'default'</em><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a><em>, or </em><em>emat.optimization.ConvergenceMetrics</em>) – A convergence display during optimization.  The default
+value is to report the epsilon-progress (the number of
+solutions that ever enter the candidate pool of non-dominated
+solutions) and the number of solutions remaining in that candidate
+pool.  Pass <cite>None</cite> explicitly to disable convergence tracking.</li>
+<li><strong>display_convergence</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default True</em>) – Whether to automatically
+display figures that dynamically track convergence.  Set to
+<cite>False</cite> if you are not using this method within a Jupyter
+interactive environment.</li>
+<li><strong>convergence_freq</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 100</em>) – How frequently to update the
+convergence measures.  There is some computational overhead to
+these convergence updates, so setting a value too small may
+noticeably slow down the process.</li>
+<li><strong>constraints</strong> (<em>Collection</em><em>[</em><em>Constraint</em><em>]</em><em>, </em><em>optional</em>) – Solutions will be constrained to only include values that
+satisfy these constraints. The constraints can be based on
+the search parameters (levers or uncertainties, depending on the
+value given for <cite>searchover</cite>), or performance measures, or
+some combination thereof.</li>
+<li><strong>reference</strong> (<em>Mapping</em>) – A set of values for the non-active inputs,
+i.e. the uncertainties if <cite>searchover</cite> is ‘levers’, or the
+levers if <cite>searchover</cite> is ‘uncertainties’.  Any values not
+set here revert to the default values identified in the scope.</li>
+<li><strong>reverse_targets</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Whether to reverse the
+optimization targets given in the scope (i.e., changing
+minimize to maximize, or vice versa).  This will result in
+the optimization searching for the worst outcomes, instead of
+the best outcomes.</li>
+<li><strong>algorithm</strong> (<em>platypus.Algorithm</em><em>, </em><em>optional</em>) – Select an
+algorithm for multi-objective optimization.  The default
+algorithm is EpsNSGAII. See <cite>platypus</cite> documentation for details.</li>
+<li><strong>epsilons</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em> or </em><em>array-like</em>) – Used to limit the number of
+distinct solutions generated.  Set to a larger value to get
+fewer distinct solutions.</li>
+<li><strong>kwargs</strong> – Any additional arguments will be passed on to the
+platypus algorithm.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The set of non-dominated solutions found.
+When <cite>convergence</cite> is given, the convergence measures are
+included, as a pandas.DataFrame in the <cite>convergence</cite> attribute.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">emat.OptimizationResult</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -817,7 +890,7 @@ available.</p>
 
 <dl class="method">
 <dt id="emat.model.AbstractCoreModel.robust_optimize">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">robust_optimize</code><span class="sig-paren">(</span><em>robustness_functions</em>, <em>scenarios</em>, <em>evaluator=None</em>, <em>nfe=10000</em>, <em>convergence=None</em>, <em>constraints=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.robust_optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.robust_optimize" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">robust_optimize</code><span class="sig-paren">(</span><em>robustness_functions</em>, <em>scenarios</em>, <em>evaluator=None</em>, <em>nfe=10000</em>, <em>convergence='default'</em>, <em>display_convergence=True</em>, <em>convergence_freq=100</em>, <em>constraints=None</em>, <em>epsilons=0.1</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.robust_optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.robust_optimize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform robust optimization.</p>
 <p>The robust optimization generally a multi-objective optimization task.
 It is undertaken using statistical measures of outcomes evaluated across
@@ -853,20 +926,22 @@ algorithm for multi-objective optimization.  See
 <li><strong>nfe</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 10_000</em>) – Number of function evaluations.
 This generally needs to be fairly large to achieve stable
 results in all but the most trivial applications.</li>
-<li><strong>convergence</strong> (<em>emat.optimization.ConvergenceMetrics</em><em>, </em><em>optional</em>) – </li>
-<li><strong>constraints</strong> (<em>Collection</em><em>[</em><em>Constraint</em><em>]</em><em>, </em><em>optional</em>) – </li>
+<li><strong>convergence</strong> (<em>'default'</em><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a><em>, or </em><em>emat.optimization.ConvergenceMetrics</em>) – A convergence display during optimization.</li>
+<li><strong>constraints</strong> (<em>Collection</em><em>[</em><em>Constraint</em><em>]</em><em>, </em><em>optional</em>) – Solutions will be constrained to only include values that
+satisfy these constraints. The constraints can be based on
+the policy levers, or on the computed values of the robustness
+functions, or some combination thereof.</li>
 <li><strong>kwargs</strong> – any additional arguments will be passed on to the
 platypus algorithm.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>The set of non-dominated solutions found.</p>
-<p>When <cite>convergence</cite> is given, the convergence measures are
-also returned, as a second pandas.DataFrame.</p>
-</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The set of non-dominated solutions found.
+When <cite>convergence</cite> is given, the convergence measures are
+included, as a pandas.DataFrame in the <cite>convergence</cite> attribute.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)">pandas.DataFrame</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">emat.OptimizationResult</p>
 </td>
 </tr>
 </tbody>

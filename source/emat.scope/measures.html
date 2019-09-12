@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Performance Measures &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>Performance Measures &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -208,8 +210,8 @@ recommendation, or specification by FHWA.</p>
 a single model output.</p>
 <dl class="class">
 <dt id="emat.Measure">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Measure</code><span class="sig-paren">(</span><em>name</em>, <em>kind=0</em>, <em>min=None</em>, <em>max=None</em>, <em>address=None</em>, <em>dtype=None</em>, <em>function=None</em>, <em>transform=None</em>, <em>variable_name=None</em>, <em>metamodeltype=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/measure.html#Measure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Measure" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/outcomes.html#ema_workbench.em_framework.outcomes.ScalarOutcome" title="(in ema_workbench v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.outcomes.ScalarOutcome</span></code></a></p>
+<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Measure</code><span class="sig-paren">(</span><em>name</em>, <em>kind=0</em>, <em>min=None</em>, <em>max=None</em>, <em>address=None</em>, <em>dtype=None</em>, <em>function=None</em>, <em>transform=None</em>, <em>variable_name=None</em>, <em>metamodeltype=None</em>, <em>shortname=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/measure.html#Measure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://emaworkbench.readthedocs.io/en/latest/ema_documentation/em_framework/outcomes.html#ema_workbench.em_framework.outcomes.ScalarOutcome" title="(in ema_workbench v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ema_workbench.em_framework.outcomes.ScalarOutcome</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.names.ShortnameMixin</span></code></p>
 <p>Measure represents an outcome measure of the model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -233,10 +235,8 @@ extract this measure from the model. This is model-specific
 and can potentially be any Python object. For example, if the
 model is an Excel model, this can be a cell reference given
 as a <cite>str</cite>.</li>
-<li><strong>dtype</strong> (<em>dtype</em><em>, </em><em>optional</em>) – The desired dtype to be enforced for this
-measure, e.g. ‘int’, ‘float32’, etc.  This is optional, and if
-not given, some default dtype will be used, typically whatever
-is returned by the core model, or a <cite>float</cite> for metamodels.</li>
+<li><strong>dtype</strong> (<em>{'real'</em><em>,</em><em>'int'</em><em>,</em><em>'bool'</em><em>,</em><em>'cat'}</em><em>, </em><em>default 'real'</em>) – The desired
+dtype to be enforced for this measure.</li>
 <li><strong>function</strong> (<em>callable</em><em>, </em><em>optional</em>) – A callable function that will be
 used to transform the raw measure as returned by a core model.
 This transformation will be applied to core model results by
@@ -349,6 +349,20 @@ metamodel estimation.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Measure.shortname">
+<code class="descname">shortname</code><a class="headerlink" href="#emat.Measure.shortname" title="Permalink to this definition">¶</a></dt>
+<dd><p>An abbreviated name, or the full name if not otherwise defined.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Str</td>
 </tr>
 </tbody>
 </table>

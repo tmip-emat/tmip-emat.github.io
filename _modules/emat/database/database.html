@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.database.database &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>emat.database.database &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -364,7 +366,15 @@
 <span class="sd">        &quot;&quot;&quot;</span>         </div>
 
 <div class="viewcode-block" id="Database.read_experiment_all"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_all">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_experiment_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">only_pending</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">read_experiment_all</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">scope_name</span><span class="p">,</span>
+            <span class="n">design_name</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">only_pending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">only_complete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">ensure_dtypes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Read experiment definitions and results</span>
 <span class="sd">        </span>
 <span class="sd">        Read the values from each experiment variable and the </span>
@@ -373,19 +383,42 @@
 <span class="sd">        Args:</span>
 <span class="sd">            scope_name (str): scope name, used to identify experiments</span>
 <span class="sd">                including uncertainties, policy levers, and</span>
-<span class="sd">                performance measures associated with this run</span>
+<span class="sd">                performance measures associated with this run.</span>
 <span class="sd">            design (str or Collection[str]): experimental design name (a</span>
 <span class="sd">                single str) or a collection of design names to read.</span>
+<span class="sd">            source (int, optional): The source identifier of the</span>
+<span class="sd">                experimental outcomes to load.  If not given, but</span>
+<span class="sd">                there are only results from a single source in the</span>
+<span class="sd">                database, those results are returned.  If there are</span>
+<span class="sd">                results from multiple sources, an error is raised.</span>
 <span class="sd">            only_pending (bool, default False): If True, only pending</span>
 <span class="sd">                experiments (which have no performance measure results</span>
 <span class="sd">                stored in the database) are returned.</span>
+<span class="sd">            only_complete (bool, default False): If True, only complete</span>
+<span class="sd">                experiments (which have no missing performance measure</span>
+<span class="sd">                results stored in the database) are returned.</span>
+<span class="sd">            ensure_dtypes (bool, default False): If True, the scope</span>
+<span class="sd">                associated with these experiments is also read out</span>
+<span class="sd">                of the database, and that scope file is used to</span>
+<span class="sd">                format experimental data consistently (i.e., as</span>
+<span class="sd">                float, integer, bool, or categorical).</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            experiment (pandas.DataFrame): experiment definition and </span>
 <span class="sd">                performance measures</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError</span>
+<span class="sd">                When no source is given but the database contains</span>
+<span class="sd">                results from multiple sources.</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Database.read_experiment_measures"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_measures">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_experiment_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">read_experiment_measures</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">scope_name</span><span class="p">,</span>
+            <span class="n">design</span><span class="p">,</span>
+            <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Read experiment results</span>
 
 <span class="sd">        Read the</span>
@@ -400,8 +433,17 @@
 <span class="sd">            experiment_id (int, optional): The id of the experiment to</span>
 <span class="sd">                retrieve.  If omitted, get all experiments matching the</span>
 <span class="sd">                scope and design.</span>
+<span class="sd">            source (int, optional): The source identifier of the</span>
+<span class="sd">                experimental outcomes to load.  If not given, but</span>
+<span class="sd">                there are only results from a single source in the</span>
+<span class="sd">                database, those results are returned.  If there are</span>
+<span class="sd">                results from multiple sources, an error is raised.</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            results (pandas.DataFrame): performance measures</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError</span>
+<span class="sd">                When no source is given but the database contains</span>
+<span class="sd">                results from multiple sources.</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Database.delete_experiments"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.delete_experiments">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>

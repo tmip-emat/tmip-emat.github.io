@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>GBNRTC Demonstration Model &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>GBNRTC Demonstration Model &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -431,8 +433,7 @@ example, the scope is given by:</p>
 226
 227
 228
-229
-230</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nn">---</span>
+229</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="c1"># EMAT Scope Definition</span>
 <span class="c1"># </span>
 
@@ -564,52 +565,52 @@ example, the scope is given by:</p>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
 
-    <span class="nt">Corridor Kensington Daily VMT</span><span class="p">:</span>
+    <span class="nt">Kensington Daily VMT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor Kensington Daily VHT</span><span class="p">:</span>
+    <span class="nt">Kensington Daily VHT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor Kensington_OB PM VMT</span><span class="p">:</span>
+    <span class="nt">Kensington_OB PM VMT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor Kensington_OB PM VHT</span><span class="p">:</span>
+    <span class="nt">Kensington_OB PM VHT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor Kensington_IB AM VMT</span><span class="p">:</span>
+    <span class="nt">Kensington_IB AM VMT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor Kensington_IB AM VHT</span><span class="p">:</span>
+    <span class="nt">Kensington_IB AM VHT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor 190 Daily VMT</span><span class="p">:</span>
+    <span class="nt">190 Daily VMT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor 190 Daily VHT</span><span class="p">:</span>
+    <span class="nt">190 Daily VHT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor 190_OB Daily VMT</span><span class="p">:</span>
+    <span class="nt">190_OB Daily VMT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor 190_OB Daily VHT</span><span class="p">:</span>
+    <span class="nt">190_OB Daily VHT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor 190_IB Daily VMT</span><span class="p">:</span>
+    <span class="nt">190_IB Daily VMT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor 190_IB Daily VHT</span><span class="p">:</span>
+    <span class="nt">190_IB Daily VHT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor 33_west Daily VMT</span><span class="p">:</span>
+    <span class="nt">33_west Daily VMT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor 33_west Daily VHT</span><span class="p">:</span>
+    <span class="nt">33_west Daily VHT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor I90_south Daily VMT</span><span class="p">:</span>
+    <span class="nt">I90_south Daily VMT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
-    <span class="nt">Corridor I90_south Daily VHT</span><span class="p">:</span>
+    <span class="nt">I90_south Daily VHT</span><span class="p">:</span>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">minimize</span>
 
@@ -646,7 +647,7 @@ example, the scope is given by:</p>
         <span class="nt">metamodeltype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">log</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">info</span>
 
-    <span class="c1"># transit measures with no transform</span>
+    <span class="c1"># transit measures with no metamodeltype</span>
 
     <span class="nt">Peak Transit Share</span><span class="p">:</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">maximize</span>
@@ -660,7 +661,6 @@ example, the scope is given by:</p>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">maximize</span>
     <span class="nt">Daily NonMotorized Share</span><span class="p">:</span>
         <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">maximize</span>
-
 <span class="nn">...</span>
 </pre></div>
 </td></tr></table></div>

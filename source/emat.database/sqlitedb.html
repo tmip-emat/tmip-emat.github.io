@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SQLite Database &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>SQLite Database &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -870,7 +872,7 @@ stored in the database) are returned.</li>
 
 <dl class="method">
 <dt id="emat.database.SQLiteDB.read_experiment_measures">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_measures</code><span class="sig-paren">(</span><em>scope_name: str</em>, <em>design: str</em>, <em>experiment_id=None</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_measures" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_measures</code><span class="sig-paren">(</span><em>scope_name: str</em>, <em>design: str</em>, <em>experiment_id=None</em>, <em>source=None</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_measures" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read experiment results</p>
 <p>Read the
 results for each performance measure per experiment</p>
@@ -887,13 +889,22 @@ performance measures, and results associated with this run</li>
 <li><strong>experiment_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The id of the experiment to
 retrieve.  If omitted, get all experiments matching the
 scope and design.</li>
+<li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The source identifier of the
+experimental outcomes to load.  If not given, but
+there are only results from a single source in the
+database, those results are returned.  If there are
+results from multiple sources, an error is raised.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">performance measures</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">results (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)">pandas.DataFrame</a>)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">results (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)">pandas.DataFrame</a>)</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – When no source is given but the database contains
+results from multiple sources.</p>
 </td>
 </tr>
 </tbody>
@@ -902,7 +913,7 @@ scope and design.</li>
 
 <dl class="method">
 <dt id="emat.database.SQLiteDB.read_experiment_all">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_all</code><span class="sig-paren">(</span><em>scope_name</em>, <em>design_name</em>, <em>only_pending=False</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_all" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_all</code><span class="sig-paren">(</span><em>scope_name</em>, <em>design_name</em>, <em>source=None</em>, <em>only_pending=False</em>, <em>only_complete=False</em>, <em>ensure_dtypes=False</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read experiment definitions and results</p>
 <p>Read the values from each experiment variable and the
 results for each performance measure per experiment</p>
@@ -913,12 +924,25 @@ results for each performance measure per experiment</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments
 including uncertainties, policy levers, and
-performance measures associated with this run</li>
+performance measures associated with this run.</li>
 <li><strong>design</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>Collection</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – experimental design name (a
 single str) or a collection of design names to read.</li>
+<li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The source identifier of the
+experimental outcomes to load.  If not given, but
+there are only results from a single source in the
+database, those results are returned.  If there are
+results from multiple sources, an error is raised.</li>
 <li><strong>only_pending</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – If True, only pending
 experiments (which have no performance measure results
 stored in the database) are returned.</li>
+<li><strong>only_complete</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – If True, only complete
+experiments (which have no missing performance measure
+results stored in the database) are returned.</li>
+<li><strong>ensure_dtypes</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – If True, the scope
+associated with these experiments is also read out
+of the database, and that scope file is used to
+format experimental data consistently (i.e., as
+float, integer, bool, or categorical).</li>
 </ul>
 </td>
 </tr>
@@ -930,7 +954,11 @@ stored in the database) are returned.</li>
 </p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">experiment (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)">pandas.DataFrame</a>)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">experiment (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.25.1)">pandas.DataFrame</a>)</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – When no source is given but the database contains
+results from multiple sources.</p>
 </td>
 </tr>
 </tbody>

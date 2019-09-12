@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation and Configuration &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>Installation and Configuration &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -35,7 +37,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Installing from Source" href="emat.git.html" />
+    <link rel="next" title="Installing using Anaconda" href="emat.conda.html" />
     <link rel="prev" title="Introduction to EMAT" href="emat.intro.html" /> 
 </head>
 
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -88,6 +90,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="emat.intro.html">Introduction to EMAT</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation and Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="emat.conda.html">Installing using Anaconda</a></li>
 <li class="toctree-l2"><a class="reference internal" href="emat.git.html">Installing from Source</a></li>
 </ul>
 </li>
@@ -199,9 +202,25 @@ recommendation, or specification by FHWA.</p>
 <div class="section" id="installation-and-configuration">
 <h1>Installation and Configuration<a class="headerlink" href="#installation-and-configuration" title="Permalink to this headline">¶</a></h1>
 <p><strong>Installation</strong></p>
-<p>Installation of TMIP-EMAT is currently a manual process.</p>
+<p>Installation of TMIP-EMAT can be done through the Anaconda package manager,
+or from source.  Installing from the package manager is recommended for
+users who are interested in the exploratory modeling tools, but are not
+responsible for conducting core model runs.  For modelers who wish to
+integrate a new core model into EMAT, installing from and editing the
+source code is recommended.</p>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="emat.conda.html">Installing using Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="emat.conda.html#installing-python">Installing Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="emat.conda.html#managing-environments">Managing Environments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="emat.conda.html#creating-a-new-environment-for-tmip-emat">Creating a New Environment for TMIP-EMAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="emat.conda.html#installing-tmip-emat-in-an-existing-environment">Installing TMIP-EMAT in an Existing Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="emat.conda.html#using-an-environment">Using an Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="emat.conda.html#running-jupyter">Running Jupyter</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="emat.git.html">Installing from Source</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="emat.git.html#using-github-to-fork-tmip-emat">Using Github to Fork TMIP-EMAT</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="emat.git.html#configuring-your-fork-to-also-use-tmip-emat-as-a-remote">Configuring Your Fork to Also Use TMIP-EMAT as a Remote</a></li>
@@ -211,8 +230,6 @@ recommendation, or specification by FHWA.</p>
 </li>
 </ul>
 </div>
-<p>Instructions for installing via <a class="reference external" href="https://www.anaconda.com/download">Anaconda</a>
-will be published here when that installation path is available.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Python has two versions (2 and 3) that are available and currently maintained,
@@ -240,7 +257,7 @@ File.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="emat.git.html" class="btn btn-neutral float-right" title="Installing from Source" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="emat.conda.html" class="btn btn-neutral float-right" title="Installing using Anaconda" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="emat.intro.html" class="btn btn-neutral float-left" title="Introduction to EMAT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Boxes &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>Boxes &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -356,7 +358,7 @@ based on this Box.</p>
 
 <dl class="method">
 <dt id="emat.Box.set_lower_bound">
-<code class="descclassname">Box.</code><code class="descname">set_lower_bound</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Box.set_lower_bound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Box.set_lower_bound" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Box.</code><code class="descname">set_lower_bound</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Box.set_lower_bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a lower bound, retaining existing upper bound.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -380,7 +382,7 @@ be found in the scope.</p>
 
 <dl class="method">
 <dt id="emat.Box.set_upper_bound">
-<code class="descclassname">Box.</code><code class="descname">set_upper_bound</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Box.set_upper_bound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Box.set_upper_bound" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Box.</code><code class="descname">set_upper_bound</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Box.set_upper_bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set an upper bound, retaining existing lower bound.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -432,14 +434,14 @@ be found in the scope.</p>
 
 <dl class="method">
 <dt id="emat.Box.add_to_allowed_set">
-<code class="descclassname">Box.</code><code class="descname">add_to_allowed_set</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Box.add_to_allowed_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Box.add_to_allowed_set" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Box.</code><code class="descname">add_to_allowed_set</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Box.add_to_allowed_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a value to the allowed set</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The feature name to which these bounds
+<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The feature name to which these allowed values
 will be attached.</li>
 <li><strong>value</strong> (<em>Any</em>) – A value to add to the allowed set.</li>
 </ul>
@@ -458,14 +460,14 @@ be found in the scope.</li>
 
 <dl class="method">
 <dt id="emat.Box.remove_from_allowed_set">
-<code class="descclassname">Box.</code><code class="descname">remove_from_allowed_set</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Box.remove_from_allowed_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Box.remove_from_allowed_set" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Box.</code><code class="descname">remove_from_allowed_set</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Box.remove_from_allowed_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove a value from the allowed set</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The feature name to which these bounds
+<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The feature name to which these allowed values
 will be attached.</li>
 <li><strong>value</strong> (<em>Any</em>) – A value to remove from the allowed set.</li>
 </ul>
@@ -476,6 +478,8 @@ will be attached.</li>
 instead of a set.</li>
 <li><code class="xref py py-exc docutils literal notranslate"><span class="pre">ScopeError</span></code> – If a scope is attached to this box but the <cite>key</cite> cannot
 be found in the scope.</li>
+<li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#KeyError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">KeyError</span></code></a> – If the value to be removed was not already in the
+allowed set.</li>
 </ul>
 </td>
 </tr>

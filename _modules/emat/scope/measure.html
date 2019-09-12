@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.scope.measure &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>emat.scope.measure &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -161,9 +163,9 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">ema_workbench</span> <span class="k">import</span> <span class="n">ScalarOutcome</span>
+<span class="kn">from</span> <span class="nn">.names</span> <span class="k">import</span> <span class="n">ShortnameMixin</span>
 
-
-<div class="viewcode-block" id="Measure"><a class="viewcode-back" href="../../../source/emat.scope/measures.html#emat.Measure">[docs]</a><span class="k">class</span> <span class="nc">Measure</span><span class="p">(</span><span class="n">ScalarOutcome</span><span class="p">):</span>
+<div class="viewcode-block" id="Measure"><a class="viewcode-back" href="../../../source/emat.scope/measures.html#emat.Measure">[docs]</a><span class="k">class</span> <span class="nc">Measure</span><span class="p">(</span><span class="n">ScalarOutcome</span><span class="p">,</span> <span class="n">ShortnameMixin</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Measure represents an outcome measure of the model.</span>
 
@@ -185,10 +187,8 @@
 <span class="sd">            and can potentially be any Python object. For example, if the</span>
 <span class="sd">            model is an Excel model, this can be a cell reference given</span>
 <span class="sd">            as a `str`.</span>
-<span class="sd">        dtype (dtype, optional): The desired dtype to be enforced for this</span>
-<span class="sd">            measure, e.g. &#39;int&#39;, &#39;float32&#39;, etc.  This is optional, and if</span>
-<span class="sd">            not given, some default dtype will be used, typically whatever</span>
-<span class="sd">            is returned by the core model, or a `float` for metamodels.</span>
+<span class="sd">        dtype ({&#39;real&#39;,&#39;int&#39;,&#39;bool&#39;,&#39;cat&#39;}, default &#39;real&#39;): The desired</span>
+<span class="sd">            dtype to be enforced for this measure.</span>
 <span class="sd">        function (callable, optional): A callable function that will be</span>
 <span class="sd">            used to transform the raw measure as returned by a core model.</span>
 <span class="sd">            This transformation will be applied to core model results by</span>
@@ -254,6 +254,7 @@
             <span class="n">transform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">variable_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">metamodeltype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">shortname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -287,11 +288,13 @@
                          <span class="n">variable_name</span><span class="o">=</span><span class="n">variable_name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span> <span class="k">if</span> <span class="n">transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;none&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span> <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;real&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">metamodeltype</span> <span class="o">=</span> <span class="n">metamodeltype</span> <span class="k">if</span> <span class="n">metamodeltype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;linear&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shortname</span> <span class="o">=</span> <span class="n">shortname</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span></div>
+
 
 </pre></div>
 

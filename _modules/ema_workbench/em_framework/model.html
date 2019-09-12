@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ema_workbench.em_framework.model &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>ema_workbench.em_framework.model &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -252,7 +254,8 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">isalnum</span><span class="p">():</span>
             <span class="k">raise</span> <span class="n">EMAError</span><span class="p">((</span><span class="s2">&quot;name of model should only contain &quot;</span>
-                            <span class="s2">&quot;alpha numerical characters&quot;</span><span class="p">))</span>
+                            <span class="s2">&quot;alpha numerical characters, cannot be &quot;</span>
+                            <span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_output_variables</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_outcomes_output</span> <span class="o">=</span> <span class="p">{}</span>

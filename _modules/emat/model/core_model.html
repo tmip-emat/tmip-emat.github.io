@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.model.core_model &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>emat.model.core_model &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -165,10 +167,15 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Mapping</span>
 <span class="kn">from</span> <span class="nn">ema_workbench.em_framework.model</span> <span class="k">import</span> <span class="n">AbstractModel</span> <span class="k">as</span> <span class="n">AbstractWorkbenchModel</span>
+<span class="kn">from</span> <span class="nn">ema_workbench.em_framework.evaluators</span> <span class="k">import</span> <span class="n">BaseEvaluator</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Collection</span>
 
 <span class="kn">from</span> <span class="nn">..database.database</span> <span class="k">import</span> <span class="n">Database</span>
 <span class="kn">from</span> <span class="nn">..scope.scope</span> <span class="k">import</span> <span class="n">Scope</span>
+<span class="kn">from</span> <span class="nn">..optimization.optimization_result</span> <span class="k">import</span> <span class="n">OptimizationResult</span>
+<span class="kn">from</span> <span class="nn">..optimization</span> <span class="k">import</span> <span class="n">EpsilonProgress</span><span class="p">,</span> <span class="n">ConvergenceMetrics</span><span class="p">,</span> <span class="n">SolutionCount</span>
+
 <span class="kn">from</span> <span class="nn">.._pkg_constants</span> <span class="k">import</span> <span class="o">*</span>
 
 <span class="kn">from</span> <span class="nn">..util.loggers</span> <span class="k">import</span> <span class="n">get_module_logger</span>
@@ -930,9 +937,11 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="n">design</span><span class="p">)</span>
             <span class="n">outcomes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_experiment_measures</span><span class="p">(</span><span class="n">design</span><span class="p">)</span>
+            <span class="n">design_name</span> <span class="o">=</span> <span class="n">design</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
             <span class="n">inputs</span> <span class="o">=</span> <span class="n">design</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">design</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_parameter_names</span><span class="p">()]]</span>
             <span class="n">outcomes</span> <span class="o">=</span> <span class="n">design</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">design</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">()]]</span>
+            <span class="n">design_name</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;must name design or give DataFrame&#39;</span><span class="p">)</span>
 
@@ -942,8 +951,153 @@
         <span class="k">return</span> <span class="n">heatmap_table</span><span class="p">(</span>
             <span class="n">fs</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
             <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Model Parameters&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Performance Measures&#39;</span><span class="p">,</span>
-            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Feature Scoring&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="n">f</span><span class="s1">&#39; [</span><span class="si">{design}</span><span class="s1">]&#39;</span> <span class="k">if</span> <span class="n">design</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Feature Scoring&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="n">f</span><span class="s1">&#39; [</span><span class="si">{design_name}</span><span class="s1">]&#39;</span> <span class="k">if</span> <span class="n">design_name</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
         <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_common_optimization_setup</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">epsilons</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">convergence</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
+            <span class="n">display_convergence</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">evaluator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">numbers</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">epsilons</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">):</span>
+            <span class="n">epsilons</span> <span class="o">=</span> <span class="p">[</span><span class="n">epsilons</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outcomes</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">convergence</span> <span class="o">==</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+            <span class="n">convergence</span> <span class="o">=</span> <span class="n">ConvergenceMetrics</span><span class="p">(</span>
+                <span class="n">EpsilonProgress</span><span class="p">(),</span>
+                <span class="n">SolutionCount</span><span class="p">(),</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">display_convergence</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">convergence</span><span class="p">,</span> <span class="n">ConvergenceMetrics</span><span class="p">):</span>
+            <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">display</span>
+            <span class="n">display</span><span class="p">(</span><span class="n">convergence</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">evaluator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">ema_workbench.em_framework</span> <span class="k">import</span> <span class="n">SequentialEvaluator</span>
+            <span class="n">evaluator</span> <span class="o">=</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">BaseEvaluator</span><span class="p">):</span>
+            <span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="k">import</span> <span class="n">Client</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">Client</span><span class="p">):</span>
+                <span class="kn">from</span> <span class="nn">ema_workbench.em_framework.ema_distributed</span> <span class="k">import</span> <span class="n">DistributedEvaluator</span>
+                <span class="n">evaluator</span> <span class="o">=</span> <span class="n">DistributedEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">evaluator</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">epsilons</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">evaluator</span>
+
+<div class="viewcode-block" id="AbstractCoreModel.optimize"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.optimize">[docs]</a>    <span class="k">def</span> <span class="nf">optimize</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">search_over</span><span class="o">=</span><span class="s1">&#39;levers&#39;</span><span class="p">,</span>
+            <span class="n">evaluator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">nfe</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+            <span class="n">convergence</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
+            <span class="n">display_convergence</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">convergence_freq</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+            <span class="n">constraints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">reference</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">reverse_targets</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">epsilons</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform multi-objective optimization over levers or uncertainties.</span>
+
+<span class="sd">        The targets for the multi-objective optimization (i.e. whether each</span>
+<span class="sd">        individual performance measures is to be maximized or minimized) are</span>
+<span class="sd">        read from the model&#39;s scope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            searchover ({&#39;levers&#39;, &#39;uncertainties&#39;}):</span>
+<span class="sd">                Which group of inputs to search over.  The other group</span>
+<span class="sd">                will be set at their default values, unless other values</span>
+<span class="sd">                are provided in the `reference` argument.</span>
+<span class="sd">            evaluator (Evaluator, optional): The evaluator to use to</span>
+<span class="sd">                run the model. If not given, a SequentialEvaluator will</span>
+<span class="sd">                be created.</span>
+<span class="sd">            nfe (int, default 10_000): Number of function evaluations.</span>
+<span class="sd">                This generally needs to be fairly large to achieve stable</span>
+<span class="sd">                results in all but the most trivial applications.</span>
+<span class="sd">            convergence (&#39;default&#39;, None, or emat.optimization.ConvergenceMetrics):</span>
+<span class="sd">                A convergence display during optimization.  The default</span>
+<span class="sd">                value is to report the epsilon-progress (the number of</span>
+<span class="sd">                solutions that ever enter the candidate pool of non-dominated</span>
+<span class="sd">                solutions) and the number of solutions remaining in that candidate</span>
+<span class="sd">                pool.  Pass `None` explicitly to disable convergence tracking.</span>
+<span class="sd">            display_convergence (bool, default True): Whether to automatically</span>
+<span class="sd">                display figures that dynamically track convergence.  Set to</span>
+<span class="sd">                `False` if you are not using this method within a Jupyter</span>
+<span class="sd">                interactive environment.</span>
+<span class="sd">            convergence_freq (int, default 100): How frequently to update the</span>
+<span class="sd">                convergence measures.  There is some computational overhead to</span>
+<span class="sd">                these convergence updates, so setting a value too small may</span>
+<span class="sd">                noticeably slow down the process.</span>
+<span class="sd">            constraints (Collection[Constraint], optional):</span>
+<span class="sd">                Solutions will be constrained to only include values that</span>
+<span class="sd">                satisfy these constraints. The constraints can be based on</span>
+<span class="sd">                the search parameters (levers or uncertainties, depending on the</span>
+<span class="sd">                value given for `searchover`), or performance measures, or</span>
+<span class="sd">                some combination thereof.</span>
+<span class="sd">            reference (Mapping): A set of values for the non-active inputs,</span>
+<span class="sd">                i.e. the uncertainties if `searchover` is &#39;levers&#39;, or the</span>
+<span class="sd">                levers if `searchover` is &#39;uncertainties&#39;.  Any values not</span>
+<span class="sd">                set here revert to the default values identified in the scope.</span>
+<span class="sd">            reverse_targets (bool, default False): Whether to reverse the</span>
+<span class="sd">                optimization targets given in the scope (i.e., changing</span>
+<span class="sd">                minimize to maximize, or vice versa).  This will result in</span>
+<span class="sd">                the optimization searching for the worst outcomes, instead of</span>
+<span class="sd">                the best outcomes.</span>
+<span class="sd">            algorithm (platypus.Algorithm, optional): Select an</span>
+<span class="sd">                algorithm for multi-objective optimization.  The default</span>
+<span class="sd">                algorithm is EpsNSGAII. See `platypus` documentation for details.</span>
+<span class="sd">            epsilons (float or array-like): Used to limit the number of</span>
+<span class="sd">                distinct solutions generated.  Set to a larger value to get</span>
+<span class="sd">                fewer distinct solutions.</span>
+<span class="sd">            kwargs: Any additional arguments will be passed on to the</span>
+<span class="sd">                platypus algorithm.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            emat.OptimizationResult:</span>
+<span class="sd">                The set of non-dominated solutions found.</span>
+<span class="sd">                When `convergence` is given, the convergence measures are</span>
+<span class="sd">                included, as a pandas.DataFrame in the `convergence` attribute.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">epsilons</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">evaluator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_common_optimization_setup</span><span class="p">(</span>
+            <span class="n">epsilons</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">evaluator</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">reverse_targets</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measures</span><span class="p">():</span>
+                <span class="n">k</span><span class="o">.</span><span class="n">kind_original</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">kind</span>
+                <span class="n">k</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">kind</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">evaluator</span><span class="p">:</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span>
+                    <span class="n">search_over</span><span class="o">=</span><span class="n">search_over</span><span class="p">,</span>
+                    <span class="n">reference</span><span class="o">=</span><span class="n">reference</span><span class="p">,</span>
+                    <span class="n">nfe</span><span class="o">=</span><span class="n">nfe</span><span class="p">,</span>
+                    <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
+                    <span class="n">convergence</span><span class="o">=</span><span class="n">convergence</span><span class="p">,</span>
+                    <span class="n">convergence_freq</span><span class="o">=</span><span class="n">convergence_freq</span><span class="p">,</span>
+                    <span class="n">epsilons</span><span class="o">=</span><span class="n">epsilons</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">results</span><span class="p">,</span> <span class="n">result_convergence</span> <span class="o">=</span> <span class="n">results</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result_convergence</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">reverse_targets</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measures</span><span class="p">():</span>
+                    <span class="n">k</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">kind_original</span>
+                    <span class="k">del</span> <span class="n">k</span><span class="o">.</span><span class="n">kind_original</span>
+        <span class="k">return</span> <span class="n">OptimizationResult</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">result_convergence</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="AbstractCoreModel.robust_optimize"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.robust_optimize">[docs]</a>    <span class="k">def</span> <span class="nf">robust_optimize</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -951,8 +1105,11 @@
             <span class="n">scenarios</span><span class="p">,</span>
             <span class="n">evaluator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">nfe</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
-            <span class="n">convergence</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">convergence</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
+            <span class="n">display_convergence</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">convergence_freq</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
             <span class="n">constraints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">epsilons</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -990,22 +1147,34 @@
 <span class="sd">            nfe (int, default 10_000): Number of function evaluations.</span>
 <span class="sd">                This generally needs to be fairly large to achieve stable</span>
 <span class="sd">                results in all but the most trivial applications.</span>
-<span class="sd">            convergence (emat.optimization.ConvergenceMetrics, optional)</span>
+<span class="sd">            convergence (&#39;default&#39;, None, or emat.optimization.ConvergenceMetrics):</span>
+<span class="sd">                A convergence display during optimization.</span>
 <span class="sd">            constraints (Collection[Constraint], optional)</span>
+<span class="sd">                Solutions will be constrained to only include values that</span>
+<span class="sd">                satisfy these constraints. The constraints can be based on</span>
+<span class="sd">                the policy levers, or on the computed values of the robustness</span>
+<span class="sd">                functions, or some combination thereof.</span>
 <span class="sd">            kwargs: any additional arguments will be passed on to the</span>
 <span class="sd">                platypus algorithm.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            pandas.DataFrame: The set of non-dominated solutions found.</span>
-
-<span class="sd">            When `convergence` is given, the convergence measures are</span>
-<span class="sd">            also returned, as a second pandas.DataFrame.</span>
+<span class="sd">            emat.OptimizationResult:</span>
+<span class="sd">                The set of non-dominated solutions found.</span>
+<span class="sd">                When `convergence` is given, the convergence measures are</span>
+<span class="sd">                included, as a pandas.DataFrame in the `convergence` attribute.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">..scope.measure</span> <span class="k">import</span> <span class="n">Measure</span>
+        <span class="k">for</span> <span class="n">rf</span> <span class="ow">in</span> <span class="n">robustness_functions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="n">Measure</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;robustness functions must be defined as emat.Measure objects&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">rf</span><span class="o">.</span><span class="n">function</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;robustness function must have a function attribute set (</span><span class="si">{rf.name}</span><span class="s1">)&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">rf</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;cannot name robustness function the same as any scope name (</span><span class="si">{rf.name}</span><span class="s1">)&#39;</span><span class="p">)</span>
 
-
-        <span class="k">if</span> <span class="n">evaluator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">ema_workbench.em_framework</span> <span class="k">import</span> <span class="n">SequentialEvaluator</span>
-            <span class="n">evaluator</span> <span class="o">=</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">epsilons</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">evaluator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_common_optimization_setup</span><span class="p">(</span>
+            <span class="n">epsilons</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">evaluator</span>
+        <span class="p">)</span>
 
         <span class="kn">from</span> <span class="nn">ema_workbench.em_framework.samplers</span> <span class="k">import</span> <span class="n">sample_uncertainties</span><span class="p">,</span> <span class="n">sample_levers</span>
 
@@ -1013,17 +1182,15 @@
             <span class="n">n_scenarios</span> <span class="o">=</span> <span class="n">scenarios</span>
             <span class="n">scenarios</span> <span class="o">=</span> <span class="n">sample_uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_scenarios</span><span class="p">)</span>
 
-        <span class="c1"># if epsilons is None:</span>
-        <span class="c1">#     epsilons = [0.05, ] * len(robustness_functions)</span>
-        <span class="c1">#</span>
         <span class="k">with</span> <span class="n">evaluator</span><span class="p">:</span>
             <span class="n">robust_results</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">robust_optimize</span><span class="p">(</span>
                 <span class="n">robustness_functions</span><span class="p">,</span>
                 <span class="n">scenarios</span><span class="p">,</span>
                 <span class="n">nfe</span><span class="o">=</span><span class="n">nfe</span><span class="p">,</span>
                 <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
-                <span class="c1"># epsilons=epsilons,</span>
+                <span class="n">epsilons</span><span class="o">=</span><span class="n">epsilons</span><span class="p">,</span>
                 <span class="n">convergence</span><span class="o">=</span><span class="n">convergence</span><span class="p">,</span>
+                <span class="n">convergence_freq</span><span class="o">=</span><span class="n">convergence_freq</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
             <span class="p">)</span>
 
@@ -1034,10 +1201,12 @@
 
         <span class="n">robust_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">robust_results</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">result_convergence</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">robust_results</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">robust_results</span><span class="p">,</span> <span class="n">result_convergence</span></div>
+        <span class="k">return</span> <span class="n">OptimizationResult</span><span class="p">(</span>
+            <span class="n">robust_results</span><span class="p">,</span>
+            <span class="n">result_convergence</span><span class="p">,</span>
+            <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">,</span>
+            <span class="n">robustness_functions</span><span class="o">=</span><span class="n">robustness_functions</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AbstractCoreModel.robust_evaluate"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.robust_evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">robust_evaluate</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>

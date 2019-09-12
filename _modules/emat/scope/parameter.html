@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.scope.parameter &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>emat.scope.parameter &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -168,6 +170,7 @@
 
 <span class="kn">from</span> <span class="nn">..util</span> <span class="k">import</span> <span class="n">distributions</span><span class="p">,</span> <span class="n">DistributionTypeError</span><span class="p">,</span> <span class="n">DistributionFreezeError</span>
 <span class="kn">from</span> <span class="nn">..util</span> <span class="k">import</span> <span class="n">make_rv_frozen</span><span class="p">,</span> <span class="n">rv_frozen_as_dict</span>
+<span class="kn">from</span> <span class="nn">.names</span> <span class="k">import</span> <span class="n">ShortnameMixin</span>
 
 <span class="k">def</span> <span class="nf">standardize_parameter_type</span><span class="p">(</span><span class="n">original_type</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Standardize parameter type descriptions</span>
@@ -555,7 +558,7 @@
     <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../../source/emat.scope/parameters.html#emat.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="n">workbench_param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../../source/emat.scope/parameters.html#emat.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="n">workbench_param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">,</span> <span class="n">ShortnameMixin</span><span class="p">):</span>
 
     <span class="n">dtype</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -575,6 +578,7 @@
             <span class="n">ptype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">corr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">dist_def</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">shortname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 
         <span class="c1"># The default constructor for ema_workbench parameters uses no distribution</span>
@@ -649,6 +653,8 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">dist_def</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">dist_def</span><span class="p">)</span> <span class="k">if</span> <span class="n">dist_def</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
         <span class="sd">&quot;&quot;&quot;Dict: The arguments that define the underlying distribution.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shortname</span> <span class="o">=</span> <span class="n">shortname</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">min</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -816,6 +822,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">resolution</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories</span><span class="p">))]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">multivalue</span> <span class="o">=</span> <span class="kc">False</span>
 
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List: The possible discrete values.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">min</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

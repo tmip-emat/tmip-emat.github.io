@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Meta-Models &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>Meta-Models &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -205,7 +207,7 @@ or <a class="reference internal" href="emat.models/abstract.html#emat.model.Abst
 methods of a core model.</p>
 <dl class="class">
 <dt id="emat.MetaModel">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">MetaModel</code><span class="sig-paren">(</span><em>input_sample</em>, <em>output_sample</em>, <em>metamodel_types=None</em>, <em>disabled_outputs=None</em>, <em>random_state=None</em>, <em>sample_stratification=None</em>, <em>suppress_converge_warnings=False</em>, <em>regressor=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/emat/model/meta_model.html#MetaModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">MetaModel</code><span class="sig-paren">(</span><em>input_sample</em>, <em>output_sample</em>, <em>metamodel_types=None</em>, <em>disabled_outputs=None</em>, <em>random_state=None</em>, <em>sample_stratification=None</em>, <em>suppress_converge_warnings=False</em>, <em>regressor=None</em>, <em>use_best_cv=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/emat/model/meta_model.html#MetaModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>A gaussian process regression-based meta-model.</p>
 <p>The MetaModel is a callable object that provides an EMA Workbench standard
 python interface, taking keyword arguments for parameters and returning a python
@@ -239,6 +241,8 @@ strictly positive.</li>
 <li><em>logxp(X)</em>: The natural log of X plus the performance measure is taken before
 fitting the regression model.  This allows shifting the position of the
 regression intercept to a point other than 0.</li>
+<li><em>clip(LO,HI)</em>: A linear model is used, but results are truncated to the range
+(LO,HI). Set either value as None to have a one-sided truncation range.</li>
 <li><em>linear</em>: No transforms are made.  This is the default when a performance
 measure is not included in <cite>metamodel_types</cite>.</li>
 </ul>
@@ -250,7 +254,8 @@ include names in <cite>disabled_outputs</cite> that are included in the columns
 of <cite>output_sample</cite>, although the principal use of this argument is to include
 names that are <em>not</em> included, as disabling outputs that are included will not
 prevent these values from being included in the computational process.</li>
-<li><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – A random state, passed to the created regression.</li>
+<li><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – A random state, passed to the created regression
+(but only if that regressor includes a ‘random_state’ parameter).</li>
 <li><strong>regressor</strong> (<em>Estimator</em><em>, </em><em>optional</em>) – A scikit-learn estimator implementing a
 multi-target regression.  If not given, a detrended simple Gaussian
 process regression is used.</li>
@@ -327,7 +332,7 @@ quite slow.</td>
 
 <dl class="method">
 <dt id="emat.MetaModel.cross_val_scores">
-<code class="descname">cross_val_scores</code><span class="sig-paren">(</span><em>cv=5</em>, <em>gpr_only=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/emat/model/meta_model.html#MetaModel.cross_val_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.cross_val_scores" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cross_val_scores</code><span class="sig-paren">(</span><em>cv=5</em>, <em>gpr_only=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/emat/model/meta_model.html#MetaModel.cross_val_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.cross_val_scores" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the cross validation scores for this meta-model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

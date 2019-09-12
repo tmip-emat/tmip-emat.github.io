@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.model.core_files.gbnrtc_model &mdash; TMIP-EMAT 0.1.4, May 2019 documentation</title>
+  <title>emat.model.core_files.gbnrtc_model &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
   
 
   
@@ -25,6 +25,8 @@
         <script type="text/javascript" src="../../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
             
           
@@ -381,18 +383,28 @@
 <span class="sd">            experiment_id (int, optional): The id number for this experiment.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Archiving model runs at </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y_%m_</span><span class="si">%d</span><span class="s2"> %H%M%S&quot;</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_transcad</span><span class="p">()</span>        
 
         <span class="c1"># create output folder</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">)</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">,</span> <span class="s2">&quot;ModelConfig&quot;</span><span class="p">))</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">,</span> <span class="s2">&quot;TAZ&quot;</span><span class="p">))</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">,</span> <span class="s2">&quot;Network&quot;</span><span class="p">))</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">,</span> <span class="s2">&quot;Inputs&quot;</span><span class="p">))</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">,</span> <span class="s2">&quot;Inputs</span><span class="se">\\</span><span class="s2">Model&quot;</span><span class="p">))</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">,</span> <span class="s2">&quot;Outputs&quot;</span><span class="p">))</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
         <span class="c1"># record experiment definitions</span>
-        <span class="n">xl_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">experiment_id</span><span class="p">])</span>
+        <span class="n">xl_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;variable&#39;</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="p">])</span>
         <span class="n">xl_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">model_results_path</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">RunMacro</span><span class="p">(</span>
@@ -434,7 +446,8 @@
                     <span class="s2">&quot;EMAExperimentFiles&quot;</span><span class="p">,</span> <span class="s2">&quot;PerfMeasSupport&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span>
                 <span class="p">)</span>
         <span class="p">):</span>
-            <span class="n">copy</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">,</span> <span class="s2">&quot;Outputs&quot;</span><span class="p">))</span>
+            <span class="n">copy</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">,</span> 
+                                    <span class="s2">&quot;EMAExperimentFiles&quot;</span><span class="p">,</span> <span class="s2">&quot;PerfMeasSupport&quot;</span><span class="p">))</span>
             
         <span class="c1"># copy output summaries (all csv&#39;s)</span>
         <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
@@ -457,6 +470,48 @@
             <span class="k">raise</span> <span class="ne">SystemError</span><span class="p">(</span><span class="s2">&quot;Error </span><span class="si">{2}</span><span class="s2"> in setting </span><span class="si">{0}</span><span class="s2"> to </span><span class="si">{1}</span><span class="s2">&quot;</span> 
                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evar</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">[</span><span class="n">evar</span><span class="p">],</span> <span class="n">ret</span><span class="p">))</span> 
         <span class="k">return</span> <span class="p">[</span><span class="n">evar</span><span class="p">]</span>
+
+    
+    <span class="k">def</span> <span class="nf">__set_bailey_transit_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">,</span> <span class="n">evar</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">):</span> 
+        <span class="sd">&#39;&#39;&#39; call TransCAD macro and return both strategies to completed list&#39;&#39;&#39;</span>
+        <span class="c1"># bailey transit and micro mobility strategies are interdependent</span>
+        <span class="n">tserv</span> <span class="o">=</span> <span class="n">exp_var</span><span class="p">[</span><span class="s1">&#39;Bailey Transit Service&#39;</span><span class="p">]</span>
+        <span class="n">mobhub</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">exp_var</span><span class="p">[</span><span class="s1">&#39;Bailey Mobility Hubs&#39;</span><span class="p">])</span>
+        <span class="n">mmob</span> <span class="o">=</span>  <span class="nb">int</span><span class="p">(</span><span class="n">exp_var</span><span class="p">[</span><span class="s1">&#39;Bailey Micro-Mobility&#39;</span><span class="p">])</span>
+        
+        <span class="n">ttime</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">thead</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="k">if</span> <span class="n">tserv</span> <span class="o">==</span> <span class="s1">&#39;improved headway&#39;</span><span class="p">:</span>
+            <span class="n">thead</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">tserv</span> <span class="o">==</span> <span class="s1">&#39;traffic priority&#39;</span><span class="p">:</span>
+            <span class="n">ttime</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">tserv</span> <span class="o">==</span> <span class="s1">&#39;brt&#39;</span><span class="p">:</span>
+            <span class="n">ttime</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">thead</span> <span class="o">=</span> <span class="mi">1</span>
+            
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">RunMacro</span><span class="p">(</span><span class="s2">&quot;G30 File Close All&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_param_ui</span><span class="p">)</span>  
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">RunMacro</span><span class="p">(</span><span class="n">macro</span><span class="p">,</span> 
+                               <span class="bp">self</span><span class="o">.</span><span class="n">exp_param_ui</span><span class="p">,</span> 
+                               <span class="bp">self</span><span class="o">.</span><span class="n">mod_path_tc</span><span class="p">,</span>
+                               <span class="n">ttime</span><span class="p">,</span> <span class="n">mobhub</span><span class="p">,</span> <span class="n">mmob</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">SystemError</span><span class="p">(</span><span class="s2">&quot;Error in setting Bailey travel time / Mobility Hubs to </span><span class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2">&quot;</span> 
+                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ttime</span><span class="p">,</span> <span class="n">mobhub</span><span class="p">))</span> 
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">RunMacro</span><span class="p">(</span><span class="s2">&quot;G30 File Close All&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_param_ui</span><span class="p">)</span>  
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">RunMacro</span><span class="p">(</span><span class="s2">&quot;Headway&quot;</span><span class="p">,</span> 
+                               <span class="bp">self</span><span class="o">.</span><span class="n">exp_param_ui</span><span class="p">,</span> 
+                               <span class="bp">self</span><span class="o">.</span><span class="n">mod_path_tc</span><span class="p">,</span>
+                               <span class="n">thead</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">SystemError</span><span class="p">(</span><span class="s2">&quot;Error in setting Bailey service headway component to </span><span class="si">{0}</span><span class="s2">&quot;</span>
+                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">thead</span><span class="p">))</span>             
+            
+        <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;Bailey Transit Service&#39;</span><span class="p">,</span> <span class="s1">&#39;Bailey Mobility Hubs&#39;</span><span class="p">,</span> <span class="s1">&#39;Bailey Micro-Mobility&#39;</span><span class="p">]</span>
         
     
     <span class="k">def</span> <span class="nf">__set_kenslrt_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">,</span> <span class="n">evar</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">):</span> 
@@ -519,15 +574,26 @@
         <span class="s1">&#39;Freeway Capacity&#39;</span><span class="p">:</span>             <span class="p">(</span><span class="n">__set_simple_evar</span><span class="p">,</span> <span class="s2">&quot;Roadway Capacity&quot;</span><span class="p">),</span>
         <span class="s1">&#39;Auto IVTT Sensitivity&#39;</span><span class="p">:</span>        <span class="p">(</span><span class="n">__set_simple_evar</span><span class="p">,</span> <span class="s2">&quot;IVTT Discount&quot;</span><span class="p">),</span>
         <span class="s1">&#39;Shared Mobility&#39;</span><span class="p">:</span>              <span class="p">(</span><span class="n">__set_simple_evar</span><span class="p">,</span> <span class="s2">&quot;VA&quot;</span><span class="p">),</span>
-        <span class="s1">&#39;Kensington Decommissioning&#39;</span><span class="p">:</span>   <span class="p">(</span><span class="n">__set_kenslrt_strategy</span><span class="p">,</span> <span class="s2">&quot;Set Strategies&quot;</span><span class="p">),</span>
-        <span class="s1">&#39;LRT Extension&#39;</span><span class="p">:</span>                <span class="p">(</span><span class="n">__set_kenslrt_strategy</span><span class="p">,</span> <span class="s2">&quot;Set Strategies&quot;</span><span class="p">)</span>
+        <span class="s1">&#39;Kensington Decommissioning&#39;</span><span class="p">:</span>   <span class="p">(</span><span class="n">__set_kenslrt_strategy</span><span class="p">,</span> <span class="s2">&quot;Set POC Strategies&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;LRT Extension&#39;</span><span class="p">:</span>                <span class="p">(</span><span class="n">__set_kenslrt_strategy</span><span class="p">,</span> <span class="s2">&quot;Set POC Strategies&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;Bailey Land Use&#39;</span><span class="p">:</span>              <span class="p">(</span><span class="n">__set_simple_evar</span><span class="p">,</span> <span class="s2">&quot;Corridor_SED&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;Self Parking&#39;</span><span class="p">:</span>                 <span class="p">(</span><span class="n">__set_simple_evar</span><span class="p">,</span> <span class="s2">&quot;Terminal_Time&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;Weather Impacts&#39;</span><span class="p">:</span>              <span class="p">(</span><span class="n">__set_simple_evar</span><span class="p">,</span> <span class="s2">&quot;Weather_Capacity_Impact&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;Bailey Transit Service&#39;</span><span class="p">:</span>       <span class="p">(</span><span class="n">__set_bailey_transit_strategy</span><span class="p">,</span> <span class="s2">&quot;Transit_Strategies&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;Bailey Micro-Mobility&#39;</span><span class="p">:</span>        <span class="p">(</span><span class="n">__set_bailey_transit_strategy</span><span class="p">,</span> <span class="s2">&quot;Transit_Strategies&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;Bailey Mobility Hubs&#39;</span><span class="p">:</span>         <span class="p">(</span><span class="n">__set_bailey_transit_strategy</span><span class="p">,</span> <span class="s2">&quot;Transit_Strategies&quot;</span><span class="p">),</span>
+        <span class="c1">#&#39;Bailey Transit Headway&#39;:       (__set_simple_evar, &quot;Headway&quot;),</span>
+        <span class="s1">&#39;Bailey Reduced Parking&#39;</span><span class="p">:</span>       <span class="p">(</span><span class="n">__set_simple_evar</span><span class="p">,</span> <span class="s2">&quot;Bailey_Parking&quot;</span><span class="p">),</span>        
+        <span class="s1">&#39;Bailey Non-Motorized Facilities&#39;</span><span class="p">:</span>       <span class="p">(</span><span class="n">__set_simple_evar</span><span class="p">,</span> <span class="s2">&quot;Walk_Time&quot;</span><span class="p">)</span>                
+        
     <span class="p">}</span>
     
     <span class="n">__PM_BY_TRANSCAD_MACRO</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;VMTVHT&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="n">__pp_path</span><span class="p">,</span> 
                     <span class="p">[</span><span class="s1">&#39;Region-wide VMT&#39;</span><span class="p">,</span><span class="s1">&#39;Interstate + Expressway + Ramp/Connector VMT&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;Major and Minor Arterials VMT&#39;</span><span class="p">,</span><span class="s1">&#39;Total Auto VMT&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;Total Truck VMT&#39;</span><span class="p">]),</span>
+                    <span class="s1">&#39;Total Truck VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;Bailey VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;Bailey VHT&#39;</span><span class="p">,</span> 
+                    <span class="s1">&#39;Bailey Delay AM&#39;</span><span class="p">,</span><span class="s1">&#39;Bailey Delay MD&#39;</span><span class="p">,</span><span class="s1">&#39;Bailey Delay PM&#39;</span><span class="p">,</span><span class="s1">&#39;Bailey Delay NT&#39;</span><span class="p">]),</span>
         <span class="s1">&#39;TripLength&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="n">__pp_path</span><span class="p">,</span> 
                         <span class="p">[</span><span class="s1">&#39;AM Trip Time (minutes)&#39;</span><span class="p">,</span><span class="s1">&#39;AM Trip Length (miles)&#39;</span><span class="p">,</span>
                         <span class="s1">&#39;PM Trip Time (minutes)&#39;</span><span class="p">,</span><span class="s1">&#39;PM Trip Length (miles)&#39;</span><span class="p">]),</span>
@@ -537,14 +603,24 @@
                        <span class="s1">&#39;Total Transit Boardings&#39;</span><span class="p">,</span><span class="s1">&#39;Peak Walk-to-transit LRT Boarding&#39;</span><span class="p">,</span>
                        <span class="s1">&#39;Off-Peak Walk-to-transit LRT Boarding&#39;</span><span class="p">,</span><span class="s1">&#39;Peak Drive-to-transit LRT Boarding&#39;</span><span class="p">,</span>
                        <span class="s1">&#39;Off-Peak Drive-to-transit LRT Boarding&#39;</span><span class="p">,</span><span class="s1">&#39;Total LRT Boardings&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;BaileyBoardings&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="n">__pp_path</span><span class="p">,</span> 
+                       <span class="p">[</span><span class="s1">&#39;Peak Walk-to-transit Bailey Route Boarding&#39;</span><span class="p">,</span><span class="s1">&#39;Peak Drive-to-transit Bailey Route Boarding&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Off-Peak Walk-to-transit Bailey Route Boarding&#39;</span><span class="p">,</span> <span class="s1">&#39;Off-Peak Drive-to-transit Bailey Route Boarding&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Bailey corridor route ridership&#39;</span><span class="p">]),</span>    
         <span class="s1">&#39;ModeShare&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="n">__pp_path</span><span class="p">,</span> 
                        <span class="p">[</span><span class="s1">&#39;Peak Transit Share&#39;</span><span class="p">,</span><span class="s1">&#39;Peak NonMotorized Share&#39;</span><span class="p">,</span>
                        <span class="s1">&#39;Off-Peak Transit Share&#39;</span><span class="p">,</span><span class="s1">&#39;Off-Peak NonMotorized Share&#39;</span><span class="p">,</span>
-                       <span class="s1">&#39;Daily Transit Share&#39;</span><span class="p">,</span><span class="s1">&#39;Daily NonMotorized Share&#39;</span><span class="p">]),</span>
+                       <span class="s1">&#39;Daily Transit Share&#39;</span><span class="p">,</span><span class="s1">&#39;Daily NonMotorized Share&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Bailey Peak Transit Share&#39;</span><span class="p">,</span><span class="s1">&#39;Bailey Peak NonMotorized Share&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Bailey Off-Peak Transit Share&#39;</span><span class="p">,</span><span class="s1">&#39;Bailey Off-Peak NonMotorized Share&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Bailey Transit share&#39;</span><span class="p">,</span><span class="s1">&#39;Bailey NonMotorized share&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Regional trips to/from Bailey&#39;</span><span class="p">]),</span>
         <span class="s1">&#39;HBW Transit Time&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="n">__pp_path</span><span class="p">,</span> 
                               <span class="p">[</span><span class="s1">&#39;Number of Home-based work tours taking &lt;= 45 minutes via transit&#39;</span><span class="p">]),</span>
         <span class="s1">&#39;Accessibility to CBD&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="n">__pp_path</span><span class="p">,</span> 
                                   <span class="p">[</span><span class="s1">&#39;Households within 30 min of CBD&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;Accessibility_Bailey&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="n">__pp_path</span><span class="p">,</span> 
+                                  <span class="p">[</span><span class="s1">&#39;Employment &lt; 20 transit mins from Bailey&#39;</span><span class="p">]),</span>                                  
         <span class="s1">&#39;Downtown to Airport Travel Time&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="n">__pp_path</span><span class="p">,</span> 
                                              <span class="p">[</span><span class="s1">&#39;Downtown to Airport Travel Time&#39;</span><span class="p">]),</span>
         <span class="s1">&#39;CorridorMeasures&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="n">__pp_path_kens</span><span class="p">,</span> 
@@ -587,6 +663,17 @@
                 <span class="s1">&#39;Total LRT Boardings&#39;</span><span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">],</span>
             <span class="p">}</span>
         <span class="p">),</span>
+        
+        <span class="n">TableParser</span><span class="p">(</span>
+            <span class="s2">&quot;transit_board_bailey.csv&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;Peak Walk-to-transit Bailey Route Boarding&#39;</span><span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;pk_walk_board&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;Off-Peak Walk-to-transit Bailey Route Boarding&#39;</span><span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;op_walk_board&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;Peak Drive-to-transit Bailey Route Boarding&#39;</span><span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;pk_drive_board&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;Off-Peak Drive-to-transit Bailey Route Boarding&#39;</span><span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;op_drive_board&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;Bailey corridor route ridership&#39;</span><span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">],</span>
+            <span class="p">}</span>
+        <span class="p">),</span>        
 
         <span class="n">TableParser</span><span class="p">(</span>
             <span class="s2">&quot;SUMMARY_VMTVHT.csv&quot;</span><span class="p">,</span>
@@ -605,11 +692,16 @@
             <span class="c1"># The TransCAD macro that creates the file SUMMARY_VMTVHT.csv</span>
             <span class="c1"># does not attach a header row with column names, so we</span>
             <span class="c1"># need to give column names here to enable the label-based</span>
-            <span class="c1"># loc getters above.</span>
+            <span class="c1"># loc getters above. The column names include the first</span>
+            <span class="c1"># columns, which is a row identifier that will be used as</span>
+            <span class="c1"># the index of the resulting loaded dataframe, and not column</span>
+            <span class="c1"># data.</span>
             <span class="n">names</span><span class="o">=</span><span class="p">[</span>
+                <span class="s1">&#39;identifier&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;Daily Auto VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily Truck VMT&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;Daily Total VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily Auto VHT&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;Daily Truck VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily Total VHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Daily Truck VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily Total VHT&#39;</span><span class="p">,</span><span class="s1">&#39;Daily Auto FFVHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Daily Truck FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily Total FFVHT&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;AM Auto VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;AM Truck VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;AM Total VMT&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;MD Auto VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;MD Truck VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;MD Total VMT&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;PM Auto VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;PM Truck VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;PM Total VMT&#39;</span><span class="p">,</span>
@@ -618,10 +710,50 @@
                 <span class="s1">&#39;MD Auto VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;MD Truck VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;MD Total VHT&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;PM Auto VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;PM Truck VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;PM Total VHT&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;NT Auto VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;NT Truck VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;NT Total VHT&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;Daily Total Volume&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily Total Count&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;Daily Auto Volume&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily Auto Count&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;Daily Truck Volume&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily Truck Count&#39;</span>
-            <span class="p">]</span>
+                <span class="s1">&#39;AM Auto FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;AM Truck FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;AM Total FFVHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;MD Auto FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;MD Truck FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;MD Total FFVHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;PM Auto FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;PM Truck FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;PM Total FFVHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;NT Auto FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;NT Truck FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;NT Total FFVHT&#39;</span>
+            <span class="p">],</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;identifier&#39;</span><span class="p">:</span><span class="nb">int</span><span class="p">},</span>
+        <span class="p">),</span>
+
+        <span class="n">TableParser</span><span class="p">(</span>
+            <span class="s2">&quot;SELECTION_VMTVHT.csv&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;Bailey VMT&#39;</span><span class="p">:</span> <span class="n">loc_sum</span><span class="p">[:,</span> <span class="s1">&#39;Daily Total VMT&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;Bailey VHT&#39;</span><span class="p">:</span> <span class="n">loc_sum</span><span class="p">[:,</span> <span class="s1">&#39;Daily Total VHT&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;Bailey Delay AM&#39;</span><span class="p">:</span> <span class="n">loc_sum</span><span class="p">[:,</span> <span class="s1">&#39;AM Total VHT&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;Bailey Delay MD&#39;</span><span class="p">:</span> <span class="n">loc_sum</span><span class="p">[:,</span> <span class="s1">&#39;MD Total VHT&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;Bailey Delay PM&#39;</span><span class="p">:</span> <span class="n">loc_sum</span><span class="p">[:,</span> <span class="s1">&#39;PM Total VHT&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;Bailey Delay NT&#39;</span><span class="p">:</span> <span class="n">loc_sum</span><span class="p">[:,</span> <span class="s1">&#39;NT Total VHT&#39;</span><span class="p">]</span>                                    
+            <span class="p">},</span>
+            <span class="c1"># The TransCAD macro that creates the file SUMMARY_VMTVHT.csv</span>
+            <span class="c1"># does not attach a header row with column names, so we</span>
+            <span class="c1"># need to give column names here to enable the label-based</span>
+            <span class="c1"># loc getters above.</span>
+            <span class="n">names</span><span class="o">=</span><span class="p">[</span>
+                <span class="s1">&#39;identifier&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Daily Auto VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily Truck VMT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Daily Total VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily Auto VHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Daily Truck VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily Total VHT&#39;</span><span class="p">,</span><span class="s1">&#39;Daily Auto FFVHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Daily Truck FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;Daily Total FFVHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;AM Auto VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;AM Truck VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;AM Total VMT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;MD Auto VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;MD Truck VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;MD Total VMT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;PM Auto VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;PM Truck VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;PM Total VMT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;NT Auto VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;NT Truck VMT&#39;</span><span class="p">,</span> <span class="s1">&#39;NT Total VMT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;AM Auto VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;AM Truck VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;AM Total VHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;MD Auto VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;MD Truck VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;MD Total VHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;PM Auto VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;PM Truck VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;PM Total VHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;NT Auto VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;NT Truck VHT&#39;</span><span class="p">,</span> <span class="s1">&#39;NT Total VHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;AM Auto FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;AM Truck FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;AM Total FFVHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;MD Auto FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;MD Truck FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;MD Total FFVHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;PM Auto FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;PM Truck FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;PM Total FFVHT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;NT Auto FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;NT Truck FFVHT&#39;</span><span class="p">,</span> <span class="s1">&#39;NT Total FFVHT&#39;</span>
+            <span class="p">],</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;identifier&#39;</span><span class="p">:</span><span class="nb">int</span><span class="p">},</span>
         <span class="p">),</span>
 
         <span class="n">TableParser</span><span class="p">(</span>
@@ -647,9 +779,36 @@
         <span class="p">),</span>
 
         <span class="n">TableParser</span><span class="p">(</span>
+            <span class="s2">&quot;bailey_mode_share.csv&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;Bailey Peak Transit Share&quot;</span>          <span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;pk_transit_share&#39;</span><span class="p">],</span>
+                <span class="s2">&quot;Bailey Peak NonMotorized Share&quot;</span>     <span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;pk_nonmot_share&#39;</span><span class="p">],</span>
+                <span class="s2">&quot;Bailey Off-Peak Transit Share&quot;</span>      <span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;op_transit_share&#39;</span><span class="p">],</span>
+                <span class="s2">&quot;Bailey Off-Peak NonMotorized Share&quot;</span> <span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;op_nonmot_share&#39;</span><span class="p">],</span>
+                <span class="s2">&quot;Bailey Transit share&quot;</span>               <span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;dly_transit_share&#39;</span><span class="p">],</span>
+                <span class="s2">&quot;Bailey NonMotorized share&quot;</span>          <span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;dly_nonmot_share&#39;</span><span class="p">],</span>
+            <span class="p">}</span>
+        <span class="p">),</span>
+
+        <span class="n">TableParser</span><span class="p">(</span>
+            <span class="s2">&quot;bailey_trip_summary.csv&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;Regional trips to/from Bailey&quot;</span>       <span class="p">:</span> <span class="p">(</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;pk_total&#39;</span><span class="p">]</span> <span class="o">+</span> 
+                                                        <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;op_total&#39;</span><span class="p">])</span>
+            <span class="p">}</span>
+        <span class="p">),</span>
+
+        <span class="n">TableParser</span><span class="p">(</span>
             <span class="s2">&quot;HH_within_30min.csv&quot;</span><span class="p">,</span>
             <span class="p">{</span>
                 <span class="s2">&quot;Households within 30 min of CBD&quot;</span><span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;HHs within 30 min of CBD&#39;</span><span class="p">],</span>
+            <span class="p">}</span>
+        <span class="p">),</span>
+
+        <span class="n">TableParser</span><span class="p">(</span>
+            <span class="s2">&quot;EMP_within_20min_of_BLY.csv&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;Employment &lt; 20 transit mins from Bailey&quot;</span><span class="p">:</span> <span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;EMPs within 20 min of BLY&#39;</span><span class="p">],</span>
             <span class="p">}</span>
         <span class="p">),</span>
 
