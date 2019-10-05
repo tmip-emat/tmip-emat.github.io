@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.scope.box &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
+  <title>emat.scope.box &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.2.5
               </div>
             
           
@@ -90,7 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.scope/index.html">Exploratory Scoping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.models/index.html">Core Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.examples/index.html">Examples</a></li>
@@ -991,6 +991,12 @@
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Set both lower and upper bounds.</span>
 
+<span class="sd">		If values are both set to None and this key becomes</span>
+<span class="sd">		unbounded but it was not previously unbounded, it is moved from</span>
+<span class="sd">		thresholds to relevant_features.  Conversely, if no bounds were</span>
+<span class="sd">		previously set but the key appears in relevant_features, it is</span>
+<span class="sd">		removed from that set.</span>
+
 <span class="sd">		Args:</span>
 <span class="sd">			key (str):</span>
 <span class="sd">				The feature name to which these bounds</span>
@@ -1016,16 +1022,28 @@
 			<span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">upperbound</span>
 
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_all_names</span><span class="p">():</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">_thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bounds</span><span class="p">(</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span><span class="p">)</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="k">raise</span> <span class="n">ScopeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;cannot set threshold on &#39;</span><span class="si">{key}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_all_names</span><span class="p">():</span>
+				<span class="k">raise</span> <span class="n">ScopeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;cannot set bounds on &#39;</span><span class="si">{key}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">lowerbound</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">upperbound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thresholds</span><span class="p">:</span>
+				<span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">_relevant_features</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 		<span class="k">else</span><span class="p">:</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">_thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bounds</span><span class="p">(</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span><span class="p">)</span></div>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bounds</span><span class="p">(</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_relevant_features</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">_relevant_features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Box.replace_allowed_set"><a class="viewcode-back" href="../../../source/emat.scope/boxes.html#emat.Box.replace_allowed_set">[docs]</a>	<span class="k">def</span> <span class="nf">replace_allowed_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Replace the allowed set.</span>
+
+<span class="sd">		If the new allowed set is the same as the complete set of</span>
+<span class="sd">		possible values defined in the scope, this key becomes</span>
+<span class="sd">		unbounded and it is moved from thresholds to</span>
+<span class="sd">		relevant_features.  Conversely, if no bounds were previously</span>
+<span class="sd">		set but the key appears in relevant_features, it is</span>
+<span class="sd">		removed from that set.</span>
 
 <span class="sd">		Args:</span>
 <span class="sd">			key (str):</span>
@@ -1034,15 +1052,23 @@
 <span class="sd">			values (set):</span>
 <span class="sd">				A set of values to use as the allowed set.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">action</span> <span class="o">=</span> <span class="kc">True</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_all_names</span><span class="p">():</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">_thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="k">raise</span> <span class="n">ScopeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;cannot set threshold on &#39;</span><span class="si">{key}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_all_names</span><span class="p">():</span>
+				<span class="k">raise</span> <span class="n">ScopeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;cannot set allowed_set on &#39;</span><span class="si">{key}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+			<span class="n">cat_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_cat_values</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+			<span class="k">if</span> <span class="ow">not</span> <span class="n">cat_values</span><span class="o">.</span><span class="n">issuperset</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+				<span class="k">raise</span> <span class="n">ScopeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;allowed_set is not a subset of scope defined values for &#39;</span><span class="si">{key}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cat_values</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+				<span class="n">action</span> <span class="o">=</span> <span class="kc">False</span>
+		<span class="k">if</span> <span class="n">action</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_relevant_features</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">_relevant_features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 		<span class="k">else</span><span class="p">:</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">_thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">)</span></div>
-
-
+			<span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thresholds</span><span class="p">:</span>
+				<span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thresholds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">_relevant_features</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
 
 	<span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span>

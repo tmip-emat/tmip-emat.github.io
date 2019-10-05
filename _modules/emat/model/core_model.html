@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.model.core_model &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
+  <title>emat.model.core_model &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.2.5
               </div>
             
           
@@ -90,7 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.scope/index.html">Exploratory Scoping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.models/index.html">Core Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.examples/index.html">Examples</a></li>
@@ -161,6 +161,7 @@
   <h1>Source code for emat.model.core_model</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot; core_model.py - define coure model API&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -170,11 +171,13 @@
 <span class="kn">from</span> <span class="nn">ema_workbench.em_framework.evaluators</span> <span class="k">import</span> <span class="n">BaseEvaluator</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Collection</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Iterable</span>
 
 <span class="kn">from</span> <span class="nn">..database.database</span> <span class="k">import</span> <span class="n">Database</span>
 <span class="kn">from</span> <span class="nn">..scope.scope</span> <span class="k">import</span> <span class="n">Scope</span>
 <span class="kn">from</span> <span class="nn">..optimization.optimization_result</span> <span class="k">import</span> <span class="n">OptimizationResult</span>
 <span class="kn">from</span> <span class="nn">..optimization</span> <span class="k">import</span> <span class="n">EpsilonProgress</span><span class="p">,</span> <span class="n">ConvergenceMetrics</span><span class="p">,</span> <span class="n">SolutionCount</span>
+<span class="kn">from</span> <span class="nn">..util.evaluators</span> <span class="k">import</span> <span class="n">prepare_evaluator</span>
 
 <span class="kn">from</span> <span class="nn">.._pkg_constants</span> <span class="k">import</span> <span class="o">*</span>
 
@@ -626,12 +629,16 @@
                                                                                  <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ExperimentL&#39;</span><span class="p">))</span>
         <span class="p">]</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">evaluator</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">ema_workbench</span> <span class="k">import</span> <span class="n">SequentialEvaluator</span>
-            <span class="n">evaluator</span> <span class="o">=</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">evaluator</span> <span class="o">=</span> <span class="n">prepare_evaluator</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
-        <span class="n">experiments</span><span class="p">,</span> <span class="n">outcomes</span> <span class="o">=</span> <span class="n">perform_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scenarios</span><span class="o">=</span><span class="n">scenarios</span><span class="p">,</span> <span class="n">policies</span><span class="o">=</span><span class="n">policies</span><span class="p">,</span>
-                                                    <span class="n">zip_over</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;scenarios&#39;</span><span class="p">,</span> <span class="s1">&#39;policies&#39;</span><span class="p">},</span> <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">evaluator</span><span class="p">:</span>
+            <span class="n">experiments</span><span class="p">,</span> <span class="n">outcomes</span> <span class="o">=</span> <span class="n">perform_experiments</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="n">scenarios</span><span class="o">=</span><span class="n">scenarios</span><span class="p">,</span>
+                <span class="n">policies</span><span class="o">=</span><span class="n">policies</span><span class="p">,</span>
+                <span class="n">zip_over</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;scenarios&#39;</span><span class="p">,</span> <span class="s1">&#39;policies&#39;</span><span class="p">},</span>
+                <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="n">experiments</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">index</span>
 
 
@@ -905,54 +912,47 @@
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="AbstractCoreModel.get_feature_scores"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.get_feature_scores">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_scores</span><span class="p">(</span>
+<div class="viewcode-block" id="AbstractCoreModel.feature_scores"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.feature_scores">[docs]</a>    <span class="k">def</span> <span class="nf">feature_scores</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">design</span><span class="p">,</span>
-            <span class="n">return_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;styled&#39;</span><span class="p">,</span>
             <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate feature scores based on a design of experiments.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            design (str or pandas.DataFrame): The name of the design of experiments</span>
-<span class="sd">                to use for feature scoring, or a pandas.DataFrame containing the</span>
+<span class="sd">                to use for feature scoring, or a single pandas.DataFrame containing the</span>
 <span class="sd">                experimental design and results.</span>
-<span class="sd">            return_raw (bool, default False): Whether to return a raw pandas.DataFrame</span>
-<span class="sd">                containing the computed feature scores, instead of a formatted heatmap</span>
-<span class="sd">                table.</span>
+<span class="sd">            return_type ({&#39;styled&#39;, &#39;figure&#39;, &#39;dataframe&#39;}):</span>
+<span class="sd">                The format to return, either a heatmap figure as an SVG render in and</span>
+<span class="sd">                xmle.Elem, or a plain pandas.DataFrame, or a styled dataframe.</span>
+<span class="sd">            random_state (int or numpy.RandomState, optional):</span>
+<span class="sd">                Random state to use.</span>
+<span class="sd">            cmap (string or colormap, default &#39;viridis&#39;): matplotlib colormap</span>
+<span class="sd">                to use for rendering.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            xmle.Elem or pandas.DataFrame:</span>
 <span class="sd">                Returns a rendered SVG as xml, or a DataFrame,</span>
-<span class="sd">                depending on the `return_raw` argument.</span>
+<span class="sd">                depending on the `return_type` argument.</span>
 
 <span class="sd">        This function internally uses feature_scoring from the EMA Workbench, which in turn</span>
 <span class="sd">        scores features using the &quot;extra trees&quot; regression approach.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">ema_workbench.analysis</span> <span class="k">import</span> <span class="n">feature_scoring</span>
-        <span class="kn">from</span> <span class="nn">..viz</span> <span class="k">import</span> <span class="n">heatmap_table</span>
-        <span class="kn">import</span> <span class="nn">pandas</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="n">design</span><span class="p">)</span>
-            <span class="n">outcomes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_experiment_measures</span><span class="p">(</span><span class="n">design</span><span class="p">)</span>
-            <span class="n">design_name</span> <span class="o">=</span> <span class="n">design</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-            <span class="n">inputs</span> <span class="o">=</span> <span class="n">design</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">design</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_parameter_names</span><span class="p">()]]</span>
-            <span class="n">outcomes</span> <span class="o">=</span> <span class="n">design</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">design</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">()]]</span>
-            <span class="n">design_name</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;must name design or give DataFrame&#39;</span><span class="p">)</span>
-
-        <span class="n">fs</span> <span class="o">=</span> <span class="n">feature_scoring</span><span class="o">.</span><span class="n">get_feature_scores_all</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">return_raw</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">fs</span>
-        <span class="k">return</span> <span class="n">heatmap_table</span><span class="p">(</span>
-            <span class="n">fs</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
-            <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Model Parameters&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Performance Measures&#39;</span><span class="p">,</span>
-            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Feature Scoring&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="n">f</span><span class="s1">&#39; [</span><span class="si">{design_name}</span><span class="s1">]&#39;</span> <span class="k">if</span> <span class="n">design_name</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="kn">from</span> <span class="nn">..analysis.feature_scoring</span> <span class="k">import</span> <span class="n">feature_scores</span>
+        <span class="k">return</span> <span class="n">feature_scores</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">,</span>
+            <span class="n">design</span><span class="o">=</span><span class="n">design</span><span class="p">,</span>
+            <span class="n">return_type</span><span class="o">=</span><span class="n">return_type</span><span class="p">,</span>
+            <span class="n">db</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
         <span class="p">)</span></div>
+
+    <span class="n">get_feature_scores</span> <span class="o">=</span> <span class="n">feature_scores</span> <span class="c1"># for compatability with prior versions of TMIP-EMAT</span>
 
     <span class="k">def</span> <span class="nf">_common_optimization_setup</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -975,21 +975,13 @@
             <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">display</span>
             <span class="n">display</span><span class="p">(</span><span class="n">convergence</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">evaluator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">ema_workbench.em_framework</span> <span class="k">import</span> <span class="n">SequentialEvaluator</span>
-            <span class="n">evaluator</span> <span class="o">=</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">BaseEvaluator</span><span class="p">):</span>
-            <span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="k">import</span> <span class="n">Client</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">Client</span><span class="p">):</span>
-                <span class="kn">from</span> <span class="nn">ema_workbench.em_framework.ema_distributed</span> <span class="k">import</span> <span class="n">DistributedEvaluator</span>
-                <span class="n">evaluator</span> <span class="o">=</span> <span class="n">DistributedEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">evaluator</span><span class="p">)</span>
+        <span class="n">evaluator</span> <span class="o">=</span> <span class="n">prepare_evaluator</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">epsilons</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">evaluator</span>
 
 <div class="viewcode-block" id="AbstractCoreModel.optimize"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.optimize">[docs]</a>    <span class="k">def</span> <span class="nf">optimize</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
-            <span class="n">search_over</span><span class="o">=</span><span class="s1">&#39;levers&#39;</span><span class="p">,</span>
+            <span class="n">searchover</span><span class="o">=</span><span class="s1">&#39;levers&#39;</span><span class="p">,</span>
             <span class="n">evaluator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">nfe</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
             <span class="n">convergence</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
@@ -998,7 +990,12 @@
             <span class="n">constraints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">reference</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">reverse_targets</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">epsilons</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">epsilons</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+            <span class="n">min_epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">cache_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">cache_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">check_extremes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1054,6 +1051,14 @@
 <span class="sd">            epsilons (float or array-like): Used to limit the number of</span>
 <span class="sd">                distinct solutions generated.  Set to a larger value to get</span>
 <span class="sd">                fewer distinct solutions.</span>
+<span class="sd">            cache_dir (path-like, optional): A directory in which to</span>
+<span class="sd">                cache results.  Most of the arguments will be hashed</span>
+<span class="sd">                to develop a unique filename for these results, making this</span>
+<span class="sd">                generally safer than `cache_file`.</span>
+<span class="sd">            cache_file (path-like, optional): A file into which to</span>
+<span class="sd">                cache results.  If this file exists, the contents of the</span>
+<span class="sd">                file will be loaded and all other arguments are ignored.</span>
+<span class="sd">                Use with great caution.</span>
 <span class="sd">            kwargs: Any additional arguments will be passed on to the</span>
 <span class="sd">                platypus algorithm.</span>
 
@@ -1063,41 +1068,122 @@
 <span class="sd">                When `convergence` is given, the convergence measures are</span>
 <span class="sd">                included, as a pandas.DataFrame in the `convergence` attribute.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">epsilons</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">evaluator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_common_optimization_setup</span><span class="p">(</span>
-            <span class="n">epsilons</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">evaluator</span>
+        <span class="kn">from</span> <span class="nn">..util.disk_cache</span> <span class="k">import</span> <span class="n">load_cache_if_available</span><span class="p">,</span> <span class="n">save_cache</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">algorithm</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">algorithm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">alg</span> <span class="o">=</span> <span class="n">algorithm</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">alg</span> <span class="o">=</span> <span class="n">algorithm</span><span class="o">.</span><span class="vm">__name__</span>
+
+        <span class="k">if</span> <span class="n">reference</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">ema_workbench</span> <span class="k">import</span> <span class="n">Policy</span><span class="p">,</span> <span class="n">Scenario</span>
+            <span class="k">if</span> <span class="n">searchover</span> <span class="o">==</span> <span class="s1">&#39;levers&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">Scenario</span><span class="p">):</span>
+                <span class="n">reference</span> <span class="o">=</span> <span class="n">Scenario</span><span class="p">(</span><span class="s2">&quot;ReferenceScenario&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">reference</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">searchover</span> <span class="o">==</span> <span class="s1">&#39;uncertainties&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">Policy</span><span class="p">):</span>
+                <span class="n">reference</span> <span class="o">=</span> <span class="n">Policy</span><span class="p">(</span><span class="s2">&quot;ReferencePolicy&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">reference</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">searchover</span> <span class="o">==</span> <span class="s1">&#39;levers&#39;</span><span class="p">:</span>
+                <span class="n">reference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">default_scenario</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">searchover</span> <span class="o">==</span> <span class="s1">&#39;uncertainties&#39;</span><span class="p">:</span>
+                <span class="n">reference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">default_policy</span><span class="p">()</span>
+
+        <span class="n">x</span><span class="p">,</span> <span class="n">cache_file</span> <span class="o">=</span> <span class="n">load_cache_if_available</span><span class="p">(</span>
+            <span class="n">cache_file</span><span class="o">=</span><span class="n">cache_file</span><span class="p">,</span>
+            <span class="n">cache_dir</span><span class="o">=</span><span class="n">cache_dir</span><span class="p">,</span>
+            <span class="n">searchover</span><span class="o">=</span><span class="n">searchover</span><span class="p">,</span>
+            <span class="n">nfe</span><span class="o">=</span><span class="n">nfe</span><span class="p">,</span>
+            <span class="n">convergence</span><span class="o">=</span><span class="n">convergence</span><span class="p">,</span>
+            <span class="n">convergence_freq</span><span class="o">=</span><span class="n">convergence_freq</span><span class="p">,</span>
+            <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
+            <span class="n">reference</span><span class="o">=</span><span class="n">reference</span><span class="p">,</span>
+            <span class="n">reverse_targets</span><span class="o">=</span><span class="n">reverse_targets</span><span class="p">,</span>
+            <span class="n">algorithm</span><span class="o">=</span><span class="n">alg</span><span class="p">,</span>
+            <span class="n">epsilons</span><span class="o">=</span><span class="n">epsilons</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">reverse_targets</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measures</span><span class="p">():</span>
-                <span class="n">k</span><span class="o">.</span><span class="n">kind_original</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">kind</span>
-                <span class="n">k</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">kind</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">epsilons</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">evaluator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_common_optimization_setup</span><span class="p">(</span>
+                <span class="n">epsilons</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">evaluator</span>
+            <span class="p">)</span>
 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">evaluator</span><span class="p">:</span>
-                <span class="n">results</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span>
-                    <span class="n">search_over</span><span class="o">=</span><span class="n">search_over</span><span class="p">,</span>
-                    <span class="n">reference</span><span class="o">=</span><span class="n">reference</span><span class="p">,</span>
-                    <span class="n">nfe</span><span class="o">=</span><span class="n">nfe</span><span class="p">,</span>
-                    <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
-                    <span class="n">convergence</span><span class="o">=</span><span class="n">convergence</span><span class="p">,</span>
-                    <span class="n">convergence_freq</span><span class="o">=</span><span class="n">convergence_freq</span><span class="p">,</span>
-                    <span class="n">epsilons</span><span class="o">=</span><span class="n">epsilons</span><span class="p">,</span>
-                    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-                <span class="p">)</span>
-
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">results</span><span class="p">,</span> <span class="n">result_convergence</span> <span class="o">=</span> <span class="n">results</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">result_convergence</span> <span class="o">=</span> <span class="kc">None</span>
-
-            <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-
-        <span class="k">finally</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">reverse_targets</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measures</span><span class="p">():</span>
-                    <span class="n">k</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">kind_original</span>
-                    <span class="k">del</span> <span class="n">k</span><span class="o">.</span><span class="n">kind_original</span>
-        <span class="k">return</span> <span class="n">OptimizationResult</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">result_convergence</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">)</span></div>
+                    <span class="n">k</span><span class="o">.</span><span class="n">kind_original</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">kind</span>
+                    <span class="n">k</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">kind</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">evaluator</span><span class="p">:</span>
+
+                    <span class="k">if</span> <span class="n">epsilons</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+                        <span class="kn">from</span> <span class="nn">ema_workbench</span> <span class="k">import</span> <span class="n">perform_experiments</span>
+                        <span class="k">if</span> <span class="n">searchover</span> <span class="o">==</span> <span class="s1">&#39;levers&#39;</span><span class="p">:</span>
+                            <span class="n">_</span><span class="p">,</span> <span class="n">trial_outcomes</span> <span class="o">=</span> <span class="n">perform_experiments</span><span class="p">(</span>
+                                <span class="bp">self</span><span class="p">,</span>
+                                <span class="n">scenarios</span><span class="o">=</span><span class="n">reference</span><span class="p">,</span>
+                                <span class="n">policies</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                                <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span>
+                            <span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">_</span><span class="p">,</span> <span class="n">trial_outcomes</span> <span class="o">=</span> <span class="n">perform_experiments</span><span class="p">(</span>
+                                <span class="bp">self</span><span class="p">,</span>
+                                <span class="n">scenarios</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                                <span class="n">policies</span><span class="o">=</span><span class="n">reference</span><span class="p">,</span>
+                                <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span>
+                            <span class="p">)</span>
+                        <span class="n">epsilons</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">min_epsilon</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">trial_outcomes</span><span class="p">[</span><span class="n">mn</span><span class="p">])</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span> <span class="k">for</span> <span class="n">mn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">()]</span>
+
+                    <span class="n">results</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span>
+                        <span class="n">searchover</span><span class="o">=</span><span class="n">searchover</span><span class="p">,</span>
+                        <span class="n">reference</span><span class="o">=</span><span class="n">reference</span><span class="p">,</span>
+                        <span class="n">nfe</span><span class="o">=</span><span class="n">nfe</span><span class="p">,</span>
+                        <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
+                        <span class="n">convergence</span><span class="o">=</span><span class="n">convergence</span><span class="p">,</span>
+                        <span class="n">convergence_freq</span><span class="o">=</span><span class="n">convergence_freq</span><span class="p">,</span>
+                        <span class="n">epsilons</span><span class="o">=</span><span class="n">epsilons</span><span class="p">,</span>
+                        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                    <span class="p">)</span>
+
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">results</span><span class="p">,</span> <span class="n">result_convergence</span> <span class="o">=</span> <span class="n">results</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">result_convergence</span> <span class="o">=</span> <span class="kc">None</span>
+
+                    <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="n">OptimizationResult</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">result_convergence</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">searchover</span> <span class="o">==</span> <span class="s1">&#39;levers&#39;</span><span class="p">:</span>
+                        <span class="n">x</span><span class="o">.</span><span class="n">scenarios</span> <span class="o">=</span> <span class="n">reference</span>
+                    <span class="k">elif</span> <span class="n">searchover</span> <span class="o">==</span> <span class="s1">&#39;uncertainties&#39;</span><span class="p">:</span>
+                        <span class="n">x</span><span class="o">.</span><span class="n">policies</span> <span class="o">=</span> <span class="n">reference</span>
+
+                    <span class="k">if</span> <span class="n">check_extremes</span><span class="p">:</span>
+                        <span class="n">x</span><span class="o">.</span><span class="n">check_extremes</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="p">,</span>
+                            <span class="mi">1</span> <span class="k">if</span> <span class="n">check_extremes</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">check_extremes</span><span class="p">,</span>
+                            <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span>
+                            <span class="n">searchover</span><span class="o">=</span><span class="n">searchover</span><span class="p">,</span>
+                            <span class="n">robust</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="p">)</span>
+
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">reverse_targets</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_measures</span><span class="p">():</span>
+                        <span class="n">k</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">kind_original</span>
+                        <span class="k">del</span> <span class="n">k</span><span class="o">.</span><span class="n">kind_original</span>
+
+
+        <span class="k">elif</span> <span class="n">display_convergence</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_common_optimization_setup</span><span class="p">(</span>
+                <span class="kc">None</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">convergence</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">c</span><span class="o">.</span><span class="n">rebuild</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">convergence</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+        <span class="n">x</span><span class="o">.</span><span class="n">cache_file</span> <span class="o">=</span> <span class="n">cache_file</span>
+        <span class="n">save_cache</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">cache_file</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span></div>
 
 <div class="viewcode-block" id="AbstractCoreModel.robust_optimize"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.robust_optimize">[docs]</a>    <span class="k">def</span> <span class="nf">robust_optimize</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -1110,6 +1196,10 @@
             <span class="n">convergence_freq</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
             <span class="n">constraints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">epsilons</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">cache_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">cache_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">check_extremes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1141,19 +1231,38 @@
 <span class="sd">            evaluator (Evaluator, optional): The evaluator to use to</span>
 <span class="sd">                run the model. If not given, a SequentialEvaluator will</span>
 <span class="sd">                be created.</span>
-<span class="sd">            algorithm (platypus.Algorithm, optional): Select an</span>
-<span class="sd">                algorithm for multi-objective optimization.  See</span>
-<span class="sd">                `platypus` documentation for details.</span>
 <span class="sd">            nfe (int, default 10_000): Number of function evaluations.</span>
 <span class="sd">                This generally needs to be fairly large to achieve stable</span>
 <span class="sd">                results in all but the most trivial applications.</span>
 <span class="sd">            convergence (&#39;default&#39;, None, or emat.optimization.ConvergenceMetrics):</span>
 <span class="sd">                A convergence display during optimization.</span>
+<span class="sd">            display_convergence (bool, default True): Automatically display</span>
+<span class="sd">                the convergence metric figures when optimizing.</span>
+<span class="sd">            convergence_freq (int, default 100): The frequency at which</span>
+<span class="sd">                convergence metric figures are updated.</span>
 <span class="sd">            constraints (Collection[Constraint], optional)</span>
 <span class="sd">                Solutions will be constrained to only include values that</span>
 <span class="sd">                satisfy these constraints. The constraints can be based on</span>
 <span class="sd">                the policy levers, or on the computed values of the robustness</span>
 <span class="sd">                functions, or some combination thereof.</span>
+<span class="sd">            epsilons (float or array-like): Used to limit the number of</span>
+<span class="sd">                distinct solutions generated.  Set to a larger value to get</span>
+<span class="sd">                fewer distinct solutions.</span>
+<span class="sd">            cache_dir (path-like, optional): A directory in which to</span>
+<span class="sd">                cache results.  Most of the arguments will be hashed</span>
+<span class="sd">                to develop a unique filename for these results, making this</span>
+<span class="sd">                generally safer than `cache_file`.</span>
+<span class="sd">            cache_file (path-like, optional): A file into which to</span>
+<span class="sd">                cache results.  If this file exists, the contents of the</span>
+<span class="sd">                file will be loaded and all other arguments are ignored.</span>
+<span class="sd">                Use with great caution.</span>
+<span class="sd">            algorithm (platypus.Algorithm or str, optional): Select an</span>
+<span class="sd">                algorithm for multi-objective optimization.  The algorithm can</span>
+<span class="sd">                be given directly, or named in a string. See `platypus`</span>
+<span class="sd">                documentation for details.</span>
+<span class="sd">            check_extremes (bool or int, default False): Conduct additional</span>
+<span class="sd">                evaluations, setting individual policy levers to their</span>
+<span class="sd">                extreme values, for each candidate Pareto optimal solution.</span>
 <span class="sd">            kwargs: any additional arguments will be passed on to the</span>
 <span class="sd">                platypus algorithm.</span>
 
@@ -1163,50 +1272,55 @@
 <span class="sd">                When `convergence` is given, the convergence measures are</span>
 <span class="sd">                included, as a pandas.DataFrame in the `convergence` attribute.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">..scope.measure</span> <span class="k">import</span> <span class="n">Measure</span>
-        <span class="k">for</span> <span class="n">rf</span> <span class="ow">in</span> <span class="n">robustness_functions</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="n">Measure</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;robustness functions must be defined as emat.Measure objects&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">rf</span><span class="o">.</span><span class="n">function</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;robustness function must have a function attribute set (</span><span class="si">{rf.name}</span><span class="s1">)&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">rf</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;cannot name robustness function the same as any scope name (</span><span class="si">{rf.name}</span><span class="s1">)&#39;</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">..optimization.optimize</span> <span class="k">import</span> <span class="n">robust_optimize</span>
 
-        <span class="n">epsilons</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">evaluator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_common_optimization_setup</span><span class="p">(</span>
-            <span class="n">epsilons</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">evaluator</span>
+        <span class="kn">from</span> <span class="nn">..util.disk_cache</span> <span class="k">import</span> <span class="n">load_cache_if_available</span><span class="p">,</span> <span class="n">save_cache</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">algorithm</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">algorithm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">alg</span> <span class="o">=</span> <span class="n">algorithm</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">alg</span> <span class="o">=</span> <span class="n">algorithm</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">result</span><span class="p">,</span> <span class="n">cache_file</span> <span class="o">=</span> <span class="n">load_cache_if_available</span><span class="p">(</span>
+            <span class="n">cache_file</span><span class="o">=</span><span class="n">cache_file</span><span class="p">,</span>
+            <span class="n">cache_dir</span><span class="o">=</span><span class="n">cache_dir</span><span class="p">,</span>
+            <span class="n">scenarios</span><span class="o">=</span><span class="n">scenarios</span><span class="p">,</span>
+            <span class="n">convergence</span><span class="o">=</span><span class="n">convergence</span><span class="p">,</span>
+            <span class="n">convergence_freq</span><span class="o">=</span><span class="n">convergence_freq</span><span class="p">,</span>
+            <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
+            <span class="n">epsilons</span><span class="o">=</span><span class="n">epsilons</span><span class="p">,</span>
+            <span class="n">nfe</span><span class="o">=</span><span class="n">nfe</span><span class="p">,</span>
+            <span class="n">robustness_functions</span><span class="o">=</span><span class="n">robustness_functions</span><span class="p">,</span>
+            <span class="n">alg</span><span class="o">=</span><span class="n">alg</span><span class="p">,</span>
+            <span class="n">check_extremes</span><span class="o">=</span><span class="n">check_extremes</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">ema_workbench.em_framework.samplers</span> <span class="k">import</span> <span class="n">sample_uncertainties</span><span class="p">,</span> <span class="n">sample_levers</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">n_scenarios</span> <span class="o">=</span> <span class="n">scenarios</span>
-            <span class="n">scenarios</span> <span class="o">=</span> <span class="n">sample_uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_scenarios</span><span class="p">)</span>
-
-        <span class="k">with</span> <span class="n">evaluator</span><span class="p">:</span>
-            <span class="n">robust_results</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">robust_optimize</span><span class="p">(</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">robust_optimize</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
                 <span class="n">robustness_functions</span><span class="p">,</span>
                 <span class="n">scenarios</span><span class="p">,</span>
+                <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span>
                 <span class="n">nfe</span><span class="o">=</span><span class="n">nfe</span><span class="p">,</span>
+                <span class="n">convergence</span><span class="o">=</span><span class="n">convergence</span><span class="p">,</span>
+                <span class="n">display_convergence</span><span class="o">=</span><span class="n">display_convergence</span><span class="p">,</span>
+                <span class="n">convergence_freq</span><span class="o">=</span><span class="n">convergence_freq</span><span class="p">,</span>
                 <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
                 <span class="n">epsilons</span><span class="o">=</span><span class="n">epsilons</span><span class="p">,</span>
-                <span class="n">convergence</span><span class="o">=</span><span class="n">convergence</span><span class="p">,</span>
-                <span class="n">convergence_freq</span><span class="o">=</span><span class="n">convergence_freq</span><span class="p">,</span>
+                <span class="n">check_extremes</span><span class="o">=</span><span class="n">check_extremes</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
             <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">display_convergence</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_common_optimization_setup</span><span class="p">(</span>
+                <span class="kc">None</span><span class="p">,</span> <span class="n">convergence</span><span class="p">,</span> <span class="n">display_convergence</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">convergence</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">c</span><span class="o">.</span><span class="n">rebuild</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">convergence</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">pass</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">robust_results</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">robust_results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">robust_results</span><span class="p">,</span> <span class="n">result_convergence</span> <span class="o">=</span> <span class="n">robust_results</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">result_convergence</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="n">robust_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">robust_results</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">OptimizationResult</span><span class="p">(</span>
-            <span class="n">robust_results</span><span class="p">,</span>
-            <span class="n">result_convergence</span><span class="p">,</span>
-            <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">,</span>
-            <span class="n">robustness_functions</span><span class="o">=</span><span class="n">robustness_functions</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="n">result</span><span class="o">.</span><span class="n">cache_file</span> <span class="o">=</span> <span class="n">cache_file</span>
+        <span class="n">save_cache</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">cache_file</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="AbstractCoreModel.robust_evaluate"><a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.robust_evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">robust_evaluate</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -1214,6 +1328,7 @@
             <span class="n">scenarios</span><span class="p">,</span>
             <span class="n">policies</span><span class="p">,</span>
             <span class="n">evaluator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">cache_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform robust evaluation(s).</span>
@@ -1241,30 +1356,69 @@
 <span class="sd">            evaluator (Evaluator, optional): The evaluator to use to</span>
 <span class="sd">                run the model. If not given, a SequentialEvaluator will</span>
 <span class="sd">                be created.</span>
+<span class="sd">            cache_dir (path-like, optional): A directory in which to</span>
+<span class="sd">                cache results.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            pandas.DataFrame: The computed value of each item</span>
-<span class="sd">            in `robustness_functions`, for each policy in `policies`.</span>
+<span class="sd">                in `robustness_functions`, for each policy in `policies`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">robust_results</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">cache_file</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">cache_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="kn">from</span> <span class="nn">..util.hasher</span> <span class="k">import</span> <span class="n">hash_it</span>
+                <span class="n">hh</span> <span class="o">=</span> <span class="n">hash_it</span><span class="p">(</span>
+                    <span class="n">scenarios</span><span class="p">,</span>
+                    <span class="n">policies</span><span class="p">,</span>
+                    <span class="n">robustness_functions</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span><span class="n">hh</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span><span class="n">hh</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">cache_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span><span class="n">hh</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span><span class="n">hh</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span><span class="n">hh</span><span class="p">[</span><span class="mi">6</span><span class="p">:]</span><span class="o">+</span><span class="s2">&quot;.gz&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cache_file</span><span class="p">):</span>
+                    <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;loading from cache_file=</span><span class="si">{cache_file}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="kn">from</span> <span class="nn">..util.filez</span> <span class="k">import</span> <span class="n">load</span>
+                    <span class="n">robust_results</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">cache_file</span><span class="p">)</span>
+                    <span class="n">cache_file</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">warnings</span><span class="o">,</span> <span class="nn">traceback</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;unable to manage cache&#39;</span><span class="p">)</span>
+                <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">evaluator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">ema_workbench.em_framework</span> <span class="k">import</span> <span class="n">SequentialEvaluator</span>
-            <span class="n">evaluator</span> <span class="o">=</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">robust_results</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">evaluator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="kn">from</span> <span class="nn">ema_workbench.em_framework</span> <span class="k">import</span> <span class="n">SequentialEvaluator</span>
+                <span class="n">evaluator</span> <span class="o">=</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">ema_workbench.em_framework.samplers</span> <span class="k">import</span> <span class="n">sample_uncertainties</span><span class="p">,</span> <span class="n">sample_levers</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">BaseEvaluator</span><span class="p">):</span>
+                <span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="k">import</span> <span class="n">Client</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">Client</span><span class="p">):</span>
+                    <span class="kn">from</span> <span class="nn">ema_workbench.em_framework.ema_distributed</span> <span class="k">import</span> <span class="n">DistributedEvaluator</span>
+                    <span class="n">evaluator</span> <span class="o">=</span> <span class="n">DistributedEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">evaluator</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">n_scenarios</span> <span class="o">=</span> <span class="n">scenarios</span>
-            <span class="n">scenarios</span> <span class="o">=</span> <span class="n">sample_uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_scenarios</span><span class="p">)</span>
+            <span class="kn">from</span> <span class="nn">ema_workbench.em_framework.samplers</span> <span class="k">import</span> <span class="n">sample_uncertainties</span><span class="p">,</span> <span class="n">sample_levers</span>
 
-        <span class="k">with</span> <span class="n">evaluator</span><span class="p">:</span>
-            <span class="n">robust_results</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">robust_evaluate</span><span class="p">(</span>
-                <span class="n">robustness_functions</span><span class="p">,</span>
-                <span class="n">scenarios</span><span class="p">,</span>
-                <span class="n">policies</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">n_scenarios</span> <span class="o">=</span> <span class="n">scenarios</span>
+                <span class="n">scenarios</span> <span class="o">=</span> <span class="n">sample_uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_scenarios</span><span class="p">)</span>
 
-        <span class="n">robust_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">robust_results</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">evaluator</span><span class="p">:</span>
+                <span class="n">robust_results</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">robust_evaluate</span><span class="p">(</span>
+                    <span class="n">robustness_functions</span><span class="p">,</span>
+                    <span class="n">scenarios</span><span class="p">,</span>
+                    <span class="n">policies</span><span class="p">,</span>
+                <span class="p">)</span>
+
+            <span class="n">robust_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">robust_results</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cache_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">..util.filez</span> <span class="k">import</span> <span class="n">save</span>
+            <span class="n">save</span><span class="p">(</span><span class="n">robust_results</span><span class="p">,</span> <span class="n">cache_file</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cache_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.gz&#39;</span><span class="p">,</span><span class="s1">&#39;.info.txt&#39;</span><span class="p">),</span> <span class="s1">&#39;wt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">notes</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scenarios=&quot;</span><span class="p">,</span> <span class="n">scenarios</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">notes</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;robustness_functions=&quot;</span><span class="p">,</span> <span class="n">robustness_functions</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">notes</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;policies=&quot;</span><span class="p">,</span> <span class="n">policies</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">notes</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">robust_results</span></div></div>
 </pre></div>
 

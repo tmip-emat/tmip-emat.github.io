@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Uniform Distribution &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
+  <title>Uniform Distribution &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.2.5
               </div>
             
           
@@ -108,7 +108,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
@@ -425,7 +425,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <p>This page reviews some common continuous distributions used for exploratory and risk analysis.
-EMAT can also use any named continuous distribution from the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.3.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> module.</p>
+EMAT can also use any named continuous distribution from the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.3.1)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> module.</p>
 <div class="section" id="Uniform-Distribution">
 <h1>Uniform Distribution<a class="headerlink" href="#Uniform-Distribution" title="Permalink to this headline">¶</a></h1>
 <p>The uniform distribution is defined by a probability density function that is a rectangle. It is parameterized using two parameters (minimum, maximum). It is a simple distribution that is easy to understand and explain, and is often assumed as the implied default distribution for exploratory analysis.</p>
@@ -801,10 +801,10 @@ Can be inferred from those values if not given.</li>
 </div>
 <div class="section" id="Other-Distributions">
 <h1>Other Distributions<a class="headerlink" href="#Other-Distributions" title="Permalink to this headline">¶</a></h1>
-<p>It is possible to use any other continuous distribution provided in the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.3.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> module.
+<p>It is possible to use any other continuous distribution provided in the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.3.1)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> module.
 As a demonstration, below we define a trapezoidal distribution for an uncertainty.  Instead of
 using the more intuitively named keys shown above, it is necessary to fall back to the standard
-<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.3.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> names for each of the distribution parameters, and they must all be defined within
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.3.1)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> names for each of the distribution parameters, and they must all be defined within
 the <cite>dist</cite> key, which may be less intuitive than the suggested distributions above.  For example,
 note in the example below that the upper bound of the distribution is implictly set to 7 based
 on the parameters, and that upper bound is not explicitly identified in the yaml file.</p>

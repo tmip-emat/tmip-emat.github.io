@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Boxes &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
+  <title>Boxes &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.2.5
               </div>
             
           
@@ -104,7 +104,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
@@ -408,6 +408,11 @@ be found in the scope.</p>
 <dt id="emat.Box.set_bounds">
 <code class="descclassname">Box.</code><code class="descname">set_bounds</code><span class="sig-paren">(</span><em>key</em>, <em>lowerbound</em>, <em>upperbound=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Box.set_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Box.set_bounds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set both lower and upper bounds.</p>
+<p>If values are both set to None and this key becomes
+unbounded but it was not previously unbounded, it is moved from
+thresholds to relevant_features.  Conversely, if no bounds were
+previously set but the key appears in relevant_features, it is
+removed from that set.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -491,6 +496,12 @@ allowed set.</li>
 <dt id="emat.Box.replace_allowed_set">
 <code class="descclassname">Box.</code><code class="descname">replace_allowed_set</code><span class="sig-paren">(</span><em>key</em>, <em>values</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Box.replace_allowed_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Box.replace_allowed_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace the allowed set.</p>
+<p>If the new allowed set is the same as the complete set of
+possible values defined in the scope, this key becomes
+unbounded and it is moved from thresholds to
+relevant_features.  Conversely, if no bounds were previously
+set but the key appears in relevant_features, it is
+removed from that set.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

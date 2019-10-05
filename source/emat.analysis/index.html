@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Analysis &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
+  <title>Analysis &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Feature Scoring" href="feature-scoring.html" />
+    <link rel="next" title="Scatter Plot Matrix" href="splom.html" />
     <link rel="prev" title="SQLite Database" href="../emat.database/sqlitedb.html" /> 
 </head>
 
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.2.5
               </div>
             
           
@@ -92,15 +92,24 @@
 <li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#visualization">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="splom.html">Scatter Plot Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-explorer.html">Interactive Explorer</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#scenario-discovery">Scenario Discovery</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="feature-scoring.html">Feature Scoring</a></li>
 <li class="toctree-l3"><a class="reference internal" href="prim.html">PRIM</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#robust-optimization">Robust Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#directed-search">Directed Search</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html">Optimization Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#Mechanics-of-Using-Optimization">Mechanics of Using Optimization</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
@@ -205,6 +214,26 @@ recommendation, or specification by FHWA.</p>
 </div>
 <div class="section" id="analysis">
 <h1>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="visualization">
+<h2>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h2>
+<p>Visualization tools are an important part of the exploratory
+modeling process.  They allow analysts and other stakeholders
+to conceptualize the potentially complex relationships represented
+in transportation models.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="splom.html">Scatter Plot Matrix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="splom.html#Contrasting-Sets-of-Experiments">Contrasting Sets of Experiments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interactive-explorer.html">Interactive Explorer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interactive-explorer.html#Single-Dimension-Figures">Single Dimension Figures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactive-explorer.html#Two-Dimension-Figures">Two Dimension Figures</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="scenario-discovery">
 <h2>Scenario Discovery<a class="headerlink" href="#scenario-discovery" title="Permalink to this headline">¶</a></h2>
 <p>Scenario discovery in exploratory modeling is focused on finding
@@ -228,14 +257,35 @@ We illustrate a few here.</p>
 </ul>
 </div>
 </div>
-<div class="section" id="robust-optimization">
-<h2>Robust Optimization<a class="headerlink" href="#robust-optimization" title="Permalink to this headline">¶</a></h2>
-<p>Optimization is finding a set of policy decisions that give the
-best outcome on one particular measure.  Robust optimization
-generalizes this, seeking to find a set of policy decisions that
-gives good outcomes on multiple measures.  This is generally
-set up as a multi-objective optimization, so that decision makers
-can see and understand the tradeoffs between different outcomes.</p>
+<div class="section" id="directed-search">
+<h2>Directed Search<a class="headerlink" href="#directed-search" title="Permalink to this headline">¶</a></h2>
+<p>The scenario discovery tools outlined above are focused on
+exploring parameters and outcomes across a pre-set sample of
+model runs.  This sample can be small or quite large, but the
+tools only consider cases that have already been evaluated.
+In directed search, we transition to tools that will propose
+and execute <em>new</em> cases.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Multi-Objective-Optimization">Multi-Objective Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Robust-Optimization">Robust Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#Robustness-Functions">Robustness Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html#Mechanics-of-Using-Optimization">Mechanics of Using Optimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Policy-Optimization:-Search-over-Levers">Policy Optimization: Search over Levers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Worst-Case-Discovery:-Search-over-Uncertainties">Worst Case Discovery: Search over Uncertainties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Using-Robust-Optimization">Using Robust Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#Constraints">Constraints</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -247,7 +297,7 @@ can see and understand the tradeoffs between different outcomes.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="feature-scoring.html" class="btn btn-neutral float-right" title="Feature Scoring" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="splom.html" class="btn btn-neutral float-right" title="Scatter Plot Matrix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../emat.database/sqlitedb.html" class="btn btn-neutral float-left" title="SQLite Database" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installing using Anaconda &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
+  <title>Installing using Anaconda &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.2.5
               </div>
             
           
@@ -91,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="emat.intro.html">Introduction to EMAT</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="emat.install.html">Installation and Configuration</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Installing using Anaconda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#quick-start">Quick Start</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#installing-python">Installing Python</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#managing-environments">Managing Environments</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#creating-a-new-environment-for-tmip-emat">Creating a New Environment for TMIP-EMAT</a></li>
@@ -106,7 +107,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="emat.scope/index.html">Exploratory Scoping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="emat.models/index.html">Core Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="emat.examples/index.html">Examples</a></li>
@@ -213,6 +214,21 @@ recommendation, or specification by FHWA.</p>
 </div>
 <div class="section" id="installing-using-anaconda">
 <h1>Installing using Anaconda<a class="headerlink" href="#installing-using-anaconda" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+<p>To get started with TMIP-EMAT, you’ll need to follow a few simple steps.</p>
+<ol class="arabic simple">
+<li>Install <a class="reference external" href="https://www.anaconda.com/download">Anaconda Python 3.7</a>.</li>
+<li>Open the ‘Anaconda Prompt’ that was installed and run the following
+commands:</li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda env create TMIP/EMAT</span>
+<span class="go">conda activate EMAT</span>
+<span class="go">jupyter-notebook</span>
+</pre></div>
+</div>
+<p>More detailed instructions appear below.</p>
+</div>
 <div class="section" id="installing-python">
 <h2>Installing Python<a class="headerlink" href="#installing-python" title="Permalink to this headline">¶</a></h2>
 <p>To use TMIP-EMAT, you’ll need to have Python 3.7, plus a handful
@@ -256,7 +272,7 @@ prevent software conflicts, and ensure that tools installed for one project
 will not break another project.</p>
 <p>The instructions below provide only the most basic steps to
 set up and use an environment.  Much more extensive documentation
-on <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html" title="(in conda v4.7.11.post90+37f7ffb4)"><span class="xref std std-doc">managing environments</span></a>
+on <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html" title="(in conda v4.7.12.post66+b3b06ff7)"><span class="xref std std-doc">managing environments</span></a>
 is available in the conda documentation itself.</p>
 <div class="section" id="creating-a-new-environment-for-tmip-emat">
 <h3>Creating a New Environment for TMIP-EMAT<a class="headerlink" href="#creating-a-new-environment-for-tmip-emat" title="Permalink to this headline">¶</a></h3>
@@ -339,9 +355,11 @@ JupyterLab integrates many more features and provides for running
 multiple notebooks, and multiple views of the same notebook.
 It is in general compatible with TMIP-EMAT, although some of the
 interactive exploratory visualizations may be less responsive in
-JupyterLab than the Notebook interface alone.</p>
+JupyterLab than the Notebook interface alone.  You may also need
+to install one or more JupyterLab extensions to enable the full
+suite of TMIP-EMAT functionality.</p>
 <p>If it’s not already installed in your base or working
-environments, you can install it using conda:</p>
+environments, you can install JupyterLab using conda:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda install -c conda-forge jupyterlab</span>
 </pre></div>
 </div>

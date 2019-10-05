@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.model.meta_model &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
+  <title>emat.model.meta_model &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.2.5
               </div>
             
           
@@ -90,7 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.scope/index.html">Exploratory Scoping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.models/index.html">Core Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/emat.examples/index.html">Examples</a></li>
@@ -176,7 +176,7 @@
 <span class="n">_logger</span> <span class="o">=</span> <span class="n">get_module_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">create_metamodel</span><span class="p">(</span>
+<div class="viewcode-block" id="create_metamodel"><a class="viewcode-back" href="../../../source/emat.metamodels/creation.html#emat.create_metamodel">[docs]</a><span class="k">def</span> <span class="nf">create_metamodel</span><span class="p">(</span>
         <span class="n">scope</span><span class="p">,</span>
         <span class="n">experiments</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
         <span class="n">metamodel_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -265,6 +265,14 @@
                          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">output_transforms</span>
                          <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">meas</span><span class="p">}</span>
 
+    <span class="c1"># change log tranforms to log1p when the experimental minimum is</span>
+    <span class="c1"># non-positive but not less than -1</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">i_transform</span> <span class="ow">in</span> <span class="n">output_transforms</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">i_transform</span> <span class="o">==</span> <span class="s1">&#39;log&#39;</span> <span class="ow">and</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">experiment_outputs</span><span class="p">:</span>
+            <span class="n">i_min</span> <span class="o">=</span> <span class="n">experiment_outputs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+            <span class="k">if</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">i_min</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">output_transforms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;log1p&#39;</span>
+
     <span class="n">disabled_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">()</span>
                         <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">experiment_outputs</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 
@@ -301,10 +309,10 @@
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
             <span class="n">_logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;exception in storing metamodel in database&quot;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="n">result</span></div>
 
 
-<div class="viewcode-block" id="MetaModel"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel">[docs]</a><span class="k">class</span> <span class="nc">MetaModel</span><span class="p">:</span>
+<div class="viewcode-block" id="MetaModel"><a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel">[docs]</a><span class="k">class</span> <span class="nc">MetaModel</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A gaussian process regression-based meta-model.</span>
 
@@ -461,7 +469,7 @@
             <span class="kn">from</span> <span class="nn">..learn.model_selection</span> <span class="k">import</span> <span class="n">take_best</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">regression</span> <span class="o">=</span> <span class="n">take_best</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="p">)</span>
 
-<div class="viewcode-block" id="MetaModel.preprocess_raw_input"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel.preprocess_raw_input">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_raw_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">to_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="MetaModel.preprocess_raw_input"><a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.preprocess_raw_input">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_raw_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">to_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Preprocess raw data input.</span>
 
@@ -485,7 +493,7 @@
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_thresh</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="MetaModel.__call__"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="MetaModel.__call__"><a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Evaluate the meta-model.</span>
 
@@ -526,7 +534,7 @@
 
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="MetaModel.compute_std"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel.compute_std">[docs]</a>    <span class="k">def</span> <span class="nf">compute_std</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="MetaModel.compute_std"><a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.compute_std">[docs]</a>    <span class="k">def</span> <span class="nf">compute_std</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Evaluate standard deviations of estimates generated by the meta-model.</span>
 
@@ -570,7 +578,7 @@
 
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="MetaModel.predict"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">trend_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">residual_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="MetaModel.predict"><a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">trend_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">residual_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate predictions using the meta-model.</span>
 
@@ -621,7 +629,7 @@
         <span class="k">return</span> <span class="n">result</span></div>
 
 
-<div class="viewcode-block" id="MetaModel.cross_val_scores"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel.cross_val_scores">[docs]</a>    <span class="k">def</span> <span class="nf">cross_val_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">gpr_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="MetaModel.cross_val_scores"><a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.cross_val_scores">[docs]</a>    <span class="k">def</span> <span class="nf">cross_val_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">gpr_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the cross validation scores for this meta-model.</span>
 
@@ -649,7 +657,7 @@
             <span class="c1"># return regression.cross_val_scores(self.input_sample, residuals, cv=cv)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">cross_val_scores</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_sample</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="MetaModel.cross_val_predicts"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel.cross_val_predicts">[docs]</a>    <span class="k">def</span> <span class="nf">cross_val_predicts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<div class="viewcode-block" id="MetaModel.cross_val_predicts"><a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.cross_val_predicts">[docs]</a>    <span class="k">def</span> <span class="nf">cross_val_predicts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate cross validated predictions using this meta-model.</span>
 
@@ -677,7 +685,7 @@
             <span class="n">out_dims</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;</span><span class="si">{out_dim}</span><span class="s2"> outputs&quot;</span>
         <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;&lt;emat.MetaModel </span><span class="si">{in_dim}</span><span class="s2"> inputs -&gt; </span><span class="si">{out_dims}</span><span class="s2">&gt;&quot;</span>
 
-<div class="viewcode-block" id="MetaModel.get_length_scales"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel.get_length_scales">[docs]</a>    <span class="k">def</span> <span class="nf">get_length_scales</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MetaModel.get_length_scales"><a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.get_length_scales">[docs]</a>    <span class="k">def</span> <span class="nf">get_length_scales</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the length scales from the GPR kernels of this metamodel.</span>
 
@@ -700,7 +708,7 @@
             <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">input_sample</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
         <span class="p">)</span><span class="o">.</span><span class="n">T</span></div>
 
-<div class="viewcode-block" id="MetaModel.mix_length_scales"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel.mix_length_scales">[docs]</a>    <span class="k">def</span> <span class="nf">mix_length_scales</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="MetaModel.mix_length_scales"><a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.mix_length_scales">[docs]</a>    <span class="k">def</span> <span class="nf">mix_length_scales</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mix the length scales from the GPR kernels of this metamodel.</span>
 
@@ -742,7 +750,7 @@
                 <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">each_w</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">balance</span> <span class="k">else</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="MetaModel.pick_new_experiments"><a class="viewcode-back" href="../../../source/emat.metamodels.html#emat.MetaModel.pick_new_experiments">[docs]</a>    <span class="k">def</span> <span class="nf">pick_new_experiments</span><span class="p">(</span>
+<div class="viewcode-block" id="MetaModel.pick_new_experiments"><a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.pick_new_experiments">[docs]</a>    <span class="k">def</span> <span class="nf">pick_new_experiments</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">possible_experiments</span><span class="p">,</span>
             <span class="n">batch_size</span><span class="p">,</span>

@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
+  <title>Index &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.2.5
               </div>
             
           
@@ -91,7 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="source/emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.scope/index.html">Exploratory Scoping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.models/index.html">Core Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="source/emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.examples/index.html">Examples</a></li>
@@ -190,7 +190,7 @@
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.metamodels.html#emat.MetaModel.__call__">__call__() (emat.MetaModel method)</a>
+      <li><a href="source/emat.metamodels/api.html#emat.MetaModel.__call__">__call__() (emat.MetaModel method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -198,6 +198,8 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.scope/parameters.html#emat.Parameter.abbrev">abbrev (emat.Parameter attribute)</a>
+</li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel">AbstractCoreModel (class in emat.model)</a>
 </li>
       <li><a href="source/emat.models/files.html#emat.model.FilesCoreModel.add_parser">add_parser() (emat.model.FilesCoreModel method)</a>
@@ -272,7 +274,7 @@
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.cleanup">cleanup() (emat.model.AbstractCoreModel method)</a>
 </li>
-      <li><a href="source/emat.metamodels.html#emat.MetaModel.compute_std">compute_std() (emat.MetaModel method)</a>
+      <li><a href="source/emat.metamodels/api.html#emat.MetaModel.compute_std">compute_std() (emat.MetaModel method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -282,20 +284,18 @@
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.Parameter.corr">corr (emat.Parameter attribute)</a>
 </li>
+      <li><a href="source/emat.metamodels/creation.html#emat.create_metamodel">create_metamodel() (in module emat)</a>
+</li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_data">create_metamodel_from_data() (emat.model.AbstractCoreModel method)</a>
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_design">create_metamodel_from_design() (emat.model.AbstractCoreModel method)</a>
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_designs">create_metamodel_from_designs() (emat.model.AbstractCoreModel method)</a>
 </li>
-      <li><a href="source/emat.metamodels.html#emat.MetaModel.cross_val_predicts">cross_val_predicts() (emat.MetaModel method)</a>
+      <li><a href="source/emat.metamodels/api.html#emat.MetaModel.cross_val_predicts">cross_val_predicts() (emat.MetaModel method)</a>
 </li>
-      <li><a href="source/emat.metamodels.html#emat.MetaModel.cross_val_scores">cross_val_scores() (emat.MetaModel method)</a>
-
-      <ul>
-        <li><a href="source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.cross_val_scores">(emat.multitarget.DetrendedMultipleTargetRegression method)</a>
+      <li><a href="source/emat.metamodels/api.html#emat.MetaModel.cross_val_scores">cross_val_scores() (emat.MetaModel method)</a>
 </li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -326,22 +326,16 @@
         <li><a href="source/emat.scope/parameters.html#emat.Parameter.desc">(emat.Parameter attribute)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.glossary.html#term-design"><strong>design</strong></a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.glossary.html#term-design"><strong>design</strong></a>
+</li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.design_experiments">design_experiments() (emat.model.AbstractCoreModel method)</a>
 
       <ul>
         <li><a href="source/emat.scope/scope.html#emat.Scope.design_experiments">(emat.Scope method)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.detrend_predict">detrend_predict() (emat.multitarget.DetrendedMultipleTargetRegression method)</a>
-</li>
-      <li><a href="source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.detrend_scores">detrend_scores() (emat.multitarget.DetrendedMultipleTargetRegression method)</a>
-</li>
-      <li><a href="source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression">DetrendedMultipleTargetRegression (class in emat.multitarget)</a>
-</li>
       <li><a href="source/emat.scope/parameters.html#emat.Parameter.dist_def">dist_def (emat.Parameter attribute)</a>
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.distdef">distdef (emat.scope.parameter.CategoricalParameter attribute)</a>
@@ -376,13 +370,13 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.models/files.html#emat.model.core_files.parsers.FileParser">FileParser (class in emat.model.core_files.parsers)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.feature_scores">feature_scores() (emat.model.AbstractCoreModel method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.models/files.html#emat.model.FilesCoreModel">FilesCoreModel (class in emat.model)</a>
+      <li><a href="source/emat.models/files.html#emat.model.core_files.parsers.FileParser">FileParser (class in emat.model.core_files.parsers)</a>
 </li>
-      <li><a href="source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.fit">fit() (emat.multitarget.DetrendedMultipleTargetRegression method)</a>
+      <li><a href="source/emat.models/files.html#emat.model.FilesCoreModel">FilesCoreModel (class in emat.model)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -392,6 +386,18 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.models/gbnrtc.html#emat.model.GBNRTCModel">GBNRTCModel (class in emat.model)</a>
 </li>
+      <li><a href="source/emat.scope/parameters.html#emat.Parameter.get_abbrev">get_abbrev() (emat.Parameter method)</a>
+
+      <ul>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.get_abbrev">(emat.scope.parameter.BooleanParameter method)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.get_abbrev">(emat.scope.parameter.CategoricalParameter method)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.IntegerParameter.get_abbrev">(emat.scope.parameter.IntegerParameter method)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.RealParameter.get_abbrev">(emat.scope.parameter.RealParameter method)</a>
+</li>
+      </ul></li>
       <li><a href="source/emat.scope/scope.html#emat.Scope.get_all_names">get_all_names() (emat.Scope method)</a>
 </li>
       <li><a href="source/emat.scope/scope.html#emat.Scope.get_cat_values">get_cat_values() (emat.Scope method)</a>
@@ -414,11 +420,11 @@
         <li><a href="source/emat.models/gbnrtc.html#emat.model.GBNRTCModel.get_experiment_archive_path">(emat.model.GBNRTCModel method)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.get_feature_scores">get_feature_scores() (emat.model.AbstractCoreModel method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.metamodels.html#emat.MetaModel.get_length_scales">get_length_scales() (emat.MetaModel method)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.get_feature_scores">get_feature_scores() (emat.model.AbstractCoreModel method)</a>
+</li>
+      <li><a href="source/emat.metamodels/api.html#emat.MetaModel.get_length_scales">get_length_scales() (emat.MetaModel method)</a>
 </li>
       <li><a href="source/emat.scope/scope.html#emat.Scope.get_lever_names">get_lever_names() (emat.Scope method)</a>
 </li>
@@ -456,8 +462,12 @@
         <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.index_for_cat">(emat.scope.parameter.CategoricalParameter method)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.scope/scope.html#emat.Scope.info">info() (emat.Scope method)</a>
+      <li><a href="source/emat.scope/measures.html#emat.Measure.info">info() (emat.Measure method)</a>
+
+      <ul>
+        <li><a href="source/emat.scope/scope.html#emat.Scope.info">(emat.Scope method)</a>
 </li>
+      </ul></li>
       <li><a href="source/emat.database/abstract.html#emat.database.Database.init_xlm">init_xlm() (emat.database.Database method)</a>
 
       <ul>
@@ -496,10 +506,12 @@
 </li>
       <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.lever_thresholds">lever_thresholds() (emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#emat.ChainedBox.lever_thresholds">[1]</a>
 </li>
-      <li><a href="source/emat.models/files.html#emat.model.FilesCoreModel.load_archived_measures">load_archived_measures() (emat.model.FilesCoreModel method)</a>
+      <li><a href="source/emat.metamodels/regression.html#emat.learn.LinearAndGaussian">LinearAndGaussian() (in module emat.learn)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.models/files.html#emat.model.FilesCoreModel.load_archived_measures">load_archived_measures() (emat.model.FilesCoreModel method)</a>
+</li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.load_measures">load_measures() (emat.model.AbstractCoreModel method)</a>
 
       <ul>
@@ -509,8 +521,6 @@
 </li>
       </ul></li>
       <li><a href="source/emat.scope/boxes.html#emat.Bounds.lowerbound">lowerbound (emat.Bounds attribute)</a>
-</li>
-      <li><a href="source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.lr">lr (emat.multitarget.DetrendedMultipleTargetRegression attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -540,13 +550,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.glossary.html#term-meta-model"><strong>meta-model</strong></a>
 </li>
-      <li><a href="source/emat.metamodels.html#emat.MetaModel">MetaModel (class in emat)</a>
+      <li><a href="source/emat.metamodels/api.html#emat.MetaModel">MetaModel (class in emat)</a>
 </li>
       <li><a href="source/emat.scope/measures.html#emat.Measure.metamodeltype">metamodeltype (emat.Measure attribute)</a>
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.min">min (emat.scope.parameter.CategoricalParameter attribute)</a>
 </li>
-      <li><a href="source/emat.metamodels.html#emat.MetaModel.mix_length_scales">mix_length_scales() (emat.MetaModel method)</a>
+      <li><a href="source/emat.metamodels/api.html#emat.MetaModel.mix_length_scales">mix_length_scales() (emat.MetaModel method)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-model"><strong>model</strong></a>
 </li>
@@ -574,7 +584,7 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.optimize">optimize() (emat.model.AbstractCoreModel method)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.optimize">optimize() (emat.model.AbstractCoreModel method)</a>, <a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.optimize">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -588,7 +598,7 @@
 </li>
       <li><a href="source/emat.scope/continuous_distributions.html#emat.util.distributions.pert">pert() (in module emat.util.distributions)</a>
 </li>
-      <li><a href="source/emat.metamodels.html#emat.MetaModel.pick_new_experiments">pick_new_experiments() (emat.MetaModel method)</a>
+      <li><a href="source/emat.metamodels/api.html#emat.MetaModel.pick_new_experiments">pick_new_experiments() (emat.MetaModel method)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-policy"><strong>policy</strong></a>
 </li>
@@ -600,13 +610,9 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.metamodels.html#emat.MetaModel.predict">predict() (emat.MetaModel method)</a>
-
-      <ul>
-        <li><a href="source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.predict">(emat.multitarget.DetrendedMultipleTargetRegression method)</a>
+      <li><a href="source/emat.metamodels/api.html#emat.MetaModel.predict">predict() (emat.MetaModel method)</a>
 </li>
-      </ul></li>
-      <li><a href="source/emat.metamodels.html#emat.MetaModel.preprocess_raw_input">preprocess_raw_input() (emat.MetaModel method)</a>
+      <li><a href="source/emat.metamodels/api.html#emat.MetaModel.preprocess_raw_input">preprocess_raw_input() (emat.MetaModel method)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-prim"><strong>PRIM</strong></a>
 </li>
@@ -764,8 +770,6 @@
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.reset_model">reset_model() (emat.model.AbstractCoreModel method)</a>
 </li>
-      <li><a href="source/emat.metamodels.html#emat.multitarget.DetrendedMultipleTargetRegression.residual_predict">residual_predict() (emat.multitarget.DetrendedMultipleTargetRegression method)</a>
-</li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.retrieve_output">retrieve_output() (emat.model.AbstractCoreModel method)</a>
 </li>
       <li><a href="source/emat.examples/RoadTest/road_test_yaml.html#emat.model.core_python.core_python_examples.Road_Capacity_Investment">Road_Capacity_Investment() (in module emat.model.core_python.core_python_examples)</a>
@@ -816,8 +820,6 @@
         <li><a href="source/emat.models/gbnrtc.html#emat.model.GBNRTCModel.setup">(emat.model.GBNRTCModel method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.scope/measures.html#emat.Measure.shortname">shortname (emat.Measure attribute)</a>
 
       <ul>
@@ -830,6 +832,22 @@
         <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.IntegerParameter.shortname">(emat.scope.parameter.IntegerParameter attribute)</a>
 </li>
         <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.RealParameter.shortname">(emat.scope.parameter.RealParameter attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.scope/measures.html#emat.Measure.shortname_if_any">shortname_if_any (emat.Measure attribute)</a>
+
+      <ul>
+        <li><a href="source/emat.scope/parameters.html#emat.Parameter.shortname_if_any">(emat.Parameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.shortname_if_any">(emat.scope.parameter.BooleanParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.shortname_if_any">(emat.scope.parameter.CategoricalParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.IntegerParameter.shortname_if_any">(emat.scope.parameter.IntegerParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.RealParameter.shortname_if_any">(emat.scope.parameter.RealParameter attribute)</a>
 </li>
       </ul></li>
       <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB">SQLiteDB (class in emat.database)</a>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Performance Measures &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
+  <title>Performance Measures &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.2.5
               </div>
             
           
@@ -99,7 +99,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels.html">Meta-Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
@@ -354,10 +354,39 @@ metamodel estimation.</p>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="emat.Measure.info">
+<code class="descname">info</code><span class="sig-paren">(</span><em>return_string=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/measure.html#Measure.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Measure.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print some information about this measure</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>return_string</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Defaults False (print to stdout) but if given as True
+then this function returns the string instead of printing it.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="emat.Measure.shortname">
 <code class="descname">shortname</code><a class="headerlink" href="#emat.Measure.shortname" title="Permalink to this definition">¶</a></dt>
 <dd><p>An abbreviated name, or the full name if not otherwise defined.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Measure.shortname_if_any">
+<code class="descname">shortname_if_any</code><a class="headerlink" href="#emat.Measure.shortname_if_any" title="Permalink to this definition">¶</a></dt>
+<dd><p>The abbreviated name, or None.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

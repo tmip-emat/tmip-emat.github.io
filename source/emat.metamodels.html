@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Meta-Models &mdash; TMIP-EMAT 0.2.1, May 2019 documentation</title>
+  <title>Meta-Models &mdash; TMIP-EMAT 0.2.5, May 2019 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.2.5
               </div>
             
           
@@ -201,10 +201,9 @@ recommendation, or specification by FHWA.</p>
 <div class="section" id="meta-models">
 <h1>Meta-Models<a class="headerlink" href="#meta-models" title="Permalink to this headline">¶</a></h1>
 <p>The <a class="reference internal" href="#emat.MetaModel" title="emat.MetaModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetaModel</span></code></a> wraps the code required for automatically implementing
-metamodels.  MetaModels are created using the
-<a class="reference internal" href="emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_design" title="emat.model.AbstractCoreModel.create_metamodel_from_design"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_metamodel_from_design</span></code></a>
-or <a class="reference internal" href="emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_data" title="emat.model.AbstractCoreModel.create_metamodel_from_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_metamodel_from_data</span></code></a>
-methods of a core model.</p>
+metamodels.  The resulting object is callable in the expected manner for a
+PythonCoreModel (i.e., accepting keyword arguments to set inputs, and returning
+a dictionary of named performance measure outputs).</p>
 <dl class="class">
 <dt id="emat.MetaModel">
 <em class="property">class </em><code class="descclassname">emat.</code><code class="descname">MetaModel</code><span class="sig-paren">(</span><em>input_sample</em>, <em>output_sample</em>, <em>metamodel_types=None</em>, <em>disabled_outputs=None</em>, <em>random_state=None</em>, <em>sample_stratification=None</em>, <em>suppress_converge_warnings=False</em>, <em>regressor=None</em>, <em>use_best_cv=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/emat/model/meta_model.html#MetaModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel" title="Permalink to this definition">¶</a></dt>
@@ -526,9 +525,16 @@ this data type.</li>
 
 </dd></dl>
 
+<p>MetaModels can be created directly from other core models using the
+<a class="reference internal" href="emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_design" title="emat.model.AbstractCoreModel.create_metamodel_from_design"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_metamodel_from_design</span></code></a>
+or <a class="reference internal" href="emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_data" title="emat.model.AbstractCoreModel.create_metamodel_from_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_metamodel_from_data</span></code></a>
+methods of a core model, or by using the <code class="xref py py-func docutils literal notranslate"><span class="pre">create_metamodel()</span></code> function, which can
+create a MetaModel directly from a scope and experimental results, without requiring
+a core model instance.  Each of these functions returns a <code class="xref py py-class docutils literal notranslate"><span class="pre">PythonCoreModel</span></code> that
+already wraps the MetaModel in an interface ready for use with other TMIP-EMAT tools.</p>
 <div class="section" id="meta-model-regression">
 <h2>Meta-Model Regression<a class="headerlink" href="#meta-model-regression" title="Permalink to this headline">¶</a></h2>
-<p>TMIP-EMAT currently implements meta-modeling using a de-trended multi-target
+<p>TMIP-EMAT currently implements meta-modeling by default using a de-trended multi-target
 Gaussian process regression model.  The contents of this meta-model is provided
 transparently for inspection and review as desired, and documention is provided
 here to facilitate this.  However, future version of TMIP-EMAT may introduce
@@ -763,6 +769,110 @@ samples used in the fitting for the estimator.</li>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">ndarray</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="emat.learn.LinearAndGaussian">
+<code class="descclassname">emat.learn.</code><code class="descname">LinearAndGaussian</code><span class="sig-paren">(</span><em>fit_intercept=True</em>, <em>n_jobs=None</em>, <em>stats_on_fit=True</em>, <em>kernel_generator=None</em>, <em>alpha=1e-10</em>, <em>optimizer='fmin_l_bfgs_b'</em>, <em>n_restarts_optimizer=250</em>, <em>normalize_y=False</em>, <em>standardize_before_fit=True</em>, <em>copy_X_train=True</em>, <em>random_state=None</em>, <em>use_cv_predict=False</em>, <em>single_target=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/emat/learn/boosting.html#LinearAndGaussian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.learn.LinearAndGaussian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a detrended Gaussian process regressor.</p>
+<p>This two stage regressor first fits a simple linear regression
+model, then fits a Gaussian process regression on the
+<em>residuals</em> of the linear regression.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fit_intercept</strong> (<em>boolean</em><em>, </em><em>optional</em><em>, </em><em>default True</em>) – Whether to calculate the intercept for the linear
+regression step in this model. If set
+to False, no intercept will be used in calculations
+(e.g. data is expected to be already centered).</li>
+<li><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a><em>, </em><em>optional</em><em> (</em><em>default=None</em><em>)</em>) – The number of jobs to use for the computation of the linear model.
+This will only provide
+speedups for n_targets &gt; 1 and sufficiently large problems.
+<code class="docutils literal notranslate"><span class="pre">None</span></code> means 1 unless in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code> context.
+<code class="docutils literal notranslate"><span class="pre">-1</span></code> means using all processors. See <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-n-jobs" title="(in scikit-learn v0.21.3)"><span class="xref std std-term">Glossary</span></a>
+for more details.</li>
+<li><strong>stats_on_fit</strong> (<em>boolean</em><em>, </em><em>optional</em><em>, </em><em>default True</em>) – Whether to calculate a number of statistical measures for the linear
+regression model when it is fit, including standard errors and
+t-stats for coefficients and R^2 goodness of fit for overall
+models.</li>
+<li><strong>kernel_generator</strong> (<em>Callable</em><em>, </em><em>optional</em>) – A function that takes the number of input features, and returns
+a kernel function to be used in the Gaussian regression model.
+See <cite>AnisotropicGaussianProcessRegressor</cite> for details.</li>
+<li><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em> or </em><em>array-like</em><em>, </em><em>optional</em><em> (</em><em>default: 1e-10</em><em>)</em>) – Value added to the diagonal of the kernel matrix during fitting.
+Larger values correspond to increased noise level in the observations.
+This can also prevent a potential numerical issue during fitting, by
+ensuring that the calculated values form a positive definite matrix.
+If an array is passed, it must have the same number of entries as the
+data used for fitting and is used as datapoint-dependent noise level.
+Note that this is equivalent to adding a WhiteKernel with c=alpha.
+Allowing to specify the noise level directly as a parameter is mainly
+for convenience and for consistency with Ridge.</li>
+<li><strong>optimizer</strong> (<em>string</em><em> or </em><em>callable</em><em>, </em><em>optional</em><em> (</em><em>default: &quot;fmin_l_bfgs_b&quot;</em><em>)</em>) – <p>Can either be one of the internally supported optimizers for optimizing
+the kernel’s parameters, specified by a string, or an externally
+defined optimizer passed as a callable. If a callable is passed, it
+must have the signature:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">optimizer</span><span class="p">(</span><span class="n">obj_func</span><span class="p">,</span> <span class="n">initial_theta</span><span class="p">,</span> <span class="n">bounds</span><span class="p">):</span>
+        <span class="c1"># * &#39;obj_func&#39; is the objective function to be minimized, which</span>
+        <span class="c1">#   takes the hyperparameters theta as parameter and an</span>
+        <span class="c1">#   optional flag eval_gradient, which determines if the</span>
+        <span class="c1">#   gradient is returned additionally to the function value</span>
+        <span class="c1"># * &#39;initial_theta&#39;: the initial value for theta, which can be</span>
+        <span class="c1">#   used by local optimizers</span>
+        <span class="c1"># * &#39;bounds&#39;: the bounds on the values of theta</span>
+        <span class="o">....</span>
+        <span class="c1"># Returned are the best found hyperparameters theta and</span>
+        <span class="c1"># the corresponding value of the target function.</span>
+        <span class="k">return</span> <span class="n">theta_opt</span><span class="p">,</span> <span class="n">func_min</span>
+</pre></div>
+</div>
+<p>Per default, the ‘fmin_l_bfgs_b’ algorithm from scipy.optimize
+is used. If None is passed, the kernel’s parameters are kept fixed.
+Available internal optimizers are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;fmin_l_bfgs_b&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><strong>n_restarts_optimizer</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em><em> (</em><em>default: 0</em><em>)</em>) – The number of restarts of the optimizer for finding the kernel’s
+parameters which maximize the log-marginal likelihood. The first run
+of the optimizer is performed from the kernel’s initial parameters,
+the remaining ones (if any) from thetas sampled log-uniform randomly
+from the space of allowed theta-values. If greater than 0, all bounds
+must be finite. Note that n_restarts_optimizer == 0 implies that one
+run is performed.</li>
+<li><strong>normalize_y</strong> (<em>boolean</em><em>, </em><em>optional</em><em> (</em><em>default: False</em><em>)</em>) – Whether the target values y are normalized, i.e., the mean of the
+observed target values become zero. This parameter should be set to
+True if the target values’ mean is expected to differ considerable from
+zero. When enabled, the normalization effectively modifies the GP’s
+prior based on the data, which contradicts the likelihood principle;
+normalization is thus disabled per default.</li>
+<li><strong>standardize_before_fit</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em><em> (</em><em>default: True</em><em>)</em>) – Whether to standardize by scaling the target values of the Gaussian
+regression so they have unit variance.  This is replaces the inclusion
+of a scalar term in the kernel function, and may help increase the
+stability of results, especially with smaller sized datasets.</li>
+<li><strong>copy_X_train</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em><em> (</em><em>default: True</em><em>)</em>) – If True, a persistent copy of the training data is stored in the
+object. Otherwise, just a reference to the training data is stored,
+which might cause predictions to change if the data is modified
+externally.</li>
+<li><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>RandomState instance</em><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a><em>, </em><em>optional</em><em> (</em><em>default: None</em><em>)</em>) – The generator used to initialize the centers. If int, random_state is
+the seed used by the random number generator; If RandomState instance,
+random_state is the random number generator; If None, the random number
+generator is the RandomState instance used by <cite>np.random</cite>.</li>
+<li><strong>use_cv_predict</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em><em> (</em><em>default: False</em><em>)</em>) – Whether to use cross-validated predictors to create residuals from the
+linear regression during model fitting.</li>
+<li><strong>single_target</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em><em> (</em><em>default: False</em><em>)</em>) – Whether the target values will be a single dimension or multi-dimensional.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">BoostedRegressor</p>
 </td>
 </tr>
 </tbody>
