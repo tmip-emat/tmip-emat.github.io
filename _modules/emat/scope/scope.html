@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.scope.scope &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
+  <title>emat.scope.scope &mdash; TMIP-EMAT 0.2.6, November 2019 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.2.5
+                0.2.6
               </div>
             
           
@@ -581,6 +581,10 @@
 <div class="viewcode-block" id="Scope.get_uncertainty_names"><a class="viewcode-back" href="../../../source/emat.scope/scope.html#emat.Scope.get_uncertainty_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_uncertainty_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get a list of exogenous uncertainty names.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x_list</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_uncertainty_and_constant_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a list of exogenous uncertainty and constant names.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_uncertainty_names</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_constant_names</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Scope.get_lever_names"><a class="viewcode-back" href="../../../source/emat.scope/scope.html#emat.Scope.get_lever_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_lever_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get a list of policy lever names.&quot;&quot;&quot;</span>

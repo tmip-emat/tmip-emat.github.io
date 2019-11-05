@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.model.core_model &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
+  <title>emat.model.core_model &mdash; TMIP-EMAT 0.2.6, November 2019 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.2.5
+                0.2.6
               </div>
             
           
@@ -618,8 +618,8 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;no experiments available&quot;</span><span class="p">)</span>
 
         <span class="n">scenarios</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">Scenario</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_uncertainty_names</span><span class="p">(),</span> <span class="n">i</span><span class="p">)))</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">design</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_uncertainty_names</span><span class="p">()]</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">Scenario</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">_get_uncertainty_and_constant_names</span><span class="p">(),</span> <span class="n">i</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">design</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">_get_uncertainty_and_constant_names</span><span class="p">()]</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                                                                            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ExperimentX&#39;</span><span class="p">)</span>
         <span class="p">]</span>
 
@@ -649,8 +649,13 @@
         <span class="k">if</span> <span class="n">db</span><span class="p">:</span>
             <span class="n">db</span><span class="o">.</span><span class="n">write_experiment_measures</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metamodel_id</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">)</span>
 
+        <span class="c1"># Put constants back into experiments</span>
+        <span class="n">experiments_</span> <span class="o">=</span> <span class="n">experiments</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;scenario&#39;</span><span class="p">,</span> <span class="s1">&#39;policy&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_constants</span><span class="p">():</span>
+            <span class="n">experiments_</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">value</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
-            <span class="n">experiments</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;scenario&#39;</span><span class="p">,</span><span class="s1">&#39;policy&#39;</span><span class="p">,</span><span class="s1">&#39;model&#39;</span><span class="p">]),</span>
+            <span class="n">experiments_</span><span class="p">,</span>
             <span class="n">outcomes</span>
         <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span></div>
 
@@ -1146,6 +1151,10 @@
                         <span class="n">results</span><span class="p">,</span> <span class="n">result_convergence</span> <span class="o">=</span> <span class="n">results</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">result_convergence</span> <span class="o">=</span> <span class="kc">None</span>
+
+                    <span class="c1"># Put constants back in to results</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_constants</span><span class="p">():</span>
+                        <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">value</span>
 
                     <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
                     <span class="n">x</span> <span class="o">=</span> <span class="n">OptimizationResult</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">result_convergence</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">)</span>

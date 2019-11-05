@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.model.core_python.core_python_examples &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
+  <title>emat.model.core_python.core_python_examples &mdash; TMIP-EMAT 0.2.6, November 2019 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.2.5
+                0.2.6
               </div>
             
           
@@ -254,6 +254,7 @@
         <span class="n">amortization_period</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
         <span class="n">interest_rate_lock</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">debt_type</span><span class="o">=</span><span class="s1">&#39;GO Bond&#39;</span><span class="p">,</span>
+        <span class="n">lane_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
 
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
@@ -295,6 +296,9 @@
 <span class="sd">            bonds are assumed to have a lower interest rate than revenue bonds, but</span>
 <span class="sd">            may be politically less desirable.  Pay-as-you-go financing incurs no actual</span>
 <span class="sd">            interest costs, but requires actually having the funds available.</span>
+<span class="sd">        lane_width (float, default 10): The width of lanes on the roadway.  This parameter</span>
+<span class="sd">            is intentionally wacky, causing massive congestion for any value other than 10,</span>
+<span class="sd">            to demonstrate what might happen with broken model inputs.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        dict:</span>
@@ -328,6 +332,7 @@
     <span class="n">average_travel_time0</span> <span class="o">=</span> <span class="n">free_flow_time</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">alpha</span><span class="o">*</span><span class="p">(</span><span class="n">input_flow</span><span class="o">/</span><span class="n">initial_capacity</span><span class="p">)</span><span class="o">**</span><span class="n">beta</span><span class="p">)</span>
     <span class="n">capacity</span> <span class="o">=</span> <span class="n">initial_capacity</span> <span class="o">+</span> <span class="n">expand_capacity</span>
     <span class="n">average_travel_time1</span> <span class="o">=</span> <span class="n">free_flow_time</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">alpha</span><span class="o">*</span><span class="p">(</span><span class="n">input_flow</span><span class="o">/</span><span class="n">capacity</span><span class="p">)</span><span class="o">**</span><span class="n">beta</span><span class="p">)</span>
+    <span class="n">average_travel_time1</span> <span class="o">+=</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">lane_width</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
     <span class="n">travel_time_savings</span> <span class="o">=</span> <span class="n">average_travel_time0</span> <span class="o">-</span> <span class="n">average_travel_time1</span>
     <span class="n">value_of_time_savings</span> <span class="o">=</span> <span class="n">value_of_time</span> <span class="o">*</span> <span class="n">travel_time_savings</span> <span class="o">*</span> <span class="n">input_flow</span>
     <span class="n">present_cost_of_capacity_expansion</span> <span class="o">=</span> <span class="n">unit_cost_expansion</span> <span class="o">*</span> <span class="n">expand_capacity</span>

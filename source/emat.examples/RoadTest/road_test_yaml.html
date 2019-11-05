@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Road Test Demonstration Model &mdash; TMIP-EMAT 0.2.5, October 2019 documentation</title>
+  <title>Road Test Demonstration Model &mdash; TMIP-EMAT 0.2.6, November 2019 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.2.5
+                0.2.6
               </div>
             
           
@@ -199,7 +199,7 @@ recommendation, or specification by FHWA.</p>
 <span id="road-test-model-operation"></span><h2>Model Operation<a class="headerlink" href="#model-operation" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="emat.model.core_python.core_python_examples.Road_Capacity_Investment">
-<code class="descclassname">emat.model.core_python.core_python_examples.</code><code class="descname">Road_Capacity_Investment</code><span class="sig-paren">(</span><em>free_flow_time=60</em>, <em>initial_capacity=100</em>, <em>alpha=0.15</em>, <em>beta=4.0</em>, <em>input_flow=100</em>, <em>value_of_time=0.01</em>, <em>unit_cost_expansion=1</em>, <em>interest_rate=0.03</em>, <em>yield_curve=0.01</em>, <em>expand_capacity=10</em>, <em>amortization_period=30</em>, <em>interest_rate_lock=False</em>, <em>debt_type='GO Bond'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/emat/model/core_python/core_python_examples.html#Road_Capacity_Investment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_python.core_python_examples.Road_Capacity_Investment" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">emat.model.core_python.core_python_examples.</code><code class="descname">Road_Capacity_Investment</code><span class="sig-paren">(</span><em>free_flow_time=60</em>, <em>initial_capacity=100</em>, <em>alpha=0.15</em>, <em>beta=4.0</em>, <em>input_flow=100</em>, <em>value_of_time=0.01</em>, <em>unit_cost_expansion=1</em>, <em>interest_rate=0.03</em>, <em>yield_curve=0.01</em>, <em>expand_capacity=10</em>, <em>amortization_period=30</em>, <em>interest_rate_lock=False</em>, <em>debt_type='GO Bond'</em>, <em>lane_width=10</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/emat/model/core_python/core_python_examples.html#Road_Capacity_Investment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_python.core_python_examples.Road_Capacity_Investment" title="Permalink to this definition">¶</a></dt>
 <dd><p>A fictitious example model for road capacity investment.</p>
 <p>This model simulates a capacity expansion investment on a single
 network link.  The link volume-delay function is governed by the
@@ -238,6 +238,9 @@ the assumed current rate of 0.03 / 0.01 or allowed to float.</li>
 bonds are assumed to have a lower interest rate than revenue bonds, but
 may be politically less desirable.  Pay-as-you-go financing incurs no actual
 interest costs, but requires actually having the funds available.</li>
+<li><strong>lane_width</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 10</em>) – The width of lanes on the roadway.  This parameter
+is intentionally wacky, causing massive congestion for any value other than 10,
+to demonstrate what might happen with broken model inputs.</li>
 </ul>
 </td>
 </tr>
