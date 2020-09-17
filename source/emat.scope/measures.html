@@ -1,0 +1,468 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Performance Measures &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Boxes" href="boxes.html" />
+    <link rel="prev" title="Uniform Distribution" href="continuous_distributions.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Exploratory Scoping</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scope.html">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameters.html">Parameters</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Performance Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boxes.html">Boxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scope.file.html">Scope File</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Exploratory Scoping</a> &raquo;</li>
+        
+      <li>Performance Measures</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/source/emat.scope/measures.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
+documented are shown for illustration and are not guaranteed to be stable 
+in future releases of TMIP-EMAT.</p>
+<p class="last">The views expressed in this draft documentation do not necessarily 
+represent the opinions of FHWA, and do not constitute an endorsement, 
+recommendation, or specification by FHWA.</p>
+</div>
+<div class="section" id="performance-measures">
+<span id="output-measures"></span><h1>Performance Measures<a class="headerlink" href="#performance-measures" title="Permalink to this headline">¶</a></h1>
+<p>A <a class="reference internal" href="#emat.Measure" title="emat.Measure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Measure</span></code></a> is used to provide scoping information for
+a single model output.</p>
+<dl class="class">
+<dt id="emat.Measure">
+<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Measure</code><span class="sig-paren">(</span><em>name</em>, <em>kind=0</em>, <em>min=None</em>, <em>max=None</em>, <em>address=None</em>, <em>dtype=None</em>, <em>function=None</em>, <em>transform=None</em>, <em>variable_name=None</em>, <em>metamodeltype=None</em>, <em>shortname=None</em>, <em>desc=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/measure.html#Measure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.workbench.em_framework.outcomes.ScalarOutcome</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.names.ShortnameMixin</span></code></p>
+<p>Measure represents an outcome measure of the model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the measure.</li>
+<li><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – one of {‘info’, ‘minimize’, ‘maximize’},
+defaults to ‘info’ if not given. This represents the
+generally preferred direction of the measure.</li>
+<li><strong>min</strong> (<em>number</em><em>, </em><em>optional</em>) – An expected minimum value that
+might be observed under any policy and scenario.  This
+value is currently only used by the HyperVolume convergence
+metric.</li>
+<li><strong>max</strong> (<em>number</em><em>, </em><em>optional</em>) – An expected maximum value that
+might be observed under any policy and scenario.  This
+value is currently only used by the HyperVolume convergence
+metric.</li>
+<li><strong>address</strong> (<em>obj</em><em>, </em><em>optional</em>) – The address or instruction for how to
+extract this measure from the model. This is model-specific
+and can potentially be any Python object. For example, if the
+model is an Excel model, this can be a cell reference given
+as a <cite>str</cite>.</li>
+<li><strong>dtype</strong> (<em>{'real'</em><em>,</em><em>'int'</em><em>,</em><em>'bool'</em><em>,</em><em>'cat'}</em><em>, </em><em>default 'real'</em>) – The desired
+dtype to be enforced for this measure.</li>
+<li><strong>function</strong> (<em>callable</em><em>, </em><em>optional</em>) – A callable function that will be
+used to transform the raw measure as returned by a core model.
+This transformation will be applied to core model results by
+the evaluator before they are returned to the user or stored
+in a database. It is recommended that EMAT analysis work with the
+original untransformed raw values, and employ the <cite>metamodeltype</cite>
+functionality as required for non-linear responses.</li>
+<li><strong>transform</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – As an alternative to passing a callable
+object, use this argument to pass the name of a <cite>numpy</cite> function.
+This argument is ignored if <cite>function</cite> is given.</li>
+<li><strong>variable_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the raw measure as
+output by the underlying core model. If not given, this name is
+assumed to be the same as <cite>name</cite>.  If no <cite>transform</cite> is set,
+it is strongly recommended to not give this argument either.
+A principal use of this argument is to descriptively rename
+measures that have been transformed, for example if the raw
+output measure is ‘Total VMT’ and a log transform function is
+applied, the result can be more descriptively renamed
+as ‘log(Total VMT)’.</li>
+<li><strong>metamodeltype</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – <p>The transformation type to use for
+metamodel estimation.  This transformation is applied only
+internally within the metamodel, and all inputs and outputs
+passed to or from the metamodel will not appear in a transformed
+state, including measure values stored within the database.
+Available metamodel types include:</p>
+<ul>
+<li><em>log</em>: The natural log of the performance measure is taken before
+fitting the regression model.  This is appropriate only when the performance
+measure will always give a strictly positive outcome. If the performance
+measure can take on non-positive values, this may result in errors.</li>
+<li><em>log1p</em>: The natural log of 1 plus the performance measure is taken before
+fitting the regression model.  This is preferred to log-linear when the
+performance measure is only guaranteed to be non-negative, rather than
+strictly positive.</li>
+<li><em>logxp(X)</em>: The natural log of X plus the performance measure is taken before
+fitting the regression model.  This allows shifting the position of the
+regression intercept to a point other than 0.</li>
+<li><em>linear</em>: No transforms are made.  This is the default.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="emat.Measure.name">
+<code class="descname">name</code><a class="headerlink" href="#emat.Measure.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the measure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Measure.kind">
+<code class="descname">kind</code><a class="headerlink" href="#emat.Measure.kind" title="Permalink to this definition">¶</a></dt>
+<dd><p>{MINIMIZE, MAXIMIZE, INFO}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Measure.transform">
+<code class="descname">transform</code><a class="headerlink" href="#emat.Measure.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the transform function, if any.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Measure.address">
+<code class="descname">address</code><a class="headerlink" href="#emat.Measure.address" title="Permalink to this definition">¶</a></dt>
+<dd><p>The address or instruction for how to
+extract this measure from the model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">obj</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Measure.metamodeltype">
+<code class="descname">metamodeltype</code><a class="headerlink" href="#emat.Measure.metamodeltype" title="Permalink to this definition">¶</a></dt>
+<dd><p>The transformation type to use for
+metamodel estimation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="emat.Measure.desc">
+<code class="descname">desc</code><em class="property"> = None</em><a class="headerlink" href="#emat.Measure.desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Human readable description of this performance measure, for reference only</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.Measure.info">
+<code class="descname">info</code><span class="sig-paren">(</span><em>return_string=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/measure.html#Measure.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Measure.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print some information about this measure</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>return_string</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Defaults False (print to stdout) but if given as True
+then this function returns the string instead of printing it.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.Measure.shortname">
+<em class="property">property </em><code class="descname">shortname</code><a class="headerlink" href="#emat.Measure.shortname" title="Permalink to this definition">¶</a></dt>
+<dd><p>An abbreviated name, or the full name if not otherwise defined.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.Measure.shortname_if_any">
+<em class="property">property </em><code class="descname">shortname_if_any</code><a class="headerlink" href="#emat.Measure.shortname_if_any" title="Permalink to this definition">¶</a></dt>
+<dd><p>The abbreviated name, or None.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="boxes.html" class="btn btn-neutral float-right" title="Boxes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="continuous_distributions.html" class="btn btn-neutral float-left" title="Uniform Distribution" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

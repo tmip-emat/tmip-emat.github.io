@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>GBNRTC Model &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Meta Models" href="../emat.metamodels/index.html" />
+    <link rel="prev" title="Files-Based Model" href="files.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Core Models</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Basic EMAT Model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_based.html">Python-Based Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="excel.html">Excel-Based Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Files-Based Model</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">GBNRTC Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-specific-methods">Implementation-Specific Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Core Models</a> &raquo;</li>
+        
+      <li>GBNRTC Model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/source/emat.models/gbnrtc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
+documented are shown for illustration and are not guaranteed to be stable 
+in future releases of TMIP-EMAT.</p>
+<p class="last">The views expressed in this draft documentation do not necessarily 
+represent the opinions of FHWA, and do not constitute an endorsement, 
+recommendation, or specification by FHWA.</p>
+</div>
+<div class="section" id="gbnrtc-model">
+<h1>GBNRTC Model<a class="headerlink" href="#gbnrtc-model" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="emat.model.GBNRTCModel">
+<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">GBNRTCModel</code><span class="sig-paren">(</span><em>configuration: Union[str, Mapping], scope: Union[emat.scope.scope.Scope, str], safe: bool = True, db: emat.database.database.Database = None, name: str = 'GBNRTC'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.model.core_files.core_files.FilesCoreModel</span></code></p>
+<p>Setup connections and paths to GBNRTC core model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>configuration</strong> – The configuration for this
+core model. This can be passed as a dict, or as a str
+which gives the filename of a YAML file that will be
+loaded.</li>
+<li><strong>scope</strong> – The exploration scope, as a Scope object or as
+a str which gives the filename of a YAML file that will be
+loaded.</li>
+<li><strong>safe</strong> – Load the configuration YAML file in ‘safe’ mode.
+This can be disabled if the configuration requires
+custom Python types or is otherwise not compatible with
+safe mode. Loading configuration files with safe mode
+off is not secure and should not be done with files from
+untrusted sources.</li>
+<li><strong>db</strong> – An optional Database to store experiments and results.</li>
+<li><strong>name</strong> – A name for this model, given as an alphanumeric string.
+The name is required by ema_workbench operations.
+If not given, “GBNRTC” is used.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="implementation-specific-methods">
+<h2>Implementation-Specific Methods<a class="headerlink" href="#implementation-specific-methods" title="Permalink to this headline">¶</a></h2>
+<p>These methods are defined specifically in this GBNRTC-specific class,
+in order to interface with the TransCAD model for the GBNRTC region.</p>
+<dl class="method">
+<dt id="emat.model.GBNRTCModel.setup">
+<code class="descclassname">GBNRTCModel.</code><code class="descname">setup</code><span class="sig-paren">(</span><em>params: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the core model with the experiment variable values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – experiment variables including both exogenous
+uncertainty and policy levers</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#KeyError" title="(in Python v3.7)"><strong>KeyError</strong></a> – if experiment variable defined is not supported
+    by the core model</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.model.GBNRTCModel.start_transcad">
+<code class="descclassname">GBNRTCModel.</code><code class="descname">start_transcad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.start_transcad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.start_transcad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Launch TransCAD and call methods to reset scenario</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.model.GBNRTCModel.run">
+<code class="descclassname">GBNRTCModel.</code><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Launches TransCAD and runs the model</p>
+<p>Model should be prepared using <cite>setup</cite> first.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#UserWarning" title="(in Python v3.7)"><strong>UserWarning</strong></a> – If model is not properly setup.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.model.GBNRTCModel.run_model">
+<code class="descclassname">GBNRTCModel.</code><code class="descname">run_model</code><span class="sig-paren">(</span><em>scenario</em>, <em>policy</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.model.GBNRTCModel.run_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs an experiment through core model.</p>
+<p>This method overloads the <cite>run_model</cite> method given in
+the EMA Workbench, and provides the correct execution
+of a core model within the workbench framework.  This
+function assembles and executes the steps laid out in
+other methods of this class, adding some useful logic
+to optimize the process (e.g. optionally short-
+circuiting runs that already have results stored
+in the database).</p>
+<p>For each experiment, the core model is called to:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><cite>setup</cite> experiment variables, copy files
+as needed, and otherwise prepare to run the
+core model for a particular experiment,</li>
+<li><cite>run</cite> the experiment,</li>
+<li><cite>post_process</cite> the result if needed to
+produce all relevant performance measures,</li>
+<li><cite>archive</cite> model outputs from this experiment
+(optional), and</li>
+<li><cite>load_measures</cite> from the experiment and
+store those measures in the associated database.</li>
+</ol>
+</div></blockquote>
+<p>Note that this method does <em>not</em> return any outcomes.
+Outcomes are instead written into self.outcomes_output,
+and can be retrieved from there, or from the database at
+a later time.</p>
+<p>In general, it should not be necessary to overload this
+method in derived classes built for particular core models.
+Instead, write overloaded methods for <cite>setup</cite>, <cite>run</cite>,
+<cite>post_process</cite> , <cite>archive</cite>, and <cite>load_measures</cite>.  Moreover,
+in typical usage a modeler will generally not want to rely
+on this method directly, but instead use <cite>run_experiments</cite>
+to automatically run multiple experiments with one command.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scenario</strong> (<em>Scenario</em>) – A dict-like object that
+has key-value pairs for each uncertainty.</li>
+<li><strong>policy</strong> (<em>Policy</em>) – A dict-like object that
+has key-value pairs for each lever.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#UserWarning" title="(in Python v3.7)"><strong>UserWarning</strong></a> – If there are no experiments associated with
+    this type.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.model.GBNRTCModel.load_measures">
+<code class="descclassname">GBNRTCModel.</code><code class="descname">load_measures</code><span class="sig-paren">(</span><em>measure_names: List[str] = None</em>, <em>*</em>, <em>rel_output_path=None</em>, <em>abs_output_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.model.GBNRTCModel.load_measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import selected measures from the core model.</p>
+<p>This method is the place to put code that can actually reach into
+files in the core model’s run results and extract performance
+measures. It is expected that it should not do any post-processing
+of results (i.e. it should read from but not write to the model
+outputs directory).</p>
+<p>Imports measures from active scenario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>measure_names</strong> (<em>Collection</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – Collection of measures to be loaded.</li>
+<li><strong>abs_output_path</strong> (<em>rel_output_path</em><em>,</em>) – Path to model output locations, either relative
+to the <cite>model_path</cite> directory (when a subclass
+is a type that has a model path) or as an absolute
+directory.  If neither is given, the default
+value is equivalent to setting <cite>rel_output_path</cite> to
+‘Outputs’.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">dict of measure name and values from active scenario</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#KeyError" title="(in Python v3.7)"><strong>KeyError</strong></a> – If load_measures is not available for specified
+    measure</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.model.GBNRTCModel.post_process">
+<code class="descclassname">GBNRTCModel.</code><code class="descname">post_process</code><span class="sig-paren">(</span><em>params: dict, measure_names: List[str], output_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.post_process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.post_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs post processors associated with measures.</p>
+<p>For the GBNRTC model, this method calls
+TransCAD macros to generate output files.</p>
+<p>The model should have previously been executed using
+the <cite>run</cite> method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of experiment variables - indices
+are variable names, values are the experiment settings</li>
+<li><strong>measure_names</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – List of measures to be processed</li>
+<li><strong>output_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to model outputs - if set to none
+will use local values</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#KeyError" title="(in Python v3.7)"><strong>KeyError</strong></a> – If post process is not available for specified
+    measure</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.model.GBNRTCModel.get_experiment_archive_path">
+<code class="descclassname">GBNRTCModel.</code><code class="descname">get_experiment_archive_path</code><span class="sig-paren">(</span><em>experiment_id=None</em>, <em>makedirs=False</em>, <em>parameters=None</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.model.GBNRTCModel.get_experiment_archive_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a file system location to store model run outputs.</p>
+<p>For core models with long model run times, it is recommended
+to store the complete model run results in an archive.  This
+will facilitate adding additional performance measures to the
+scope at a later time.</p>
+<p>Both the scope name and experiment id can be used to create the
+folder path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>experiment_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The experiment id, which is also the row id of the
+experiment in the database. If this is omitted, an
+experiment id is read or created using the parameters.</li>
+<li><strong>makedirs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – If this archive directory does not yet exist, create it.</li>
+<li><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – The parameters for this experiment, used to create or
+lookup an experiment id. The parameters are ignored
+if <cite>experiment_id</cite> is given.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Experiment archive path (no trailing backslashes).</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emat.model.GBNRTCModel.archive">
+<code class="descclassname">GBNRTCModel.</code><code class="descname">archive</code><span class="sig-paren">(</span><em>params: dict</em>, <em>model_results_path: str</em>, <em>experiment_id: int = 0</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.archive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.archive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies TransCAD settings, outputs and common input files</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of experiment variables</li>
+<li><strong>model_results_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – archive path</li>
+<li><strong>experiment_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The id number for this experiment.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../emat.metamodels/index.html" class="btn btn-neutral float-right" title="Meta Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="files.html" class="btn btn-neutral float-left" title="Files-Based Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
