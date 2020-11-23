@@ -1,15 +1,20 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Basic EMAT Model API &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  <title>Basic EMAT Model API &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
 
   
   
@@ -17,7 +22,9 @@
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -25,18 +32,15 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Python-Based Models" href="python_based.html" />
@@ -54,7 +58,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
           
 
           
@@ -64,7 +68,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.5.0
               </div>
             
           
@@ -81,6 +85,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -118,6 +123,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -156,7 +162,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">Core Models</a> &raquo;</li>
         
@@ -214,9 +220,9 @@ recommendation, or specification by FHWA.</p>
 </div>
 <div class="section" id="basic-emat-model-api">
 <h1>Basic EMAT Model API<a class="headerlink" href="#basic-emat-model-api" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="emat.model.AbstractCoreModel">
-<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">AbstractCoreModel</code><span class="sig-paren">(</span><em>configuration: Union[str, Mapping, None], scope: Union[emat.scope.scope.Scope, str], safe: bool = True, db: emat.database.database.Database = None, name: str = 'EMAT', metamodel_id: int = 0</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">AbstractCoreModel</code><span class="sig-paren">(</span><em><span class="n">configuration</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>Mapping<span class="p">]</span><span class="p">]</span></span></em>, <em><span class="n">scope</span></em>, <em><span class="n">safe</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">db</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">name</span><span class="o">=</span><span class="default_value">'EMAT'</span></em>, <em><span class="n">metamodel_id</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/abc.html#abc.ABC" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.workbench.em_framework.model.AbstractModel</span></code></p>
 <p>An interface for using a model with EMAT.</p>
 <p>Individual models should be instantiated using derived
@@ -227,31 +233,220 @@ this class directly.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>configuration</strong> – The configuration for this
-core model. This can be passed as a dict, or as a str
-which gives the filename of a YAML file that will be
-loaded. If there is no configuration, giving None is
-also acceptable.</li>
-<li><strong>scope</strong> (<a class="reference internal" href="../emat.scope/scope.html#emat.Scope" title="emat.Scope"><em>Scope</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The exploration scope, as a Scope object or as
-a str which gives the filename of a YAML file that will be
+<li><strong>configuration</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>Mapping</em><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a>) – The configuration for this core model. This can be given
+explicitly as a <cite>dict</cite>, or as a <cite>str</cite> which gives the
+filename of a YAML file that will be loaded. If there is
+no configuration, giving <cite>None</cite> is also acceptable.</li>
+<li><strong>scope</strong> (<a class="reference internal" href="../emat.scope/scope.html#emat.Scope" title="emat.Scope"><em>Scope</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The exploration scope, as a <cite>Scope</cite> object or as
+a <cite>str</cite> which gives the filename of a YAML file that will be
 loaded.</li>
-<li><strong>safe</strong> – Load the configuration YAML file in ‘safe’ mode.
+<li><strong>safe</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Load the configuration YAML file in ‘safe’ mode.
 This can be disabled if the configuration requires
 custom Python types or is otherwise not compatible with
 safe mode. Loading configuration files with safe mode
 off is not secure and should not be done with files from
 untrusted sources.</li>
-<li><strong>db</strong> – An optional Database to store experiments and results.</li>
-<li><strong>name</strong> – A name for this model, given as an alphanumeric string.
-The name is required by workbench operations.
-If not given, “EMAT” is used.</li>
-<li><strong>metamodel_id</strong> – An identifier for this model, if it is a meta-model.
+<li><strong>db</strong> (<a class="reference internal" href="../emat.database/abstract.html#emat.database.Database" title="emat.database.Database"><em>Database</em></a><em>, </em><em>optional</em>) – An optional Database to store experiments and results.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>default &quot;EMAT&quot;</em>) – A name for this model, given as an alphanumeric string.
+The name is required by workbench operations.</li>
+<li><strong>metamodel_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – An identifier for this model, if it is a meta-model.
 Defaults to 0 (i.e., not a meta-model).</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<dl class="py method">
+<dt id="emat.model.AbstractCoreModel.allow_short_circuit">
+<em class="property">property </em><code class="descname">allow_short_circuit</code><a class="headerlink" href="#emat.model.AbstractCoreModel.allow_short_circuit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow model runs to be skipped if measures already appear in the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="emat.model.AbstractCoreModel.async_experiments">
+<code class="descname">async_experiments</code><span class="sig-paren">(</span><em><span class="n">design</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">db</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">evaluator</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">max_n_workers</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">stagger_start</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">batch_size</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.async_experiments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.async_experiments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asynchronously runs a design of combined experiments using this model.</p>
+<p>A combined experiment includes a complete set of input values for
+all exogenous uncertainties (a Scenario) and all policy levers
+(a Policy). Unlike the perform_experiments function in the EMA Workbench,
+this method pairs each Scenario and Policy in sequence, instead
+of running all possible combinations of Scenario and Policy.
+This change ensures compatibility with the EMAT database modules, which
+preserve the complete set of input information (both uncertainties
+and levers) for each experiment.  To conduct a full cross-factorial set
+of experiments similar to the default settings for EMA Workbench,
+use a factorial design, by setting the <cite>jointly</cite> argument for the
+<cite>design_experiments</cite> to False, or by designing experiments outside
+of EMAT with your own approach.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>design</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – experiment definitions
+given as a DataFrame, where each exogenous uncertainties and
+policy levers is given as a column, and each row is an experiment.</li>
+<li><strong>db</strong> (<a class="reference internal" href="../emat.database/abstract.html#emat.database.Database" title="emat.database.Database"><em>Database</em></a><em>, </em><em>required</em>) – The database to use for loading and saving experiments.
+If none is given, the default database for this model is used.
+If there is no default db, and none is given here,
+these experiments will be aborted, as there won’t be any way
+to access the results.</li>
+<li><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The name of a design of experiments to
+load from the database.  This design is only used if
+<cite>design</cite> is None.</li>
+<li><strong>evaluator</strong> (<em>emat.workbench.Evaluator</em><em>, </em><em>optional</em>) – Optionally give an
+evaluator instance.  If not given, a default DistributedEvaluator
+will be instantiated.  Passing any other kind of evaluator will
+cause an error.</li>
+<li><strong>max_n_workers</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The maximum number of workers that will be created for a default
+dask.distributed LocalCluster.  If the number of cores available is
+smaller than this number, fewer workers will be spawned.  This value
+is only used if a default LocalCluster has not yet been created.</li>
+<li><strong>stagger_start</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – If provided, wait this number of seconds between initial dispatch
+of experiments to the evaluator.  For models that do a lot of
+file copying up front, this can prevent over-saturating the file
+storage system.</li>
+<li><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – For fast-running core models, the overhead from multi-processing
+can represent a big chunk of overall runtime.  Grouping experiments
+into batches that are sent to workers as a group can mitigate this.
+Setting batch_size to 1 will process every experiment separately.
+If no batch size is given, a guess is made as to an efficient
+batch_size based on the number of experiments and the number of
+workers.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If there are no experiments defined.  This includes
+    the situation where <cite>design</cite> is given but no database is
+    available.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="emat.model.AbstractCoreModel.enter_run_model">
+<code class="descname">enter_run_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.enter_run_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.enter_run_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>A hook for actions at the very beginning of the run_model step.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="emat.model.AbstractCoreModel.exit_run_model">
+<code class="descname">exit_run_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.exit_run_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.exit_run_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>A hook for actions at the very end of the run_model step.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="emat.model.AbstractCoreModel.ignore_crash">
+<em class="property">property </em><code class="descname">ignore_crash</code><a class="headerlink" href="#emat.model.AbstractCoreModel.ignore_crash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow model runs to <cite>post_process</cite> and <cite>archive</cite> even after an apparent crash in <cite>run</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="emat.model.AbstractCoreModel.killed_indicator">
+<em class="property">property </em><code class="descname">killed_indicator</code><a class="headerlink" href="#emat.model.AbstractCoreModel.killed_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of a file that indicates the model was killed due to an unrecoverable error.</p>
+<p>The flag is the mere existance of a file with this name, not any particular
+file content. This file is deleted automatically when the model <cite>run</cite> is
+initiated, so that it can be recreated to indicate an unrecoverable error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="emat.model.AbstractCoreModel.local_directory">
+<em class="property">property </em><code class="descname">local_directory</code><a class="headerlink" href="#emat.model.AbstractCoreModel.local_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current local working directory for this model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Path</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="emat.model.AbstractCoreModel.log">
+<code class="descname">log</code><span class="sig-paren">(</span><em><span class="n">message</span></em>, <em><span class="n">level</span><span class="o">=</span><span class="default_value">20</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log a message.</p>
+<p>This facility will attempt to send log messages to
+the attached database, falling back to the regular
+module logger in case that fails.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Message to send to log.</li>
+<li><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default logging.INFO</em>) – Log level.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="emat.model.AbstractCoreModel.resolved_model_path">
+<em class="property">property </em><code class="descname">resolved_model_path</code><a class="headerlink" href="#emat.model.AbstractCoreModel.resolved_model_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The resolved model path.</p>
+<p>For core models that don’t rely on the file system, this
+is set to the current working directory and is generally
+irrelevant. Overload this property for models that do
+rely on the file system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Path</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="emat.model.AbstractCoreModel.success_indicator">
+<em class="property">property </em><code class="descname">success_indicator</code><a class="headerlink" href="#emat.model.AbstractCoreModel.success_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of a file that indicates the model has run successfully.</p>
+<p>The flag is the mere existance of a file with this name, not any particular
+file content. This file is deleted automatically when the model <cite>run</cite> is
+initiated, so that it can be recreated to indicate a success.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <div class="section" id="abstract-methods">
@@ -266,9 +461,9 @@ function signature (what arguments and types each function accepts,
 and what types it returns) should not be changed, even though
 technically Python itself allows doing so.</p>
 </div>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.setup">
-<em class="property">abstract </em><code class="descclassname">AbstractCoreModel.</code><code class="descname">setup</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.setup" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="descclassname">AbstractCoreModel.</code><code class="descname">setup</code><span class="sig-paren">(</span><em><span class="n">params</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure the core model with the experiment variable values.</p>
 <p>This method is the place where the core model set up takes place,
 including creating or modifying files as necessary to prepare
@@ -305,7 +500,7 @@ uncertainty and policy levers</td>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.run">
 <em class="property">abstract </em><code class="descclassname">AbstractCoreModel.</code><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the core model.</p>
@@ -333,9 +528,9 @@ the model directory should be in a state that is ready to run the
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.load_measures">
-<em class="property">abstract </em><code class="descclassname">AbstractCoreModel.</code><code class="descname">load_measures</code><span class="sig-paren">(</span><em>measure_names: Collection[str] = None</em>, <em>*</em>, <em>rel_output_path=None</em>, <em>abs_output_path=None</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.load_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.load_measures" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="descclassname">AbstractCoreModel.</code><code class="descname">load_measures</code><span class="sig-paren">(</span><em><span class="n">measure_names</span><span class="p">:</span> <span class="n">Collection<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">rel_output_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">abs_output_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.load_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.load_measures" title="Permalink to this definition">¶</a></dt>
 <dd><p>Import selected measures from the core model.</p>
 <p>This method is the place to put code that can actually reach into
 files in the core model’s run results and extract performance
@@ -349,7 +544,13 @@ outputs directory).</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>measure_names</strong> (<em>Collection</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – Collection of measures to be loaded.</li>
-<li><strong>abs_output_path</strong> (<em>rel_output_path</em><em>,</em>) – Path to model output locations, either relative
+<li><strong>rel_output_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Path to model output locations, either relative
+to the <cite>model_path</cite> directory (when a subclass
+is a type that has a model path) or as an absolute
+directory.  If neither is given, the default
+value is equivalent to setting <cite>rel_output_path</cite> to
+‘Outputs’.</li>
+<li><strong>abs_output_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Path to model output locations, either relative
 to the <cite>model_path</cite> directory (when a subclass
 is a type that has a model path) or as an absolute
 directory.  If neither is given, the default
@@ -369,9 +570,9 @@ value is equivalent to setting <cite>rel_output_path</cite> to
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.post_process">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">post_process</code><span class="sig-paren">(</span><em>params</em>, <em>measure_names</em>, <em>output_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.post_process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.post_process" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">post_process</code><span class="sig-paren">(</span><em><span class="n">params</span></em>, <em><span class="n">measure_names</span></em>, <em><span class="n">output_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.post_process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.post_process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs post processors associated with particular performance measures.</p>
 <p>This method is the place to conduct automatic post-processing
 of core model run results, in particular any post-processing that
@@ -419,9 +620,9 @@ the core model was actually run).</li>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.get_experiment_archive_path">
-<em class="property">abstract </em><code class="descclassname">AbstractCoreModel.</code><code class="descname">get_experiment_archive_path</code><span class="sig-paren">(</span><em>experiment_id=None</em>, <em>makedirs=False</em>, <em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.get_experiment_archive_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.get_experiment_archive_path" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="descclassname">AbstractCoreModel.</code><code class="descname">get_experiment_archive_path</code><span class="sig-paren">(</span><em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">makedirs</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">parameters</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">run_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.get_experiment_archive_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.get_experiment_archive_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a file system location to store model run outputs.</p>
 <p>For core models with long model run times, it is recommended
 to store the complete model run results in an archive.  This
@@ -441,6 +642,9 @@ experiment id is read or created using the parameters.</li>
 <li><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – The parameters for this experiment, used to create or
 lookup an experiment id. The parameters are ignored
 if <cite>experiment_id</cite> is given.</li>
+<li><strong>run_id</strong> (<em>UUID</em><em>, </em><em>optional</em>) – The run_id of this model run.  If not given but a
+run_id attribute is stored in this FilesCoreModel
+instance, that value is used.</li>
 </ul>
 </td>
 </tr>
@@ -454,9 +658,9 @@ if <cite>experiment_id</cite> is given.</li>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.archive">
-<em class="property">abstract </em><code class="descclassname">AbstractCoreModel.</code><code class="descname">archive</code><span class="sig-paren">(</span><em>params</em>, <em>model_results_path</em>, <em>experiment_id: int = 0</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.archive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.archive" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="descclassname">AbstractCoreModel.</code><code class="descname">archive</code><span class="sig-paren">(</span><em><span class="n">params</span></em>, <em><span class="n">model_results_path</span></em>, <em><span class="n">experiment_id</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.archive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.archive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copies model outputs to archive location.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -476,9 +680,9 @@ if <cite>experiment_id</cite> is given.</li>
 </div>
 <div class="section" id="data-management">
 <h2>Data Management<a class="headerlink" href="#data-management" title="Permalink to this headline">¶</a></h2>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.read_experiments">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">read_experiments</code><span class="sig-paren">(</span><em>design_name</em>, <em>db=None</em>, <em>only_pending=False</em>, <em>only_complete=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.read_experiments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.read_experiments" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">read_experiments</code><span class="sig-paren">(</span><em><span class="n">design_name</span></em>, <em><span class="n">db</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">only_pending</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_complete</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_with_measures</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.read_experiments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.read_experiments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads results from a design of experiments from the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -494,6 +698,9 @@ stored in the database) are returned.</li>
 <li><strong>only_complete</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – If True, only complete
 experiments (which have no performance measure
 results missing in the database) are returned.</li>
+<li><strong>only_with_measures</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – If True, only
+experiments with at least one stored performance measure
+are returned.</li>
 </ul>
 </td>
 </tr>
@@ -501,7 +708,7 @@ results missing in the database) are returned.</li>
 for the experiments.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)">pandas.DataFrame</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a></p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If there is no Database connection <cite>db</cite> set.</p>
@@ -511,9 +718,9 @@ for the experiments.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.read_experiment_parameters">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">read_experiment_parameters</code><span class="sig-paren">(</span><em>design_name=None</em>, <em>db=None</em>, <em>only_pending=False</em>, <em>*</em>, <em>experiment_ids=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.read_experiment_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.read_experiment_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">read_experiment_parameters</code><span class="sig-paren">(</span><em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">db</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">only_pending</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="o">*</span></em>, <em><span class="n">experiment_ids</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.read_experiment_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.read_experiment_parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads uncertainties and levers from a design of experiments from the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -538,7 +745,7 @@ both <cite>design_name</cite> and <cite>only_pending</cite> are ignored.</li>
 for the experiments.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)">pandas.DataFrame</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a></p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If <cite>db</cite> is not given and there is no default
@@ -549,10 +756,10 @@ for the experiments.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.read_experiment_measures">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">read_experiment_measures</code><span class="sig-paren">(</span><em>design_name</em>, <em>experiment_id=None</em>, <em>db=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.read_experiment_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.read_experiment_measures" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads performace measures from a design of experiments from the database.</p>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">read_experiment_measures</code><span class="sig-paren">(</span><em><span class="n">design_name</span></em>, <em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">db</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.read_experiment_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.read_experiment_measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads performance measures from a design of experiments from the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -569,7 +776,7 @@ If no db is given, the default <cite>db</cite> for this model is used.</li>
 for the experiments.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)">pandas.DataFrame</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a></p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If <cite>db</cite> is not given and there is no default
@@ -580,20 +787,20 @@ for the experiments.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.ensure_dtypes">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">ensure_dtypes</code><span class="sig-paren">(</span><em>df: pandas.core.frame.DataFrame</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.ensure_dtypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.ensure_dtypes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">ensure_dtypes</code><span class="sig-paren">(</span><em><span class="n">df</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.ensure_dtypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.ensure_dtypes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert columns of dataframe to correct dtype as needed.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a>) – A dataframe with column names
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – A dataframe with column names
 that are uncertainties, levers, or measures.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The same data as input, but with dtypes as appropriate.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)">pandas.DataFrame</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a></td>
 </tr>
 </tbody>
 </table>
@@ -604,9 +811,9 @@ that are uncertainties, levers, or measures.</td>
 <h2>Model Execution<a class="headerlink" href="#model-execution" title="Permalink to this headline">¶</a></h2>
 <p>Assuming that the abstract methods outlined above are properly implemented,
 these model execution methods should not need to be overridden.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.design_experiments">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">design_experiments</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.design_experiments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.design_experiments" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">design_experiments</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.design_experiments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.design_experiments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a design of experiments based on this model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -668,16 +875,16 @@ the total number of experiments is the square of that value).</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The resulting design.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)">pandas.DataFrame</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a></p>
 </td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.run_experiments">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">run_experiments</code><span class="sig-paren">(</span><em>design: pandas.core.frame.DataFrame = None</em>, <em>evaluator=None</em>, <em>*</em>, <em>design_name=None</em>, <em>db=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.run_experiments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.run_experiments" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">run_experiments</code><span class="sig-paren">(</span><em><span class="n">design</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">evaluator</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">db</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.run_experiments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.run_experiments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs a design of combined experiments using this model.</p>
 <p>A combined experiment includes a complete set of input values for
 all exogenous uncertainties (a Scenario) and all policy levers
@@ -696,7 +903,7 @@ of EMAT with your own approach.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>design</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – experiment definitions
+<li><strong>design</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – experiment definitions
 given as a DataFrame, where each exogenous uncertainties and
 policy levers is given as a column, and each row is an experiment.</li>
 <li><strong>evaluator</strong> (<em>emat.workbench.Evaluator</em><em>, </em><em>optional</em>) – Optionally give an
@@ -717,7 +924,7 @@ not use the default database, even if it exists.</li>
 for the experiments.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)">pandas.DataFrame</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a></p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If there are no experiments defined.  This includes
@@ -729,9 +936,9 @@ for the experiments.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.io_experiment">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">io_experiment</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.io_experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.io_experiment" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">io_experiment</code><span class="sig-paren">(</span><em><span class="n">params</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.io_experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.io_experiment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run an experiment, and return a dictionary of inputs and outputs together.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -745,9 +952,9 @@ for the experiments.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.run_reference_experiment">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">run_reference_experiment</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>*</em>, <em>db=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.run_reference_experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.run_reference_experiment" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">run_reference_experiment</code><span class="sig-paren">(</span><em><span class="n">evaluator</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">db</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.run_reference_experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.run_reference_experiment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs a reference experiment using this model.</p>
 <p>This single experiment includes a complete set of input values for
 all exogenous uncertainties (a Scenario) and all policy levers
@@ -772,16 +979,16 @@ not use the default database, even if it exists.</li>
 for the experiments.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)">pandas.DataFrame</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a></p>
 </td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.optimize">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">optimize</code><span class="sig-paren">(</span><em>searchover='levers'</em>, <em>evaluator=None</em>, <em>nfe=10000</em>, <em>convergence='default'</em>, <em>display_convergence=True</em>, <em>convergence_freq=100</em>, <em>constraints=None</em>, <em>reference=None</em>, <em>reverse_targets=False</em>, <em>algorithm=None</em>, <em>epsilons='auto'</em>, <em>min_epsilon=0.1</em>, <em>cache_dir=None</em>, <em>cache_file=None</em>, <em>check_extremes=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.optimize" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">optimize</code><span class="sig-paren">(</span><em><span class="n">searchover</span><span class="o">=</span><span class="default_value">'levers'</span></em>, <em><span class="n">evaluator</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">nfe</span><span class="o">=</span><span class="default_value">10000</span></em>, <em><span class="n">convergence</span><span class="o">=</span><span class="default_value">'default'</span></em>, <em><span class="n">display_convergence</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">convergence_freq</span><span class="o">=</span><span class="default_value">100</span></em>, <em><span class="n">constraints</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">reference</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">reverse_targets</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">algorithm</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">epsilons</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em><span class="n">min_epsilon</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em><span class="n">cache_dir</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">cache_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">check_extremes</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.optimize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform multi-objective optimization over levers or uncertainties.</p>
 <p>The targets for the multi-objective optimization (i.e. whether each
 individual performance measures is to be maximized or minimized) are
@@ -858,9 +1065,9 @@ included, as a pandas.DataFrame in the <cite>convergence</cite> attribute.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.robust_optimize">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">robust_optimize</code><span class="sig-paren">(</span><em>robustness_functions</em>, <em>scenarios</em>, <em>evaluator=None</em>, <em>nfe=10000</em>, <em>convergence='default'</em>, <em>display_convergence=True</em>, <em>convergence_freq=100</em>, <em>constraints=None</em>, <em>epsilons=0.1</em>, <em>cache_dir=None</em>, <em>cache_file=None</em>, <em>algorithm=None</em>, <em>check_extremes=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.robust_optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.robust_optimize" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">robust_optimize</code><span class="sig-paren">(</span><em><span class="n">robustness_functions</span></em>, <em><span class="n">scenarios</span></em>, <em><span class="n">evaluator</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">nfe</span><span class="o">=</span><span class="default_value">10000</span></em>, <em><span class="n">convergence</span><span class="o">=</span><span class="default_value">'default'</span></em>, <em><span class="n">display_convergence</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">convergence_freq</span><span class="o">=</span><span class="default_value">100</span></em>, <em><span class="n">constraints</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">epsilons</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em><span class="n">cache_dir</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">cache_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">algorithm</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">check_extremes</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.robust_optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.robust_optimize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform robust optimization.</p>
 <p>The robust optimization generally a multi-objective optimization task.
 It is undertaken using statistical measures of outcomes evaluated across
@@ -937,9 +1144,9 @@ included, as a pandas.DataFrame in the <cite>convergence</cite> attribute.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.robust_evaluate">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">robust_evaluate</code><span class="sig-paren">(</span><em>robustness_functions</em>, <em>scenarios</em>, <em>policies</em>, <em>evaluator=None</em>, <em>cache_dir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.robust_evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.robust_evaluate" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">robust_evaluate</code><span class="sig-paren">(</span><em><span class="n">robustness_functions</span></em>, <em><span class="n">scenarios</span></em>, <em><span class="n">policies</span></em>, <em><span class="n">evaluator</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">cache_dir</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.robust_evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.robust_evaluate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform robust evaluation(s).</p>
 <p>The robust evaluation is used to generate statistical measures
 of outcomes, instead of generating the individual outcomes themselves.
@@ -979,16 +1186,16 @@ cache results.</li>
 </p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)">pandas.DataFrame</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a></p>
 </td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.feature_scores">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">feature_scores</code><span class="sig-paren">(</span><em>design</em>, <em>return_type='styled'</em>, <em>random_state=None</em>, <em>cmap='viridis'</em>, <em>measures=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.feature_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.feature_scores" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">feature_scores</code><span class="sig-paren">(</span><em><span class="n">design</span></em>, <em><span class="n">return_type</span><span class="o">=</span><span class="default_value">'styled'</span></em>, <em><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">cmap</span><span class="o">=</span><span class="default_value">'viridis'</span></em>, <em><span class="n">measures</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.feature_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.feature_scores" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate feature scores based on a design of experiments.</p>
 <p>This method is provided as a convenient pass-through to the
 <cite>feature_scores</cite> function in the <cite>analysis</cite> sub-package, using
@@ -998,7 +1205,7 @@ the scope and database attached to this model.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>design</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a>) – The name of the design
+<li><strong>design</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – The name of the design
 of experiments to use for feature scoring, or a single
 pandas.DataFrame containing the experimental design and
 results.</li>
@@ -1018,7 +1225,7 @@ all measures are included.</li>
 depending on the <cite>return_type</cite> argument.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">xmle.Elem or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)">pandas.DataFrame</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">xmle.Elem or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a></p>
 </td>
 </tr>
 </tbody>
@@ -1030,19 +1237,19 @@ scores features using the “extra trees” regression approach.</p>
 </div>
 <div class="section" id="meta-model-construction">
 <h2>Meta-Model Construction<a class="headerlink" href="#meta-model-construction" title="Permalink to this headline">¶</a></h2>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.create_metamodel_from_data">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">create_metamodel_from_data</code><span class="sig-paren">(</span><em>experiment_inputs: pandas.core.frame.DataFrame</em>, <em>experiment_outputs: pandas.core.frame.DataFrame</em>, <em>output_transforms: dict = None</em>, <em>metamodel_id: int = None</em>, <em>include_measures=None</em>, <em>exclude_measures=None</em>, <em>db=None</em>, <em>random_state=None</em>, <em>experiment_stratification=None</em>, <em>suppress_converge_warnings=False</em>, <em>regressor=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.create_metamodel_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.create_metamodel_from_data" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">create_metamodel_from_data</code><span class="sig-paren">(</span><em><span class="n">experiment_inputs</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em><span class="n">experiment_outputs</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em><span class="n">output_transforms</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">metamodel_id</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">include_measures</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">exclude_measures</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">db</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">experiment_stratification</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">suppress_converge_warnings</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">regressor</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">find_best_metamodeltype</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.create_metamodel_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.create_metamodel_from_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a MetaModel from a set of input and output observations.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>experiment_inputs</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a>) – This dataframe
+<li><strong>experiment_inputs</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – This dataframe
 should contain all of the experimental inputs, including
 values for each uncertainty, level, and constant.</li>
-<li><strong>experiment_outputs</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a>) – This dataframe
+<li><strong>experiment_outputs</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – This dataframe
 should contain all of the experimental outputs, including
 a column for each performance measure. The index
 for the outputs should match the index for the
@@ -1061,11 +1268,19 @@ If there is no default db, and none is given here,
 the metamodel is not stored in a database.</li>
 <li><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – A random state to use in the metamodel
 regression fitting.</li>
-<li><strong>experiment_stratification</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.2)"><em>pandas.Series</em></a><em>, </em><em>optional</em>) – A stratification of experiments, used in cross-validation.</li>
+<li><strong>experiment_stratification</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.4)"><em>pandas.Series</em></a><em>, </em><em>optional</em>) – A stratification of experiments, used in cross-validation.</li>
 <li><strong>suppress_converge_warnings</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Suppress convergence warnings during metamodel fitting.</li>
 <li><strong>regressor</strong> (<em>Estimator</em><em>, </em><em>optional</em>) – A scikit-learn estimator implementing a
 multi-target regression.  If not given, a detrended simple Gaussian
 process regression is used.</li>
+<li><strong>find_best_metamodeltype</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 0</em>) – Run a search to find the best metamodeltype for each
+performance measure, repeating each cross-validation
+step this many times.  For more stable results, choose
+3 or more, although larger numbers will be slow.  If
+domain knowledge about the normal expected range and
+behavior of each performance measure is available,
+it is better to give the metamodeltype explicitly in
+the Scope.</li>
 </ul>
 </td>
 </tr>
@@ -1081,9 +1296,9 @@ returns a dictionary of (measure name: value) pairs.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.create_metamodel_from_design">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">create_metamodel_from_design</code><span class="sig-paren">(</span><em>design_name: str</em>, <em>metamodel_id: int = None</em>, <em>include_measures=None</em>, <em>exclude_measures=None</em>, <em>db=None</em>, <em>random_state=None</em>, <em>suppress_converge_warnings=False</em>, <em>regressor=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.create_metamodel_from_design"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.create_metamodel_from_design" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">create_metamodel_from_design</code><span class="sig-paren">(</span><em><span class="n">design_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em>, <em><span class="n">metamodel_id</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">include_measures</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">exclude_measures</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">db</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">suppress_converge_warnings</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">regressor</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">find_best_metamodeltype</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.create_metamodel_from_design"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.create_metamodel_from_design" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a MetaModel from a set of input and output observations.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1103,6 +1318,14 @@ regression fitting.</li>
 <li><strong>regressor</strong> (<em>Estimator</em><em>, </em><em>optional</em>) – A scikit-learn estimator implementing a
 multi-target regression.  If not given, a detrended simple Gaussian
 process regression is used.</li>
+<li><strong>find_best_metamodeltype</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 0</em>) – Run a search to find the best metamodeltype for each
+performance measure, repeating each cross-validation
+step this many times.  For more stable results, choose
+3 or more, although larger numbers will be slow.  If
+domain knowledge about the normal expected range and
+behavior of each performance measure is available,
+it is better to give the metamodeltype explicitly in
+the Scope.</li>
 </ul>
 </td>
 </tr>
@@ -1121,9 +1344,9 @@ returns a dictionary of (measure name: value) pairs.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.AbstractCoreModel.create_metamodel_from_designs">
-<code class="descclassname">AbstractCoreModel.</code><code class="descname">create_metamodel_from_designs</code><span class="sig-paren">(</span><em>design_names: str</em>, <em>metamodel_id: int = None</em>, <em>include_measures=None</em>, <em>exclude_measures=None</em>, <em>db=None</em>, <em>random_state=None</em>, <em>suppress_converge_warnings=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.create_metamodel_from_designs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.create_metamodel_from_designs" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">AbstractCoreModel.</code><code class="descname">create_metamodel_from_designs</code><span class="sig-paren">(</span><em><span class="n">design_names</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em>, <em><span class="n">metamodel_id</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">include_measures</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">exclude_measures</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">db</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">suppress_converge_warnings</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_model.html#AbstractCoreModel.create_metamodel_from_designs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.AbstractCoreModel.create_metamodel_from_designs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a MetaModel from multiple sets of input and output observations.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1184,7 +1407,14 @@ returns a dictionary of (measure name: value) pairs.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1195,7 +1425,6 @@ returns a dictionary of (measure name: value) pairs.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

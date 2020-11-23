@@ -1,15 +1,20 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installing using Anaconda &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  <title>Installing using Anaconda &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/thebelab.css" type="text/css" />
 
   
   
@@ -17,7 +22,9 @@
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -25,18 +32,15 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/tmip_emat.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Installing from Source" href="emat.git.html" />
@@ -54,7 +58,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> TMIP-EMAT
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
           
 
           
@@ -64,7 +68,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.5.0
               </div>
             
           
@@ -81,6 +85,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -121,6 +126,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -159,7 +165,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="emat.install.html">Installation and Configuration</a> &raquo;</li>
         
@@ -243,7 +249,7 @@ so you don’t have the sort through the huge selection of tools, both good and 
 that are available for Python.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Python has two versions (2 and 3) that are available and currently maintained.
+<p class="last">Python has two versions (2 and 3) that are available.
 TMIP-EMAT is compatible <em>only</em> with version 3.</p>
 </div>
 <p>You should usually install Anaconda for the local user,
@@ -275,7 +281,7 @@ prevent software conflicts, and ensure that tools installed for one project
 will not break another project.</p>
 <p>The instructions below provide only the most basic steps to
 set up and use an environment.  Much more extensive documentation
-on <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html" title="(in conda v4.8.4.post58+a78a2387)"><span class="xref std std-doc">managing environments</span></a>
+on <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html" title="(in conda v4.9.1.post8+e5a59643)"><span class="xref std std-doc">managing environments</span></a>
 is available in the conda documentation itself.</p>
 <div class="section" id="creating-a-new-environment-for-tmip-emat">
 <h3>Creating a New Environment for TMIP-EMAT<a class="headerlink" href="#creating-a-new-environment-for-tmip-emat" title="Permalink to this headline">¶</a></h3>
@@ -386,6 +392,28 @@ before the installation of new environments or packages will work:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda install -n base -c defaults conda anaconda-client</span>
 </pre></div>
 </div>
+<p>If you are running TMIP-EMAT successfully but the interface seems
+sluggish in the jupyter notebook interface, your problem might be
+caused by your browser.  You can try using a different browser –
+Google’s Chrome browser has been found to be much more performant
+for running the interactive visualizations.  If you don’t want to
+make chrome your default browser for everything, but just make it
+the default for jupyter notebooks, you can do so in the configurations
+for the notebook server. If you haven’t already, create a notebook
+config file by running</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">jupyter notebook --generate-config</span>
+</pre></div>
+</div>
+<p>Then, edit the file <cite>jupyter_notebook_config.py</cite> found in the
+<cite>.jupyter</cite> folder of your home directory. You need to change the line:</p>
+<blockquote>
+<div># c.NotebookApp.browser = ‘’</div></blockquote>
+<p>to</p>
+<blockquote>
+<div>c.NotebookApp.browser = ‘C:/path/to/your/chrome.exe %s’</div></blockquote>
+<p>On Windows, Chrome is usually located at
+“C:/Program Files (x86)/Google/Chrome/Application/chrome.exe” but
+you should check on your system to confirm.</p>
 </div>
 </div>
 
@@ -412,7 +440,14 @@ before the installation of new environments or packages will work:</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -423,7 +458,6 @@ before the installation of new environments or packages will work:</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

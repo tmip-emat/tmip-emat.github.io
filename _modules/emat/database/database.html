@@ -1,15 +1,20 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.database.database &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  <title>emat.database.database &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/thebelab.css" type="text/css" />
 
   
   
@@ -17,7 +22,9 @@
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
@@ -25,18 +32,15 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="../../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../_static/css/tmip_emat.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -52,7 +56,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> TMIP-EMAT
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
           
 
           
@@ -62,7 +66,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.5.0
               </div>
             
           
@@ -79,6 +83,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -103,6 +108,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -141,7 +147,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
@@ -181,6 +187,9 @@
 <span class="sd">    Database constains the design experiments, meta-model parameters, </span>
 <span class="sd">    and the core and meta-model results (performance measures)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">readonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">readonly</span> <span class="o">=</span> <span class="n">readonly</span>
 
 <div class="viewcode-block" id="Database.get_db_info"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.get_db_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_db_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -231,6 +240,15 @@
 <span class="sd">                available, or the performance measures are not initialized</span>
 <span class="sd">                in the database.</span>
 <span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.update_scope"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.update_scope">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">update_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the emat scope information in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope (Scope): scope to update</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Database.store_scope"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.store_scope">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
@@ -378,7 +396,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
-            <span class="n">parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
         <span class="n">parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">xl_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_experiment_parameters</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">xl_df</span><span class="p">)</span>
@@ -394,6 +413,7 @@
             <span class="n">design</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="o">*</span><span class="p">,</span>
             <span class="n">experiment_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">ensure_dtypes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read experiment definitions from the database.</span>
@@ -416,6 +436,11 @@
 <span class="sd">            experiment_ids (Collection, optional):</span>
 <span class="sd">                A collection of experiment id&#39;s to load.  If given,</span>
 <span class="sd">                both `design_name` and `only_pending` are ignored.</span>
+<span class="sd">            ensure_dtypes (bool, default True): If True, the scope</span>
+<span class="sd">                associated with these experiments is also read out</span>
+<span class="sd">                of the database, and that scope file is used to</span>
+<span class="sd">                format experimental data consistently (i.e., as</span>
+<span class="sd">                float, integer, bool, or categorical).</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            emat.ExperimentalDesign:</span>
@@ -428,7 +453,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>    </div>
 
 <div class="viewcode-block" id="Database.write_experiment_measures"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_experiment_measures">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">write_experiment_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">m_df</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">write_experiment_measures</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">scope_name</span><span class="p">,</span>
+            <span class="n">source</span><span class="p">,</span>
+            <span class="n">m_df</span><span class="p">,</span>
+            <span class="n">run_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write experiment results to the database.</span>
 <span class="sd">        </span>
@@ -452,6 +484,10 @@
 <span class="sd">            m_df (pandas.DataFrame):</span>
 <span class="sd">                The columns of this DataFrame are the performance</span>
 <span class="sd">                measure names, and row indexes are the experiment id&#39;s.</span>
+<span class="sd">            run_ids (pandas.Index, optional):</span>
+<span class="sd">                Provide an optional index of universally unique run ids</span>
+<span class="sd">                (UUIDs) for these results. The UUIDs can be used to help</span>
+<span class="sd">                identify problems and organize model runs.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            UserWarning: If scope name does not exist        </span>
@@ -461,11 +497,14 @@
     <span class="k">def</span> <span class="nf">read_experiment_all</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
-            <span class="n">design_name</span><span class="p">,</span>
+            <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
             <span class="n">only_pending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">only_incomplete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">only_complete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">ensure_dtypes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">only_with_measures</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">ensure_dtypes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read experiment definitions and results</span>
@@ -478,8 +517,9 @@
 <span class="sd">                A scope name, used to identify experiments,</span>
 <span class="sd">                performance measures, and results associated with this</span>
 <span class="sd">                exploratory analysis.</span>
-<span class="sd">            design_name (str or Collection[str]): experimental design name (a</span>
-<span class="sd">                single str) or a collection of design names to read.</span>
+<span class="sd">            design_name (str or Collection[str], optional):</span>
+<span class="sd">                The experimental design name (a single `str`) or</span>
+<span class="sd">                a collection of design names to read.</span>
 <span class="sd">            source (int, optional): The source identifier of the</span>
 <span class="sd">                experimental outcomes to load.  If not given, but</span>
 <span class="sd">                there are only results from a single source in the</span>
@@ -487,11 +527,21 @@
 <span class="sd">                results from multiple sources, an error is raised.</span>
 <span class="sd">            only_pending (bool, default False): If True, only pending</span>
 <span class="sd">                experiments (which have no performance measure results</span>
-<span class="sd">                stored in the database) are returned.</span>
+<span class="sd">                stored in the database) are returned. Experiments that</span>
+<span class="sd">                have any results, even if only partial results, are</span>
+<span class="sd">                excluded.</span>
+<span class="sd">            only_incomplete (bool, default False): If True, only incomplete</span>
+<span class="sd">                experiments (which have at least one missing performance</span>
+<span class="sd">                measure result that is not stored in the database) are</span>
+<span class="sd">                returned.  Only complete experiments (that have every</span>
+<span class="sd">                performance measure populated) are excluded.</span>
 <span class="sd">            only_complete (bool, default False): If True, only complete</span>
 <span class="sd">                experiments (which have no missing performance measure</span>
 <span class="sd">                results stored in the database) are returned.</span>
-<span class="sd">            ensure_dtypes (bool, default False): If True, the scope</span>
+<span class="sd">            only_with_measures (bool, default False): If True, only</span>
+<span class="sd">                experiments with at least one stored performance measure</span>
+<span class="sd">                are returned.</span>
+<span class="sd">            ensure_dtypes (bool, default True): If True, the scope</span>
 <span class="sd">                associated with these experiments is also read out</span>
 <span class="sd">                of the database, and that scope file is used to</span>
 <span class="sd">                format experimental data consistently (i.e., as</span>
@@ -517,13 +567,14 @@
             <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">design</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">runs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read experiment results from the database.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            scope_name (str):</span>
-<span class="sd">                A scope name, used to identify experiments,</span>
+<span class="sd">            scope_name (str or Scope):</span>
+<span class="sd">                A scope or just its name, used to identify experiments,</span>
 <span class="sd">                performance measures, and results associated with this</span>
 <span class="sd">                exploratory analysis.</span>
 <span class="sd">            design_name (str, optional): If given, only experiments</span>
@@ -539,21 +590,67 @@
 <span class="sd">                database, those results are returned.  If there are</span>
 <span class="sd">                results from multiple sources, an error is raised.</span>
 <span class="sd">            design (str): Deprecated, use `design_name`.</span>
+<span class="sd">            runs ({None, &#39;all&#39;, &#39;valid&#39;, &#39;invalid&#39;}, default None):</span>
+<span class="sd">                By default, this method fails if there is more than</span>
+<span class="sd">                one valid model run matching the given `design_name`</span>
+<span class="sd">                and `source` (if any) for any experiment.  Set this to</span>
+<span class="sd">                &#39;valid&#39; or &#39;invalid&#39; to get all valid or invalid model</span>
+<span class="sd">                runs (instead of raising an exception). Set to &#39;all&#39; to get</span>
+<span class="sd">                everything, including both valid and invalidated results.</span>
+<span class="sd">            formulas (bool, default True): If the scope includes</span>
+<span class="sd">                formulaic measures (computed directly from other</span>
+<span class="sd">                measures) then compute these values and include them in</span>
+<span class="sd">                the results.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            results (pandas.DataFrame): performance measures</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError</span>
-<span class="sd">                When no source is given but the database contains</span>
-<span class="sd">                results from multiple sources.</span>
+<span class="sd">                When the database contains multiple sets of results</span>
+<span class="sd">                matching the given `design_name` and/or `source`</span>
+<span class="sd">                (if any) for any experiment.</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.read_experiment_measure_sources"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_measure_sources">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_experiment_measure_sources</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">scope_name</span><span class="p">,</span>
+            <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">design</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read all source ids from the results stored in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str):</span>
+<span class="sd">                A scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this</span>
+<span class="sd">                exploratory analysis.</span>
+<span class="sd">            design_name (str, optional): If given, only experiments</span>
+<span class="sd">                associated with both the scope and the named design</span>
+<span class="sd">                are returned, otherwise all experiments associated</span>
+<span class="sd">                with the scope are returned.</span>
+<span class="sd">            experiment_id (int, optional): The id of the experiment to</span>
+<span class="sd">                retrieve.  If omitted, get all experiments matching the</span>
+<span class="sd">                named scope and design.</span>
+<span class="sd">            design (str): Deprecated, use `design_name`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List[Int]: performance measure source ids</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
 
 <div class="viewcode-block" id="Database.delete_experiments"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.delete_experiments">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">delete_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">design</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Delete experiment definitions and results</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete experiment definitions and results.</span>
 <span class="sd">        </span>
-<span class="sd">        Deletes all records from an experiment design</span>
+<span class="sd">        The method removes the linkage between experiments and the</span>
+<span class="sd">        identified experimental design.  Experiment parameters and results</span>
+<span class="sd">        are only removed if they are also not linked to any other experimental</span>
+<span class="sd">        design stored in the database.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
@@ -563,7 +660,29 @@
 <span class="sd">                are deleted.</span>
 <span class="sd">            design (str): Deprecated, use `design_name`.</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
-        
+
+
+<div class="viewcode-block" id="Database.delete_experiment_measures"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.delete_experiment_measures">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete_experiment_measures</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">experiment_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete experiment performance measure results.</span>
+
+<span class="sd">        The method removes only the performance measures, not the</span>
+<span class="sd">        parameters.  This can be useful if a set of corrupted model</span>
+<span class="sd">        results was stored in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            experiment_ids (Collection, optional):</span>
+<span class="sd">                A collection of experiment id&#39;s for which measures shall</span>
+<span class="sd">                be deleted.  Note that no scope or design are given here,</span>
+<span class="sd">                experiments must be individually identified.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+
 <div class="viewcode-block" id="Database.write_experiment_all"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_experiment_all">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">write_experiment_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">xlm_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -597,7 +716,7 @@
 <span class="sd">                is an experiment.</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            UserWarning: If scope and design already exist </span>
+<span class="sd">            DesignExistsError: If scope and design already exist</span>
 <span class="sd">            TypeError: If not all scope variables are defined in the </span>
 <span class="sd">                experiment</span>
 <span class="sd">        &quot;&quot;&quot;</span>     </div>
@@ -624,8 +743,30 @@
 <span class="sd">                performance measures, and results associated with this run</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
+<div class="viewcode-block" id="Database.read_experiment_id"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_id">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read_experiment_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read the experiment id previously defined in the database</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            parameters (dict): keys are experiment parameters, values are the</span>
+<span class="sd">                experimental values to look up.  Subsequent positional or keyword</span>
+<span class="sd">                arguments are used to update parameters.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: the experiment id of the identified experiment</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If scope name does not exist</span>
+<span class="sd">            ValueError: If multiple experiments match an experiment definition.</span>
+<span class="sd">                This can happen, for example, if the definition is incomplete.</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+
 <div class="viewcode-block" id="Database.read_experiment_ids"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_ids">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_experiment_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">design_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">xl_df</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">read_experiment_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">xl_df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read the experiment ids previously defined in the database.</span>
 
@@ -636,8 +777,6 @@
 <span class="sd">        Args:</span>
 <span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
 <span class="sd">                performance measures, and results associated with this run</span>
-<span class="sd">            design_name (str or None): experiment design name.  Set to None</span>
-<span class="sd">                to find experiments across all designs.</span>
 <span class="sd">            xl_df (pandas.DataFrame): columns are experiment parameters,</span>
 <span class="sd">                each row is a full experiment</span>
 
@@ -862,7 +1001,62 @@
 <span class="sd">                `scope_name` is given but it is not the same name</span>
 <span class="sd">                of the assigned scope.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span></div></div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.new_run_id"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.new_run_id">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">new_run_id</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">location</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new run_id in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            parameters (dict): keys are experiment parameters, values are the</span>
+<span class="sd">                experimental values to look up.  Subsequent positional or keyword</span>
+<span class="sd">                arguments are used to update parameters.</span>
+<span class="sd">            location (str or True, optional): An identifier for this location</span>
+<span class="sd">                (i.e. this computer).  If set to True, the name of this node</span>
+<span class="sd">                is found using the `platform` module.</span>
+<span class="sd">            experiment_id (int, optional): The experiment id associated</span>
+<span class="sd">                with this run.  If given, the parameters are ignored.</span>
+<span class="sd">            source (int, default 0): The metamodel_id of the source for this</span>
+<span class="sd">                run, or 0 for a core model run.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple[Int,Int]:</span>
+<span class="sd">                The run_id and experiment_id of the identified experiment</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If scope name does not exist</span>
+<span class="sd">            ValueError: If multiple experiments match an experiment definition.</span>
+<span class="sd">                This can happen, for example, if the definition is incomplete.</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="Database.info"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print info about scopes and designs in this database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">stream</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">sys</span>
+            <span class="n">stream</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;emat.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&gt;&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">stream</span><span class="p">)</span>
+        <span class="n">scope_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_scope_names</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">scope_name</span> <span class="ow">in</span> <span class="n">scope_names</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scope: </span><span class="si">{</span><span class="n">scope_name</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">stream</span><span class="p">)</span>
+            <span class="n">design_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_design_names</span><span class="p">(</span><span class="n">scope_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">design_names</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  designs:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">stream</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">design_name</span> <span class="ow">in</span> <span class="n">design_names</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    - </span><span class="si">{</span><span class="n">design_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">stream</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  no designs&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">stream</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
@@ -878,7 +1072,14 @@
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -889,7 +1090,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

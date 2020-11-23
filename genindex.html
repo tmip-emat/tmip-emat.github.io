@@ -1,16 +1,20 @@
 
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  <title>Index &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
 
   
   
@@ -18,7 +22,9 @@
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -26,18 +32,15 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/tmip_emat.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -53,7 +56,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> TMIP-EMAT
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
           
 
           
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.5.0
               </div>
             
           
@@ -80,6 +83,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -104,6 +108,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -142,7 +147,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Index</li>
     
@@ -227,7 +232,7 @@
         <li><a href="source/emat.scope/parameters.html#emat.Parameter.address">(emat.Parameter attribute)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.allow_short_circuit">allow_short_circuit (emat.model.FilesCoreModel attribute)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.allow_short_circuit">allow_short_circuit() (emat.model.AbstractCoreModel property)</a>
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.archive">archive() (emat.model.AbstractCoreModel method)</a>
 
@@ -236,6 +241,8 @@
 </li>
       </ul></li>
       <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.archive_path">archive_path (emat.model.FilesCoreModel attribute)</a>
+</li>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.async_experiments">async_experiments() (emat.model.AbstractCoreModel method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -265,7 +272,7 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.glossary.html#term-cart"><strong>CART</strong></a>
+      <li><a href="source/emat.glossary.html#term-CART"><strong>CART</strong></a>
 </li>
       <li><a href="source/emat.glossary.html#term-case"><strong>case</strong></a>
 </li>
@@ -317,6 +324,12 @@
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.Constant.default">default() (emat.Constant property)</a>
 </li>
+      <li><a href="source/emat.database/abstract.html#emat.database.Database.delete_experiment_measures">delete_experiment_measures() (emat.database.Database method)</a>
+
+      <ul>
+        <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.delete_experiment_measures">(emat.database.SQLiteDB method)</a>
+</li>
+      </ul></li>
       <li><a href="source/emat.database/abstract.html#emat.database.Database.delete_experiments">delete_experiments() (emat.database.Database method)</a>
 
       <ul>
@@ -377,9 +390,13 @@
         <li><a href="source/emat.scope/scope.html#emat.Scope.ensure_dtypes">(emat.Scope method)</a>
 </li>
       </ul></li>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.enter_run_model">enter_run_model() (emat.model.AbstractCoreModel method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.models/excel.html#emat.model.ExcelCoreModel">ExcelCoreModel (class in emat.model)</a>
+</li>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.exit_run_model">exit_run_model() (emat.model.AbstractCoreModel method)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-experiment"><strong>experiment</strong></a>
 </li>
@@ -395,13 +412,15 @@
         <li><a href="source/emat.analysis/feature-scoring.html#emat.analysis.feature_scoring.feature_scores">(in module emat.analysis.feature_scoring)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.models/files-api.html#emat.model.core_files.parsers.FileParser">FileParser (class in emat.model.core_files.parsers)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel">FilesCoreModel (class in emat.model)</a>
 </li>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.find_box">find_box() (emat.analysis.Prim method)</a>
+</li>
+      <li><a href="source/emat.scope/measures.html#emat.Measure.formula">formula (emat.Measure attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -491,7 +510,7 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.ignore_crash">ignore_crash (emat.model.FilesCoreModel attribute)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.ignore_crash">ignore_crash() (emat.model.AbstractCoreModel property)</a>
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.index_for_cat">index_for_cat() (emat.scope.parameter.BooleanParameter method)</a>
 
@@ -499,9 +518,11 @@
         <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.index_for_cat">(emat.scope.parameter.CategoricalParameter method)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.scope/measures.html#emat.Measure.info">info() (emat.Measure method)</a>
+      <li><a href="source/emat.database/abstract.html#emat.database.Database.info">info() (emat.database.Database method)</a>
 
       <ul>
+        <li><a href="source/emat.scope/measures.html#emat.Measure.info">(emat.Measure method)</a>
+</li>
         <li><a href="source/emat.scope/scope.html#emat.Scope.info">(emat.Scope method)</a>
 </li>
       </ul></li>
@@ -517,6 +538,8 @@
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.IntegerParameter">IntegerParameter (class in emat.scope.parameter)</a>
 </li>
+      <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.invalidate_experiment_runs">invalidate_experiment_runs() (emat.database.SQLiteDB method)</a>
+</li>
       <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.invert">invert() (emat.scope.parameter.BooleanParameter method)</a>
 
       <ul>
@@ -530,6 +553,10 @@
 
 <h2 id="K">K</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.killed_indicator">killed_indicator() (emat.model.AbstractCoreModel property)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.scope/measures.html#emat.Measure.kind">kind (emat.Measure attribute)</a>
 </li>
@@ -546,13 +573,11 @@
       <li><a href="source/emat.scope/boxes.html#emat.Box.lever_thresholds">lever_thresholds() (emat.Box property)</a>
 
       <ul>
-        <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.lever_thresholds">(emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#emat.ChainedBox.lever_thresholds">[1]</a>
+        <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.lever_thresholds">(emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#id2">[1]</a>
 </li>
       </ul></li>
       <li><a href="source/emat.metamodels/regression.html#emat.learn.LinearAndGaussian">LinearAndGaussian() (in module emat.learn)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.load_archived_measures">load_archived_measures() (emat.model.FilesCoreModel method)</a>
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.load_measures">load_measures() (emat.model.AbstractCoreModel method)</a>
@@ -563,9 +588,21 @@
         <li><a href="source/emat.models/gbnrtc.html#emat.model.GBNRTCModel.load_measures">(emat.model.GBNRTCModel method)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.local_directory">local_directory (emat.model.FilesCoreModel attribute)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.local_directory">local_directory() (emat.model.AbstractCoreModel property)</a>
+
+      <ul>
+        <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.local_directory">(emat.model.FilesCoreModel property)</a>
 </li>
-      <li><a href="source/emat.scope/boxes.html#emat.Bounds.lowerbound">lowerbound() (emat.Bounds property)</a>
+      </ul></li>
+      <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.log">log() (emat.database.SQLiteDB method)</a>
+
+      <ul>
+        <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.log">(emat.model.AbstractCoreModel method)</a>
+</li>
+      </ul></li>
+      <li><a href="source/emat.scope/boxes.html#emat.Bounds.lowerbound">lowerbound (emat.Bounds attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -576,6 +613,8 @@
       <li><a href="source/emat.scope/parameters.html#emat.make_parameter">make_parameter() (in module emat)</a>
 </li>
       <li><a href="source/emat.models/files-api.html#emat.model.core_files.parsers.MappingParser">MappingParser (class in emat.model.core_files.parsers)</a>
+</li>
+      <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.mark_run_invalid">mark_run_invalid() (emat.database.SQLiteDB method)</a>
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.max">max() (emat.scope.parameter.CategoricalParameter property)</a>
 </li>
@@ -598,9 +637,13 @@
       <li><a href="source/emat.scope/boxes.html#emat.Box.measure_thresholds">measure_thresholds() (emat.Box property)</a>
 
       <ul>
-        <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.measure_thresholds">(emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#emat.ChainedBox.measure_thresholds">[1]</a>
+        <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.measure_thresholds">(emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#id3">[1]</a>
 </li>
       </ul></li>
+      <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.merge_database">merge_database() (emat.database.SQLiteDB method)</a>
+</li>
+      <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.merge_log">merge_log() (emat.database.SQLiteDB method)</a>
+</li>
       <li><a href="source/emat.glossary.html#term-meta-model"><strong>meta-model</strong></a>
 </li>
       <li><a href="source/emat.metamodels/api.html#emat.MetaModel">MetaModel (class in emat)</a>
@@ -625,12 +668,18 @@
 </li>
       <li><a href="source/emat.scope/scope.html#emat.Scope.n_sample_factors">n_sample_factors() (emat.Scope method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.scope/measures.html#emat.Measure.name">name (emat.Measure attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.new_box">new_box() (emat.analysis.Visualizer method)</a>
 </li>
+      <li><a href="source/emat.database/abstract.html#emat.database.Database.new_run_id">new_run_id() (emat.database.Database method)</a>
+
+      <ul>
+        <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.new_run_id">(emat.database.SQLiteDB method)</a>
+</li>
+      </ul></li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.new_selection">new_selection() (emat.analysis.Visualizer method)</a>
 </li>
   </ul></td>
@@ -653,6 +702,8 @@
 </li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.parcoords">parcoords() (emat.analysis.Visualizer method)</a>
 </li>
+      <li><a href="source/emat.scope/measures.html#emat.Measure.parser">parser (emat.Measure attribute)</a>
+</li>
       <li><a href="source/emat.scope/continuous_distributions.html#emat.util.distributions.pert">pert() (in module emat.util.distributions)</a>
 </li>
       <li><a href="source/emat.metamodels/api.html#emat.MetaModel.pick_new_experiments">pick_new_experiments() (emat.MetaModel method)</a>
@@ -671,13 +722,15 @@
 </li>
       <li><a href="source/emat.metamodels/api.html#emat.MetaModel.preprocess_raw_input">preprocess_raw_input() (emat.MetaModel method)</a>
 </li>
-      <li><a href="source/emat.glossary.html#term-prim"><strong>PRIM</strong></a>
+      <li><a href="source/emat.glossary.html#term-PRIM"><strong>PRIM</strong></a>
 </li>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim">Prim (class in emat.analysis)</a>
 </li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.prim">prim() (emat.analysis.Visualizer method)</a>
 </li>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox">PrimBox (class in emat.analysis)</a>
+</li>
+      <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.print_log">print_log() (emat.database.SQLiteDB method)</a>
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.Constant.ptype">ptype (emat.Constant attribute)</a>
 
@@ -757,12 +810,22 @@
         <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_all">(emat.database.SQLiteDB method)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_id">read_experiment_id() (emat.database.SQLiteDB method)</a>
+      <li><a href="source/emat.database/abstract.html#emat.database.Database.read_experiment_id">read_experiment_id() (emat.database.Database method)</a>
+
+      <ul>
+        <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_id">(emat.database.SQLiteDB method)</a>
 </li>
+      </ul></li>
       <li><a href="source/emat.database/abstract.html#emat.database.Database.read_experiment_ids">read_experiment_ids() (emat.database.Database method)</a>
 
       <ul>
         <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_ids">(emat.database.SQLiteDB method)</a>
+</li>
+      </ul></li>
+      <li><a href="source/emat.database/abstract.html#emat.database.Database.read_experiment_measure_sources">read_experiment_measure_sources() (emat.database.Database method)</a>
+
+      <ul>
+        <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_measure_sources">(emat.database.SQLiteDB method)</a>
 </li>
       </ul></li>
       <li><a href="source/emat.database/abstract.html#emat.database.Database.read_experiment_measures">read_experiment_measures() (emat.database.Database method)</a>
@@ -841,8 +904,12 @@
 </li>
       <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.resolved_archive_path">resolved_archive_path() (emat.model.FilesCoreModel property)</a>
 </li>
-      <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.resolved_model_path">resolved_model_path() (emat.model.FilesCoreModel property)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.resolved_model_path">resolved_model_path() (emat.model.AbstractCoreModel property)</a>
+
+      <ul>
+        <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.resolved_model_path">(emat.model.FilesCoreModel property)</a>
 </li>
+      </ul></li>
       <li><a href="source/emat.examples/RoadTest/road_test_yaml.html#emat.model.core_python.core_python_examples.Road_Capacity_Investment">Road_Capacity_Investment() (in module emat.model.core_python.core_python_examples)</a>
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.robust_evaluate">robust_evaluate() (emat.model.AbstractCoreModel method)</a>
@@ -886,6 +953,8 @@
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.selection_feature_scores">selection_feature_scores() (emat.analysis.Visualizer method)</a>
 </li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.selectors">selectors() (emat.analysis.Visualizer method)</a>
+</li>
+      <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.set_active_selection_color">set_active_selection_color() (emat.analysis.Visualizer method)</a>
 </li>
       <li><a href="source/emat.scope/boxes.html#emat.Box.set_bounds">set_bounds() (emat.Box method)</a>
 </li>
@@ -957,7 +1026,7 @@
         <li><a href="source/emat.scope/scope.html#emat.Scope.store_scope">(emat.Scope method)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.success_indicator">success_indicator (emat.model.FilesCoreModel attribute)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.success_indicator">success_indicator() (emat.model.AbstractCoreModel property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -967,6 +1036,24 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.models/files-api.html#emat.model.core_files.parsers.TableParser">TableParser (class in emat.model.core_files.parsers)</a>
 </li>
+      <li><a href="source/emat.scope/measures.html#emat.Measure.tags">tags() (emat.Measure property)</a>
+
+      <ul>
+        <li><a href="source/emat.scope/parameters.html#emat.Parameter.tags">(emat.Parameter property)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.tags">(emat.scope.parameter.BooleanParameter property)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.tags">(emat.scope.parameter.CategoricalParameter property)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.IntegerParameter.tags">(emat.scope.parameter.IntegerParameter property)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.RealParameter.tags">(emat.scope.parameter.RealParameter property)</a>
+</li>
+      </ul></li>
+      <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.three_way">three_way() (emat.analysis.Visualizer method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.analysis/feature-scoring.html#emat.analysis.feature_scoring.threshold_feature_scores">threshold_feature_scores() (in module emat.analysis.feature_scoring)</a>
 </li>
       <li><a href="source/emat.scope/boxes.html#emat.Box.thresholds">thresholds (emat.Box attribute)</a>
@@ -979,8 +1066,6 @@
         <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.tradeoff_selector">(emat.analysis.PrimBox method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.scope/measures.html#emat.Measure.transform">transform (emat.Measure attribute)</a>
 </li>
       <li><a href="source/emat.scope/continuous_distributions.html#emat.util.distributions.triangle">triangle() (in module emat.util.distributions)</a>
@@ -1002,14 +1087,22 @@
       <li><a href="source/emat.scope/boxes.html#emat.Box.uncertainty_thresholds">uncertainty_thresholds() (emat.Box property)</a>
 
       <ul>
-        <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.uncertainty_thresholds">(emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#emat.ChainedBox.uncertainty_thresholds">[1]</a>
+        <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.uncertainty_thresholds">(emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#id0">[1]</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.update">update() (emat.analysis.PrimBox method)</a>
 </li>
-      <li><a href="source/emat.scope/boxes.html#emat.Bounds.upperbound">upperbound() (emat.Bounds property)</a>
+      <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.update_database">update_database() (emat.database.SQLiteDB method)</a>
+</li>
+      <li><a href="source/emat.database/abstract.html#emat.database.Database.update_scope">update_scope() (emat.database.Database method)</a>
+
+      <ul>
+        <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.update_scope">(emat.database.SQLiteDB method)</a>
+</li>
+      </ul></li>
+      <li><a href="source/emat.scope/boxes.html#emat.Bounds.upperbound">upperbound (emat.Bounds attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1095,7 +1188,7 @@
 <h2 id="X">X</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.glossary.html#term-xlrm"><strong>XLRM</strong></a>
+      <li><a href="source/emat.glossary.html#term-XLRM"><strong>XLRM</strong></a>
 </li>
   </ul></td>
 </tr></table>
@@ -1115,7 +1208,14 @@
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1126,7 +1226,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

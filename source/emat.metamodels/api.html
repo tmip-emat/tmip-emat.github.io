@@ -1,15 +1,20 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Meta-Model API &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  <title>Meta-Model API &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
 
   
   
@@ -17,7 +22,9 @@
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -25,18 +32,15 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Meta-Model Regression" href="regression.html" />
@@ -54,7 +58,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
           
 
           
@@ -64,7 +68,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.5.0
               </div>
             
           
@@ -81,6 +85,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -110,6 +115,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -148,7 +154,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">Meta Models</a> &raquo;</li>
         
@@ -223,9 +229,9 @@ already wraps the MetaModel in an interface ready for use with other TMIP-EMAT t
 so that in typical cases the user does not need to interact with or know anything
 about the <a class="reference internal" href="#emat.MetaModel" title="emat.MetaModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetaModel</span></code></a> class itself, unless they care to dive in to the underlying
 core or mathematical structures.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="emat.create_metamodel">
-<code class="descclassname">emat.</code><code class="descname">create_metamodel</code><span class="sig-paren">(</span><em>scope</em>, <em>experiments=None</em>, <em>metamodel_id=None</em>, <em>db=None</em>, <em>include_measures=None</em>, <em>exclude_measures=None</em>, <em>random_state=None</em>, <em>experiment_stratification=None</em>, <em>suppress_converge_warnings=False</em>, <em>regressor=None</em>, <em>name=None</em>, <em>design_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#create_metamodel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.create_metamodel" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">emat.</code><code class="descname">create_metamodel</code><span class="sig-paren">(</span><em><span class="n">scope</span></em>, <em><span class="n">experiments</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">metamodel_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">db</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">include_measures</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">exclude_measures</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">experiment_stratification</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">suppress_converge_warnings</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">regressor</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">find_best_metamodeltype</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#create_metamodel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.create_metamodel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a MetaModel from a set of input and output observations.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -233,7 +239,7 @@ core or mathematical structures.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>scope</strong> (<a class="reference internal" href="../emat.scope/scope.html#emat.Scope" title="emat.Scope"><em>emat.Scope</em></a>) – The scope for this model.</li>
-<li><strong>experiments</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a>) – This dataframe
+<li><strong>experiments</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – This dataframe
 should contain all of the experimental inputs and outputs,
 including values for each uncertainty, level, constant, and
 performance measure.</li>
@@ -251,7 +257,7 @@ output performance measures with names in this set will be included.</li>
 output performance measures with names not in this set will be included.</li>
 <li><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – A random state to use in the metamodel
 regression fitting.</li>
-<li><strong>experiment_stratification</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.2)"><em>pandas.Series</em></a><em>, </em><em>optional</em>) – A stratification of experiments, used in cross-validation.</li>
+<li><strong>experiment_stratification</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.4)"><em>pandas.Series</em></a><em>, </em><em>optional</em>) – A stratification of experiments, used in cross-validation.</li>
 <li><strong>suppress_converge_warnings</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Suppress convergence warnings during metamodel fitting.</li>
 <li><strong>regressor</strong> (<em>Estimator</em><em>, </em><em>optional</em>) – A scikit-learn estimator implementing a
 multi-target regression.  If not given, a detrended simple Gaussian
@@ -260,6 +266,14 @@ process regression is used.</li>
 <li><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the design of experiments
 from <cite>db</cite> to use to create the metamodel. Only used if <cite>experiments</cite>
 is not given explicitly.</li>
+<li><strong>find_best_metamodeltype</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 0</em>) – Run a search to find the best metamodeltype for each
+performance measure, repeating each cross-validation
+step this many times.  For more stable results, choose
+3 or more, although larger numbers will be slow.  If
+domain knowledge about the normal expected range and
+behavior of each performance measure is available,
+it is better to give the metamodeltype explicitly in
+the Scope.</li>
 </ul>
 </td>
 </tr>
@@ -275,9 +289,9 @@ returns a dictionary of (measure name: value) pairs.</p>
 </table>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="emat.MetaModel">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">MetaModel</code><span class="sig-paren">(</span><em>input_sample</em>, <em>output_sample</em>, <em>metamodel_types=None</em>, <em>disabled_outputs=None</em>, <em>random_state=None</em>, <em>sample_stratification=None</em>, <em>suppress_converge_warnings=False</em>, <em>regressor=None</em>, <em>use_best_cv=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">MetaModel</code><span class="sig-paren">(</span><em><span class="n">input_sample</span></em>, <em><span class="n">output_sample</span></em>, <em><span class="n">metamodel_types</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">disabled_outputs</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">sample_stratification</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">suppress_converge_warnings</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">regressor</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">use_best_cv</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>A gaussian process regression-based meta-model.</p>
 <p>The MetaModel is a callable object that provides an EMA Workbench standard
 python interface, taking keyword arguments for parameters and returning a python
@@ -287,11 +301,11 @@ dictionary of named outcomes.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>input_sample</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a>) – A set of experimental parameters, where
+<li><strong>input_sample</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – A set of experimental parameters, where
 each row in the dataframe is an experiment that has already been evaluated
 using the core model.  Each column will be a required keyword parameter
 when calling this meta-model.</li>
-<li><strong>output_sample</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a>) – A set of experimental performance measures, where
+<li><strong>output_sample</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – A set of experimental performance measures, where
 each row in the dataframe is the results of the experiment evaluated using the
 core model.  Each column of this dataframe will be a named output value
 in the returned dictionary from calling this meta-model.</li>
@@ -334,9 +348,9 @@ process regression is used.</li>
 </tr>
 </tbody>
 </table>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.MetaModel.__call__">
-<code class="descname">__call__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.__call__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__call__</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the meta-model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -353,16 +367,16 @@ arguments, including both uncertainties and levers.</td>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.MetaModel.compute_std">
-<code class="descname">compute_std</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.compute_std"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.compute_std" title="Permalink to this definition">¶</a></dt>
+<code class="descname">compute_std</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.compute_std"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.compute_std" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate standard deviations of estimates generated by the meta-model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – </li>
+<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – </li>
 <li><strong>**kwargs</strong> – All defined (meta)model parameters are passed as keyword
 arguments, including both uncertainties and levers.</li>
 </ul>
@@ -379,9 +393,9 @@ estimate of all performance measure outcomes.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.MetaModel.cross_val_predicts">
-<code class="descname">cross_val_predicts</code><span class="sig-paren">(</span><em>cv=5</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.cross_val_predicts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.cross_val_predicts" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cross_val_predicts</code><span class="sig-paren">(</span><em><span class="n">cv</span><span class="o">=</span><span class="default_value">5</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.cross_val_predicts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.cross_val_predicts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate cross validated predictions using this meta-model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -394,15 +408,15 @@ quite slow.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The cross-validated predictions.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)">pandas.DataFrame</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a></td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.MetaModel.cross_val_scores">
-<code class="descname">cross_val_scores</code><span class="sig-paren">(</span><em>cv=5</em>, <em>gpr_only=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.cross_val_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.cross_val_scores" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cross_val_scores</code><span class="sig-paren">(</span><em><span class="n">cv</span><span class="o">=</span><span class="default_value">5</span></em>, <em><span class="n">gpr_only</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">use_cache</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">return_type</span><span class="o">=</span><span class="default_value">'styled'</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.cross_val_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.cross_val_scores" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the cross validation scores for this meta-model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -416,20 +430,25 @@ cross-validation analysis to only the GPR step (i.e.,
 to measure the improvement in meta-model fit from
 using the GPR-based meta-model, over and above
 using the linear regression meta-model alone.)</li>
+<li><strong>use_cache</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default True</em>) – Use cached cross
+validation results if available.  All other arguments
+are ignored if a cached results if available.</li>
+<li><strong>return_type</strong> (<em>{'styled'</em><em>, </em><em>'raw'}</em>) – How to return the
+results.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The cross-validation scores, by output.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.2)">pandas.Series</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.4)">pandas.Series</a></p>
 </td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.MetaModel.get_length_scales">
 <code class="descname">get_length_scales</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.get_length_scales"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.get_length_scales" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the length scales from the GPR kernels of this metamodel.</p>
@@ -444,15 +463,15 @@ instantiated.</p>
 input (not raw input) and the rows correspond to the
 outputs.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)">pandas.DataFrame</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a></td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.MetaModel.mix_length_scales">
-<code class="descname">mix_length_scales</code><span class="sig-paren">(</span><em>balance=None</em>, <em>inv=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.mix_length_scales"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.mix_length_scales" title="Permalink to this definition">¶</a></dt>
+<code class="descname">mix_length_scales</code><span class="sig-paren">(</span><em><span class="n">balance</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">inv</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.mix_length_scales"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.mix_length_scales" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mix the length scales from the GPR kernels of this metamodel.</p>
 <p>This MetaModel must already be <cite>fit</cite> to use this method, although
 the fit process is generally completed when the MetaModel is
@@ -484,9 +503,9 @@ outputs.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.MetaModel.pick_new_experiments">
-<code class="descname">pick_new_experiments</code><span class="sig-paren">(</span><em>possible_experiments</em>, <em>batch_size</em>, <em>output_focus=None</em>, <em>scope: emat.scope.scope.Scope = None</em>, <em>db: emat.database.database.Database = None</em>, <em>design_name: str = None</em>, <em>debug=None</em>, <em>future_experiments=None</em>, <em>future_experiments_std=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.pick_new_experiments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.pick_new_experiments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">pick_new_experiments</code><span class="sig-paren">(</span><em><span class="n">possible_experiments</span></em>, <em><span class="n">batch_size</span></em>, <em><span class="n">output_focus</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">scope</span><span class="p">:</span> <span class="n">emat.scope.scope.Scope</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">db</span><span class="p">:</span> <span class="n">emat.database.database.Database</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">design_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">debug</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">future_experiments</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">future_experiments_std</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.pick_new_experiments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.pick_new_experiments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select a set of new experiments to perform from a pool of candidates.</p>
 <p>This method implements the “maximin” approach described by Johnson et al (1990),
 as proposed for batch-sequential augmentation of designs by Loeppky et al (2010).
@@ -527,7 +546,7 @@ debugging.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A subset of rows from <cite>possible_experiments</cite></p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)">pandas.DataFrame</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a></p>
 </td>
 </tr>
 </tbody>
@@ -542,17 +561,18 @@ for computer experiments.” Journal of Statistical Planning and Inference 140,
 </ul>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.MetaModel.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>*args</em>, <em>trend_only=False</em>, <em>residual_only=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.predict" title="Permalink to this definition">¶</a></dt>
+<code class="descname">predict</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="n">trend_only</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">residual_only</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate predictions using the meta-model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – </li>
-<li><strong>residual_only</strong> (<em>trend_only</em><em>,</em>) – </li>
+<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – </li>
+<li><strong>trend_only</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – </li>
+<li><strong>residual_only</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – </li>
 <li><strong>**kwargs</strong> – All defined (meta)model parameters are passed as keyword
 arguments, including both uncertainties and levers.</li>
 </ul>
@@ -569,9 +589,9 @@ estimate of all performance measure outcomes.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.MetaModel.preprocess_raw_input">
-<code class="descname">preprocess_raw_input</code><span class="sig-paren">(</span><em>df</em>, <em>to_type=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.preprocess_raw_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.preprocess_raw_input" title="Permalink to this definition">¶</a></dt>
+<code class="descname">preprocess_raw_input</code><span class="sig-paren">(</span><em><span class="n">df</span></em>, <em><span class="n">to_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.preprocess_raw_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.preprocess_raw_input" title="Permalink to this definition">¶</a></dt>
 <dd><p>Preprocess raw data input.</p>
 <p>This convenience method provides batch-processing of a
 raw data input DataFrame into the format used for regression.</p>
@@ -580,7 +600,7 @@ raw data input DataFrame into the format used for regression.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a>) – The raw input data to process, which can include input
+<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – The raw input data to process, which can include input
 values for multiple experiments.</li>
 <li><strong>to_type</strong> (<em>dtype</em><em>, </em><em>optional</em>) – If given, the entire resulting DataFrame is cast to
 this data type.</li>
@@ -621,7 +641,14 @@ this data type.</li>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -632,7 +659,6 @@ this data type.</li>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

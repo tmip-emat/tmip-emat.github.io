@@ -1,15 +1,20 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>GBNRTC Model &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  <title>GBNRTC Model &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
 
   
   
@@ -17,7 +22,9 @@
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -25,18 +32,15 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Meta Models" href="../emat.metamodels/index.html" />
@@ -54,7 +58,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
           
 
           
@@ -64,7 +68,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.5.0
               </div>
             
           
@@ -81,6 +85,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -115,6 +120,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -153,7 +159,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">Core Models</a> &raquo;</li>
         
@@ -211,9 +217,9 @@ recommendation, or specification by FHWA.</p>
 </div>
 <div class="section" id="gbnrtc-model">
 <h1>GBNRTC Model<a class="headerlink" href="#gbnrtc-model" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="emat.model.GBNRTCModel">
-<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">GBNRTCModel</code><span class="sig-paren">(</span><em>configuration: Union[str, Mapping], scope: Union[emat.scope.scope.Scope, str], safe: bool = True, db: emat.database.database.Database = None, name: str = 'GBNRTC'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">GBNRTCModel</code><span class="sig-paren">(</span><em><span class="n">configuration</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>Mapping<span class="p">]</span></span></em>, <em><span class="n">scope</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>emat.scope.scope.Scope<span class="p">, </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span></em>, <em><span class="n">safe</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em><span class="n">db</span><span class="p">:</span> <span class="n">emat.database.database.Database</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span> <span class="o">=</span> <span class="default_value">'GBNRTC'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.model.core_files.core_files.FilesCoreModel</span></code></p>
 <p>Setup connections and paths to GBNRTC core model</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -249,9 +255,9 @@ If not given, “GBNRTC” is used.</li>
 <h2>Implementation-Specific Methods<a class="headerlink" href="#implementation-specific-methods" title="Permalink to this headline">¶</a></h2>
 <p>These methods are defined specifically in this GBNRTC-specific class,
 in order to interface with the TransCAD model for the GBNRTC region.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.GBNRTCModel.setup">
-<code class="descclassname">GBNRTCModel.</code><code class="descname">setup</code><span class="sig-paren">(</span><em>params: dict</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.setup" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">GBNRTCModel.</code><code class="descname">setup</code><span class="sig-paren">(</span><em><span class="n">params</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure the core model with the experiment variable values</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -267,13 +273,13 @@ uncertainty and policy levers</td>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.GBNRTCModel.start_transcad">
 <code class="descclassname">GBNRTCModel.</code><code class="descname">start_transcad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.start_transcad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.start_transcad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Launch TransCAD and call methods to reset scenario</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.GBNRTCModel.run">
 <code class="descclassname">GBNRTCModel.</code><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Launches TransCAD and runs the model</p>
@@ -288,9 +294,9 @@ uncertainty and policy levers</td>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.GBNRTCModel.run_model">
-<code class="descclassname">GBNRTCModel.</code><code class="descname">run_model</code><span class="sig-paren">(</span><em>scenario</em>, <em>policy</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.model.GBNRTCModel.run_model" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">GBNRTCModel.</code><code class="descname">run_model</code><span class="sig-paren">(</span><em><span class="n">scenario</span></em>, <em><span class="n">policy</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.model.GBNRTCModel.run_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs an experiment through core model.</p>
 <p>This method overloads the <cite>run_model</cite> method given in
 the EMA Workbench, and provides the correct execution
@@ -346,9 +352,9 @@ has key-value pairs for each lever.</li>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.GBNRTCModel.load_measures">
-<code class="descclassname">GBNRTCModel.</code><code class="descname">load_measures</code><span class="sig-paren">(</span><em>measure_names: List[str] = None</em>, <em>*</em>, <em>rel_output_path=None</em>, <em>abs_output_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.model.GBNRTCModel.load_measures" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">GBNRTCModel.</code><code class="descname">load_measures</code><span class="sig-paren">(</span><em><span class="n">measure_names</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">rel_output_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">abs_output_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.model.GBNRTCModel.load_measures" title="Permalink to this definition">¶</a></dt>
 <dd><p>Import selected measures from the core model.</p>
 <p>This method is the place to put code that can actually reach into
 files in the core model’s run results and extract performance
@@ -362,7 +368,13 @@ outputs directory).</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>measure_names</strong> (<em>Collection</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – Collection of measures to be loaded.</li>
-<li><strong>abs_output_path</strong> (<em>rel_output_path</em><em>,</em>) – Path to model output locations, either relative
+<li><strong>rel_output_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Path to model output locations, either relative
+to the <cite>model_path</cite> directory (when a subclass
+is a type that has a model path) or as an absolute
+directory.  If neither is given, the default
+value is equivalent to setting <cite>rel_output_path</cite> to
+‘Outputs’.</li>
+<li><strong>abs_output_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Path to model output locations, either relative
 to the <cite>model_path</cite> directory (when a subclass
 is a type that has a model path) or as an absolute
 directory.  If neither is given, the default
@@ -382,9 +394,9 @@ value is equivalent to setting <cite>rel_output_path</cite> to
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.GBNRTCModel.post_process">
-<code class="descclassname">GBNRTCModel.</code><code class="descname">post_process</code><span class="sig-paren">(</span><em>params: dict, measure_names: List[str], output_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.post_process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.post_process" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">GBNRTCModel.</code><code class="descname">post_process</code><span class="sig-paren">(</span><em><span class="n">params</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></span></em>, <em><span class="n">measure_names</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span></em>, <em><span class="n">output_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.post_process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.post_process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs post processors associated with measures.</p>
 <p>For the GBNRTC model, this method calls
 TransCAD macros to generate output files.</p>
@@ -411,9 +423,9 @@ will use local values</li>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.GBNRTCModel.get_experiment_archive_path">
-<code class="descclassname">GBNRTCModel.</code><code class="descname">get_experiment_archive_path</code><span class="sig-paren">(</span><em>experiment_id=None</em>, <em>makedirs=False</em>, <em>parameters=None</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.model.GBNRTCModel.get_experiment_archive_path" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">GBNRTCModel.</code><code class="descname">get_experiment_archive_path</code><span class="sig-paren">(</span><em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">makedirs</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">parameters</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">run_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.model.GBNRTCModel.get_experiment_archive_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a file system location to store model run outputs.</p>
 <p>For core models with long model run times, it is recommended
 to store the complete model run results in an archive.  This
@@ -433,6 +445,9 @@ experiment id is read or created using the parameters.</li>
 <li><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – The parameters for this experiment, used to create or
 lookup an experiment id. The parameters are ignored
 if <cite>experiment_id</cite> is given.</li>
+<li><strong>run_id</strong> (<em>UUID</em><em>, </em><em>optional</em>) – The run_id of this model run.  If not given but a
+run_id attribute is stored in this FilesCoreModel
+instance, that value is used.</li>
 </ul>
 </td>
 </tr>
@@ -446,9 +461,9 @@ if <cite>experiment_id</cite> is given.</li>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.GBNRTCModel.archive">
-<code class="descclassname">GBNRTCModel.</code><code class="descname">archive</code><span class="sig-paren">(</span><em>params: dict</em>, <em>model_results_path: str</em>, <em>experiment_id: int = 0</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.archive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.archive" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">GBNRTCModel.</code><code class="descname">archive</code><span class="sig-paren">(</span><em><span class="n">params</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></span></em>, <em><span class="n">model_results_path</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em>, <em><span class="n">experiment_id</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/gbnrtc_model.html#GBNRTCModel.archive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.GBNRTCModel.archive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copies TransCAD settings, outputs and common input files</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -491,7 +506,14 @@ if <cite>experiment_id</cite> is given.</li>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -502,7 +524,6 @@ if <cite>experiment_id</cite> is given.</li>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

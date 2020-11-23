@@ -1,15 +1,20 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Glossary &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  <title>Glossary &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/thebelab.css" type="text/css" />
 
   
   
@@ -17,7 +22,9 @@
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -25,18 +32,15 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/tmip_emat.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="References" href="emat.references.html" />
@@ -54,7 +58,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> TMIP-EMAT
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
           
 
           
@@ -64,7 +68,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.5.0
               </div>
             
           
@@ -81,6 +85,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -105,6 +110,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -143,7 +149,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Glossary</li>
     
@@ -210,7 +216,7 @@ these restrictions are expressed as limited ranges on a particular set of
 parameters or performance <a class="reference internal" href="#term-measure"><span class="xref std std-term">measures</span></a>.  A box can be found as the result of certain
 EMA methodologies (e.g. PRIM, CART) or simply generated manually during
 an exploration of the data.</dd>
-<dt id="term-cart">CART</dt><dd>Classification and Regression Trees is a relatively greedy but long-standing
+<dt id="term-CART">CART</dt><dd>Classification and Regression Trees is a relatively greedy but long-standing
 approach to developing interesting boxes for model exploration.
 <a class="reference internal" href="emat.references.html#breiman1984"><span class="std std-ref">(Breiman, 1984)</span></a>.</dd>
 <dt id="term-case">case</dt><dd>A case is a single modeling experiment, defined by a particular <a class="reference internal" href="#term-policy"><span class="xref std std-term">policy</span></a>,
@@ -225,11 +231,11 @@ random draws are made from the possible input parameters, or more structured
 random (e.g. latin hypercube) or non-random (e.g. factorial) designs</dd>
 <dt id="term-experiment">experiment</dt><dd>The execution of the model to calculate performance <a class="reference internal" href="#term-measure"><span class="xref std std-term">measures</span></a>.
 See also <a class="reference internal" href="#term-case"><span class="xref std std-term">case</span></a>.</dd>
-<dt id="term-lever">lever</dt><dd>The <em>L</em> in <a class="reference internal" href="#term-xlrm"><span class="xref std std-term">XLRM</span></a>, a lever is a single policy strategy that might
+<dt id="term-lever">lever</dt><dd>The <em>L</em> in <a class="reference internal" href="#term-XLRM"><span class="xref std std-term">XLRM</span></a>, a lever is a single policy strategy that might
 be implemented by decision maker(s).  Like
 exogenous <a class="reference internal" href="#term-uncertainty"><span class="xref std std-term">uncertainties</span></a>, a lever is an input to the underlying <a class="reference internal" href="#term-model"><span class="xref std std-term">model</span></a>.  Unlike
 exogenous <a class="reference internal" href="#term-uncertainty"><span class="xref std std-term">uncertainties</span></a>, a lever does not have any distributional assumptions.</dd>
-<dt id="term-measure">measure</dt><dd>The <em>M</em> in <a class="reference internal" href="#term-xlrm"><span class="xref std std-term">XLRM</span></a>, this is a single performance measure that
+<dt id="term-measure">measure</dt><dd>The <em>M</em> in <a class="reference internal" href="#term-XLRM"><span class="xref std std-term">XLRM</span></a>, this is a single performance measure that
 can be used to evaluate the performance of the system, including
 whether or not decision maker’s goals are being met.  The current version of
 TMIP-EMAT assumes that each measure is a single scalar outcome, although any number
@@ -253,14 +259,14 @@ are potentially changeable but are set to fixed values within the current
 exploratory <a class="reference internal" href="#term-scope"><span class="xref std std-term">scope</span></a>).</dd>
 <dt id="term-policy">policy</dt><dd>A set of values for all the various policy <a class="reference internal" href="#term-lever"><span class="xref std std-term">levers</span></a> defined in an
 exploratory modeling scope.</dd>
-<dt id="term-prim">PRIM</dt><dd>The Patient Rule Induction Method, a “bump hunting” technique introduced by
+<dt id="term-PRIM">PRIM</dt><dd>The Patient Rule Induction Method, a “bump hunting” technique introduced by
 <a class="reference internal" href="emat.references.html#friedmanfisher1999"><span class="std std-ref">Friedman and Fisher (1999)</span></a>.</dd>
 <dt id="term-scenario">scenario</dt><dd>A set of values for all the various exogenous <a class="reference internal" href="#term-uncertainty"><span class="xref std std-term">uncertainties</span></a>
 defined in an exploratory modeling scope.</dd>
 <dt id="term-scope">scope</dt><dd>An exploratory modeling scope is a collection of definitions for the exogenous <a class="reference internal" href="#term-uncertainty"><span class="xref std std-term">uncertainties</span></a>,
 policy <a class="reference internal" href="#term-lever"><span class="xref std std-term">levers</span></a>, and
 performance <a class="reference internal" href="#term-measure"><span class="xref std std-term">measures</span></a> under consideration.</dd>
-<dt id="term-uncertainty">uncertainty</dt><dd>The <em>X</em> in <a class="reference internal" href="#term-xlrm"><span class="xref std std-term">XLRM</span></a>, and uncertainty is a single exogenous risk factor that
+<dt id="term-uncertainty">uncertainty</dt><dd>The <em>X</em> in <a class="reference internal" href="#term-XLRM"><span class="xref std std-term">XLRM</span></a>, and uncertainty is a single exogenous risk factor that
 represents an unknown and uncontrolled future
 state of the system under study.  An uncertainty is an input to the underlying
 <a class="reference internal" href="#term-model"><span class="xref std std-term">model</span></a>, and is characterized by a random variable distribution.  In
@@ -269,7 +275,7 @@ analysis, analysts explicitly disavow making probabilistic
 statements about the possible values of the uncertainty factors, and instead
 merely characterize uncertainty as a range (for numeric-type uncertainties) or
 a set of possible values (for boolean or categorical type uncertainties).</dd>
-<dt id="term-xlrm">XLRM</dt><dd><p>A general framework for conducting exploratory analysis, as proposed in
+<dt id="term-XLRM">XLRM</dt><dd><p>A general framework for conducting exploratory analysis, as proposed in
 <a class="reference internal" href="emat.references.html#lempert2003"><span class="std std-ref">Lempert et al (2003)</span></a>.
 The letters refer two four principal components of the analysis:</p>
 <ul class="simple">
@@ -305,7 +311,14 @@ The letters refer two four principal components of the analysis:</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -316,7 +329,6 @@ The letters refer two four principal components of the analysis:</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,15 +1,20 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Optimization Tools &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  <title>Optimization Tools &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
 
   
   
@@ -17,7 +22,9 @@
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -25,18 +32,15 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -52,7 +56,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
           
 
           
@@ -62,7 +66,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.5.0
               </div>
             
           
@@ -79,6 +83,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -103,6 +108,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -141,7 +147,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Optimization Tools</li>
     
@@ -228,20 +234,33 @@ div.nboutput.container div.prompt pre {
 /* all prompts */
 div.nbinput.container div.prompt,
 div.nboutput.container div.prompt {
-    min-width: 5ex;
-    padding-top: 0.3rem;
-    padding-right: 0.3rem;
-    text-align: right;
-    flex: 0;
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
 }
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
 @media (max-width: 540px) {
     div.nbinput.container div.prompt,
     div.nboutput.container div.prompt {
+        width: unset;
         text-align: left;
         padding: 0.4em;
     }
     div.nboutput.container div.prompt.empty {
         padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
     }
 }
 
@@ -334,7 +353,7 @@ div.nboutput.container div.output_area div[class*=highlight].math,
 div.nboutput.container div.output_area.rendered_html,
 div.nboutput.container div.output_area > div.output_javascript,
 div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 0.3rem;
+    padding: 5px;
 }
 
 /* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
@@ -419,7 +438,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-emat 0.3.0, workbench 2.1.509, plotly 4.6.0
+emat 0.5.0b1, workbench 2.1.509, plotly 4.12.0
 </pre></div></div>
 </div>
 <div class="section" id="Optimization-Tools">
@@ -520,7 +539,7 @@ net_benefits:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e63a27e4d53149e9bf283beb910fb618", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "766997ff672c40f5915d52595cad8b94", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">optimize</span></code> method returns an <code class="docutils literal notranslate"><span class="pre">OptimizationResult</span></code> object, which contains the resulting solutions, as well as some information about how they were derived. We can review the raw values of the solutions as a pandas DataFrame, or see the scenario values used to generate these solutions.</p>
 <div class="nbinput docutils container">
@@ -666,32 +685,8 @@ Scenario({&#39;alpha&#39;: 0.15, &#39;beta&#39;: 4.0, &#39;input_flow&#39;: 100,
 <p>By default, the axes representing performace measures to be minimized are inverted in the parallel coordinates, such that moving up along any performance measure axis results in a “better” outcome for that performance measure.</p>
 <p>In the figure below, we can quickly see that pretty much all the all of the Pareto optimal policy solutions for our reference scenario share an amortization period of 50 years, and all share a debt type of ‘Paygo’. By contrast, the set of solutions include multiple different values for the expand capacity lever, ranging from 0 to 100. These different values offer possible tradeoffs among the performance measures: lower levels of capacity expansion (shown in yellow) will maximize net benefits and
 minimize the cost of the project, but they will also fail to provide much travel time savings. Conversely, larger levels of capacity expansion will provide better travel time savings, but will not perform as well on costs. It is left up the the analysts and decision makers to judge what tradeoffs to make between these conflicting goals.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># import emat.analysis.explore_2.components</span>
-<span class="c1"># import importlib</span>
-<span class="c1"># importlib.reload(emat.analysis.explore_2.components)</span>
-<span class="c1"># from emat.analysis.explore_2.components import new_parcoords_figure</span>
-
-<span class="c1"># colorss = [&#39;rgb(2, 2, 2)&#39;, &#39;rgb(255, 127, 140)&#39;]</span>
-
-
-<span class="c1"># ff = new_parcoords_figure(</span>
-<span class="c1">#     data=result.result,</span>
-<span class="c1">#     scope=scope,</span>
-<span class="c1">#     coords=result.result.columns,</span>
-<span class="c1">#     selection = (result.result[&#39;expand_capacity&#39;] &gt; 50), #.astype(float),</span>
-<span class="c1"># )</span>
-
-<span class="c1"># ff</span>
-</pre></div>
-</div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -703,10 +698,10 @@ minimize the cost of the project, but they will also fail to provide much travel
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a652e62c2d624727b25ebebd8467501c", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e3c383c2c75849f6b6c25b3fb5ebc3ad", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -718,10 +713,10 @@ minimize the cost of the project, but they will also fail to provide much travel
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4aad1bed371244f9b7c8d28df9b48cd7", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a9468aa03f594b3c9a92f2cd9163bb50", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -733,14 +728,14 @@ minimize the cost of the project, but they will also fail to provide much travel
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d8e30fbb348a4815910a9a3b3d5a2f47", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "53ac31fbc1844c2db1e5ab8a886cba39", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="line-block">
 <div class="line">As noted above, nearly all but not exactly all of the identified Pareto optimal solutions in this figure share an amortization period of 50 years. We can review a table of a subset of particular solutions using the <code class="docutils literal notranslate"><span class="pre">query</span></code> method of a pandas DataFrame.</div>
 <div class="line">In this example, we may want to see a table of the instances where the amortization period is not 50 years.</div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -749,7 +744,7 @@ minimize the cost of the project, but they will also fail to provide much travel
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -800,8 +795,8 @@ minimize the cost of the project, but they will also fail to provide much travel
       <td>0.0</td>
       <td>60</td>
       <td>100</td>
-      <td>1.936808</td>
-      <td>0.948216</td>
+      <td>1.909259</td>
+      <td>0.993259</td>
     </tr>
   </tbody>
 </table>
@@ -819,7 +814,7 @@ on also achieving some particular other desirable outcome. In the example shown,
 <p>We can apply the same multiobjective optimization tool in reverse to study the worst case outcomes from any particular set of policy lever settings. To do so, we switch out the <code class="docutils literal notranslate"><span class="pre">searchover</span></code> argument from <code class="docutils literal notranslate"><span class="pre">'levers'</span></code> to <code class="docutils literal notranslate"><span class="pre">'uncertainties'</span></code>, and set <code class="docutils literal notranslate"><span class="pre">reverse_targets</span></code> to True, which will tell the optimization engine to search for the worst outcomes instead of the best ones. We’ll often also want to override the reference policy values with selected particular values, although it’s possible to
 omit this reference argument to search for the worst case scenarios under the default policy lever settings.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -843,10 +838,10 @@ omit this reference argument to search for the worst case scenarios under the de
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "bf9ca05c2dd542cc90966ef33663543f", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1b8585bb5a3a4a9aadf86f9150dfe201", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -858,10 +853,10 @@ omit this reference argument to search for the worst case scenarios under the de
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "95d2a1ae7ffd4615aab9f383600d04ad", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "afd08492b8724bffb73c3d72d4ee6a98", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -873,10 +868,10 @@ omit this reference argument to search for the worst case scenarios under the de
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8ba8b452bc5b4ad0a4ae1674d30e12bc", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "880b693df7fd4231bd53f45de26a9347", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -888,10 +883,10 @@ omit this reference argument to search for the worst case scenarios under the de
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "92331795258e4afb90392983852eb6c0", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a50fa182cc5f43ffa94254bd8819db5c", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -903,10 +898,10 @@ omit this reference argument to search for the worst case scenarios under the de
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "bac2915106cf44e2b706d1c311680ea0", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d9b27e1634c442fcbf2fd90059e804f0", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -915,7 +910,7 @@ omit this reference argument to search for the worst case scenarios under the de
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -927,10 +922,10 @@ omit this reference argument to search for the worst case scenarios under the de
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "94dd1cffbf9c4952adb3ffe50d3ae7c0", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "aa993461e503478481efb649db93babf", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -942,7 +937,7 @@ omit this reference argument to search for the worst case scenarios under the de
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5b834dfb48df42eaa4744ac03c933119", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "29eb1169d0274256a6ec84f72bd4e0ba", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </div>
 <div class="section" id="Using-Robust-Optimization">
@@ -954,7 +949,7 @@ measures. For example, if an existing performance measure is <code class="docuti
 <p>In addition to the <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">kind</span></code>, robust measures have two important additional attributes: a <code class="docutils literal notranslate"><span class="pre">variable_name</span></code>, which names the underlying performance measure upon which this robust measure is based, and a <code class="docutils literal notranslate"><span class="pre">function</span></code> that describes how to aggregate the results. The function should be a callable function, which accepts an array of performance measure values as its single argument, and returns a single numeric value that is the robust measure. For example, the code below will create a
 robust measure that represents the minimum net benefit across all exogenous uncertainty scenarios.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -971,7 +966,7 @@ robust measure that represents the minimum net benefit across all exogenous unce
 </div>
 <p>As suggested earlier, this measure might be too sensitive to outliers in the set of exogenous uncertainty scenarios. We can address this by creating a different robust measure, based on the same underlying performance measure, but which is based on the mean instead of the minimum value.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -987,7 +982,7 @@ robust measure that represents the minimum net benefit across all exogenous unce
 <p>Or we can adopt an intermediate approach, focusing on the 5th percentile instead of the minimum, which avoids being overly sensitive to the most extreme tail ends of the distribution, but maintains a fairly risk-averse robustness approach.</p>
 <p>Note that normally, the <code class="docutils literal notranslate"><span class="pre">numpy.percentile</span></code> function requires two arguments instead of one: the array of values, and the target percentile value. Since the <code class="docutils literal notranslate"><span class="pre">function</span></code> of the robust measure needs to accept only a single argument, we can inject the <code class="docutils literal notranslate"><span class="pre">q=5</span></code> argument here using <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial">functools.partial</a>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1005,7 +1000,7 @@ robust measure that represents the minimum net benefit across all exogenous unce
 <p>We can also capture robustness measures that are not statistical versions of the performance measure (that can be contrasted directly with the performance measure outputs, like the mean or median), but rather more abstract measures, like the percentage of scenarios where the performace measure meets some target value. For example, we can compute the percentage of scenarios for the road test example where the net benefits are negative. To do so, we will use the <code class="docutils literal notranslate"><span class="pre">percentileofscore</span></code> function from
 the <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> package. For this function, set the <code class="docutils literal notranslate"><span class="pre">kind</span></code> argument to <code class="docutils literal notranslate"><span class="pre">'strict'</span></code> to count only strictly negative results – not scenarios where the net benefits are exactly zero – or to <code class="docutils literal notranslate"><span class="pre">'weak'</span></code> to count all non-positive results.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1022,7 +1017,7 @@ the <code class="docutils literal notranslate"><span class="pre">scipy.stats</sp
 </div>
 <p>We can of course also create robust measures based on other performance measures in the core model. For example, in the Road Test model the total cost of the capacity expansion is subject to some uncertainty, and we may want to make policy choices not just to maximize net benefits but also trying to keep costs in check.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1040,7 +1035,7 @@ the <code class="docutils literal notranslate"><span class="pre">scipy.stats</sp
 <div class="line">Although we can easily conceptualize that these two goals are in opposition (increasing time savings pretty obviously goes hand in hand with increasing cost) we will be able to use the results of this robust optimization to visualize the tradeoffs and try to find an appropriate balance.</div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1054,7 +1049,7 @@ the <code class="docutils literal notranslate"><span class="pre">scipy.stats</sp
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1063,7 +1058,7 @@ the <code class="docutils literal notranslate"><span class="pre">scipy.stats</sp
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1088,10 +1083,10 @@ the <code class="docutils literal notranslate"><span class="pre">scipy.stats</sp
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1f2f7d30d0b644e2814109a7b87dbcb5", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0dd8f8e82389414d817ab4599f5071ff", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1103,10 +1098,10 @@ the <code class="docutils literal notranslate"><span class="pre">scipy.stats</sp
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "43e4a21398b646de8075c9c89a21167e", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9eed89b30b794eb0804164c3c225eb05", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1115,7 +1110,7 @@ the <code class="docutils literal notranslate"><span class="pre">scipy.stats</sp
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1128,7 +1123,7 @@ Index([&#39;expand_capacity&#39;, &#39;amortization_period&#39;, &#39;debt_type&
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1147,29 +1142,7 @@ Index([&#39;expand_capacity&#39;, &#39;amortization_period&#39;, &#39;debt_type&
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8eb474b3ef924fb3afb6ec0f159c2ea6", "version_major": 2, "version_minor": 0}</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">STOP</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-33-ee4decdca3b8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>STOP
-
-<span class="ansi-red-fg">NameError</span>: name &#39;STOP&#39; is not defined
-</pre></div></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "517954f05595400582d00bc5001ba033", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="section" id="Constraints">
 <h3>Constraints<a class="headerlink" href="#Constraints" title="Permalink to this headline">¶</a></h3>
@@ -1181,7 +1154,7 @@ equivalent meta-model). This is because the robust version of the model aggregat
 </div>
 <p>For the road test example, we can define some constraints to consider solutions that are within the limited search space. To do so, we will use the <code class="docutils literal notranslate"><span class="pre">Constraint</span></code> class.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1193,7 +1166,7 @@ equivalent meta-model). This is because the robust version of the model aggregat
 is violated.</p>
 <p>Two convenient class methods are provided within the <code class="docutils literal notranslate"><span class="pre">Constraint</span></code> class: <code class="docutils literal notranslate"><span class="pre">must_be_less_than</span></code> and <code class="docutils literal notranslate"><span class="pre">must_be_greater_than</span></code>, which can simplify the creation and legibility of simple constraints on a single parameter or outcome. Each take a single argument, the threshold of the constraint.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1214,7 +1187,7 @@ is violated.</p>
 <p>It is also possible to impose constraints based on a combination of inputs and outputs. For example, suppose that the total funds available for pay-as-you-go financing are only 3,000. We may thus want to restrict the robust search to only solutions that are almost certainly within the available funds at 99% confidence (a robustness measure that is an output we can construct) but only if the Paygo financing option is used (a model input). This kind of constraint can be created by giving both
 <code class="docutils literal notranslate"><span class="pre">parameter_names</span></code> and <code class="docutils literal notranslate"><span class="pre">outcomes_names</span></code>, and writing a constraint function that takes two arguments.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1236,7 +1209,7 @@ is violated.</p>
 </div>
 <p>The constraints are then passed to the <code class="docutils literal notranslate"><span class="pre">robust_optimize</span></code> method in addition to the other arguments.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1267,16 +1240,22 @@ is violated.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "2774dbf36d7045b9948a59c79331808d", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "64aaeda9544e46d4b46bd14b88884361", "version_major": 2, "version_minor": 0}</script></div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">robust_constrained</span><span class="o">.</span><span class="n">par_coords</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "80bbfc311a154b83baa13fbb6aeffb49", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -1307,7 +1286,14 @@ is violated.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1318,7 +1304,6 @@ is violated.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

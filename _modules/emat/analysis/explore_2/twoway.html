@@ -1,15 +1,20 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>emat.analysis.explore_2.twoway &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  <title>emat.analysis.explore_2.twoway &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/thebelab.css" type="text/css" />
 
   
   
@@ -17,7 +22,9 @@
   
 
   
-  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
@@ -25,18 +32,15 @@
         <script src="../../../../_static/underscore.js"></script>
         <script src="../../../../_static/doctools.js"></script>
         <script src="../../../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="../../../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../../_static/css/tmip_emat.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
@@ -52,7 +56,7 @@
           
 
           
-            <a href="../../../../index.html" class="icon icon-home"> TMIP-EMAT
+            <a href="../../../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
           
 
           
@@ -62,7 +66,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.5.0
               </div>
             
           
@@ -79,6 +83,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -103,6 +108,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -141,7 +147,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
         
@@ -168,7 +174,7 @@
 <span class="kn">from</span> <span class="nn">plotly.callbacks</span> <span class="kn">import</span> <span class="n">BoxSelector</span><span class="p">,</span> <span class="n">LassoSelector</span>
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">HBox</span><span class="p">,</span> <span class="n">VBox</span><span class="p">,</span> <span class="n">Dropdown</span><span class="p">,</span> <span class="n">Label</span><span class="p">,</span> <span class="n">Text</span><span class="p">,</span> <span class="n">Output</span>
 <span class="kn">from</span> <span class="nn">...viz</span> <span class="kn">import</span> <span class="n">colors</span>
-<span class="kn">from</span> <span class="nn">...util.naming</span> <span class="kn">import</span> <span class="n">clean_name</span>
+<span class="kn">from</span> <span class="nn">...util.naming</span> <span class="kn">import</span> <span class="n">clean_name</span><span class="p">,</span> <span class="n">multiindex_to_strings</span>
 <span class="kn">from</span> <span class="nn">.explore_visualizer</span> <span class="kn">import</span> <span class="n">Visualizer</span>
 <span class="kn">from</span> <span class="nn">.menu</span> <span class="kn">import</span> <span class="n">Menu</span>
 
@@ -178,8 +184,112 @@
 <span class="c1"># def _debugprint(s):</span>
 <span class="c1"># 	print(s.replace(&quot;rgb(255, 127, 14)&quot;, &quot;&lt;ORANGE&gt;&quot;).replace(&quot;rgb(255, 46, 241)&quot;,&quot;&lt;PINK&gt;&quot;))</span>
 
+<span class="k">class</span> <span class="nc">BaseTwoWayFigure</span><span class="p">():</span>
 
-<div class="viewcode-block" id="TwoWayFigure"><a class="viewcode-back" href="../../../../source/emat.analysis/interactive-explorer-v2.html#emat.analysis.TwoWayFigure">[docs]</a><span class="k">class</span> <span class="nc">TwoWayFigure</span><span class="p">(</span><span class="n">HBox</span><span class="p">):</span>
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+			<span class="bp">self</span><span class="p">,</span>
+			<span class="n">viz</span><span class="p">,</span>
+	<span class="p">):</span>
+		<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">viz</span><span class="p">,</span> <span class="n">Visualizer</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span> <span class="o">=</span> <span class="n">viz</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_alt_selections</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">scope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">scope</span>
+
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">selection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">active_selection</span><span class="p">()</span>
+
+
+	<span class="k">def</span> <span class="nf">_get_sectional_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
+		<span class="n">scope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span>
+		<span class="n">uncs</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_uncertainty_names</span><span class="p">()</span>
+		<span class="n">levs</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_lever_names</span><span class="p">()</span>
+		<span class="n">cons</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_constant_names</span><span class="p">()</span>
+		<span class="n">meas</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">()</span>
+
+		<span class="n">c_uncs</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="n">c_levs</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="n">c_cons</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="n">c_meas</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="n">c_other</span> <span class="o">=</span> <span class="p">[]</span>
+
+		<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">uncs</span><span class="p">:</span>
+				<span class="n">c_uncs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+			<span class="k">elif</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">levs</span><span class="p">:</span>
+				<span class="n">c_levs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+			<span class="k">elif</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cons</span><span class="p">:</span>
+				<span class="n">c_cons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+			<span class="k">elif</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">meas</span><span class="p">:</span>
+				<span class="n">c_meas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">c_other</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+		<span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_uncs</span><span class="p">):</span>
+			<span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-- (X) Uncertainties --&quot;</span><span class="p">)</span>
+			<span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c_uncs</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_levs</span><span class="p">):</span>
+			<span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-- (L) Levers --&quot;</span><span class="p">)</span>
+			<span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c_levs</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_cons</span><span class="p">):</span>
+			<span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-- Constants --&quot;</span><span class="p">)</span>
+			<span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c_cons</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_meas</span><span class="p">):</span>
+			<span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-- (M) Measures --&quot;</span><span class="p">)</span>
+			<span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c_meas</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_other</span><span class="p">):</span>
+			<span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-- Other --&quot;</span><span class="p">)</span>
+			<span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c_other</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="n">result</span>
+
+
+	<span class="k">def</span> <span class="nf">_get_shortname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">return</span> <span class="n">name</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">shortname</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">_manage_categorical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">perturb</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">valid_scales</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">]</span>
+			<span class="n">x_categories</span> <span class="o">=</span> <span class="kc">None</span>
+			<span class="n">x_ticktext</span> <span class="o">=</span> <span class="kc">None</span>
+			<span class="n">x_tickvals</span> <span class="o">=</span> <span class="kc">None</span>
+			<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+				<span class="n">x</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+			<span class="k">try</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">bool_</span><span class="p">):</span>
+					<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+			<span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+				<span class="k">pass</span>
+			<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">):</span>
+				<span class="n">x_categories</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
+				<span class="n">codes</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span>
+				<span class="n">x</span> <span class="o">=</span> <span class="n">codes</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+				<span class="n">s_</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">*</span> <span class="mf">0.01</span>
+				<span class="n">s_</span> <span class="o">=</span> <span class="n">s_</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">s_</span><span class="p">)</span>
+				<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="o">+</span> <span class="mf">0.20</span> <span class="o">*</span> <span class="n">s_</span>
+				<span class="k">if</span> <span class="n">perturb</span><span class="p">:</span>
+					<span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+				<span class="n">x_tickmode</span> <span class="o">=</span> <span class="s1">&#39;array&#39;</span>
+				<span class="n">x_ticktext</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">x_categories</span><span class="p">)</span>
+				<span class="n">x_tickvals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_ticktext</span><span class="p">)))</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+					<span class="n">valid_scales</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+
+			<span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">x_ticktext</span><span class="p">,</span> <span class="n">x_tickvals</span><span class="p">,</span> <span class="n">valid_scales</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="n">_logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s1">&#39;ERROR IN _manage_categorical&#39;</span><span class="p">)</span>
+			<span class="k">raise</span>
+
+<div class="viewcode-block" id="TwoWayFigure"><a class="viewcode-back" href="../../../../source/emat.analysis/interactive-explorer-v2.html#emat.analysis.TwoWayFigure">[docs]</a><span class="k">class</span> <span class="nc">TwoWayFigure</span><span class="p">(</span><span class="n">HBox</span><span class="p">,</span> <span class="n">BaseTwoWayFigure</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	The two-way visualizer widget.</span>
 
@@ -210,10 +320,6 @@
 <span class="sd">			sets.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
-	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">scope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">scope</span>
-
 	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
 			<span class="bp">self</span><span class="p">,</span>
 			<span class="n">viz</span><span class="p">,</span>
@@ -221,10 +327,7 @@
 			<span class="n">minimum_marker_opacity</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
 			<span class="n">use_gl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 	<span class="p">):</span>
-		<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">viz</span><span class="p">,</span> <span class="n">Visualizer</span><span class="p">)</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span> <span class="o">=</span> <span class="n">viz</span>
-
-		<span class="bp">self</span><span class="o">.</span><span class="n">_alt_selections</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="n">BaseTwoWayFigure</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viz</span><span class="p">)</span>
 
 		<span class="n">axis_choices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_sectional_names</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
@@ -405,12 +508,13 @@
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">set_x</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">drawbox</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">set_y</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">scattergraph</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">scattergraph</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="n">multiindex_to_strings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
 			<span class="n">hover_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
 		<span class="k">else</span><span class="p">:</span>
 			<span class="n">hover_name</span> <span class="o">=</span> <span class="s2">&quot;Experiment&quot;</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">scattergraph</span><span class="o">.</span><span class="n">hovertemplate</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;%{{xaxis.title.text}}: %{{x}}&lt;br&gt;%{{yaxis.title.text}}: %{{y}}&lt;extra&gt;</span><span class="si">{hover_name}</span><span class="s2"> %{{meta}}&lt;/extra&gt;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">scattergraph</span><span class="o">.</span><span class="n">hovertemplate</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;%</span><span class="se">{{</span><span class="s2">xaxis.title.text</span><span class="se">}}</span><span class="s2">: %</span><span class="se">{{</span><span class="s2">x</span><span class="se">}}</span><span class="s2">&lt;br&gt;%</span><span class="se">{{</span><span class="s2">yaxis.title.text</span><span class="se">}}</span><span class="s2">: %</span><span class="se">{{</span><span class="s2">y</span><span class="se">}}</span><span class="s2">&lt;extra&gt;</span><span class="si">{</span><span class="n">hover_name</span><span class="si">}</span><span class="s2"> %</span><span class="se">{{</span><span class="s2">meta</span><span class="se">}}</span><span class="s2">&lt;/extra&gt;&quot;</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">draw_box</span><span class="p">()</span>
 
@@ -428,58 +532,6 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">out_logger</span> <span class="o">=</span> <span class="n">Output</span><span class="p">()</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_update_state_</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-	<span class="k">def</span> <span class="nf">_get_sectional_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
-		<span class="n">scope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span>
-		<span class="n">uncs</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_uncertainty_names</span><span class="p">()</span>
-		<span class="n">levs</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_lever_names</span><span class="p">()</span>
-		<span class="n">cons</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_constant_names</span><span class="p">()</span>
-		<span class="n">meas</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">()</span>
-
-		<span class="n">c_uncs</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="n">c_levs</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="n">c_cons</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="n">c_meas</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="n">c_other</span> <span class="o">=</span> <span class="p">[]</span>
-
-		<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
-			<span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">uncs</span><span class="p">:</span>
-				<span class="n">c_uncs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-			<span class="k">elif</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">levs</span><span class="p">:</span>
-				<span class="n">c_levs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-			<span class="k">elif</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cons</span><span class="p">:</span>
-				<span class="n">c_cons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-			<span class="k">elif</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">meas</span><span class="p">:</span>
-				<span class="n">c_meas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="n">c_other</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-
-		<span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_uncs</span><span class="p">):</span>
-			<span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-- (X) Uncertainties --&quot;</span><span class="p">)</span>
-			<span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c_uncs</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_levs</span><span class="p">):</span>
-			<span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-- (L) Levers --&quot;</span><span class="p">)</span>
-			<span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c_levs</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_cons</span><span class="p">):</span>
-			<span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-- Constants --&quot;</span><span class="p">)</span>
-			<span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c_cons</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_meas</span><span class="p">):</span>
-			<span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-- (M) Measures --&quot;</span><span class="p">)</span>
-			<span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c_meas</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_other</span><span class="p">):</span>
-			<span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-- Other --&quot;</span><span class="p">)</span>
-			<span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c_other</span><span class="p">)</span>
-
-		<span class="k">return</span> <span class="n">result</span>
-
-
-
-
-
-	<span class="k">def</span> <span class="nf">_get_shortname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-			<span class="k">return</span> <span class="n">name</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">shortname</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
 	<span class="k">def</span> <span class="nf">_compute_marker_opacity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="c1"># if self.selection is None:</span>
@@ -538,38 +590,6 @@
 	<span class="k">def</span> <span class="nf">_observe_change_scale_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">set_y</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_axis_choose</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
-	<span class="k">def</span> <span class="nf">__manage_categorical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-		<span class="k">try</span><span class="p">:</span>
-			<span class="n">valid_scales</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">]</span>
-			<span class="n">x_categories</span> <span class="o">=</span> <span class="kc">None</span>
-			<span class="n">x_ticktext</span> <span class="o">=</span> <span class="kc">None</span>
-			<span class="n">x_tickvals</span> <span class="o">=</span> <span class="kc">None</span>
-			<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
-				<span class="n">x</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-			<span class="k">try</span><span class="p">:</span>
-				<span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">bool_</span><span class="p">):</span>
-					<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
-			<span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-				<span class="k">pass</span>
-			<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">):</span>
-				<span class="n">x_categories</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
-				<span class="n">codes</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span>
-				<span class="n">x</span> <span class="o">=</span> <span class="n">codes</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-				<span class="n">s_</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">*</span> <span class="mf">0.01</span>
-				<span class="n">s_</span> <span class="o">=</span> <span class="n">s_</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">s_</span><span class="p">)</span>
-				<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="o">+</span> <span class="mf">0.20</span> <span class="o">*</span> <span class="n">s_</span>
-				<span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-				<span class="n">x_tickmode</span> <span class="o">=</span> <span class="s1">&#39;array&#39;</span>
-				<span class="n">x_ticktext</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">x_categories</span><span class="p">)</span>
-				<span class="n">x_tickvals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_ticktext</span><span class="p">)))</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-					<span class="n">valid_scales</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
-
-			<span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">x_ticktext</span><span class="p">,</span> <span class="n">x_tickvals</span><span class="p">,</span> <span class="n">valid_scales</span>
-		<span class="k">except</span><span class="p">:</span>
-			<span class="n">_logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s1">&#39;ERROR IN __manage_categorical&#39;</span><span class="p">)</span>
-			<span class="k">raise</span>
 
 	<span class="k">def</span> <span class="nf">set_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">drawbox</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
@@ -593,7 +613,7 @@
 					<span class="k">except</span><span class="p">:</span>
 						<span class="k">pass</span>
 
-				<span class="n">x</span><span class="p">,</span> <span class="n">x_ticktext</span><span class="p">,</span> <span class="n">x_tickvals</span><span class="p">,</span> <span class="n">x_scales</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__manage_categorical</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+				<span class="n">x</span><span class="p">,</span> <span class="n">x_ticktext</span><span class="p">,</span> <span class="n">x_tickvals</span><span class="p">,</span> <span class="n">x_scales</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manage_categorical</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">x_axis_scale</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">x_scales</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">x</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">_x_ticktext</span> <span class="o">=</span> <span class="n">x_ticktext</span> <span class="ow">or</span> <span class="p">[]</span>
@@ -671,7 +691,7 @@
 				<span class="k">except</span><span class="p">:</span>
 					<span class="k">pass</span>
 
-			<span class="n">y</span><span class="p">,</span> <span class="n">y_ticktext</span><span class="p">,</span> <span class="n">y_tickvals</span><span class="p">,</span> <span class="n">y_scales</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__manage_categorical</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+			<span class="n">y</span><span class="p">,</span> <span class="n">y_ticktext</span><span class="p">,</span> <span class="n">y_tickvals</span><span class="p">,</span> <span class="n">y_scales</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manage_categorical</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">y_axis_scale</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">y_scales</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="n">y</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">_y_ticktext</span> <span class="o">=</span> <span class="n">y_ticktext</span> <span class="ow">or</span> <span class="p">[]</span>
@@ -752,8 +772,8 @@
 			<span class="k">return</span>
 
 		<span class="k">if</span> <span class="n">new_selection</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
-			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;new selection size (</span><span class="si">{new_selection.size}</span><span class="s2">) &quot;</span>
-							 <span class="sa">f</span><span class="s2">&quot;does not match length of data ({len(self._dfv.data)})&quot;</span><span class="p">)</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;new selection size (</span><span class="si">{</span><span class="n">new_selection</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">) &quot;</span>
+							 <span class="sa">f</span><span class="s2">&quot;does not match length of data (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 		<span class="c1">#self.selection = new_selection</span>
 		<span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">batch_update</span><span class="p">():</span>
 			<span class="c1"># Update Selected Portion of Scatters</span>
@@ -989,8 +1009,8 @@
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
-				<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;value size (</span><span class="si">{value.size}</span><span class="s2">) &quot;</span>
-								 <span class="sa">f</span><span class="s2">&quot;does not match length of data ({len(self._dfv.data)})&quot;</span><span class="p">)</span>
+				<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;value size (</span><span class="si">{</span><span class="n">value</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">) &quot;</span>
+								 <span class="sa">f</span><span class="s2">&quot;does not match length of data (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">_alt_selections</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">refresh_selection_names</span><span class="p">()</span>
 
@@ -1046,13 +1066,9 @@
 		<span class="n">tentative_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection_name</span><span class="o">.</span><span class="n">value</span>
 		<span class="n">n</span><span class="o">=</span><span class="mi">2</span>
 		<span class="k">while</span> <span class="n">tentative_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">selection_names</span><span class="p">():</span>
-			<span class="n">tentative_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{default_name}</span><span class="s2"> </span><span class="si">{n}</span><span class="s2">&quot;</span>
+			<span class="n">tentative_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">default_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span>
 			<span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">selection_name</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">tentative_name</span>
-
-	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">selection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dfv</span><span class="o">.</span><span class="n">active_selection</span><span class="p">()</span>
 
 	<span class="k">def</span> <span class="nf">refresh_selection_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">if</span> <span class="s2">&quot;refresh_selection_names&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_state_</span><span class="p">:</span> <span class="k">return</span>
@@ -1082,7 +1098,14 @@
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1093,7 +1116,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

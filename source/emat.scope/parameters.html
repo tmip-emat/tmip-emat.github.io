@@ -1,15 +1,20 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Parameters &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  <title>Parameters &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
 
   
   
@@ -17,7 +22,9 @@
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -25,18 +32,15 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Uniform Distribution" href="continuous_distributions.html" />
@@ -54,7 +58,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
           
 
           
@@ -64,7 +68,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.5.0
               </div>
             
           
@@ -81,6 +85,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -124,6 +129,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -162,7 +168,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">Exploratory Scoping</a> &raquo;</li>
         
@@ -228,9 +234,9 @@ similar set of attributes and methods, but doesn’t allow the
 value to vary. Neither class object should be instantiated directly,
 but instead use the <a class="reference internal" href="#emat.make_parameter" title="emat.make_parameter"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_parameter()</span></code></a> function, which
 will create an object of the appropriate (sub)class.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="emat.make_parameter">
-<code class="descclassname">emat.</code><code class="descname">make_parameter</code><span class="sig-paren">(</span><em>name</em>, <em>ptype='constant'</em>, <em>desc='missing description'</em>, <em>min=None</em>, <em>max=None</em>, <em>dist=None</em>, <em>default=None</em>, <em>corr=None</em>, <em>address=None</em>, <em>dtype='infer'</em>, <em>values=None</em>, <em>resolution=None</em>, <em>shortname=None</em>, <em>abbrev=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#make_parameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.make_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">emat.</code><code class="descname">make_parameter</code><span class="sig-paren">(</span><em><span class="n">name</span></em>, <em><span class="n">ptype</span><span class="o">=</span><span class="default_value">'constant'</span></em>, <em><span class="n">desc</span><span class="o">=</span><span class="default_value">'missing description'</span></em>, <em><span class="n">min</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">max</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">dist</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">default</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">corr</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">address</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">dtype</span><span class="o">=</span><span class="default_value">'infer'</span></em>, <em><span class="n">values</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">resolution</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">shortname</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">abbrev</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#make_parameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.make_parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Factory method to build a Parameter or Constant for a model.</p>
 <p>This function will create an object of the appropriate (sub)class
 for the parameter or constant.</p>
@@ -293,13 +299,13 @@ values are long strings that may not display neatly in figures.</li>
 </table>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="emat.Parameter">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Parameter</code><span class="sig-paren">(</span><em>name</em>, <em>dist</em>, <em>*</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>resolution=None</em>, <em>default=None</em>, <em>variable_name=None</em>, <em>pff=False</em>, <em>desc=''</em>, <em>address=None</em>, <em>ptype=None</em>, <em>corr=None</em>, <em>dist_def=None</em>, <em>shortname=None</em>, <em>abbrev=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#Parameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Parameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.workbench.em_framework.parameters.Parameter</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.names.ShortnameMixin</span></code></p>
-<dl class="attribute">
+<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Parameter</code><span class="sig-paren">(</span><em><span class="n">name</span></em>, <em><span class="n">dist</span></em>, <em><span class="o">*</span></em>, <em><span class="n">lower_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">upper_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">resolution</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">default</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">variable_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">pff</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">desc</span><span class="o">=</span><span class="default_value">''</span></em>, <em><span class="n">address</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">ptype</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">corr</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">dist_def</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">shortname</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">abbrev</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#Parameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.workbench.em_framework.parameters.Parameter</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.names.ShortnameMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.names.TaggableMixin</span></code></p>
+<dl class="py attribute">
 <dt id="emat.Parameter.abbrev">
-<code class="descname">abbrev</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.abbrev" title="Permalink to this definition">¶</a></dt>
+<code class="descname">abbrev</code><a class="headerlink" href="#emat.Parameter.abbrev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abbreviations used for long attribute names in figures.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -311,9 +317,9 @@ values are long strings that may not display neatly in figures.</li>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="emat.Parameter.address">
-<code class="descname">address</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.address" title="Permalink to this definition">¶</a></dt>
+<code class="descname">address</code><a class="headerlink" href="#emat.Parameter.address" title="Permalink to this definition">¶</a></dt>
 <dd><p>The address to use to access this parameter in the model.</p>
 <p>This is an implementation-specific detail. For example,
 in an Excel-based model, the address could be a sheet and cell reference
@@ -328,9 +334,9 @@ given as a string.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="emat.Parameter.corr">
-<code class="descname">corr</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.corr" title="Permalink to this definition">¶</a></dt>
+<code class="descname">corr</code><a class="headerlink" href="#emat.Parameter.corr" title="Permalink to this definition">¶</a></dt>
 <dd><p>A correlation definition.  Key give names of other parameters, values give correlation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -342,9 +348,9 @@ given as a string.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="emat.Parameter.desc">
-<code class="descname">desc</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.desc" title="Permalink to this definition">¶</a></dt>
+<code class="descname">desc</code><a class="headerlink" href="#emat.Parameter.desc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Human readable description of this parameter, for reference only</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -356,9 +362,9 @@ given as a string.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="emat.Parameter.dist_def">
-<code class="descname">dist_def</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.dist_def" title="Permalink to this definition">¶</a></dt>
+<code class="descname">dist_def</code><a class="headerlink" href="#emat.Parameter.dist_def" title="Permalink to this definition">¶</a></dt>
 <dd><p>The arguments that define the underlying distribution.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -370,15 +376,15 @@ given as a string.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.Parameter.get_abbrev">
-<code class="descname">get_abbrev</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#Parameter.get_abbrev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Parameter.get_abbrev" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_abbrev</code><span class="sig-paren">(</span><em><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#Parameter.get_abbrev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Parameter.get_abbrev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an abbreviated name if available.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="emat.Parameter.ptype">
-<code class="descname">ptype</code><em class="property"> = None</em><a class="headerlink" href="#emat.Parameter.ptype" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ptype</code><a class="headerlink" href="#emat.Parameter.ptype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameter type, one of {‘constant’, ‘uncertainty’, ‘lever’}</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -390,7 +396,7 @@ given as a string.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.Parameter.shortname">
 <em class="property">property </em><code class="descname">shortname</code><a class="headerlink" href="#emat.Parameter.shortname" title="Permalink to this definition">¶</a></dt>
 <dd><p>An abbreviated name, or the full name if not otherwise defined.</p>
@@ -404,7 +410,7 @@ given as a string.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.Parameter.shortname_if_any">
 <em class="property">property </em><code class="descname">shortname_if_any</code><a class="headerlink" href="#emat.Parameter.shortname_if_any" title="Permalink to this definition">¶</a></dt>
 <dd><p>The abbreviated name, or None.</p>
@@ -418,15 +424,29 @@ given as a string.</p>
 </table>
 </dd></dl>
 
+<dl class="py method">
+<dt id="emat.Parameter.tags">
+<em class="property">property </em><code class="descname">tags</code><a class="headerlink" href="#emat.Parameter.tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of tags attached to this object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Set</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="class">
+</dd></dl>
+
+<dl class="py class">
 <dt id="emat.Constant">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Constant</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>desc=''</em>, <em>address=None</em>, <em>dtype=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#Constant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Constant" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Constant</code><span class="sig-paren">(</span><em><span class="n">name</span></em>, <em><span class="n">value</span></em>, <em><span class="n">desc</span><span class="o">=</span><span class="default_value">''</span></em>, <em><span class="n">address</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">dtype</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#Constant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.workbench.em_framework.parameters.Constant</span></code></p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="emat.Constant.address">
-<code class="descname">address</code><em class="property"> = None</em><a class="headerlink" href="#emat.Constant.address" title="Permalink to this definition">¶</a></dt>
+<code class="descname">address</code><a class="headerlink" href="#emat.Constant.address" title="Permalink to this definition">¶</a></dt>
 <dd><p>The address to use to access this parameter in the model.</p>
 <p>This is an implementation-specific detail. For example,
 in an Excel-based model, the address could be a sheet and cell reference
@@ -441,15 +461,15 @@ given as a string.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.Constant.default">
 <em class="property">property </em><code class="descname">default</code><a class="headerlink" href="#emat.Constant.default" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read-only alias for value</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="emat.Constant.desc">
-<code class="descname">desc</code><em class="property"> = None</em><a class="headerlink" href="#emat.Constant.desc" title="Permalink to this definition">¶</a></dt>
+<code class="descname">desc</code><a class="headerlink" href="#emat.Constant.desc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Human readable description of this constant, for reference only</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -461,9 +481,9 @@ given as a string.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="emat.Constant.dtype">
-<code class="descname">dtype</code><em class="property"> = None</em><a class="headerlink" href="#emat.Constant.dtype" title="Permalink to this definition">¶</a></dt>
+<code class="descname">dtype</code><a class="headerlink" href="#emat.Constant.dtype" title="Permalink to this definition">¶</a></dt>
 <dd><p>The dtype for the value, as a string.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -475,7 +495,7 @@ given as a string.</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="emat.Constant.ptype">
 <code class="descname">ptype</code><em class="property"> = 'constant'</em><a class="headerlink" href="#emat.Constant.ptype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameter type, for compatibility with Parameter.</p>
@@ -489,7 +509,7 @@ given as a string.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.Constant.values">
 <em class="property">property </em><code class="descname">values</code><a class="headerlink" href="#emat.Constant.values" title="Permalink to this definition">¶</a></dt>
 <dd><p>The value as a one-item list</p>
@@ -507,17 +527,17 @@ given as a string.</p>
 
 <div class="section" id="float-valued-parameters">
 <h2>Float-Valued Parameters<a class="headerlink" href="#float-valued-parameters" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="emat.scope.parameter.RealParameter">
-<em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">RealParameter</code><span class="sig-paren">(</span><em>name</em>, <em>*</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>resolution=None</em>, <em>default=None</em>, <em>variable_name=None</em>, <em>pff=False</em>, <em>dist=None</em>, <em>dist_def=None</em>, <em>desc=''</em>, <em>address=None</em>, <em>ptype=None</em>, <em>corr=None</em>, <em>shortname=None</em>, <em>abbrev=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#RealParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.RealParameter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">RealParameter</code><span class="sig-paren">(</span><em><span class="n">name</span></em>, <em><span class="o">*</span></em>, <em><span class="n">lower_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">upper_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">resolution</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">default</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">variable_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">pff</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">dist</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">dist_def</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">desc</span><span class="o">=</span><span class="default_value">''</span></em>, <em><span class="n">address</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">ptype</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">corr</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">shortname</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">abbrev</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#RealParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.RealParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.workbench.em_framework.parameters.RealParameter</span></code></p>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.RealParameter.get_abbrev">
-<code class="descname">get_abbrev</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.RealParameter.get_abbrev" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_abbrev</code><span class="sig-paren">(</span><em><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.RealParameter.get_abbrev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an abbreviated name if available.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.RealParameter.shortname">
 <em class="property">property </em><code class="descname">shortname</code><a class="headerlink" href="#emat.scope.parameter.RealParameter.shortname" title="Permalink to this definition">¶</a></dt>
 <dd><p>An abbreviated name, or the full name if not otherwise defined.</p>
@@ -531,7 +551,7 @@ given as a string.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.RealParameter.shortname_if_any">
 <em class="property">property </em><code class="descname">shortname_if_any</code><a class="headerlink" href="#emat.scope.parameter.RealParameter.shortname_if_any" title="Permalink to this definition">¶</a></dt>
 <dd><p>The abbreviated name, or None.</p>
@@ -545,12 +565,26 @@ given as a string.</p>
 </table>
 </dd></dl>
 
+<dl class="py method">
+<dt id="emat.scope.parameter.RealParameter.tags">
+<em class="property">property </em><code class="descname">tags</code><a class="headerlink" href="#emat.scope.parameter.RealParameter.tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of tags attached to this object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <div class="section" id="continuous-distributions">
 <h3>Continuous Distributions<a class="headerlink" href="#continuous-distributions" title="Permalink to this headline">¶</a></h3>
 <p>Float-valued parameters can use any continuous distribution available
-in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.5.2)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>.  For convenience, a few extra (and simplified)
+in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.5.4)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>.  For convenience, a few extra (and simplified)
 distributions are available in the <code class="docutils literal notranslate"><span class="pre">emat.util.distributions</span></code>
 module.</p>
 <div class="toctree-wrapper compound">
@@ -565,17 +599,17 @@ module.</p>
 </div>
 <div class="section" id="integer-parameters">
 <h2>Integer Parameters<a class="headerlink" href="#integer-parameters" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="emat.scope.parameter.IntegerParameter">
-<em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">IntegerParameter</code><span class="sig-paren">(</span><em>name</em>, <em>*</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>resolution=None</em>, <em>default=None</em>, <em>variable_name=None</em>, <em>pff=False</em>, <em>dist=None</em>, <em>dist_def=None</em>, <em>desc=''</em>, <em>address=None</em>, <em>ptype=None</em>, <em>corr=None</em>, <em>shortname=None</em>, <em>abbrev=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#IntegerParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.IntegerParameter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">IntegerParameter</code><span class="sig-paren">(</span><em><span class="n">name</span></em>, <em><span class="o">*</span></em>, <em><span class="n">lower_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">upper_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">resolution</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">default</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">variable_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">pff</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">dist</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">dist_def</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">desc</span><span class="o">=</span><span class="default_value">''</span></em>, <em><span class="n">address</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">ptype</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">corr</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">shortname</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">abbrev</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#IntegerParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.IntegerParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.workbench.em_framework.parameters.IntegerParameter</span></code></p>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.IntegerParameter.get_abbrev">
-<code class="descname">get_abbrev</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.IntegerParameter.get_abbrev" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_abbrev</code><span class="sig-paren">(</span><em><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.IntegerParameter.get_abbrev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an abbreviated name if available.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.IntegerParameter.shortname">
 <em class="property">property </em><code class="descname">shortname</code><a class="headerlink" href="#emat.scope.parameter.IntegerParameter.shortname" title="Permalink to this definition">¶</a></dt>
 <dd><p>An abbreviated name, or the full name if not otherwise defined.</p>
@@ -589,7 +623,7 @@ module.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.IntegerParameter.shortname_if_any">
 <em class="property">property </em><code class="descname">shortname_if_any</code><a class="headerlink" href="#emat.scope.parameter.IntegerParameter.shortname_if_any" title="Permalink to this definition">¶</a></dt>
 <dd><p>The abbreviated name, or None.</p>
@@ -603,12 +637,26 @@ module.</p>
 </table>
 </dd></dl>
 
+<dl class="py method">
+<dt id="emat.scope.parameter.IntegerParameter.tags">
+<em class="property">property </em><code class="descname">tags</code><a class="headerlink" href="#emat.scope.parameter.IntegerParameter.tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of tags attached to this object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <div class="section" id="discrete-distributions">
 <h3>Discrete Distributions<a class="headerlink" href="#discrete-distributions" title="Permalink to this headline">¶</a></h3>
 <p>Integer-valued parameters can use any discrete distribution available
-in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.5.2)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>.  Note that actually using a discrete distribution
+in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.5.4)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>.  Note that actually using a discrete distribution
 is required, one cannot use a continuous distribution that loosely
 approximates a discrete distribution.  The only exception to this rule
 is for “uniform”, which is technically a continuous distribution,
@@ -617,13 +665,13 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </div>
 <div class="section" id="boolean-parameters">
 <h2>Boolean Parameters<a class="headerlink" href="#boolean-parameters" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="emat.scope.parameter.BooleanParameter">
-<em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">BooleanParameter</code><span class="sig-paren">(</span><em>name</em>, <em>*</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>resolution=None</em>, <em>default=None</em>, <em>variable_name=None</em>, <em>pff=False</em>, <em>dist=None</em>, <em>dist_def=None</em>, <em>desc=''</em>, <em>address=None</em>, <em>ptype=None</em>, <em>corr=None</em>, <em>shortname=None</em>, <em>abbrev=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#BooleanParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.BooleanParameter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">BooleanParameter</code><span class="sig-paren">(</span><em><span class="n">name</span></em>, <em><span class="o">*</span></em>, <em><span class="n">lower_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">upper_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">resolution</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">default</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">variable_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">pff</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">dist</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">dist_def</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">desc</span><span class="o">=</span><span class="default_value">''</span></em>, <em><span class="n">address</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">ptype</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">corr</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">shortname</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">abbrev</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#BooleanParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.BooleanParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.workbench.em_framework.parameters.BooleanParameter</span></code></p>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.BooleanParameter.cat_for_index">
-<code class="descname">cat_for_index</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.BooleanParameter.cat_for_index" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cat_for_index</code><span class="sig-paren">(</span><em><span class="n">index</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.BooleanParameter.cat_for_index" title="Permalink to this definition">¶</a></dt>
 <dd><p>return category given index</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -639,15 +687,15 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.BooleanParameter.get_abbrev">
-<code class="descname">get_abbrev</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.BooleanParameter.get_abbrev" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_abbrev</code><span class="sig-paren">(</span><em><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.BooleanParameter.get_abbrev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an abbreviated name if available.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.BooleanParameter.index_for_cat">
-<code class="descname">index_for_cat</code><span class="sig-paren">(</span><em>category</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.BooleanParameter.index_for_cat" title="Permalink to this definition">¶</a></dt>
+<code class="descname">index_for_cat</code><span class="sig-paren">(</span><em><span class="n">category</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.BooleanParameter.index_for_cat" title="Permalink to this definition">¶</a></dt>
 <dd><p>return index of category</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -663,9 +711,9 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.BooleanParameter.invert">
-<code class="descname">invert</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.BooleanParameter.invert" title="Permalink to this definition">¶</a></dt>
+<code class="descname">invert</code><span class="sig-paren">(</span><em><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.BooleanParameter.invert" title="Permalink to this definition">¶</a></dt>
 <dd><p>invert a category to an integer</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -679,7 +727,7 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.BooleanParameter.shortname">
 <em class="property">property </em><code class="descname">shortname</code><a class="headerlink" href="#emat.scope.parameter.BooleanParameter.shortname" title="Permalink to this definition">¶</a></dt>
 <dd><p>An abbreviated name, or the full name if not otherwise defined.</p>
@@ -693,7 +741,7 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.BooleanParameter.shortname_if_any">
 <em class="property">property </em><code class="descname">shortname_if_any</code><a class="headerlink" href="#emat.scope.parameter.BooleanParameter.shortname_if_any" title="Permalink to this definition">¶</a></dt>
 <dd><p>The abbreviated name, or None.</p>
@@ -707,7 +755,21 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
+<dt id="emat.scope.parameter.BooleanParameter.tags">
+<em class="property">property </em><code class="descname">tags</code><a class="headerlink" href="#emat.scope.parameter.BooleanParameter.tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of tags attached to this object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
 <dt id="emat.scope.parameter.BooleanParameter.values">
 <em class="property">property </em><code class="descname">values</code><a class="headerlink" href="#emat.scope.parameter.BooleanParameter.values" title="Permalink to this definition">¶</a></dt>
 <dd><p>The possible discrete values.</p>
@@ -726,13 +788,13 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </div>
 <div class="section" id="categorical-parameters">
 <h2>Categorical Parameters<a class="headerlink" href="#categorical-parameters" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="emat.scope.parameter.CategoricalParameter">
-<em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">CategoricalParameter</code><span class="sig-paren">(</span><em>name</em>, <em>categories</em>, <em>*</em>, <em>default=None</em>, <em>variable_name=None</em>, <em>pff=False</em>, <em>multivalue=False</em>, <em>desc=''</em>, <em>address=None</em>, <em>ptype=None</em>, <em>corr=None</em>, <em>dist=None</em>, <em>singleton_ok=False</em>, <em>shortname=None</em>, <em>abbrev=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#CategoricalParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.scope.parameter.</code><code class="descname">CategoricalParameter</code><span class="sig-paren">(</span><em><span class="n">name</span></em>, <em><span class="n">categories</span></em>, <em><span class="o">*</span></em>, <em><span class="n">default</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">variable_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">pff</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">multivalue</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">desc</span><span class="o">=</span><span class="default_value">''</span></em>, <em><span class="n">address</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">ptype</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">corr</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">dist</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">singleton_ok</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">shortname</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">abbrev</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/parameter.html#CategoricalParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.parameter.Parameter</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.workbench.em_framework.parameters.CategoricalParameter</span></code></p>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.CategoricalParameter.cat_for_index">
-<code class="descname">cat_for_index</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/workbench/em_framework/parameters.html#CategoricalParameter.cat_for_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.cat_for_index" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cat_for_index</code><span class="sig-paren">(</span><em><span class="n">index</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/workbench/em_framework/parameters.html#CategoricalParameter.cat_for_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.cat_for_index" title="Permalink to this definition">¶</a></dt>
 <dd><p>return category given index</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -748,7 +810,7 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.CategoricalParameter.distdef">
 <em class="property">property </em><code class="descname">distdef</code><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.distdef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Categorical parameters distribution is not implemented.</p>
@@ -762,15 +824,15 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.CategoricalParameter.get_abbrev">
-<code class="descname">get_abbrev</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.get_abbrev" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_abbrev</code><span class="sig-paren">(</span><em><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.get_abbrev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an abbreviated name if available.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.CategoricalParameter.index_for_cat">
-<code class="descname">index_for_cat</code><span class="sig-paren">(</span><em>category</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/workbench/em_framework/parameters.html#CategoricalParameter.index_for_cat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.index_for_cat" title="Permalink to this definition">¶</a></dt>
+<code class="descname">index_for_cat</code><span class="sig-paren">(</span><em><span class="n">category</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/workbench/em_framework/parameters.html#CategoricalParameter.index_for_cat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.index_for_cat" title="Permalink to this definition">¶</a></dt>
 <dd><p>return index of category</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -786,9 +848,9 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.CategoricalParameter.invert">
-<code class="descname">invert</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/workbench/em_framework/parameters.html#CategoricalParameter.invert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.invert" title="Permalink to this definition">¶</a></dt>
+<code class="descname">invert</code><span class="sig-paren">(</span><em><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/workbench/em_framework/parameters.html#CategoricalParameter.invert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.invert" title="Permalink to this definition">¶</a></dt>
 <dd><p>invert a category to an integer</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -802,7 +864,7 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.CategoricalParameter.max">
 <em class="property">property </em><code class="descname">max</code><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Categorical parameters are not characterized by an upper bound.</p>
@@ -816,7 +878,7 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.CategoricalParameter.min">
 <em class="property">property </em><code class="descname">min</code><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Categorical parameters are not characterized by a lower bound.</p>
@@ -830,7 +892,7 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.CategoricalParameter.shortname">
 <em class="property">property </em><code class="descname">shortname</code><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.shortname" title="Permalink to this definition">¶</a></dt>
 <dd><p>An abbreviated name, or the full name if not otherwise defined.</p>
@@ -844,7 +906,7 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.scope.parameter.CategoricalParameter.shortname_if_any">
 <em class="property">property </em><code class="descname">shortname_if_any</code><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.shortname_if_any" title="Permalink to this definition">¶</a></dt>
 <dd><p>The abbreviated name, or None.</p>
@@ -858,7 +920,21 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
+<dt id="emat.scope.parameter.CategoricalParameter.tags">
+<em class="property">property </em><code class="descname">tags</code><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of tags attached to this object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
 <dt id="emat.scope.parameter.CategoricalParameter.values">
 <em class="property">property </em><code class="descname">values</code><a class="headerlink" href="#emat.scope.parameter.CategoricalParameter.values" title="Permalink to this definition">¶</a></dt>
 <dd><p>The possible discrete values.</p>
@@ -900,7 +976,14 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -911,7 +994,6 @@ but is transparently interpreted by EMAT as an equivalently-bounded “randint�
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

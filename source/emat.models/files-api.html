@@ -1,15 +1,20 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Files-Based Model API &mdash; TMIP-EMAT 0.3.2, September 2020 documentation</title>
+  <title>Files-Based Model API &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
 
   
   
@@ -17,7 +22,9 @@
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -25,18 +32,15 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -52,7 +56,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
           
 
           
@@ -62,7 +66,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.5.0
               </div>
             
           
@@ -79,6 +83,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -103,6 +108,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -141,7 +147,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Files-Based Model API</li>
     
@@ -203,9 +209,9 @@ one or more files on disk after a model run.  Many of the abstract methods
 defined in the <a class="reference internal" href="abstract.html#emat.model.AbstractCoreModel" title="emat.model.AbstractCoreModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractCoreModel</span></code></a> remain to be overloaded, but
 a standard <cite>load_measures</cite> implementation is defined here, along with a
 default implementation of <cite>get_experiment_archive_path</cite> and <cite>post_process</cite>.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="emat.model.FilesCoreModel">
-<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">FilesCoreModel</code><span class="sig-paren">(</span><em>configuration: Union[str, Mapping], scope: Union[emat.scope.scope.Scope, str], safe: bool = True, db: emat.database.database.Database = None, name: str = 'FilesCoreModel', local_directory: pathlib.Path = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">FilesCoreModel</code><span class="sig-paren">(</span><em><span class="n">configuration</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>Mapping<span class="p">]</span></span></em>, <em><span class="n">scope</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>emat.scope.scope.Scope<span class="p">, </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span></em>, <em><span class="n">safe</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em><span class="n">db</span><span class="p">:</span> <span class="n">emat.database.database.Database</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span> <span class="o">=</span> <span class="default_value">'FilesCoreModel'</span></em>, <em><span class="n">local_directory</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/pathlib.html#pathlib.Path" title="(in Python v3.7)">pathlib.Path</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.model.core_model.AbstractCoreModel</span></code></p>
 <p>Setup connections and paths to a file reading core model</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -239,23 +245,9 @@ cwd is used.</li>
 </tr>
 </tbody>
 </table>
-<dl class="attribute">
-<dt id="emat.model.FilesCoreModel.allow_short_circuit">
-<code class="descname">allow_short_circuit</code><em class="property"> = None</em><a class="headerlink" href="#emat.model.FilesCoreModel.allow_short_circuit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allow model runs to be skipped if measures already appear in the database.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Bool</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="emat.model.FilesCoreModel.archive_path">
-<code class="descname">archive_path</code><em class="property"> = None</em><a class="headerlink" href="#emat.model.FilesCoreModel.archive_path" title="Permalink to this definition">¶</a></dt>
+<code class="descname">archive_path</code><a class="headerlink" href="#emat.model.FilesCoreModel.archive_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>The directory where archived models are stored.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -267,9 +259,9 @@ cwd is used.</li>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.FilesCoreModel.get_parser">
-<code class="descname">get_parser</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel.get_parser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel.get_parser" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_parser</code><span class="sig-paren">(</span><em><span class="n">idx</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel.get_parser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel.get_parser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Access a FileParser, used to extract performance measures.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -283,23 +275,9 @@ cwd is used.</li>
 </table>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="emat.model.FilesCoreModel.ignore_crash">
-<code class="descname">ignore_crash</code><em class="property"> = None</em><a class="headerlink" href="#emat.model.FilesCoreModel.ignore_crash" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allow model runs to continue to <cite>post_process</cite> and <cite>archive</cite> even after an apparent crash in <cite>run</cite>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Bool</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
+<dl class="py method">
 <dt id="emat.model.FilesCoreModel.local_directory">
-<code class="descname">local_directory</code><em class="property"> = None</em><a class="headerlink" href="#emat.model.FilesCoreModel.local_directory" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="descname">local_directory</code><a class="headerlink" href="#emat.model.FilesCoreModel.local_directory" title="Permalink to this definition">¶</a></dt>
 <dd><p>The current local working directory for this model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -311,9 +289,9 @@ cwd is used.</li>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="emat.model.FilesCoreModel.model_path">
-<code class="descname">model_path</code><em class="property"> = None</em><a class="headerlink" href="#emat.model.FilesCoreModel.model_path" title="Permalink to this definition">¶</a></dt>
+<code class="descname">model_path</code><a class="headerlink" href="#emat.model.FilesCoreModel.model_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>The directory of the ‘live’ model instance, relative to the local_directory.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -325,9 +303,9 @@ cwd is used.</li>
 </table>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="emat.model.FilesCoreModel.rel_output_path">
-<code class="descname">rel_output_path</code><em class="property"> = None</em><a class="headerlink" href="#emat.model.FilesCoreModel.rel_output_path" title="Permalink to this definition">¶</a></dt>
+<code class="descname">rel_output_path</code><a class="headerlink" href="#emat.model.FilesCoreModel.rel_output_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>The path to ‘live’ model outputs, relative to <cite>model_path</cite>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -339,7 +317,7 @@ cwd is used.</li>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.FilesCoreModel.resolved_archive_path">
 <em class="property">property </em><code class="descname">resolved_archive_path</code><a class="headerlink" href="#emat.model.FilesCoreModel.resolved_archive_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>The archive path to use.</p>
@@ -355,7 +333,7 @@ otherwise the <cite>archive_path</cite> is joined onto the <cite>local_directory
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.FilesCoreModel.resolved_model_path">
 <em class="property">property </em><code class="descname">resolved_model_path</code><a class="headerlink" href="#emat.model.FilesCoreModel.resolved_model_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>The model path to use.</p>
@@ -371,26 +349,11 @@ otherwise the <cite>model_path</cite> is joined onto the <cite>local_directory</
 </table>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="emat.model.FilesCoreModel.success_indicator">
-<code class="descname">success_indicator</code><em class="property"> = None</em><a class="headerlink" href="#emat.model.FilesCoreModel.success_indicator" title="Permalink to this definition">¶</a></dt>
-<dd><p>optional, The name of a file that indicates the model has run successfully.</p>
-<p>This file is deleted automatically when the model <cite>run</cite> is initiated.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.FilesCoreModel.add_parser">
-<code class="descclassname">FilesCoreModel.</code><code class="descname">add_parser</code><span class="sig-paren">(</span><em>parser</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel.add_parser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel.add_parser" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">FilesCoreModel.</code><code class="descname">add_parser</code><span class="sig-paren">(</span><em><span class="n">parser</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel.add_parser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel.add_parser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a FileParser to extract performance measures.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -402,9 +365,9 @@ otherwise the <cite>model_path</cite> is joined onto the <cite>local_directory</
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.FilesCoreModel.load_measures">
-<code class="descclassname">FilesCoreModel.</code><code class="descname">load_measures</code><span class="sig-paren">(</span><em>measure_names: List[str] = None</em>, <em>*</em>, <em>rel_output_path=None</em>, <em>abs_output_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel.load_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel.load_measures" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">FilesCoreModel.</code><code class="descname">load_measures</code><span class="sig-paren">(</span><em><span class="n">measure_names</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">rel_output_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">abs_output_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel.load_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel.load_measures" title="Permalink to this definition">¶</a></dt>
 <dd><p>Import selected measures from the core model.</p>
 <p>This method is the place to put code that can actually reach into
 files in the core model’s run results and extract performance
@@ -418,7 +381,13 @@ outputs directory).</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>measure_names</strong> (<em>Collection</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – Collection of measures to be loaded.</li>
-<li><strong>abs_output_path</strong> (<em>rel_output_path</em><em>,</em>) – Path to model output locations, either relative
+<li><strong>rel_output_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Path to model output locations, either relative
+to the <cite>model_path</cite> directory (when a subclass
+is a type that has a model path) or as an absolute
+directory.  If neither is given, the default
+value is equivalent to setting <cite>rel_output_path</cite> to
+‘Outputs’.</li>
+<li><strong>abs_output_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Path to model output locations, either relative
 to the <cite>model_path</cite> directory (when a subclass
 is a type that has a model path) or as an absolute
 directory.  If neither is given, the default
@@ -438,9 +407,9 @@ value is equivalent to setting <cite>rel_output_path</cite> to
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.FilesCoreModel.load_archived_measures">
-<code class="descclassname">FilesCoreModel.</code><code class="descname">load_archived_measures</code><span class="sig-paren">(</span><em>experiment_id</em>, <em>measure_names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel.load_archived_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel.load_archived_measures" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">FilesCoreModel.</code><code class="descname">load_archived_measures</code><span class="sig-paren">(</span><em><span class="n">experiment_id</span></em>, <em><span class="n">measure_names</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel.load_archived_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel.load_archived_measures" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load performance measures from an archived model run.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -463,9 +432,9 @@ all measures will be loaded.</li>
 <p>The <a class="reference internal" href="#emat.model.FilesCoreModel.add_parser" title="emat.model.FilesCoreModel.add_parser"><code class="xref py py-meth docutils literal notranslate"><span class="pre">FilesCoreModel.add_parser()</span></code></a> method accepts <code class="xref py py-class docutils literal notranslate"><span class="pre">FileParser</span></code> objects,
 which can be used to read performance measures from individual files.  For an
 illustration of how to use parsers, see the source code for the <a class="reference internal" href="gbnrtc.html#emat.model.GBNRTCModel" title="emat.model.GBNRTCModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">GBNRTCModel</span></code></a>.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="emat.model.core_files.parsers.FileParser">
-<em class="property">class </em><code class="descclassname">emat.model.core_files.parsers.</code><code class="descname">FileParser</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#FileParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.FileParser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.model.core_files.parsers.</code><code class="descname">FileParser</code><span class="sig-paren">(</span><em><span class="n">filename</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#FileParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.FileParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>A tool to parse performance measure(s) from an arbitrary file format.</p>
 <p>This is an abstract base class, which defines the basic API for
 file parsing objects.  Most users will want to use <cite>TableParser</cite>
@@ -483,7 +452,7 @@ method.</td>
 </tr>
 </tbody>
 </table>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.core_files.parsers.FileParser.measure_names">
 <em class="property">abstract property </em><code class="descname">measure_names</code><a class="headerlink" href="#emat.model.core_files.parsers.FileParser.measure_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>the measure names contained in this TableParser.</p>
@@ -497,9 +466,9 @@ method.</td>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.core_files.parsers.FileParser.read">
-<em class="property">abstract </em><code class="descname">read</code><span class="sig-paren">(</span><em>from_dir</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#FileParser.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.FileParser.read" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="descname">read</code><span class="sig-paren">(</span><em><span class="n">from_dir</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#FileParser.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.FileParser.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the performance measures.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -517,9 +486,9 @@ method.</td>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="emat.model.core_files.parsers.TableParser">
-<em class="property">class </em><code class="descclassname">emat.model.core_files.parsers.</code><code class="descname">TableParser</code><span class="sig-paren">(</span><em>filename</em>, <em>measure_getters</em>, <em>reader_method=&lt;function _make_parser_function.&lt;locals&gt;.parser_f&gt;</em>, <em>handle_errors='raise'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#TableParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.TableParser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.model.core_files.parsers.</code><code class="descname">TableParser</code><span class="sig-paren">(</span><em>filename</em>, <em>measure_getters</em>, <em>reader_method=&lt;function read_csv&gt;</em>, <em>handle_errors='raise'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#TableParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.TableParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#emat.model.core_files.parsers.FileParser" title="emat.model.core_files.parsers.FileParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">emat.model.core_files.parsers.FileParser</span></code></a></p>
 <p>A tool to parse performance measure from an arbitrary table format.</p>
 <p>This object provides a way to systematically extract values
@@ -555,7 +524,7 @@ that will be passed to <cite>reader_method</cite> each time it is called.</li>
 </tr>
 </tbody>
 </table>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.core_files.parsers.TableParser.measure_names">
 <em class="property">property </em><code class="descname">measure_names</code><a class="headerlink" href="#emat.model.core_files.parsers.TableParser.measure_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>the measure names contained in this TableParser.</p>
@@ -569,9 +538,9 @@ that will be passed to <cite>reader_method</cite> each time it is called.</li>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.core_files.parsers.TableParser.raw">
-<code class="descname">raw</code><span class="sig-paren">(</span><em>from_dir</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#TableParser.raw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.TableParser.raw" title="Permalink to this definition">¶</a></dt>
+<code class="descname">raw</code><span class="sig-paren">(</span><em><span class="n">from_dir</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#TableParser.raw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.TableParser.raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the raw tabular data.</p>
 <p>This method will read the raw file, using the <cite>reader_method</cite>
 defined for this <cite>TableParser</cite> and any designated keyword
@@ -592,9 +561,9 @@ objects during development.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.core_files.parsers.TableParser.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>from_dir</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#TableParser.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.TableParser.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em><span class="n">from_dir</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#TableParser.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.TableParser.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the performance measures.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -612,9 +581,9 @@ objects during development.</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="emat.model.core_files.parsers.MappingParser">
-<em class="property">class </em><code class="descclassname">emat.model.core_files.parsers.</code><code class="descname">MappingParser</code><span class="sig-paren">(</span><em>filename</em>, <em>measure_getters</em>, <em>reader_method=None</em>, <em>handle_errors='raise'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#MappingParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.MappingParser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.model.core_files.parsers.</code><code class="descname">MappingParser</code><span class="sig-paren">(</span><em><span class="n">filename</span></em>, <em><span class="n">measure_getters</span></em>, <em><span class="n">reader_method</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">handle_errors</span><span class="o">=</span><span class="default_value">'raise'</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#MappingParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.MappingParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#emat.model.core_files.parsers.TableParser" title="emat.model.core_files.parsers.TableParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">emat.model.core_files.parsers.TableParser</span></code></a></p>
 <p>A tool to parse performance measure from an arbitrary mapping format.</p>
 <p>This object provides a way to systematically extract values
@@ -652,7 +621,7 @@ that will be passed to <cite>reader_method</cite> each time it is called.</li>
 </tr>
 </tbody>
 </table>
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.core_files.parsers.MappingParser.measure_names">
 <em class="property">property </em><code class="descname">measure_names</code><a class="headerlink" href="#emat.model.core_files.parsers.MappingParser.measure_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>the measure names contained in this TableParser.</p>
@@ -666,9 +635,9 @@ that will be passed to <cite>reader_method</cite> each time it is called.</li>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.core_files.parsers.MappingParser.raw">
-<code class="descname">raw</code><span class="sig-paren">(</span><em>from_dir</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#MappingParser.raw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.MappingParser.raw" title="Permalink to this definition">¶</a></dt>
+<code class="descname">raw</code><span class="sig-paren">(</span><em><span class="n">from_dir</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#MappingParser.raw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.MappingParser.raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the raw mapping data.</p>
 <p>This method will read the raw file, using the <cite>reader_method</cite>
 defined for this <cite>MappingParser</cite> and any designated keyword
@@ -689,9 +658,9 @@ objects during development.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="emat.model.core_files.parsers.MappingParser.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>from_dir</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#MappingParser.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.MappingParser.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em><span class="n">from_dir</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#MappingParser.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.MappingParser.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the performance measures.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -709,7 +678,7 @@ objects during development.</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="emat.model.core_files.parsers.Getter">
 <em class="property">class </em><code class="descclassname">emat.model.core_files.parsers.</code><code class="descname">Getter</code><a class="reference internal" href="../../_modules/emat/model/core_files/parsers.html#Getter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.core_files.parsers.Getter" title="Permalink to this definition">¶</a></dt>
 <dd><p>A tool to get defined value[s] from a pandas.DataFrame.</p>
@@ -733,7 +702,14 @@ objects during development.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -744,7 +720,6 @@ objects during development.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
