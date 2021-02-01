@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Files-Based Model API &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  <title>Files-Based Model API &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
   
 
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -31,18 +34,19 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
         <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="GBNRTC Model" href="gbnrtc.html" />
+    <link rel="prev" title="MappingParser Example" href="mapping_parse_example.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -56,7 +60,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
           
 
           
@@ -66,7 +70,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
             
           
@@ -92,11 +96,27 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Core Models</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Core Models</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Basic EMAT Model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_based.html">Python-Based Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="excel.html">Excel-Based Models</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="files.html">Files-Based Model</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="interface-walkthrough.html">Writing and Using a Bespoke Model Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="table_parse_example.html">TableParser Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mapping_parse_example.html">MappingParser Example</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Files-Based Model API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parsing-files">Parsing Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gbnrtc.html">GBNRTC Model</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
@@ -143,18 +163,24 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
+          <li><a href="index.html">Core Models</a> &raquo;</li>
+        
+          <li><a href="files.html">Files-Based Model</a> &raquo;</li>
+        
       <li>Files-Based Model API</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/source/emat.models/files-api.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -211,7 +237,7 @@ a standard <cite>load_measures</cite> implementation is defined here, along with
 default implementation of <cite>get_experiment_archive_path</cite> and <cite>post_process</cite>.</p>
 <dl class="py class">
 <dt id="emat.model.FilesCoreModel">
-<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">FilesCoreModel</code><span class="sig-paren">(</span><em><span class="n">configuration</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>Mapping<span class="p">]</span></span></em>, <em><span class="n">scope</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>emat.scope.scope.Scope<span class="p">, </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span></em>, <em><span class="n">safe</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em><span class="n">db</span><span class="p">:</span> <span class="n">emat.database.database.Database</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span> <span class="o">=</span> <span class="default_value">'FilesCoreModel'</span></em>, <em><span class="n">local_directory</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/pathlib.html#pathlib.Path" title="(in Python v3.7)">pathlib.Path</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">FilesCoreModel</code><span class="sig-paren">(</span><em><span class="n">configuration</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>Mapping<span class="p">]</span></span></em>, <em><span class="n">scope</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>emat.scope.scope.Scope<span class="p">, </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span></em>, <em><span class="n">safe</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em><span class="n">db</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>emat.database.database.Database<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span> <span class="o">=</span> <span class="default_value">'FilesCoreModel'</span></em>, <em><span class="n">local_directory</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/pathlib.html#pathlib.Path" title="(in Python v3.7)">pathlib.Path</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.model.core_model.AbstractCoreModel</span></code></p>
 <p>Setup connections and paths to a file reading core model</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -367,7 +393,7 @@ otherwise the <cite>model_path</cite> is joined onto the <cite>local_directory</
 
 <dl class="py method">
 <dt id="emat.model.FilesCoreModel.load_measures">
-<code class="descclassname">FilesCoreModel.</code><code class="descname">load_measures</code><span class="sig-paren">(</span><em><span class="n">measure_names</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">rel_output_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">abs_output_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel.load_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel.load_measures" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">FilesCoreModel.</code><code class="descname">load_measures</code><span class="sig-paren">(</span><em><span class="n">measure_names</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">rel_output_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">abs_output_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_files/core_files.html#FilesCoreModel.load_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.FilesCoreModel.load_measures" title="Permalink to this definition">¶</a></dt>
 <dd><p>Import selected measures from the core model.</p>
 <p>This method is the place to put code that can actually reach into
 files in the core model’s run results and extract performance
@@ -693,7 +719,10 @@ objects during development.</p>
            
           </div>
           <footer>
-  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="gbnrtc.html" class="btn btn-neutral float-right" title="GBNRTC Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="mapping_parse_example.html" class="btn btn-neutral float-left" title="MappingParser Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 
@@ -705,14 +734,13 @@ objects during development.</p>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Examples &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Road Test" href="RoadTest/road_test_direct.html" />
+    <link rel="prev" title="Optimization Tools" href="../emat.analysis/optimization.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="RoadTest/road_test_direct.html">Road Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GBNRTC/gbnrtc_example.html">GBNRTC Example Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Examples</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/source/emat.examples/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
+documented are shown for illustration and are not guaranteed to be stable 
+in future releases of TMIP-EMAT.</p>
+<p class="last">The views expressed in this draft documentation do not necessarily 
+represent the opinions of FHWA, and do not constitute an endorsement, 
+recommendation, or specification by FHWA.</p>
+</div>
+<div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<ul>
+<li><p class="first"><a class="reference internal" href="RoadTest/road_test_direct.html"><span class="doc">Road Test</span></a></p>
+<blockquote>
+<div><p>The Road Test example illustrates the use of TMIP-EMAT with a core model
+that is a simple Python function.</p>
+<ul class="simple">
+<li><a class="reference internal" href="RoadTest/road_test_yaml.html#road-test-model-operation"><span class="std std-ref">Core Model Definition</span></a></li>
+<li><a class="reference internal" href="RoadTest/road_test_yaml.html#road-test-scope-file"><span class="std std-ref">Scope File</span></a></li>
+<li><a class="reference internal" href="RoadTest/road_test_direct.html"><span class="doc">Exploratory Analysis</span></a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<ul id="gbnrtc-example-model">
+<li><p class="first"><a class="reference internal" href="GBNRTC/gbnrtc_example.html"><span class="doc">GBNRTC Example Model</span></a></p>
+<blockquote>
+<div><p>The Greater Buffalo-Niagara Regional Transportation Council example
+illustrates the use of TMIP-EMAT with a core model
+that is run from TransCAD.</p>
+<ul class="simple">
+<li><a class="reference internal" href="GBNRTC/gbnrtc_example_yaml.html"><span class="doc">GBNRTC Demonstration Model</span></a></li>
+<li><a class="reference internal" href="GBNRTC/gbnrtc_example.html"><span class="doc">Exploratory Analysis</span></a></li>
+<li><a class="reference internal" href="GBNRTC/gbnrtc_explore.html"><span class="doc">Prototype Explorer</span></a></li>
+<li><a class="reference internal" href="GBNRTC/gbnrtc_restart.html"><span class="doc">Restarting After a Core Mode Crash</span></a></li>
+<li><a class="reference internal" href="GBNRTC/gbnrtc_multisystem.html"><span class="doc">Setting up runs on Multiple Systems</span></a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="RoadTest/road_test_direct.html" class="btn btn-neutral float-right" title="Road Test" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../emat.analysis/optimization.html" class="btn btn-neutral float-left" title="Optimization Tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

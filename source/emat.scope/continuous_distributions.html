@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Uniform Distribution &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  <title>Uniform Distribution &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
   
 
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -31,12 +34,11 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
         <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -58,7 +60,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
           
 
           
@@ -68,7 +70,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
             
           
@@ -161,6 +163,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -176,7 +180,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/source/emat.scope/continuous_distributions.ipynb.txt" rel="nofollow"> View page source</a>
           
         
@@ -195,21 +199,35 @@
 /* CSS for nbsphinx extension */
 
 /* remove conflicting styling from Sphinx themes */
-div.nbinput.container,
-div.nbinput.container div.prompt,
-div.nbinput.container div.input_area,
-div.nbinput.container div[class*=highlight],
-div.nbinput.container div[class*=highlight] pre,
-div.nboutput.container,
-div.nboutput.container div.prompt,
-div.nboutput.container div.output_area,
-div.nboutput.container div[class*=highlight],
-div.nboutput.container div[class*=highlight] pre {
-    background: none;
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
     border: none;
-    padding: 0 0;
+    padding: 0;
     margin: 0;
     box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
 }
 
 /* avoid gaps between output lines */
@@ -310,7 +328,7 @@ div.nboutput.container div.output_area {
 div.nbinput.container div.input_area {
     border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f5f5f5;
+    /*background: #f5f5f5;*/
 }
 
 /* override MathJax center alignment in output cells */
@@ -376,6 +394,7 @@ div.nboutput.container div.output_area.rendered_html,
 div.nboutput.container div.output_area > div.output_javascript,
 div.nboutput.container div.output_area:not(.rendered_html) > img{
     padding: 5px;
+    margin: 0;
 }
 
 /* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
@@ -466,7 +485,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <p>This page reviews some common continuous distributions used for exploratory and risk analysis.
-EMAT can also use any named continuous distribution from the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.5.4)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> module.</p>
+EMAT can also use any named continuous distribution from the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.6.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> module.</p>
 <div class="section" id="Uniform-Distribution">
 <h1>Uniform Distribution<a class="headerlink" href="#Uniform-Distribution" title="Permalink to this headline">¶</a></h1>
 <p>The uniform distribution is defined by a probability density function that is a rectangle. It is parameterized using two parameters (minimum, maximum). It is a simple distribution that is easy to understand and explain, and is often assumed as the implied default distribution for exploratory analysis.</p>
@@ -842,10 +861,10 @@ Can be inferred from those values if not given.</li>
 </div>
 <div class="section" id="Other-Distributions">
 <h1>Other Distributions<a class="headerlink" href="#Other-Distributions" title="Permalink to this headline">¶</a></h1>
-<p>It is possible to use any other continuous distribution provided in the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.5.4)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> module.
+<p>It is possible to use any other continuous distribution provided in the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.6.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> module.
 As a demonstration, below we define a trapezoidal distribution for an uncertainty.  Instead of
 using the more intuitively named keys shown above, it is necessary to fall back to the standard
-<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.5.4)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> names for each of the distribution parameters, and they must all be defined within
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.6.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> names for each of the distribution parameters, and they must all be defined within
 the <cite>dist</cite> key, which may be less intuitive than the suggested distributions above.  For example,
 note in the example below that the upper bound of the distribution is implictly set to 7 based
 on the parameters, and that upper bound is not explicitly identified in the yaml file.</p>
@@ -904,16 +923,10 @@ on the parameters, and that upper bound is not explicitly identified in the yaml
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="measures.html" class="btn btn-neutral float-right" title="Performance Measures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="parameters.html" class="btn btn-neutral float-left" title="Parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="measures.html" class="btn btn-neutral float-right" title="Performance Measures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="parameters.html" class="btn btn-neutral float-left" title="Parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
@@ -925,14 +938,13 @@ on the parameters, and that upper bound is not explicitly identified in the yaml
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

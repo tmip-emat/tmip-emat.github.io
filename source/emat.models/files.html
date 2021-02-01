@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Files-Based Model &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  <title>Files-Based Model &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
   
 
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -31,19 +34,18 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
         <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="GBNRTC Model" href="gbnrtc.html" />
+    <link rel="next" title="Writing and Using a Bespoke Model Interface" href="interface-walkthrough.html" />
     <link rel="prev" title="Excel-Based Models" href="excel.html" /> 
 </head>
 
@@ -58,7 +60,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
           
 
           
@@ -68,7 +70,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
             
           
@@ -102,7 +104,13 @@
 <li class="toctree-l2"><a class="reference internal" href="abstract.html">Basic EMAT Model API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="python_based.html">Python-Based Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="excel.html">Excel-Based Models</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Files-Based Model</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Files-Based Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interface-walkthrough.html">Writing and Using a Bespoke Model Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="table_parse_example.html">TableParser Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mapping_parse_example.html">MappingParser Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="files-api.html">Files-Based Model API</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="gbnrtc.html">GBNRTC Model</a></li>
 </ul>
 </li>
@@ -152,6 +160,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -165,7 +175,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/source/emat.models/files.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -243,6 +253,51 @@ these methods:</p>
 <p>The <a class="reference internal" href="files-api.html#emat.model.FilesCoreModel" title="emat.model.FilesCoreModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">FilesCoreModel</span></code></a> class also includes default implementations for
 <cite>get_experiment_archive_path</cite> and <cite>post_process</cite>, but it may be appropriate
 to overload these methods into a custom class as well.</p>
+<p>A walk-through for building and using a <a class="reference internal" href="files-api.html#emat.model.FilesCoreModel" title="emat.model.FilesCoreModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">FilesCoreModel</span></code></a> subclass
+in your own module is provided below, although with a more detailed
+reference for the methods defined for the <a class="reference internal" href="files-api.html#emat.model.FilesCoreModel" title="emat.model.FilesCoreModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">FilesCoreModel</span></code></a> class.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="interface-walkthrough.html">Writing and Using a Bespoke Model Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interface-walkthrough.html#Connecting-to-the-Model">Connecting to the Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface-walkthrough.html#Understanding-Directories">Understanding Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface-walkthrough.html#Single-Run-Operation-for-Development-and-Debugging">Single Run Operation for Development and Debugging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interface-walkthrough.html#setup">setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interface-walkthrough.html#run">run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interface-walkthrough.html#post-process">post-process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interface-walkthrough.html#load-measures">load-measures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interface-walkthrough.html#archive">archive</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interface-walkthrough.html#Normal-Operation-for-Running-Multiple-Experiments">Normal Operation for Running Multiple Experiments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interface-walkthrough.html#Re-running-Failed-Experiments">Re-running Failed Experiments</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interface-walkthrough.html#Multiprocessing-for-Running-Multiple-Experiments">Multiprocessing for Running Multiple Experiments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interface-walkthrough.html#Running-a-Subset-of-Experiments-Manually">Running a Subset of Experiments Manually</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interface-walkthrough.html#Automatic-Multiprocessing-for-Running-Multiple-Experiments">Automatic Multiprocessing for Running Multiple Experiments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="table_parse_example.html">TableParser Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="table_parse_example.html#Parsing-a-Labeled-Table">Parsing a Labeled Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="table_parse_example.html#Parsing-Labeled-Values">Parsing Labeled Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="table_parse_example.html#id1">Parsing Labeled Values</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mapping_parse_example.html">MappingParser Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mapping_parse_example.html#Parsing-a-YAML-File">Parsing a YAML File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mapping_parse_example.html#Parsing-a-JSON-File">Parsing a JSON File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mapping_parse_example.html#Parsing-other-File-Formats">Parsing other File Formats</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="files-api.html">Files-Based Model API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="files-api.html#parsing-files">Parsing Files</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 
 
@@ -250,16 +305,10 @@ to overload these methods into a custom class as well.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="gbnrtc.html" class="btn btn-neutral float-right" title="GBNRTC Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="excel.html" class="btn btn-neutral float-left" title="Excel-Based Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="interface-walkthrough.html" class="btn btn-neutral float-right" title="Writing and Using a Bespoke Model Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="excel.html" class="btn btn-neutral float-left" title="Excel-Based Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
@@ -271,14 +320,13 @@ to overload these methods into a custom class as well.</p>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

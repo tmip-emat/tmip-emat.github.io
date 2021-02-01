@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>emat.model.core_files.core_files &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  <title>emat.model.core_files.core_files &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
   
 
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -31,12 +34,11 @@
         <script src="../../../../_static/jquery.js"></script>
         <script src="../../../../_static/underscore.js"></script>
         <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/language_data.js"></script>
         <script src="../../../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
@@ -56,7 +58,7 @@
           
 
           
-            <a href="../../../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+            <a href="../../../../index.html" class="icon icon-home"> TMIP-EMAT
           
 
           
@@ -66,7 +68,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
             
           
@@ -128,6 +130,8 @@
         <div class="rst-content">
         
           
+
+
 
 
 
@@ -288,6 +292,10 @@
 	<span class="k">def</span> <span class="nf">local_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Path: The current local working directory for this model.&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_directory</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;local_directory&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+
+	<span class="nd">@local_directory</span><span class="o">.</span><span class="n">setter</span>
+	<span class="k">def</span> <span class="nf">local_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_local_directory</span> <span class="o">=</span> <span class="n">value</span>
 
 	<span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="n">state</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__getstate__</span><span class="p">()</span>
@@ -505,6 +513,7 @@
 <span class="sd">				if a defined experiment variable is not supported</span>
 <span class="sd">				by the core model</span>
 <span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">experiment_id</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_experiment_id_&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
 		<span class="c1"># Validate parameter names</span>
 		<span class="n">scope_param_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">get_parameter_names</span><span class="p">())</span>
@@ -519,10 +528,13 @@
 		<span class="c1"># Get the experiment_id if stored</span>
 		<span class="n">db</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 		<span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-			<span class="n">run_id</span><span class="p">,</span> <span class="n">experiment_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">new_run_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+			<span class="n">run_id</span><span class="p">,</span> <span class="n">experiment_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">new_run_id</span><span class="p">(</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="n">experiment_id</span>
+			<span class="p">)</span>
 		<span class="k">else</span><span class="p">:</span>
 			<span class="kn">import</span> <span class="nn">uuid</span>
-			<span class="n">experiment_id</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;experiment_id&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">experiment_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="n">experiment_id</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;experiment_id&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 			<span class="n">run_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">run_id</span> <span class="o">=</span> <span class="n">run_id</span>
@@ -690,7 +702,6 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
@@ -702,14 +713,13 @@
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

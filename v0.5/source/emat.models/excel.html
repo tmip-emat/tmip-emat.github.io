@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Excel-Based Models &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Files-Based Model" href="files.html" />
+    <link rel="prev" title="Python-Based Models" href="python_based.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Core Models</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Basic EMAT Model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_based.html">Python-Based Models</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Excel-Based Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Files-Based Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gbnrtc.html">GBNRTC Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Core Models</a> &raquo;</li>
+        
+      <li>Excel-Based Models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/source/emat.models/excel.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
+documented are shown for illustration and are not guaranteed to be stable 
+in future releases of TMIP-EMAT.</p>
+<p class="last">The views expressed in this draft documentation do not necessarily 
+represent the opinions of FHWA, and do not constitute an endorsement, 
+recommendation, or specification by FHWA.</p>
+</div>
+<div class="section" id="excel-based-models">
+<h1>Excel-Based Models<a class="headerlink" href="#excel-based-models" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="emat.model.ExcelCoreModel">
+<em class="property">class </em><code class="descclassname">emat.model.</code><code class="descname">ExcelCoreModel</code><span class="sig-paren">(</span><em><span class="n">wd</span></em>, <em><span class="n">model_file</span></em>, <em><span class="n">configuration</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">, </span>Mapping<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">scope</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>emat.scope.scope.Scope<span class="p">, </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">safe</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em><span class="n">db</span><span class="p">:</span> <span class="n">emat.database.database.Database</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span> <span class="o">=</span> <span class="default_value">'EMAT'</span></em>, <em><span class="n">metamodel_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/core_excel.html#ExcelCoreModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.model.ExcelCoreModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.model.core_model.AbstractCoreModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.workbench.connectors.excel.ExcelModel</span></code></p>
+<p>Interface class for a core model in Excel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>wd</strong> (<em>Path-like</em>) – The working directory for the excel model.  This should be
+the directory in which the model resides.  Any supplementary
+data files required for the excel model should also be in
+this directory, and these files should be linked using only
+relative paths.  No other files should appear in this directory,
+as the entire directory will (potentially) be replicated multiple
+times during model execution.</li>
+<li><strong>model_file</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The file name of the excel model.  A file by this name should
+appear in <cite>wd</cite>.</li>
+<li><strong>configuration</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a>) – The configuration for this core model. This can be
+passed as a dict, or as a str which gives the filename
+of a yaml file that will be loaded.</li>
+<li><strong>scope</strong> (<a class="reference internal" href="../emat.scope/scope.html#emat.Scope" title="emat.Scope"><em>Scope</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The Scope for this exploratory analysis. Can be given as
+an explicit Scope object, or as a str which gives the
+filename of a yaml file that will be loaded.</li>
+<li><strong>safe</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Load the configuration yaml file in ‘safe’ mode.
+This can be disabled if the configuration requires
+custom Python types or is otherwise not compatible with
+safe mode. Loading configuration files with safe mode
+off is not secure and should not be done with files from
+untrusted sources.</li>
+<li><strong>db</strong> (<a class="reference internal" href="../emat.database/abstract.html#emat.database.Database" title="emat.database.Database"><em>Database</em></a>) – An optional Database to store experiments and results.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – A name for this model, given as an alphanumeric string.
+The name is required by ema_workbench operations.
+If not given, the name of the function is extracted, or
+failing that, “EMAT” is used.</li>
+<li><strong>metamodel_id</strong> – An identifier for this model, if it is a meta-model.
+Defaults to 0 (i.e., not a meta-model).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Excel models are <em>only</em> available on the Windows operating system.
+Although Excel is also available on other operating systems (i.e.,
+macOS) the necessary automated control API in Python is only
+available on Windows.</p>
+<p>It is also important to note that Excel-based models are processed
+including the entire working directory given by the <cite>wd</cite> argument in
+the constructor, not just based on an Excel workbook in isolation.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="files.html" class="btn btn-neutral float-right" title="Files-Based Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="python_based.html" class="btn btn-neutral float-left" title="Python-Based Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

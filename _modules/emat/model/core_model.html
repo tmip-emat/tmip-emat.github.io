@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>emat.model.core_model &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  <title>emat.model.core_model &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
   
 
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -31,12 +34,11 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
         <script src="../../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -56,7 +58,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+            <a href="../../../index.html" class="icon icon-home"> TMIP-EMAT
           
 
           
@@ -66,7 +68,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
             
           
@@ -128,6 +130,8 @@
         <div class="rst-content">
         
           
+
+
 
 
 
@@ -524,6 +528,10 @@
     <span class="k">def</span> <span class="nf">local_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Path: The current local working directory for this model.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;local_directory&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+
+    <span class="nd">@local_directory</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">local_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;local_directory&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">resolved_model_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1006,15 +1014,15 @@
 <span class="sd">            db (Database, required): The database to use for loading and saving experiments.</span>
 <span class="sd">                If none is given, the default database for this model is used.</span>
 <span class="sd">                If there is no default db, and none is given here,</span>
-<span class="sd">                these experiments will be aborted, as there won&#39;t be any way</span>
-<span class="sd">                to access the results.</span>
+<span class="sd">                these experiments will be aborted.</span>
 <span class="sd">            design_name (str, optional): The name of a design of experiments to</span>
 <span class="sd">                load from the database.  This design is only used if</span>
 <span class="sd">                `design` is None.</span>
 <span class="sd">            evaluator (emat.workbench.Evaluator, optional): Optionally give an</span>
 <span class="sd">                evaluator instance.  If not given, a default DistributedEvaluator</span>
 <span class="sd">                will be instantiated.  Passing any other kind of evaluator will</span>
-<span class="sd">                cause an error.</span>
+<span class="sd">                currently cause an error, although in the future other async</span>
+<span class="sd">                compatible evaluators may be provided.</span>
 <span class="sd">            max_n_workers (int, optional):</span>
 <span class="sd">                The maximum number of workers that will be created for a default</span>
 <span class="sd">                dask.distributed LocalCluster.  If the number of cores available is</span>
@@ -1084,6 +1092,7 @@
             <span class="o">*</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">allow_short_circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Runs a design of combined experiments using this model.</span>
@@ -1180,13 +1189,22 @@
             <span class="c1"># instead depend on the model execution process to write the results into</span>
             <span class="c1"># the database when complete.</span>
             <span class="k">with</span> <span class="n">evaluator</span><span class="p">:</span>
-                <span class="n">perform_experiments</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="p">,</span>
-                    <span class="n">scenarios</span><span class="o">=</span><span class="n">scenarios</span><span class="p">,</span>
-                    <span class="n">policies</span><span class="o">=</span><span class="n">policies</span><span class="p">,</span>
-                    <span class="n">zip_over</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;scenarios&#39;</span><span class="p">,</span> <span class="s1">&#39;policies&#39;</span><span class="p">},</span>
-                    <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span>
-                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">allow_short_circuit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">_stored_allow_short_circuit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_short_circuit</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">allow_short_circuit</span> <span class="o">=</span> <span class="n">allow_short_circuit</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">_stored_allow_short_circuit</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">perform_experiments</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="p">,</span>
+                        <span class="n">scenarios</span><span class="o">=</span><span class="n">scenarios</span><span class="p">,</span>
+                        <span class="n">policies</span><span class="o">=</span><span class="n">policies</span><span class="p">,</span>
+                        <span class="n">zip_over</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;scenarios&#39;</span><span class="p">,</span> <span class="s1">&#39;policies&#39;</span><span class="p">},</span>
+                        <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="k">finally</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">_stored_allow_short_circuit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">allow_short_circuit</span> <span class="o">=</span> <span class="n">_stored_allow_short_circuit</span>
             <span class="k">return</span>
 
         <span class="k">else</span><span class="p">:</span>
@@ -1196,6 +1214,11 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">_stored_db</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="n">allow_short_circuit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">_stored_allow_short_circuit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_short_circuit</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">allow_short_circuit</span> <span class="o">=</span> <span class="n">allow_short_circuit</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">_stored_allow_short_circuit</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">experiments</span><span class="p">,</span> <span class="n">outcomes</span> <span class="o">=</span> <span class="n">perform_experiments</span><span class="p">(</span>
                         <span class="bp">self</span><span class="p">,</span>
@@ -1207,6 +1230,8 @@
                 <span class="k">finally</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">_stored_db</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">_stored_db</span>
+                    <span class="k">if</span> <span class="n">_stored_allow_short_circuit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">allow_short_circuit</span> <span class="o">=</span> <span class="n">_stored_allow_short_circuit</span>
             <span class="n">experiments</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">index</span>
 
             <span class="n">outcomes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">outcomes</span><span class="p">)</span>
@@ -2099,7 +2124,6 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
@@ -2111,14 +2135,13 @@
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

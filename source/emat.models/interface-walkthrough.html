@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Writing and Using a Bespoke Model Interface &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  <title>Writing and Using a Bespoke Model Interface &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
   
 
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -31,18 +34,19 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
         <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="TableParser Example" href="table_parse_example.html" />
+    <link rel="prev" title="Files-Based Model" href="files.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -56,7 +60,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
           
 
           
@@ -66,7 +70,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
             
           
@@ -92,11 +96,31 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Core Models</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Core Models</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Basic EMAT Model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_based.html">Python-Based Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="excel.html">Excel-Based Models</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="files.html">Files-Based Model</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Writing and Using a Bespoke Model Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Connecting-to-the-Model">Connecting to the Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Understanding-Directories">Understanding Directories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Single-Run-Operation-for-Development-and-Debugging">Single Run Operation for Development and Debugging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Normal-Operation-for-Running-Multiple-Experiments">Normal Operation for Running Multiple Experiments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Multiprocessing-for-Running-Multiple-Experiments">Multiprocessing for Running Multiple Experiments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="table_parse_example.html">TableParser Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mapping_parse_example.html">MappingParser Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="files-api.html">Files-Based Model API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gbnrtc.html">GBNRTC Model</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
@@ -143,18 +167,24 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
+          <li><a href="index.html">Core Models</a> &raquo;</li>
+        
+          <li><a href="files.html">Files-Based Model</a> &raquo;</li>
+        
       <li>Writing and Using a Bespoke Model Interface</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/source/emat.models/interface-walkthrough.ipynb.txt" rel="nofollow"> View page source</a>
           
         
@@ -173,21 +203,35 @@
 /* CSS for nbsphinx extension */
 
 /* remove conflicting styling from Sphinx themes */
-div.nbinput.container,
-div.nbinput.container div.prompt,
-div.nbinput.container div.input_area,
-div.nbinput.container div[class*=highlight],
-div.nbinput.container div[class*=highlight] pre,
-div.nboutput.container,
-div.nboutput.container div.prompt,
-div.nboutput.container div.output_area,
-div.nboutput.container div[class*=highlight],
-div.nboutput.container div[class*=highlight] pre {
-    background: none;
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
     border: none;
-    padding: 0 0;
+    padding: 0;
     margin: 0;
     box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
 }
 
 /* avoid gaps between output lines */
@@ -288,7 +332,7 @@ div.nboutput.container div.output_area {
 div.nbinput.container div.input_area {
     border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f5f5f5;
+    /*background: #f5f5f5;*/
 }
 
 /* override MathJax center alignment in output cells */
@@ -354,6 +398,7 @@ div.nboutput.container div.output_area.rendered_html,
 div.nboutput.container div.output_area > div.output_javascript,
 div.nboutput.container div.output_area:not(.rendered_html) > img{
     padding: 5px;
+    margin: 0;
 }
 
 /* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
@@ -435,6 +480,7 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
 <span class="kn">from</span> <span class="nn">emat.util.show_dir</span> <span class="kn">import</span> <span class="n">show_dir</span><span class="p">,</span> <span class="n">show_file_contents</span>
 </pre></div>
 </div>
@@ -482,10 +528,11 @@ results will be available after this notebook is closed.</p>
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[00:02.89] MainProcess/WARNING: changing cwd to /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k
-[00:02.92] MainProcess/INFO: running script scope.sql
-[00:02.93] MainProcess/INFO: running script exp_design.sql
-[00:02.94] MainProcess/INFO: running script meta_model.sql
+[00:03.84] MainProcess/WARNING: changing cwd to /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc
+[00:03.88] MainProcess/INFO: running script emat_db_init.sql
+[00:03.89] MainProcess/INFO: running script meta_model.sql
+[00:03.90] MainProcess/INFO: found no experiments with missing run_id&#39;s
+[00:03.90] MainProcess/INFO: running script emat_db_init_views.sql
 </pre></div></div>
 </div>
 <p>Once we have loaded the <code class="docutils literal notranslate"><span class="pre">RoadTestFileModel</span></code> class, we have a number of files available in the “master_directory” that was created as that temporary directory:</p>
@@ -503,7 +550,8 @@ results will be available after this notebook is closed.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-tmptek60l8k/
+tmpygcky5rc/
+├── road-test-colleague.sqlitedb
 ├── road-test-demo.db
 ├── road-test-files/
 │   ├── demo-inputs-l.yml
@@ -637,8 +685,8 @@ yield_curve: __EMAT_PROVIDES_VALUE__YIELD_CURVE__
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[00:02.97] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:02.97] MainProcess/ERROR: KeyError(&#34;&#39;name_not_in_scope&#39; not found in scope parameters&#34;)
+[00:03.94] MainProcess/ERROR: SETUP ERROR: &#39;name_not_in_scope&#39; not found in scope parameters
+[00:03.94] MainProcess/ERROR: KeyError(&#34;&#39;name_not_in_scope&#39; not found in scope parameters&#34;)
 </pre></div></div>
 </div>
 <p>On the other hand, your custom model may or may not allow you to leave out some parameters. It is up to you to decide how to handle missing values, either by setting them at their default values or raising an error. In normal operation, parameters typically won’t be left out from the design of experiments, so it is not usually important to monitor this carefully.</p>
@@ -670,8 +718,8 @@ yield_curve: __EMAT_PROVIDES_VALUE__YIELD_CURVE__
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[00:02.97] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:02.98] MainProcess/INFO: RoadTestFileModel SETUP complete
+[00:03.97] MainProcess/INFO: RoadTestFileModel SETUP RUNID-c7c8bb08-6428-11eb-8c2b-acde48001122
+[00:03.97] MainProcess/INFO: RoadTestFileModel SETUP complete experiment_id 1 RUNID-c7c8bb08-6428-11eb-8c2b-acde48001122
 </pre></div></div>
 </div>
 <p>After running <code class="docutils literal notranslate"><span class="pre">setup</span></code> successfully, we will have overwritten the “demo-inputs-l.yml” file with new values, and written a new “demo-inputs-x.yml” file into the model working directory with those values.</p>
@@ -689,7 +737,14 @@ yield_curve: __EMAT_PROVIDES_VALUE__YIELD_CURVE__
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-tmptek60l8k/
+tmpygcky5rc/
+├── _emat_experiment_id_.yml
+├── _emat_parameters_.yml
+├── archive/
+│   └── scp_EMAT Road Test/
+│       └── exp_001_c7c8bb08-6428-11eb-8c2b-acde48001122/
+│           └── _emat_start_.log
+├── road-test-colleague.sqlitedb
 ├── road-test-demo.db
 ├── road-test-files/
 │   ├── demo-inputs-l.yml
@@ -778,8 +833,7 @@ potentially expensive model.</p>
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[00:03.00] MainProcess/INFO: RoadTestFileModel RUN ...
-[00:05.99] MainProcess/INFO: RoadTestFileModel RUN complete
+[00:06.49] MainProcess/INFO: RoadTestFileModel RUN complete RUNID-c7c8bb08-6428-11eb-8c2b-acde48001122
 </pre></div></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">RoadTestFileModel</span></code> class includes a custom <code class="docutils literal notranslate"><span class="pre">last_run_logs</span></code> method, which displays both the “stdout” and “stderr” logs generated by the model executable during the most recent call to the <code class="docutils literal notranslate"><span class="pre">run</span></code> method. We can use this method for debugging purposes, to identify why the core model crashes (if it does crash). In this first test it did not crash, and the logs look good.</p>
@@ -798,8 +852,8 @@ potentially expensive model.</p>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 === STDOUT ===
-[2020-07-01 13:41:02,612] emat.RoadTest.INFO: running emat-road-test-demo
-[2020-07-01 13:41:02,618] emat.RoadTest.INFO: emat-road-test-demo completed without errors
+[2021-01-31 18:59:50,158] emat.RoadTest.INFO: running emat-road-test-demo
+[2021-01-31 18:59:50,164] emat.RoadTest.INFO: emat-road-test-demo completed without errors
 
 === END OF LOG ===
 </pre></div></div>
@@ -833,8 +887,7 @@ usage is under study, but continue to omit it for future model experients where 
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[00:06.00] MainProcess/INFO: RoadTestFileModel POST-PROCESS ...
-[00:06.03] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete
+[00:06.52] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete RUNID-c7c8bb08-6428-11eb-8c2b-acde48001122
 </pre></div></div>
 </div>
 <p>At this point, the model’s output performance measures should be available in one or more output files that can be read in the next step. For this example, the results are written to two separate files: ‘output_1.csv.gz’ and ‘output.yaml’.</p>
@@ -929,7 +982,7 @@ the file parsing examples page of the TMIP-EMAT documentation.</a></p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;/var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/./archive/scp_EMAT Road Test/exp_1&#39;
+&#39;/var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/archive/scp_EMAT Road Test/exp_001_c7c8bb08-6428-11eb-8c2b-acde48001122&#39;
 </pre></div></div>
 </div>
 <p>Actually running the <code class="docutils literal notranslate"><span class="pre">archive</span></code> method should copy any relevant output files from the <code class="docutils literal notranslate"><span class="pre">model_path</span></code> of the current active model into a subdirectory of <code class="docutils literal notranslate"><span class="pre">archive_path</span></code>.</p>
@@ -947,9 +1000,9 @@ the file parsing examples page of the TMIP-EMAT documentation.</a></p>
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[00:06.08] MainProcess/INFO: RoadTestFileModel ARCHIVE
- from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/road-test-files
-   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/./archive/scp_EMAT Road Test/exp_1
+[00:06.55] MainProcess/INFO: RoadTestFileModel ARCHIVE
+ from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/road-test-files
+   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/archive/scp_EMAT Road Test/exp_001_c7c8bb08-6428-11eb-8c2b-acde48001122
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -966,10 +1019,13 @@ the file parsing examples page of the TMIP-EMAT documentation.</a></p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-tmptek60l8k/
+tmpygcky5rc/
+├── _emat_experiment_id_.yml
+├── _emat_parameters_.yml
 ├── archive/
 │   └── scp_EMAT Road Test/
-│       └── exp_1/
+│       └── exp_001_c7c8bb08-6428-11eb-8c2b-acde48001122/
+│           ├── _emat_start_.log
 │           ├── demo-inputs-l.yml
 │           ├── demo-inputs-x.yml
 │           ├── demo-inputs-x.yml.template
@@ -979,6 +1035,7 @@ tmptek60l8k/
 │           └── Outputs/
 │               ├── output.yaml
 │               └── output_1.csv.gz
+├── road-test-colleague.sqlitedb
 ├── road-test-demo.db
 ├── road-test-files/
 │   ├── demo-inputs-l.yml
@@ -1213,85 +1270,78 @@ structure exists in the current active model should be replicated within the exp
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[00:06.15] MainProcess/INFO: performing 8 scenarios/policies * 1 model(s) = 8 experiments
-[00:06.16] MainProcess/INFO: performing experiments sequentially
-[00:06.16] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:06.17] MainProcess/INFO: RoadTestFileModel SETUP complete
-[00:06.17] MainProcess/INFO: RoadTestFileModel RUN ...
-[00:09.27] MainProcess/INFO: RoadTestFileModel RUN complete
-[00:09.27] MainProcess/INFO: RoadTestFileModel POST-PROCESS ...
-[00:09.29] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete
-[00:09.29] MainProcess/INFO: RoadTestFileModel ARCHIVE
- from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/road-test-files
-   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/./archive/scp_EMAT Road Test/exp_2
-[00:09.30] MainProcess/INFO: 1 cases completed
-[00:09.31] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:09.32] MainProcess/INFO: RoadTestFileModel SETUP complete
-[00:09.32] MainProcess/INFO: RoadTestFileModel RUN ...
-[00:12.44] MainProcess/INFO: RoadTestFileModel RUN complete
-[00:12.44] MainProcess/INFO: RoadTestFileModel POST-PROCESS ...
-[00:12.45] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete
-[00:12.46] MainProcess/INFO: RoadTestFileModel ARCHIVE
- from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/road-test-files
-   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/./archive/scp_EMAT Road Test/exp_3
-[00:12.46] MainProcess/INFO: 2 cases completed
-[00:12.47] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:12.47] MainProcess/INFO: RoadTestFileModel SETUP complete
-[00:12.47] MainProcess/INFO: RoadTestFileModel RUN ...
-[00:15.34] MainProcess/INFO: RoadTestFileModel RUN complete
-[00:15.34] MainProcess/INFO: RoadTestFileModel POST-PROCESS ...
-[00:15.35] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete
-[00:15.36] MainProcess/INFO: RoadTestFileModel ARCHIVE
- from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/road-test-files
-   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/./archive/scp_EMAT Road Test/exp_4
-[00:15.37] MainProcess/INFO: 3 cases completed
-[00:15.37] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:15.38] MainProcess/INFO: RoadTestFileModel SETUP complete
-[00:15.38] MainProcess/INFO: RoadTestFileModel RUN ...
-[00:17.90] MainProcess/INFO: RoadTestFileModel RUN complete
-[00:17.90] MainProcess/INFO: RoadTestFileModel POST-PROCESS ...
-[00:17.91] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete
-[00:17.92] MainProcess/INFO: RoadTestFileModel ARCHIVE
- from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/road-test-files
-   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/./archive/scp_EMAT Road Test/exp_5
-[00:17.93] MainProcess/INFO: 4 cases completed
-[00:17.93] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:17.93] MainProcess/INFO: RoadTestFileModel SETUP complete
-[00:17.93] MainProcess/INFO: RoadTestFileModel RUN ...
-[00:20.69] MainProcess/INFO: RoadTestFileModel RUN complete
-[00:20.69] MainProcess/INFO: RoadTestFileModel POST-PROCESS ...
-[00:20.71] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete
-[00:20.71] MainProcess/INFO: RoadTestFileModel ARCHIVE
- from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/road-test-files
-   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/./archive/scp_EMAT Road Test/exp_6
-[00:20.72] MainProcess/INFO: 5 cases completed
-[00:20.73] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:20.73] MainProcess/INFO: RoadTestFileModel SETUP complete
-[00:20.73] MainProcess/INFO: RoadTestFileModel RUN ...
-[00:23.32] MainProcess/INFO: RoadTestFileModel RUN complete
-[00:23.32] MainProcess/INFO: RoadTestFileModel POST-PROCESS ...
-[00:23.33] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete
-[00:23.34] MainProcess/INFO: RoadTestFileModel ARCHIVE
- from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/road-test-files
-   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/./archive/scp_EMAT Road Test/exp_7
-[00:23.34] MainProcess/INFO: 6 cases completed
-[00:23.35] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:23.35] MainProcess/INFO: RoadTestFileModel SETUP complete
-[00:23.35] MainProcess/INFO: RoadTestFileModel RUN ...
-[00:26.08] MainProcess/INFO: RoadTestFileModel RUN complete
-[00:26.08] MainProcess/INFO: RoadTestFileModel POST-PROCESS ...
-[00:26.09] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete
-[00:26.10] MainProcess/INFO: RoadTestFileModel ARCHIVE
- from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/road-test-files
-   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/./archive/scp_EMAT Road Test/exp_8
-[00:26.11] MainProcess/INFO: 7 cases completed
-[00:26.11] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:26.11] MainProcess/INFO: RoadTestFileModel SETUP complete
-[00:26.11] MainProcess/INFO: RoadTestFileModel RUN ...
-[00:29.04] MainProcess/ERROR: ERROR in run_core_model run 9: Command &#39;[&#39;emat-road-test-demo&#39;, &#39;--uncs&#39;, &#39;demo-inputs-x.yml&#39;, &#39;--levers&#39;, &#39;demo-inputs-l.yml&#39;]&#39; returned non-zero exit status 247.
-[00:29.04] MainProcess/ERROR: run_core_model ABORT 9
-[00:29.04] MainProcess/INFO: 8 cases completed
-[00:29.04] MainProcess/INFO: experiments finished
+[00:06.66] MainProcess/INFO: performing 8 scenarios/policies * 1 model(s) = 8 experiments
+[00:06.67] MainProcess/INFO: performing experiments sequentially
+[00:06.67] MainProcess/INFO: RoadTestFileModel SETUP RUNID-c9660fe2-6428-11eb-8c2b-acde48001122
+[00:06.68] MainProcess/INFO: RoadTestFileModel SETUP complete experiment_id 2 RUNID-c9660fe2-6428-11eb-8c2b-acde48001122
+[00:09.14] MainProcess/INFO: RoadTestFileModel RUN complete RUNID-c9660fe2-6428-11eb-8c2b-acde48001122
+[00:09.15] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete RUNID-c9660fe2-6428-11eb-8c2b-acde48001122
+[00:09.16] MainProcess/INFO: RoadTestFileModel ARCHIVE
+ from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/road-test-files
+   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/archive/scp_EMAT Road Test/exp_002_c9660fe2-6428-11eb-8c2b-acde48001122
+[00:09.17] MainProcess/INFO: RAN EXPERIMENT IN 2.50 SECONDS
+[00:09.17] MainProcess/INFO: 1 cases completed
+[00:09.18] MainProcess/INFO: RoadTestFileModel SETUP RUNID-cae3c1f2-6428-11eb-8c2b-acde48001122
+[00:09.18] MainProcess/INFO: RoadTestFileModel SETUP complete experiment_id 3 RUNID-cae3c1f2-6428-11eb-8c2b-acde48001122
+[00:11.56] MainProcess/INFO: RoadTestFileModel RUN complete RUNID-cae3c1f2-6428-11eb-8c2b-acde48001122
+[00:11.57] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete RUNID-cae3c1f2-6428-11eb-8c2b-acde48001122
+[00:11.58] MainProcess/INFO: RoadTestFileModel ARCHIVE
+ from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/road-test-files
+   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/archive/scp_EMAT Road Test/exp_003_cae3c1f2-6428-11eb-8c2b-acde48001122
+[00:11.59] MainProcess/INFO: RAN EXPERIMENT IN 2.42 SECONDS
+[00:11.59] MainProcess/INFO: 2 cases completed
+[00:11.60] MainProcess/INFO: RoadTestFileModel SETUP RUNID-cc552f1c-6428-11eb-8c2b-acde48001122
+[00:11.60] MainProcess/INFO: RoadTestFileModel SETUP complete experiment_id 4 RUNID-cc552f1c-6428-11eb-8c2b-acde48001122
+[00:14.00] MainProcess/INFO: RoadTestFileModel RUN complete RUNID-cc552f1c-6428-11eb-8c2b-acde48001122
+[00:14.01] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete RUNID-cc552f1c-6428-11eb-8c2b-acde48001122
+[00:14.02] MainProcess/INFO: RoadTestFileModel ARCHIVE
+ from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/road-test-files
+   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/archive/scp_EMAT Road Test/exp_004_cc552f1c-6428-11eb-8c2b-acde48001122
+[00:14.03] MainProcess/INFO: RAN EXPERIMENT IN 2.44 SECONDS
+[00:14.03] MainProcess/INFO: 3 cases completed
+[00:14.04] MainProcess/INFO: RoadTestFileModel SETUP RUNID-cdc944c8-6428-11eb-8c2b-acde48001122
+[00:14.04] MainProcess/INFO: RoadTestFileModel SETUP complete experiment_id 5 RUNID-cdc944c8-6428-11eb-8c2b-acde48001122
+[00:16.46] MainProcess/INFO: RoadTestFileModel RUN complete RUNID-cdc944c8-6428-11eb-8c2b-acde48001122
+[00:16.47] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete RUNID-cdc944c8-6428-11eb-8c2b-acde48001122
+[00:16.48] MainProcess/INFO: RoadTestFileModel ARCHIVE
+ from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/road-test-files
+   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/archive/scp_EMAT Road Test/exp_005_cdc944c8-6428-11eb-8c2b-acde48001122
+[00:16.48] MainProcess/INFO: RAN EXPERIMENT IN 2.45 SECONDS
+[00:16.48] MainProcess/INFO: 4 cases completed
+[00:16.49] MainProcess/INFO: RoadTestFileModel SETUP RUNID-cf3fd362-6428-11eb-8c2b-acde48001122
+[00:16.50] MainProcess/INFO: RoadTestFileModel SETUP complete experiment_id 6 RUNID-cf3fd362-6428-11eb-8c2b-acde48001122
+[00:18.99] MainProcess/INFO: RoadTestFileModel RUN complete RUNID-cf3fd362-6428-11eb-8c2b-acde48001122
+[00:19.00] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete RUNID-cf3fd362-6428-11eb-8c2b-acde48001122
+[00:19.01] MainProcess/INFO: RoadTestFileModel ARCHIVE
+ from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/road-test-files
+   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/archive/scp_EMAT Road Test/exp_006_cf3fd362-6428-11eb-8c2b-acde48001122
+[00:19.02] MainProcess/INFO: RAN EXPERIMENT IN 2.53 SECONDS
+[00:19.02] MainProcess/INFO: 5 cases completed
+[00:19.02] MainProcess/INFO: RoadTestFileModel SETUP RUNID-d0c23324-6428-11eb-8c2b-acde48001122
+[00:19.03] MainProcess/INFO: RoadTestFileModel SETUP complete experiment_id 7 RUNID-d0c23324-6428-11eb-8c2b-acde48001122
+[00:21.37] MainProcess/INFO: RoadTestFileModel RUN complete RUNID-d0c23324-6428-11eb-8c2b-acde48001122
+[00:21.39] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete RUNID-d0c23324-6428-11eb-8c2b-acde48001122
+[00:21.40] MainProcess/INFO: RoadTestFileModel ARCHIVE
+ from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/road-test-files
+   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/archive/scp_EMAT Road Test/exp_007_d0c23324-6428-11eb-8c2b-acde48001122
+[00:21.40] MainProcess/INFO: RAN EXPERIMENT IN 2.38 SECONDS
+[00:21.40] MainProcess/INFO: 6 cases completed
+[00:21.41] MainProcess/INFO: RoadTestFileModel SETUP RUNID-d22e7272-6428-11eb-8c2b-acde48001122
+[00:21.42] MainProcess/INFO: RoadTestFileModel SETUP complete experiment_id 8 RUNID-d22e7272-6428-11eb-8c2b-acde48001122
+[00:23.88] MainProcess/INFO: RoadTestFileModel RUN complete RUNID-d22e7272-6428-11eb-8c2b-acde48001122
+[00:23.89] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete RUNID-d22e7272-6428-11eb-8c2b-acde48001122
+[00:23.91] MainProcess/INFO: RoadTestFileModel ARCHIVE
+ from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/road-test-files
+   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/archive/scp_EMAT Road Test/exp_008_d22e7272-6428-11eb-8c2b-acde48001122
+[00:23.91] MainProcess/INFO: RAN EXPERIMENT IN 2.51 SECONDS
+[00:23.91] MainProcess/INFO: 7 cases completed
+[00:23.92] MainProcess/INFO: RoadTestFileModel SETUP RUNID-d3ad349e-6428-11eb-8c2b-acde48001122
+[00:23.93] MainProcess/INFO: RoadTestFileModel SETUP complete experiment_id 9 RUNID-d3ad349e-6428-11eb-8c2b-acde48001122
+[00:26.40] MainProcess/ERROR: ERROR in run_core_model run 9: Command &#39;[&#39;emat-road-test-demo&#39;, &#39;--uncs&#39;, &#39;demo-inputs-x.yml&#39;, &#39;--levers&#39;, &#39;demo-inputs-l.yml&#39;]&#39; returned non-zero exit status 247.
+[00:26.40] MainProcess/ERROR: run_core_model ABORT 9
+[00:26.40] MainProcess/INFO: RAN EXPERIMENT IN 2.49 SECONDS
+[00:26.41] MainProcess/INFO: 8 cases completed
+[00:26.41] MainProcess/INFO: experiments finished
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1559,7 +1609,7 @@ structure exists in the current active model should be replicated within the exp
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">results</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">read_experiment_measures</span><span class="p">(</span><span class="s1">&#39;lhs_1&#39;</span><span class="p">)</span>
+<span></span><span class="n">results</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">read_experiment_all</span><span class="p">(</span><span class="n">fx</span><span class="o">.</span><span class="n">scope</span><span class="p">,</span> <span class="s1">&#39;lhs_1&#39;</span><span class="p">)</span>
 <span class="n">results</span>
 </pre></div>
 </div>
@@ -1587,6 +1637,19 @@ structure exists in the current active model should be replicated within the exp
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>free_flow_time</th>
+      <th>initial_capacity</th>
+      <th>alpha</th>
+      <th>beta</th>
+      <th>input_flow</th>
+      <th>value_of_time</th>
+      <th>unit_cost_expansion</th>
+      <th>interest_rate</th>
+      <th>yield_curve</th>
+      <th>expand_capacity</th>
+      <th>amortization_period</th>
+      <th>debt_type</th>
+      <th>interest_rate_lock</th>
       <th>no_build_travel_time</th>
       <th>build_travel_time</th>
       <th>time_savings</th>
@@ -1604,11 +1667,37 @@ structure exists in the current active model should be replicated within the exp
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>2</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.134750</td>
+      <td>4.642370</td>
+      <td>85</td>
+      <td>0.017005</td>
+      <td>143.519760</td>
+      <td>0.039219</td>
+      <td>0.003280</td>
+      <td>24.901018</td>
+      <td>36</td>
+      <td>Rev Bond</td>
+      <td>False</td>
       <td>63.802031</td>
       <td>61.354318</td>
       <td>2.447713</td>
@@ -1619,6 +1708,19 @@ structure exists in the current active model should be replicated within the exp
     </tr>
     <tr>
       <th>3</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.115907</td>
+      <td>5.242315</td>
+      <td>114</td>
+      <td>0.145378</td>
+      <td>107.836739</td>
+      <td>0.025997</td>
+      <td>0.009659</td>
+      <td>11.985022</td>
+      <td>50</td>
+      <td>Rev Bond</td>
+      <td>True</td>
       <td>73.822149</td>
       <td>67.635961</td>
       <td>6.186188</td>
@@ -1629,6 +1731,19 @@ structure exists in the current active model should be replicated within the exp
     </tr>
     <tr>
       <th>4</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.178456</td>
+      <td>3.510139</td>
+      <td>121</td>
+      <td>0.067821</td>
+      <td>127.838010</td>
+      <td>0.029066</td>
+      <td>-0.000839</td>
+      <td>72.399552</td>
+      <td>30</td>
+      <td>Paygo</td>
+      <td>True</td>
       <td>80.905959</td>
       <td>63.090263</td>
       <td>17.815696</td>
@@ -1639,6 +1754,19 @@ structure exists in the current active model should be replicated within the exp
     </tr>
     <tr>
       <th>5</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.110023</td>
+      <td>4.887030</td>
+      <td>127</td>
+      <td>0.083593</td>
+      <td>125.799829</td>
+      <td>0.034673</td>
+      <td>0.002714</td>
+      <td>28.565637</td>
+      <td>44</td>
+      <td>Paygo</td>
+      <td>True</td>
       <td>81.228935</td>
       <td>66.217725</td>
       <td>15.011210</td>
@@ -1649,6 +1777,19 @@ structure exists in the current active model should be replicated within the exp
     </tr>
     <tr>
       <th>6</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.161977</td>
+      <td>3.865644</td>
+      <td>135</td>
+      <td>0.054968</td>
+      <td>118.989447</td>
+      <td>0.028634</td>
+      <td>0.006745</td>
+      <td>82.811459</td>
+      <td>24</td>
+      <td>GO Bond</td>
+      <td>True</td>
       <td>91.004725</td>
       <td>63.010343</td>
       <td>27.994382</td>
@@ -1659,6 +1800,19 @@ structure exists in the current active model should be replicated within the exp
     </tr>
     <tr>
       <th>7</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.173449</td>
+      <td>4.094118</td>
+      <td>142</td>
+      <td>0.184904</td>
+      <td>133.480778</td>
+      <td>0.033847</td>
+      <td>0.017674</td>
+      <td>43.476172</td>
+      <td>21</td>
+      <td>Paygo</td>
+      <td>False</td>
       <td>103.733064</td>
       <td>69.975507</td>
       <td>33.757557</td>
@@ -1669,6 +1823,19 @@ structure exists in the current active model should be replicated within the exp
     </tr>
     <tr>
       <th>8</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.141973</td>
+      <td>5.331978</td>
+      <td>98</td>
+      <td>0.115228</td>
+      <td>99.317350</td>
+      <td>0.031519</td>
+      <td>0.014752</td>
+      <td>52.445940</td>
+      <td>19</td>
+      <td>GO Bond</td>
+      <td>False</td>
       <td>67.648456</td>
       <td>60.807614</td>
       <td>6.840842</td>
@@ -1679,6 +1846,19 @@ structure exists in the current active model should be replicated within the exp
     </tr>
     <tr>
       <th>9</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.193762</td>
+      <td>4.453382</td>
+      <td>95</td>
+      <td>0.092517</td>
+      <td>103.543415</td>
+      <td>0.037907</td>
+      <td>0.014360</td>
+      <td>92.278968</td>
+      <td>40</td>
+      <td>Rev Bond</td>
+      <td>False</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1735,8 +1915,8 @@ Int64Index([9], dtype=&#39;int64&#39;, name=&#39;experiment&#39;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[2020-07-01 13:41:25,675] emat.RoadTest.INFO: running emat-road-test-demo
-[2020-07-01 13:41:25,678] emat.RoadTest.ERROR: Random crash, ha ha!
+[2021-01-31 19:00:10,065] emat.RoadTest.INFO: running emat-road-test-demo
+[2021-01-31 19:00:10,068] emat.RoadTest.ERROR: Random crash, ha ha!
 
 </pre></div></div>
 </div>
@@ -1827,23 +2007,14 @@ Int64Index([9], dtype=&#39;int64&#39;, name=&#39;experiment&#39;)
 </table>
 </div></div>
 </div>
-<p>Normally, there is a “short circuit” process that will prevent re-running a core model experiment, instead the performance measure results will simply be loaded from the database, which is typically much faster than actually running the core model. But, if the performance measures stored in the database are junk, we will not want to trigger the short circuit system, and actually run the full core model again. To do so, we can disable the short circuit like this:</p>
-<div class="nbinput nblast docutils container">
+<p>Normally, there is a “short circuit” process that will prevent re-running a core model experiment, instead the performance measure results will simply be loaded from the database, which is typically much faster than actually running the core model. But, if the performance measures stored in the database are junk, we will not want to trigger the short circuit system, and actually run the full core model again. To do so, we can disable the short circuit like and re-run the failed experiment. If it
+failed because of a transient error, e.g.&nbsp;a disk space problem that’s been fixed, then perhaps we can simply re-run the model and it will work.</p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fx</span><span class="o">.</span><span class="n">allow_short_circuit</span> <span class="o">=</span> <span class="kc">False</span>
-</pre></div>
-</div>
-</div>
-<p>Now we can re-run the failed experiment. If it failed because of a transient error, e.g.&nbsp;a disk space problem that’s been fixed, then perhaps we can simply re-run the model and it will work.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fx</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">failed_experiments</span><span class="p">)</span>
+<span></span><span class="n">fx</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">failed_experiments</span><span class="p">,</span> <span class="n">allow_short_circuit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1852,23 +2023,22 @@ Int64Index([9], dtype=&#39;int64&#39;, name=&#39;experiment&#39;)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[00:29.13] MainProcess/INFO: performing 1 scenarios/policies * 1 model(s) = 1 experiments
-[00:29.15] MainProcess/INFO: performing experiments sequentially
-[00:29.15] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:29.15] MainProcess/INFO: RoadTestFileModel SETUP complete
-[00:29.15] MainProcess/INFO: RoadTestFileModel RUN ...
-[00:31.72] MainProcess/INFO: RoadTestFileModel RUN complete
-[00:31.72] MainProcess/INFO: RoadTestFileModel POST-PROCESS ...
-[00:31.73] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete
-[00:31.74] MainProcess/INFO: RoadTestFileModel ARCHIVE
- from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/road-test-files
-   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmptek60l8k/./archive/scp_EMAT Road Test/exp_9
-[00:31.75] MainProcess/INFO: 1 cases completed
-[00:31.75] MainProcess/INFO: experiments finished
+[00:26.53] MainProcess/INFO: performing 1 scenarios/policies * 1 model(s) = 1 experiments
+[00:26.54] MainProcess/INFO: performing experiments sequentially
+[00:26.54] MainProcess/INFO: RoadTestFileModel SETUP RUNID-d53da118-6428-11eb-8c2b-acde48001122
+[00:26.55] MainProcess/INFO: RoadTestFileModel SETUP complete experiment_id 9 RUNID-d53da118-6428-11eb-8c2b-acde48001122
+[00:28.93] MainProcess/INFO: RoadTestFileModel RUN complete RUNID-d53da118-6428-11eb-8c2b-acde48001122
+[00:28.94] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete RUNID-d53da118-6428-11eb-8c2b-acde48001122
+[00:28.95] MainProcess/INFO: RoadTestFileModel ARCHIVE
+ from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/road-test-files
+   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpygcky5rc/archive/scp_EMAT Road Test/exp_009_d53da118-6428-11eb-8c2b-acde48001122
+[00:28.96] MainProcess/INFO: RAN EXPERIMENT IN 2.42 SECONDS
+[00:28.96] MainProcess/INFO: 1 cases completed
+[00:28.96] MainProcess/INFO: experiments finished
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1965,7 +2135,7 @@ Int64Index([9], dtype=&#39;int64&#39;, name=&#39;experiment&#39;)
 </div>
 <p>Much better! Now we can see we have a more complete set of outputs, without the NaN’s. Hooray!</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1975,7 +2145,7 @@ Int64Index([9], dtype=&#39;int64&#39;, name=&#39;experiment&#39;)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2047,185 +2217,185 @@ Int64Index([9], dtype=&#39;int64&#39;, name=&#39;experiment&#39;)
       <th>2</th>
       <td>60</td>
       <td>100</td>
-      <td>0.13475</td>
-      <td>4.64237</td>
+      <td>0.134750</td>
+      <td>4.642370</td>
       <td>85</td>
-      <td>0.0170047</td>
-      <td>143.52</td>
-      <td>0.0392193</td>
-      <td>0.00327971</td>
-      <td>24.901</td>
+      <td>0.017005</td>
+      <td>143.519760</td>
+      <td>0.039219</td>
+      <td>0.003280</td>
+      <td>24.901018</td>
       <td>36</td>
       <td>Rev Bond</td>
-      <td>0</td>
-      <td>63.802</td>
-      <td>61.3543</td>
-      <td>2.44771</td>
-      <td>3.53792</td>
-      <td>-175.134</td>
-      <td>178.672</td>
-      <td>3573.79</td>
+      <td>False</td>
+      <td>63.802031</td>
+      <td>61.354318</td>
+      <td>2.447713</td>
+      <td>3.537924</td>
+      <td>-175.134011</td>
+      <td>178.671935</td>
+      <td>3573.788162</td>
     </tr>
     <tr>
       <th>3</th>
       <td>60</td>
       <td>100</td>
       <td>0.115907</td>
-      <td>5.24231</td>
+      <td>5.242315</td>
       <td>114</td>
       <td>0.145378</td>
-      <td>107.837</td>
-      <td>0.0259967</td>
-      <td>0.00965899</td>
-      <td>11.985</td>
+      <td>107.836739</td>
+      <td>0.025997</td>
+      <td>0.009659</td>
+      <td>11.985022</td>
       <td>50</td>
       <td>Rev Bond</td>
-      <td>1</td>
-      <td>73.8221</td>
-      <td>67.636</td>
-      <td>6.18619</td>
-      <td>102.525</td>
-      <td>42.3619</td>
-      <td>60.1627</td>
-      <td>1292.43</td>
+      <td>True</td>
+      <td>73.822149</td>
+      <td>67.635961</td>
+      <td>6.186188</td>
+      <td>102.524606</td>
+      <td>42.361931</td>
+      <td>60.162675</td>
+      <td>1292.425695</td>
     </tr>
     <tr>
       <th>4</th>
       <td>60</td>
       <td>100</td>
       <td>0.178456</td>
-      <td>3.51014</td>
+      <td>3.510139</td>
       <td>121</td>
       <td>0.067821</td>
-      <td>127.838</td>
-      <td>0.0290662</td>
-      <td>-0.00083927</td>
-      <td>72.3996</td>
+      <td>127.838010</td>
+      <td>0.029066</td>
+      <td>-0.000839</td>
+      <td>72.399552</td>
       <td>30</td>
       <td>Paygo</td>
-      <td>1</td>
-      <td>80.906</td>
-      <td>63.0903</td>
-      <td>17.8157</td>
-      <td>146.202</td>
-      <td>-183.23</td>
-      <td>329.431</td>
-      <td>9255.41</td>
+      <td>True</td>
+      <td>80.905959</td>
+      <td>63.090263</td>
+      <td>17.815696</td>
+      <td>146.201784</td>
+      <td>-183.229667</td>
+      <td>329.431451</td>
+      <td>9255.414627</td>
     </tr>
     <tr>
       <th>5</th>
       <td>60</td>
       <td>100</td>
       <td>0.110023</td>
-      <td>4.88703</td>
+      <td>4.887030</td>
       <td>127</td>
-      <td>0.0835929</td>
-      <td>125.8</td>
-      <td>0.0346728</td>
-      <td>0.00271409</td>
-      <td>28.5656</td>
+      <td>0.083593</td>
+      <td>125.799829</td>
+      <td>0.034673</td>
+      <td>0.002714</td>
+      <td>28.565637</td>
       <td>44</td>
       <td>Paygo</td>
-      <td>1</td>
-      <td>81.2289</td>
-      <td>66.2177</td>
-      <td>15.0112</td>
-      <td>159.363</td>
-      <td>61.5674</td>
-      <td>97.796</td>
-      <td>3593.55</td>
+      <td>True</td>
+      <td>81.228935</td>
+      <td>66.217725</td>
+      <td>15.011210</td>
+      <td>159.363387</td>
+      <td>61.567385</td>
+      <td>97.796001</td>
+      <td>3593.552248</td>
     </tr>
     <tr>
       <th>6</th>
       <td>60</td>
       <td>100</td>
       <td>0.161977</td>
-      <td>3.86564</td>
+      <td>3.865644</td>
       <td>135</td>
-      <td>0.0549679</td>
-      <td>118.989</td>
-      <td>0.0286337</td>
-      <td>0.00674486</td>
-      <td>82.8115</td>
+      <td>0.054968</td>
+      <td>118.989447</td>
+      <td>0.028634</td>
+      <td>0.006745</td>
+      <td>82.811459</td>
       <td>24</td>
       <td>GO Bond</td>
-      <td>1</td>
-      <td>91.0047</td>
-      <td>63.0103</td>
-      <td>27.9944</td>
-      <td>207.737</td>
-      <td>-374.546</td>
-      <td>582.283</td>
-      <td>9853.69</td>
+      <td>True</td>
+      <td>91.004725</td>
+      <td>63.010343</td>
+      <td>27.994382</td>
+      <td>207.737074</td>
+      <td>-374.545620</td>
+      <td>582.282695</td>
+      <td>9853.689681</td>
     </tr>
     <tr>
       <th>7</th>
       <td>60</td>
       <td>100</td>
       <td>0.173449</td>
-      <td>4.09412</td>
+      <td>4.094118</td>
       <td>142</td>
       <td>0.184904</td>
-      <td>133.481</td>
-      <td>0.0338467</td>
-      <td>0.0176743</td>
-      <td>43.4762</td>
+      <td>133.480778</td>
+      <td>0.033847</td>
+      <td>0.017674</td>
+      <td>43.476172</td>
       <td>21</td>
       <td>Paygo</td>
-      <td>0</td>
-      <td>103.733</td>
-      <td>69.9755</td>
-      <td>33.7576</td>
-      <td>886.351</td>
-      <td>604.766</td>
-      <td>281.585</td>
-      <td>5803.23</td>
+      <td>False</td>
+      <td>103.733064</td>
+      <td>69.975507</td>
+      <td>33.757557</td>
+      <td>886.351136</td>
+      <td>604.765873</td>
+      <td>281.585263</td>
+      <td>5803.233337</td>
     </tr>
     <tr>
       <th>8</th>
       <td>60</td>
       <td>100</td>
       <td>0.141973</td>
-      <td>5.33198</td>
+      <td>5.331978</td>
       <td>98</td>
       <td>0.115228</td>
-      <td>99.3173</td>
-      <td>0.0315185</td>
-      <td>0.0147519</td>
-      <td>52.4459</td>
+      <td>99.317350</td>
+      <td>0.031519</td>
+      <td>0.014752</td>
+      <td>52.445940</td>
       <td>19</td>
       <td>GO Bond</td>
-      <td>0</td>
-      <td>67.6485</td>
-      <td>60.8076</td>
-      <td>6.84084</td>
-      <td>77.2492</td>
-      <td>-282.042</td>
-      <td>359.291</td>
-      <td>5208.79</td>
+      <td>False</td>
+      <td>67.648456</td>
+      <td>60.807614</td>
+      <td>6.840842</td>
+      <td>77.249238</td>
+      <td>-282.042005</td>
+      <td>359.291243</td>
+      <td>5208.791736</td>
     </tr>
     <tr>
       <th>9</th>
       <td>60</td>
       <td>100</td>
       <td>0.193762</td>
-      <td>4.45338</td>
+      <td>4.453382</td>
       <td>95</td>
-      <td>0.0925175</td>
-      <td>103.543</td>
-      <td>0.0379069</td>
-      <td>0.01436</td>
-      <td>92.279</td>
+      <td>0.092517</td>
+      <td>103.543415</td>
+      <td>0.037907</td>
+      <td>0.014360</td>
+      <td>92.278968</td>
       <td>40</td>
       <td>Rev Bond</td>
-      <td>0</td>
-      <td>69.2516</td>
-      <td>60.5032</td>
-      <td>8.74835</td>
-      <td>76.8907</td>
-      <td>-385.525</td>
-      <td>462.416</td>
-      <td>9554.88</td>
+      <td>False</td>
+      <td>69.251572</td>
+      <td>60.503221</td>
+      <td>8.748351</td>
+      <td>76.890662</td>
+      <td>-385.524839</td>
+      <td>462.415500</td>
+      <td>9554.879520</td>
     </tr>
   </tbody>
 </table>
@@ -2242,7 +2412,7 @@ Int64Index([9], dtype=&#39;int64&#39;, name=&#39;experiment&#39;)
 <p>Suppose, for example, you wanted to distribute the workload of running experiments over several processes, or even over several computers. If each process has file system access to the same TMIP-EMAT database of experiments, we can orchestrate these experiments in parallel by manually splitting up the processes.</p>
 <p>To begin with, we’ll have one process create a complete design of experiments, and save it to the database (which happens automatically here).</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2252,8 +2422,8 @@ Int64Index([9], dtype=&#39;int64&#39;, name=&#39;experiment&#39;)
 </div>
 <p>Then, we can create set up a copy of the same model in a different process, even on a different machine, as long as we point back to the same original database file. This implies the different process has access to the file system where the original file is stored. It is valuable to read and write to the same database file, not just a copy of the file, as this will obviate the need to sync the experimental data manually afterwards. In this demo, we’ll just create a new directory to work in, but
 we’ll point to the database in the original directory. Instead of allowing our model to implicitly create a new database file in the new directory, we’ll instantiate a SQLiteDB object pointing to the original database.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2262,9 +2432,20 @@ we’ll point to the database in the original directory. Instead of allowing our
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[00:29.10] MainProcess/INFO: running script emat_db_init.sql
+[00:29.10] MainProcess/INFO: running script meta_model.sql
+[00:29.11] MainProcess/INFO: found no experiments with missing run_id&#39;s
+[00:29.11] MainProcess/INFO: running script emat_db_init_views.sql
+</pre></div></div>
+</div>
 <p>Now, <code class="docutils literal notranslate"><span class="pre">db2</span></code> is a <code class="docutils literal notranslate"><span class="pre">emat.SQLiteDB</span></code> object, which wraps a <em>new</em> connection to the <em>original</em> database. Then, we’ll pass that <code class="docutils literal notranslate"><span class="pre">db2</span></code> explicitly to the new <code class="docutils literal notranslate"><span class="pre">RoadTestFileModel</span></code> constructor, which will create a complete copy of our model (other than the database) in a new directory.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2277,12 +2458,12 @@ we’ll point to the database in the original directory. Instead of allowing our
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[00:31.83] MainProcess/WARNING: changing cwd to /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpm4ri_fl2
+[00:29.12] MainProcess/WARNING: changing cwd to /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmph_ksfgon
 </pre></div></div>
 </div>
 <p>To run a particular slice of a design of experiments, we need to load the experimental design first, and then pass that slice to the <code class="docutils literal notranslate"><span class="pre">run_experiments</span></code> function, instead of just giving the <code class="docutils literal notranslate"><span class="pre">design_name</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2292,7 +2473,7 @@ we’ll point to the database in the original directory. Instead of allowing our
 </div>
 <p>For splitting the work across a number of similarly capable processes or machines, the double-colon slice is convenient. If, for example, you are splitting the work over 4 computers, you can run each with slices <code class="docutils literal notranslate"><span class="pre">0::4</span></code>, <code class="docutils literal notranslate"><span class="pre">1::4</span></code>, <code class="docutils literal notranslate"><span class="pre">2::4</span></code>, and <code class="docutils literal notranslate"><span class="pre">3::4</span></code>. This slices in skip-step manner, so slice below will run every 4th experiment from the design, starting with experiment index 0 (i.e.&nbsp;the first one).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2305,33 +2486,31 @@ we’ll point to the database in the original directory. Instead of allowing our
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[00:31.89] MainProcess/INFO: performing 2 scenarios/policies * 1 model(s) = 2 experiments
-[00:31.91] MainProcess/INFO: performing experiments sequentially
-[00:31.91] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:31.91] MainProcess/INFO: RoadTestFileModel SETUP complete
-[00:31.91] MainProcess/INFO: RoadTestFileModel RUN ...
-[00:34.50] MainProcess/INFO: RoadTestFileModel RUN complete
-[00:34.50] MainProcess/INFO: RoadTestFileModel POST-PROCESS ...
-[00:34.51] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete
-[00:34.52] MainProcess/INFO: RoadTestFileModel ARCHIVE
- from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpm4ri_fl2/road-test-files
-   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpm4ri_fl2/./archive/scp_EMAT Road Test/exp_10
-[00:34.52] MainProcess/INFO: 1 cases completed
-[00:34.53] MainProcess/INFO: RoadTestFileModel SETUP...
-[00:34.54] MainProcess/INFO: RoadTestFileModel SETUP complete
-[00:34.54] MainProcess/INFO: RoadTestFileModel RUN ...
-[00:37.17] MainProcess/INFO: RoadTestFileModel RUN complete
-[00:37.18] MainProcess/INFO: RoadTestFileModel POST-PROCESS ...
-[00:37.19] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete
-[00:37.20] MainProcess/INFO: RoadTestFileModel ARCHIVE
- from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpm4ri_fl2/road-test-files
-   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpm4ri_fl2/./archive/scp_EMAT Road Test/exp_14
-[00:37.20] MainProcess/INFO: 2 cases completed
-[00:37.20] MainProcess/INFO: experiments finished
+[00:29.19] MainProcess/INFO: performing 2 scenarios/policies * 1 model(s) = 2 experiments
+[00:29.21] MainProcess/INFO: performing experiments sequentially
+[00:29.21] MainProcess/INFO: RoadTestFileModel SETUP RUNID-d6d5244c-6428-11eb-8c2b-acde48001122
+[00:29.22] MainProcess/INFO: RoadTestFileModel SETUP complete experiment_id 10 RUNID-d6d5244c-6428-11eb-8c2b-acde48001122
+[00:31.69] MainProcess/INFO: RoadTestFileModel RUN complete RUNID-d6d5244c-6428-11eb-8c2b-acde48001122
+[00:31.70] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete RUNID-d6d5244c-6428-11eb-8c2b-acde48001122
+[00:31.72] MainProcess/INFO: RoadTestFileModel ARCHIVE
+ from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmph_ksfgon/road-test-files
+   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmph_ksfgon/archive/scp_EMAT Road Test/exp_010_d6d5244c-6428-11eb-8c2b-acde48001122
+[00:31.72] MainProcess/INFO: RAN EXPERIMENT IN 2.51 SECONDS
+[00:31.72] MainProcess/INFO: 1 cases completed
+[00:31.73] MainProcess/INFO: RoadTestFileModel SETUP RUNID-d85582c6-6428-11eb-8c2b-acde48001122
+[00:31.74] MainProcess/INFO: RoadTestFileModel SETUP complete experiment_id 14 RUNID-d85582c6-6428-11eb-8c2b-acde48001122
+[00:34.21] MainProcess/INFO: RoadTestFileModel RUN complete RUNID-d85582c6-6428-11eb-8c2b-acde48001122
+[00:34.22] MainProcess/INFO: RoadTestFileModel POST-PROCESS complete RUNID-d85582c6-6428-11eb-8c2b-acde48001122
+[00:34.23] MainProcess/INFO: RoadTestFileModel ARCHIVE
+ from: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmph_ksfgon/road-test-files
+   to: /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmph_ksfgon/archive/scp_EMAT Road Test/exp_014_d85582c6-6428-11eb-8c2b-acde48001122
+[00:34.24] MainProcess/INFO: RAN EXPERIMENT IN 2.51 SECONDS
+[00:34.24] MainProcess/INFO: 2 cases completed
+[00:34.24] MainProcess/INFO: experiments finished
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2451,7 +2630,7 @@ we’ll point to the database in the original directory. Instead of allowing our
 </div>
 <p>Because we have linked the second model instance back to the same database, after these experiments have finished we can access the results from the original <code class="docutils literal notranslate"><span class="pre">fx</span></code> instance.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2460,7 +2639,7 @@ we’ll point to the database in the original directory. Instead of allowing our
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2482,6 +2661,7 @@ we’ll point to the database in the original directory. Instead of allowing our
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th></th>
       <th>no_build_travel_time</th>
       <th>build_travel_time</th>
       <th>time_savings</th>
@@ -2492,6 +2672,7 @@ we’ll point to the database in the original directory. Instead of allowing our
     </tr>
     <tr>
       <th>experiment</th>
+      <th>run</th>
       <th></th>
       <th></th>
       <th></th>
@@ -2504,6 +2685,7 @@ we’ll point to the database in the original directory. Instead of allowing our
   <tbody>
     <tr>
       <th>10</th>
+      <th>d6d5244c-6428-11eb-8c2b-acde48001122</th>
       <td>66.867014</td>
       <td>65.624845</td>
       <td>1.242169</td>
@@ -2514,6 +2696,7 @@ we’ll point to the database in the original directory. Instead of allowing our
     </tr>
     <tr>
       <th>14</th>
+      <th>d85582c6-6428-11eb-8c2b-acde48001122</th>
       <td>84.993873</td>
       <td>64.403269</td>
       <td>20.590604</td>
@@ -2533,17 +2716,17 @@ we’ll point to the database in the original directory. Instead of allowing our
 <p>The examples above are all essentially single-process demonstrations of using TMIP-EMAT to run core model experiments, either by running all in one single process, or by having a user manually instantiate a number of single processes. If your core model itself is multi-threaded or otherwise is designed to make full use of your multi-core CPU, or if a single core model run will otherwise max out some computational resource (e.g.&nbsp;RAM, disk space) then single process operation should be sufficient.</p>
 <p>If, on the other hand, your model is such that you can run multiple independent instances of the model side-by-side on the same machine, but you don’t want to manage the process of manually, then you could benefit from a multiprocessing approach that uses the <code class="docutils literal notranslate"><span class="pre">dask.distributed</span></code> library. To demonstrate this, we’ll create yet another small design of experiments to run.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">design3</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">design_experiments</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;lhs_3&#39;</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span></span><span class="n">design3</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">design_experiments</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;lhs_3&#39;</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">design3</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2599,129 +2782,481 @@ we’ll point to the database in the original directory. Instead of allowing our
   <tbody>
     <tr>
       <th>18</th>
-      <td>0.169616</td>
-      <td>35</td>
-      <td>4.064396</td>
-      <td>Paygo</td>
-      <td>26.090367</td>
-      <td>101</td>
-      <td>0.034895</td>
-      <td>True</td>
-      <td>140.210575</td>
-      <td>0.065729</td>
-      <td>0.000300</td>
+      <td>0.151341</td>
+      <td>48</td>
+      <td>3.676012</td>
+      <td>Rev Bond</td>
+      <td>34.248792</td>
+      <td>139</td>
+      <td>0.037682</td>
+      <td>False</td>
+      <td>128.627672</td>
+      <td>0.004817</td>
+      <td>0.012079</td>
       <td>60</td>
       <td>100</td>
     </tr>
     <tr>
       <th>19</th>
-      <td>0.192963</td>
-      <td>46</td>
-      <td>4.973266</td>
-      <td>GO Bond</td>
-      <td>56.044819</td>
-      <td>107</td>
-      <td>0.027205</td>
-      <td>False</td>
-      <td>96.267985</td>
-      <td>0.077641</td>
-      <td>0.015375</td>
+      <td>0.118509</td>
+      <td>41</td>
+      <td>5.309555</td>
+      <td>Paygo</td>
+      <td>76.473048</td>
+      <td>89</td>
+      <td>0.035629</td>
+      <td>True</td>
+      <td>125.994370</td>
+      <td>0.091859</td>
+      <td>0.005987</td>
       <td>60</td>
       <td>100</td>
     </tr>
     <tr>
       <th>20</th>
-      <td>0.150234</td>
-      <td>31</td>
-      <td>5.429606</td>
+      <td>0.174355</td>
+      <td>18</td>
+      <td>4.727608</td>
       <td>Rev Bond</td>
-      <td>42.027203</td>
-      <td>135</td>
-      <td>0.030607</td>
+      <td>94.255893</td>
+      <td>131</td>
+      <td>0.030304</td>
       <td>False</td>
-      <td>107.239601</td>
-      <td>0.115429</td>
-      <td>0.004664</td>
+      <td>139.257007</td>
+      <td>0.076668</td>
+      <td>0.016896</td>
       <td>60</td>
       <td>100</td>
     </tr>
     <tr>
       <th>21</th>
-      <td>0.175508</td>
-      <td>38</td>
-      <td>4.505154</td>
-      <td>Rev Bond</td>
-      <td>21.346083</td>
-      <td>124</td>
-      <td>0.039424</td>
-      <td>True</td>
-      <td>118.538455</td>
-      <td>0.014103</td>
-      <td>0.012946</td>
+      <td>0.188622</td>
+      <td>26</td>
+      <td>3.703274</td>
+      <td>GO Bond</td>
+      <td>96.919294</td>
+      <td>125</td>
+      <td>0.036478</td>
+      <td>False</td>
+      <td>121.126672</td>
+      <td>0.110190</td>
+      <td>0.016048</td>
       <td>60</td>
       <td>100</td>
     </tr>
     <tr>
       <th>22</th>
-      <td>0.140599</td>
-      <td>21</td>
-      <td>5.035679</td>
+      <td>0.160916</td>
+      <td>33</td>
+      <td>4.447292</td>
       <td>GO Bond</td>
-      <td>84.334328</td>
-      <td>82</td>
-      <td>0.026410</td>
-      <td>True</td>
-      <td>133.676568</td>
-      <td>0.149598</td>
-      <td>0.017552</td>
+      <td>64.247841</td>
+      <td>149</td>
+      <td>0.034941</td>
+      <td>False</td>
+      <td>104.498216</td>
+      <td>0.040406</td>
+      <td>0.010364</td>
       <td>60</td>
       <td>100</td>
     </tr>
     <tr>
       <th>23</th>
-      <td>0.113669</td>
-      <td>25</td>
-      <td>3.831327</td>
+      <td>0.148182</td>
+      <td>24</td>
+      <td>5.015381</td>
       <td>Paygo</td>
-      <td>71.138662</td>
-      <td>148</td>
-      <td>0.036468</td>
+      <td>83.286755</td>
+      <td>128</td>
+      <td>0.027313</td>
       <td>False</td>
-      <td>129.183633</td>
-      <td>0.056610</td>
-      <td>0.008356</td>
+      <td>144.602977</td>
+      <td>0.061343</td>
+      <td>0.014137</td>
       <td>60</td>
       <td>100</td>
     </tr>
     <tr>
       <th>24</th>
-      <td>0.108685</td>
-      <td>18</td>
-      <td>4.452232</td>
-      <td>GO Bond</td>
-      <td>8.614755</td>
-      <td>130</td>
-      <td>0.030786</td>
-      <td>False</td>
-      <td>123.140814</td>
-      <td>0.092145</td>
-      <td>0.000927</td>
+      <td>0.145859</td>
+      <td>43</td>
+      <td>3.943408</td>
+      <td>Rev Bond</td>
+      <td>61.408748</td>
+      <td>117</td>
+      <td>0.032835</td>
+      <td>True</td>
+      <td>107.081150</td>
+      <td>0.150078</td>
+      <td>0.004032</td>
       <td>60</td>
       <td>100</td>
     </tr>
     <tr>
       <th>25</th>
-      <td>0.126817</td>
-      <td>43</td>
-      <td>3.599748</td>
-      <td>Rev Bond</td>
-      <td>92.170002</td>
-      <td>95</td>
-      <td>0.033748</td>
+      <td>0.109392</td>
+      <td>32</td>
+      <td>5.465265</td>
+      <td>Paygo</td>
+      <td>29.100532</td>
+      <td>98</td>
+      <td>0.038449</td>
+      <td>False</td>
+      <td>142.411065</td>
+      <td>0.057756</td>
+      <td>0.001003</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>0.154192</td>
+      <td>37</td>
+      <td>4.918319</td>
+      <td>GO Bond</td>
+      <td>55.383965</td>
+      <td>145</td>
+      <td>0.038841</td>
       <td>True</td>
-      <td>108.577268</td>
-      <td>0.128863</td>
-      <td>0.011068</td>
+      <td>130.162175</td>
+      <td>0.119689</td>
+      <td>0.001579</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>0.106310</td>
+      <td>41</td>
+      <td>4.276815</td>
+      <td>GO Bond</td>
+      <td>87.269134</td>
+      <td>106</td>
+      <td>0.036746</td>
+      <td>True</td>
+      <td>113.206445</td>
+      <td>0.093281</td>
+      <td>0.019623</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>0.159061</td>
+      <td>47</td>
+      <td>3.630430</td>
+      <td>GO Bond</td>
+      <td>52.479431</td>
+      <td>102</td>
+      <td>0.029875</td>
+      <td>False</td>
+      <td>135.066324</td>
+      <td>0.075284</td>
+      <td>0.015455</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>0.190069</td>
+      <td>45</td>
+      <td>5.262368</td>
+      <td>Paygo</td>
+      <td>67.884939</td>
+      <td>101</td>
+      <td>0.026620</td>
+      <td>True</td>
+      <td>118.147867</td>
+      <td>0.125009</td>
+      <td>0.013234</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>0.123809</td>
+      <td>28</td>
+      <td>4.504676</td>
+      <td>Rev Bond</td>
+      <td>39.255873</td>
+      <td>124</td>
+      <td>0.037005</td>
+      <td>True</td>
+      <td>121.924833</td>
+      <td>0.029906</td>
+      <td>0.017495</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>0.141084</td>
+      <td>43</td>
+      <td>4.570515</td>
+      <td>GO Bond</td>
+      <td>42.644409</td>
+      <td>85</td>
+      <td>0.028042</td>
+      <td>False</td>
+      <td>101.824130</td>
+      <td>0.214848</td>
+      <td>0.005303</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>0.116030</td>
+      <td>50</td>
+      <td>4.772191</td>
+      <td>Paygo</td>
+      <td>78.781012</td>
+      <td>120</td>
+      <td>0.025253</td>
+      <td>False</td>
+      <td>119.915395</td>
+      <td>0.024683</td>
+      <td>0.011550</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>0.177997</td>
+      <td>22</td>
+      <td>4.097314</td>
+      <td>GO Bond</td>
+      <td>92.535470</td>
+      <td>138</td>
+      <td>0.039246</td>
+      <td>True</td>
+      <td>108.782051</td>
+      <td>0.142603</td>
+      <td>0.004617</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>0.121416</td>
+      <td>28</td>
+      <td>5.136051</td>
+      <td>Rev Bond</td>
+      <td>48.793510</td>
+      <td>112</td>
+      <td>0.029319</td>
+      <td>False</td>
+      <td>115.523335</td>
+      <td>0.113898</td>
+      <td>0.000314</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>0.168046</td>
+      <td>47</td>
+      <td>3.822497</td>
+      <td>Paygo</td>
+      <td>12.183780</td>
+      <td>135</td>
+      <td>0.030787</td>
+      <td>False</td>
+      <td>127.210823</td>
+      <td>0.131430</td>
+      <td>0.006618</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>0.132624</td>
+      <td>30</td>
+      <td>3.978002</td>
+      <td>Paygo</td>
+      <td>70.001596</td>
+      <td>105</td>
+      <td>0.025537</td>
+      <td>False</td>
+      <td>98.871279</td>
+      <td>0.065724</td>
+      <td>0.007461</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>0.139045</td>
+      <td>25</td>
+      <td>4.317356</td>
+      <td>Rev Bond</td>
+      <td>85.104877</td>
+      <td>148</td>
+      <td>0.035198</td>
+      <td>True</td>
+      <td>134.932609</td>
+      <td>0.045659</td>
+      <td>-0.002330</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>0.196744</td>
+      <td>20</td>
+      <td>4.412799</td>
+      <td>Paygo</td>
+      <td>3.928463</td>
+      <td>91</td>
+      <td>0.026193</td>
+      <td>False</td>
+      <td>124.260667</td>
+      <td>0.082519</td>
+      <td>0.003482</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>0.164386</td>
+      <td>18</td>
+      <td>3.559705</td>
+      <td>Rev Bond</td>
+      <td>2.563779</td>
+      <td>114</td>
+      <td>0.027669</td>
+      <td>True</td>
+      <td>105.599016</td>
+      <td>0.069089</td>
+      <td>0.018237</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>0.171876</td>
+      <td>37</td>
+      <td>5.189379</td>
+      <td>Rev Bond</td>
+      <td>43.416751</td>
+      <td>134</td>
+      <td>0.033763</td>
+      <td>True</td>
+      <td>110.240305</td>
+      <td>0.102707</td>
+      <td>0.009666</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>0.102494</td>
+      <td>36</td>
+      <td>4.637645</td>
+      <td>GO Bond</td>
+      <td>20.219566</td>
+      <td>90</td>
+      <td>0.028766</td>
+      <td>False</td>
+      <td>141.028735</td>
+      <td>0.036429</td>
+      <td>0.013430</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>0.128699</td>
+      <td>39</td>
+      <td>4.224275</td>
+      <td>Rev Bond</td>
+      <td>31.087547</td>
+      <td>82</td>
+      <td>0.033269</td>
+      <td>True</td>
+      <td>132.576526</td>
+      <td>0.135245</td>
+      <td>0.009204</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>0.194011</td>
+      <td>17</td>
+      <td>4.119391</td>
+      <td>Rev Bond</td>
+      <td>25.279767</td>
+      <td>83</td>
+      <td>0.031359</td>
+      <td>True</td>
+      <td>137.502268</td>
+      <td>0.053824</td>
+      <td>0.008654</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>0.112179</td>
+      <td>35</td>
+      <td>5.082739</td>
+      <td>Paygo</td>
+      <td>57.001926</td>
+      <td>119</td>
+      <td>0.039705</td>
+      <td>True</td>
+      <td>101.590247</td>
+      <td>0.087633</td>
+      <td>-0.001666</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>0.185542</td>
+      <td>21</td>
+      <td>4.843869</td>
+      <td>Paygo</td>
+      <td>18.339744</td>
+      <td>143</td>
+      <td>0.034300</td>
+      <td>True</td>
+      <td>96.190623</td>
+      <td>0.169604</td>
+      <td>0.002675</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>0.182904</td>
+      <td>31</td>
+      <td>3.879664</td>
+      <td>GO Bond</td>
+      <td>9.336654</td>
+      <td>96</td>
+      <td>0.032018</td>
+      <td>False</td>
+      <td>113.617685</td>
+      <td>0.100206</td>
+      <td>-0.000695</td>
+      <td>60</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>0.136037</td>
+      <td>15</td>
+      <td>5.422761</td>
+      <td>GO Bond</td>
+      <td>13.567899</td>
+      <td>108</td>
+      <td>0.031707</td>
+      <td>True</td>
+      <td>97.768721</td>
+      <td>0.160056</td>
+      <td>0.018624</td>
       <td>60</td>
       <td>100</td>
     </tr>
@@ -2731,559 +3266,54 @@ we’ll point to the database in the original directory. Instead of allowing our
 </div>
 <p>The demo module is set up to facilitate distributed multiprocessing. During the <code class="docutils literal notranslate"><span class="pre">setup</span></code> step, the code detects if it is being run in a distributed “worker” environment instead of in a normal Python environment. If the “worker” environment is detected, then a copy of the entire files-based model is made into the worker’s local workspace, and the model is run there instead of in the master workspace. This allows each worker to edit the files independently and simultaneously, without disturbing
 other parallel workers.</p>
-<p>With this small modification, we are ready to run this demo model in parallel subprocesses. to do, we simply import the <code class="docutils literal notranslate"><span class="pre">get_client</span></code> function, and use that for the <code class="docutils literal notranslate"><span class="pre">evaluator</span></code> argument in the <code class="docutils literal notranslate"><span class="pre">run_experiments</span></code> method.</p>
+<p>With this small modification, we are ready to run this demo model in parallel subprocesses. to do, we will use the <code class="docutils literal notranslate"><span class="pre">async_experiments</span></code> method. Leveraging the <code class="docutils literal notranslate"><span class="pre">asyncio</span></code> Python interface will allow us to run multiple core models in parallel in the background, and monitor the progress interactively from within a Jupyter notebook.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">background</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">async_experiments</span><span class="p">(</span>
+    <span class="n">design</span><span class="o">=</span><span class="n">design3</span><span class="p">,</span>
+    <span class="n">max_n_workers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">stagger_start</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[00:34.36] MainProcess/INFO: asynchronous_experiments(max_n_workers=2)
+</pre></div></div>
+</div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">emat.util.distributed</span> <span class="kn">import</span> <span class="n">get_client</span> <span class="c1"># for multi-process operation</span>
-<span class="n">fx</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">design</span><span class="o">=</span><span class="n">design3</span><span class="p">,</span> <span class="n">evaluator</span><span class="o">=</span><span class="n">get_client</span><span class="p">())</span>
+<span></span><span class="n">background</span><span class="o">.</span><span class="n">progress</span><span class="p">()</span> <span class="c1"># Initially everything is pending</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[00:40.81] MainProcess/INFO: performing 8 scenarios/policies * 1 model(s) = 8 experiments
-[00:44.10] MainProcess/INFO: 1 cases completed
-[00:44.14] MainProcess/INFO: 2 cases completed
-[00:44.15] MainProcess/INFO: 3 cases completed
-[00:44.16] MainProcess/INFO: 4 cases completed
-[00:47.28] MainProcess/INFO: 5 cases completed
-[00:47.31] MainProcess/INFO: 6 cases completed
-[00:47.35] MainProcess/INFO: 7 cases completed
-[00:47.36] MainProcess/INFO: 8 cases completed
-[00:47.36] MainProcess/INFO: experiments finished
-</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>alpha</th>
-      <th>beta</th>
-      <th>input_flow</th>
-      <th>value_of_time</th>
-      <th>unit_cost_expansion</th>
-      <th>interest_rate</th>
-      <th>yield_curve</th>
-      <th>expand_capacity</th>
-      <th>amortization_period</th>
-      <th>debt_type</th>
-      <th>interest_rate_lock</th>
-      <th>free_flow_time</th>
-      <th>initial_capacity</th>
-      <th>no_build_travel_time</th>
-      <th>build_travel_time</th>
-      <th>time_savings</th>
-      <th>value_of_time_savings</th>
-      <th>net_benefits</th>
-      <th>cost_of_capacity_expansion</th>
-      <th>present_cost_expansion</th>
-    </tr>
-    <tr>
-      <th>experiment</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>18</th>
-      <td>0.169616</td>
-      <td>4.064396</td>
-      <td>101</td>
-      <td>0.065729</td>
-      <td>140.210575</td>
-      <td>0.034895</td>
-      <td>0.000300</td>
-      <td>26.090367</td>
-      <td>35</td>
-      <td>Paygo</td>
-      <td>True</td>
-      <td>60</td>
-      <td>100</td>
-      <td>70.596998</td>
-      <td>64.130206</td>
-      <td>6.466792</td>
-      <td>42.930410</td>
-      <td>-72.685387</td>
-      <td>115.615797</td>
-      <td>3658.145376</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>0.192963</td>
-      <td>4.973266</td>
-      <td>107</td>
-      <td>0.077641</td>
-      <td>96.267985</td>
-      <td>0.027205</td>
-      <td>0.015375</td>
-      <td>56.044819</td>
-      <td>46</td>
-      <td>GO Bond</td>
-      <td>False</td>
-      <td>60</td>
-      <td>100</td>
-      <td>76.209113</td>
-      <td>61.772878</td>
-      <td>14.436236</td>
-      <td>119.930187</td>
-      <td>-123.276235</td>
-      <td>243.206421</td>
-      <td>5395.321829</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>0.150234</td>
-      <td>5.429606</td>
-      <td>135</td>
-      <td>0.115429</td>
-      <td>107.239601</td>
-      <td>0.030607</td>
-      <td>0.004664</td>
-      <td>42.027203</td>
-      <td>31</td>
-      <td>Rev Bond</td>
-      <td>False</td>
-      <td>60</td>
-      <td>100</td>
-      <td>105.981321</td>
-      <td>66.843277</td>
-      <td>39.138044</td>
-      <td>609.887232</td>
-      <td>370.661686</td>
-      <td>239.225545</td>
-      <td>4506.980463</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>0.175508</td>
-      <td>4.505154</td>
-      <td>124</td>
-      <td>0.014103</td>
-      <td>118.538455</td>
-      <td>0.039424</td>
-      <td>0.012946</td>
-      <td>21.346083</td>
-      <td>38</td>
-      <td>Rev Bond</td>
-      <td>True</td>
-      <td>60</td>
-      <td>100</td>
-      <td>87.754086</td>
-      <td>71.608550</td>
-      <td>16.145536</td>
-      <td>28.234915</td>
-      <td>-96.044488</td>
-      <td>124.279404</td>
-      <td>2530.331667</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>0.140599</td>
-      <td>5.035679</td>
-      <td>82</td>
-      <td>0.149598</td>
-      <td>133.676568</td>
-      <td>0.026410</td>
-      <td>0.017552</td>
-      <td>84.334328</td>
-      <td>21</td>
-      <td>GO Bond</td>
-      <td>True</td>
-      <td>60</td>
-      <td>100</td>
-      <td>63.105464</td>
-      <td>60.142764</td>
-      <td>2.962700</td>
-      <td>36.343655</td>
-      <td>-689.465120</td>
-      <td>725.808774</td>
-      <td>11273.523488</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>0.113669</td>
-      <td>3.831327</td>
-      <td>148</td>
-      <td>0.056610</td>
-      <td>129.183633</td>
-      <td>0.036468</td>
-      <td>0.008356</td>
-      <td>71.138662</td>
-      <td>25</td>
-      <td>Paygo</td>
-      <td>False</td>
-      <td>60</td>
-      <td>100</td>
-      <td>90.628309</td>
-      <td>63.909220</td>
-      <td>26.719089</td>
-      <td>223.859479</td>
-      <td>-157.547999</td>
-      <td>381.407477</td>
-      <td>9189.950756</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>0.108685</td>
-      <td>4.452232</td>
-      <td>130</td>
-      <td>0.092145</td>
-      <td>123.140814</td>
-      <td>0.030786</td>
-      <td>0.000927</td>
-      <td>8.614755</td>
-      <td>18</td>
-      <td>GO Bond</td>
-      <td>False</td>
-      <td>60</td>
-      <td>100</td>
-      <td>80.971250</td>
-      <td>74.515731</td>
-      <td>6.455519</td>
-      <td>77.329350</td>
-      <td>1.265260</td>
-      <td>76.064090</td>
-      <td>1060.827963</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>0.126817</td>
-      <td>3.599748</td>
-      <td>95</td>
-      <td>0.128863</td>
-      <td>108.577268</td>
-      <td>0.033748</td>
-      <td>0.011068</td>
-      <td>92.170002</td>
-      <td>43</td>
-      <td>Rev Bond</td>
-      <td>True</td>
-      <td>60</td>
-      <td>100</td>
-      <td>66.326154</td>
-      <td>60.602481</td>
-      <td>5.723673</td>
-      <td>70.069174</td>
-      <td>-405.972848</td>
-      <td>476.042022</td>
-      <td>10007.566972</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;30 runs: 30 pending&#39;
+</pre></div></div>
 </div>
-</div>
-</div>
-<div class="section" id="Running-without-a-Database">
-<h2>Running without a Database<a class="headerlink" href="#Running-without-a-Database" title="Permalink to this headline">¶</a></h2>
-<p>It is possible to use the methods from TMIP-EMAT without connecting to a database at all, although this is not recommended. The demo <code class="docutils literal notranslate"><span class="pre">RoadTestFileModel</span></code> by default creates a database for you if one is not given, but it also allows explicitly disclaiming a database by setting the <code class="docutils literal notranslate"><span class="pre">db</span></code> argument to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fx_nodb</span> <span class="o">=</span> <span class="n">core_files_demo</span><span class="o">.</span><span class="n">RoadTestFileModel</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[00:47.39] MainProcess/WARNING: changing cwd to /var/folders/js/bk_dt9015j79_f6bxnc44dsr0000gp/T/tmpu0i09wc6
-</pre></div></div>
-</div>
-<p>Without a database, the methods still work, but the data is not stored anywhere persistent. So, for example, the <code class="docutils literal notranslate"><span class="pre">design_experiments</span></code> will return a pandas DataFrame containing a design, but not store it.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">design4</span> <span class="o">=</span> <span class="n">fx_nodb</span><span class="o">.</span><span class="n">design_experiments</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">&#39;lhs_4&#39;</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">design4</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>alpha</th>
-      <th>amortization_period</th>
-      <th>beta</th>
-      <th>debt_type</th>
-      <th>expand_capacity</th>
-      <th>input_flow</th>
-      <th>interest_rate</th>
-      <th>interest_rate_lock</th>
-      <th>unit_cost_expansion</th>
-      <th>value_of_time</th>
-      <th>yield_curve</th>
-      <th>free_flow_time</th>
-      <th>initial_capacity</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.157469</td>
-      <td>43</td>
-      <td>5.352111</td>
-      <td>GO Bond</td>
-      <td>27.393080</td>
-      <td>86</td>
-      <td>0.035527</td>
-      <td>False</td>
-      <td>97.577951</td>
-      <td>0.125910</td>
-      <td>0.003238</td>
-      <td>60</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.189268</td>
-      <td>40</td>
-      <td>3.881977</td>
-      <td>GO Bond</td>
-      <td>56.222426</td>
-      <td>148</td>
-      <td>0.025682</td>
-      <td>True</td>
-      <td>141.368963</td>
-      <td>0.052622</td>
-      <td>-0.002455</td>
-      <td>60</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0.140306</td>
-      <td>50</td>
-      <td>4.234393</td>
-      <td>GO Bond</td>
-      <td>64.780568</td>
-      <td>112</td>
-      <td>0.037690</td>
-      <td>True</td>
-      <td>131.890137</td>
-      <td>0.034445</td>
-      <td>0.013091</td>
-      <td>60</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0.108730</td>
-      <td>24</td>
-      <td>4.380424</td>
-      <td>Rev Bond</td>
-      <td>23.979788</td>
-      <td>98</td>
-      <td>0.028841</td>
-      <td>True</td>
-      <td>126.122602</td>
-      <td>0.078663</td>
-      <td>0.008845</td>
-      <td>60</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0.123790</td>
-      <td>19</td>
-      <td>4.527048</td>
-      <td>Paygo</td>
-      <td>5.397776</td>
-      <td>115</td>
-      <td>0.038331</td>
-      <td>False</td>
-      <td>111.397305</td>
-      <td>0.071495</td>
-      <td>0.002162</td>
-      <td>60</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>0.170412</td>
-      <td>19</td>
-      <td>4.789556</td>
-      <td>Rev Bond</td>
-      <td>85.377351</td>
-      <td>134</td>
-      <td>0.033783</td>
-      <td>False</td>
-      <td>114.269901</td>
-      <td>0.090636</td>
-      <td>0.018692</td>
-      <td>60</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>0.175064</td>
-      <td>30</td>
-      <td>5.136301</td>
-      <td>Paygo</td>
-      <td>92.709704</td>
-      <td>126</td>
-      <td>0.027840</td>
-      <td>True</td>
-      <td>105.831242</td>
-      <td>0.205397</td>
-      <td>0.007812</td>
-      <td>60</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>0.132154</td>
-      <td>34</td>
-      <td>3.631101</td>
-      <td>Paygo</td>
-      <td>48.808345</td>
-      <td>96</td>
-      <td>0.031697</td>
-      <td>False</td>
-      <td>136.741784</td>
-      <td>0.112699</td>
-      <td>0.015616</td>
-      <td>60</td>
-      <td>100</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
-<p>If you try to run these experiments by giving the design name, it will fail, because there is no database to query to convert that name into experimental parameters.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">try</span><span class="p">:</span>
-    <span class="n">fx_nodb</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="s1">&#39;lhs_4&#39;</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[00:47.47] MainProcess/ERROR: ValueError(&#39;cannot load design &#34;lhs_4&#34;, there is no db&#39;)
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">emat.examples</span> <span class="kn">import</span> <span class="n">road_test</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">_s</span><span class="p">,</span> <span class="n">_db</span><span class="p">,</span> <span class="n">_m</span> <span class="o">=</span> <span class="n">road_test</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-[00:47.51] MainProcess/INFO: running script scope.sql
-[00:47.51] MainProcess/INFO: running script exp_design.sql
-[00:47.51] MainProcess/INFO: running script meta_model.sql
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">_m</span><span class="o">.</span><span class="n">run_experiments</span><span class="p">(</span><span class="n">design3</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span></span><span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">background</span><span class="o">.</span><span class="n">progress</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3292,21 +3322,179 @@ other parallel workers.</p>
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-[00:47.54] MainProcess/INFO: performing 8 scenarios/policies * 1 model(s) = 8 experiments
-[00:47.55] MainProcess/INFO: performing experiments sequentially
-[00:47.55] MainProcess/INFO: 1 cases completed
-[00:47.56] MainProcess/INFO: 2 cases completed
-[00:47.56] MainProcess/INFO: 3 cases completed
-[00:47.56] MainProcess/INFO: 4 cases completed
-[00:47.56] MainProcess/INFO: 5 cases completed
-[00:47.56] MainProcess/INFO: 6 cases completed
-[00:47.56] MainProcess/INFO: 7 cases completed
-[00:47.56] MainProcess/INFO: 8 cases completed
-[00:47.56] MainProcess/INFO: experiments finished
+[00:34.37] MainProcess/INFO: AsyncExperimentalDesign.run start
+[00:34.37] MainProcess/INFO: initializing default DistributedEvaluator.client
+[00:34.37] MainProcess/INFO:   max_n_workers=2, actual n_workers=2
+[00:34.37] MainProcess/INFO:   n_workers=2
+[00:35.31] MainProcess/INFO: completed initializing default DistributedEvaluator.client
+[00:37.49] MainProcess/INFO: AsyncExperimentalDesign.run dispatching experiments
+[00:37.50] MainProcess/INFO: performing 30 scenarios/policies * 1 model(s) = 30 experiments
+[00:37.52] MainProcess/INFO: experiments in asynchronous evaluator
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;30 runs: 2 done, 27 pending, 1 queued&#39;
+</pre></div></div>
+</div>
+<p>After 15 seconds, only 3 runs have executed, as the <code class="docutils literal notranslate"><span class="pre">stagger_start</span></code> allows only one run to start every 5 seconds. Un-started runs remain in the “pending” status. We can see the status of all runs in <code class="docutils literal notranslate"><span class="pre">status</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">background</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+experiment
+18       done
+19       done
+20     queued
+21    pending
+22    pending
+23    pending
+24    pending
+25    pending
+26    pending
+27    pending
+28    pending
+29    pending
+30    pending
+31    pending
+32    pending
+33    pending
+34    pending
+35    pending
+36    pending
+37    pending
+38    pending
+39    pending
+40    pending
+41    pending
+42    pending
+43    pending
+44    pending
+45    pending
+46    pending
+47    pending
+dtype: object
+</pre></div></div>
+</div>
+<p>For fast running models, may find that <code class="docutils literal notranslate"><span class="pre">stagger_start</span></code> is not needed. Large and slow models, especially ones that begin with a massive file-copy operation on a hard disk, may benefit from staggering the task start times, so the first run has a clear shot at finishing disk actions promptly and moving to data processing as soon as possible.</p>
+<p>If we are dissatisfied with this pace for this small and fast model, the <code class="docutils literal notranslate"><span class="pre">stagger_start</span></code> can be changed dynamically while runs are going. If we set it to zero, all remaining pending runs will be queued immediately (or, within a second or so). Queued runs will begin as soon as a worker process is available to handle them.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">background</span><span class="o">.</span><span class="n">stagger_start</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">background</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[00:49.53] MainProcess/INFO: AsyncExperimentalDesign.run dispatching task complete
+[00:50.09] MainProcess/INFO: 3 cases completed
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+experiment
+18      done
+19      done
+20      done
+21    queued
+22    queued
+23    queued
+24    queued
+25    queued
+26    queued
+27    queued
+28    queued
+29    queued
+30    queued
+31    queued
+32    queued
+33    queued
+34    queued
+35    queued
+36    queued
+37    queued
+38    queued
+39    queued
+40    queued
+41    queued
+42    queued
+43    queued
+44    queued
+45    queued
+46    queued
+47    queued
+dtype: object
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">background</span><span class="o">.</span><span class="n">progress</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[00:55.05] MainProcess/INFO: 6 cases completed
+[00:58.24] MainProcess/INFO: 9 cases completed
+[01:02.97] MainProcess/INFO: 12 cases completed
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;30 runs: 13 done, 17 queued&#39;
+</pre></div></div>
+</div>
+<p>After 15 more seconds, only about 10 more runs are complete, as each run takes around 3 seconds, and we only have two workers processing the runs.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">current_results</span></code> method allows us to view the run results that are available currently. You might notice that runs are not necessarily dispatched in the order they appear in the table, but we’ll get to all of them eventually.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">background</span><span class="o">.</span><span class="n">current_results</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -3328,6 +3516,8 @@ other parallel workers.</p>
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>free_flow_time</th>
+      <th>initial_capacity</th>
       <th>alpha</th>
       <th>beta</th>
       <th>input_flow</th>
@@ -3339,8 +3529,6 @@ other parallel workers.</p>
       <th>amortization_period</th>
       <th>debt_type</th>
       <th>interest_rate_lock</th>
-      <th>free_flow_time</th>
-      <th>initial_capacity</th>
       <th>no_build_travel_time</th>
       <th>build_travel_time</th>
       <th>time_savings</th>
@@ -3376,199 +3564,1144 @@ other parallel workers.</p>
   <tbody>
     <tr>
       <th>18</th>
-      <td>0.169616</td>
-      <td>4.064396</td>
-      <td>101</td>
-      <td>0.065729</td>
-      <td>140.210575</td>
-      <td>0.034895</td>
-      <td>0.000300</td>
-      <td>26.090367</td>
-      <td>35</td>
-      <td>Paygo</td>
-      <td>True</td>
       <td>60</td>
       <td>100</td>
-      <td>70.596998</td>
-      <td>64.130206</td>
-      <td>6.466792</td>
-      <td>42.930410</td>
-      <td>-72.685387</td>
-      <td>115.615797</td>
-      <td>3658.145376</td>
+      <td>0.151341</td>
+      <td>3.676012</td>
+      <td>139</td>
+      <td>0.004817</td>
+      <td>128.627672</td>
+      <td>0.037682</td>
+      <td>0.012079</td>
+      <td>34.248792</td>
+      <td>48</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+      <td>90.467198</td>
+      <td>70.318877</td>
+      <td>20.148321</td>
+      <td>13.491094</td>
+      <td>-192.374479</td>
+      <td>205.865574</td>
+      <td>4405.342341</td>
     </tr>
     <tr>
       <th>19</th>
-      <td>0.192963</td>
-      <td>4.973266</td>
-      <td>107</td>
-      <td>0.077641</td>
-      <td>96.267985</td>
-      <td>0.027205</td>
-      <td>0.015375</td>
-      <td>56.044819</td>
-      <td>46</td>
-      <td>GO Bond</td>
-      <td>False</td>
       <td>60</td>
       <td>100</td>
-      <td>76.209113</td>
-      <td>61.772878</td>
-      <td>14.436236</td>
-      <td>119.930187</td>
-      <td>-131.395990</td>
-      <td>251.326177</td>
-      <td>5395.321829</td>
+      <td>0.118509</td>
+      <td>5.309555</td>
+      <td>89</td>
+      <td>0.091859</td>
+      <td>125.994370</td>
+      <td>0.035629</td>
+      <td>0.005987</td>
+      <td>76.473048</td>
+      <td>41</td>
+      <td>Paygo</td>
+      <td>True</td>
+      <td>63.829895</td>
+      <td>60.187687</td>
+      <td>3.642208</td>
+      <td>29.776845</td>
+      <td>-243.694139</td>
+      <td>273.470984</td>
+      <td>9635.173464</td>
     </tr>
     <tr>
       <th>20</th>
-      <td>0.150234</td>
-      <td>5.429606</td>
-      <td>135</td>
-      <td>0.115429</td>
-      <td>107.239601</td>
-      <td>0.030607</td>
-      <td>0.004664</td>
-      <td>42.027203</td>
-      <td>31</td>
-      <td>Rev Bond</td>
-      <td>False</td>
       <td>60</td>
       <td>100</td>
-      <td>105.981321</td>
-      <td>66.843277</td>
-      <td>39.138044</td>
-      <td>609.887232</td>
-      <td>376.276926</td>
-      <td>233.610306</td>
-      <td>4506.980463</td>
+      <td>0.174355</td>
+      <td>4.727608</td>
+      <td>131</td>
+      <td>0.076668</td>
+      <td>139.257007</td>
+      <td>0.030304</td>
+      <td>0.016896</td>
+      <td>94.255893</td>
+      <td>18</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+      <td>97.497064</td>
+      <td>61.624340</td>
+      <td>35.872724</td>
+      <td>360.289988</td>
+      <td>-600.998696</td>
+      <td>961.288684</td>
+      <td>13125.793539</td>
     </tr>
     <tr>
       <th>21</th>
-      <td>0.175508</td>
-      <td>4.505154</td>
-      <td>124</td>
-      <td>0.014103</td>
-      <td>118.538455</td>
-      <td>0.039424</td>
-      <td>0.012946</td>
-      <td>21.346083</td>
-      <td>38</td>
-      <td>Rev Bond</td>
-      <td>True</td>
       <td>60</td>
       <td>100</td>
-      <td>87.754086</td>
-      <td>71.608550</td>
-      <td>16.145536</td>
-      <td>28.234915</td>
-      <td>-96.044488</td>
-      <td>124.279404</td>
-      <td>2530.331667</td>
+      <td>0.188622</td>
+      <td>3.703274</td>
+      <td>125</td>
+      <td>0.110190</td>
+      <td>121.126672</td>
+      <td>0.036478</td>
+      <td>0.016048</td>
+      <td>96.919294</td>
+      <td>26</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>22</th>
-      <td>0.140599</td>
-      <td>5.035679</td>
-      <td>82</td>
-      <td>0.149598</td>
-      <td>133.676568</td>
-      <td>0.026410</td>
-      <td>0.017552</td>
-      <td>84.334328</td>
-      <td>21</td>
-      <td>GO Bond</td>
-      <td>True</td>
       <td>60</td>
       <td>100</td>
-      <td>63.105464</td>
-      <td>60.142764</td>
-      <td>2.962700</td>
-      <td>36.343655</td>
-      <td>-689.465120</td>
-      <td>725.808774</td>
-      <td>11273.523488</td>
+      <td>0.160916</td>
+      <td>4.447292</td>
+      <td>149</td>
+      <td>0.040406</td>
+      <td>104.498216</td>
+      <td>0.034941</td>
+      <td>0.010364</td>
+      <td>64.247841</td>
+      <td>33</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>23</th>
-      <td>0.113669</td>
-      <td>3.831327</td>
-      <td>148</td>
-      <td>0.056610</td>
-      <td>129.183633</td>
-      <td>0.036468</td>
-      <td>0.008356</td>
-      <td>71.138662</td>
-      <td>25</td>
-      <td>Paygo</td>
-      <td>False</td>
       <td>60</td>
       <td>100</td>
-      <td>90.628309</td>
-      <td>63.909220</td>
-      <td>26.719089</td>
-      <td>223.859479</td>
-      <td>-155.256907</td>
-      <td>379.116386</td>
-      <td>9189.950756</td>
+      <td>0.148182</td>
+      <td>5.015381</td>
+      <td>128</td>
+      <td>0.061343</td>
+      <td>144.602977</td>
+      <td>0.027313</td>
+      <td>0.014137</td>
+      <td>83.286755</td>
+      <td>24</td>
+      <td>Paygo</td>
+      <td>False</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>24</th>
-      <td>0.108685</td>
-      <td>4.452232</td>
-      <td>130</td>
-      <td>0.092145</td>
-      <td>123.140814</td>
-      <td>0.030786</td>
-      <td>0.000927</td>
-      <td>8.614755</td>
-      <td>18</td>
-      <td>GO Bond</td>
-      <td>False</td>
       <td>60</td>
       <td>100</td>
-      <td>80.971250</td>
-      <td>74.515731</td>
-      <td>6.455519</td>
-      <td>77.329350</td>
-      <td>1.259730</td>
-      <td>76.069620</td>
-      <td>1060.827963</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>0.126817</td>
-      <td>3.599748</td>
-      <td>95</td>
-      <td>0.128863</td>
-      <td>108.577268</td>
-      <td>0.033748</td>
-      <td>0.011068</td>
-      <td>92.170002</td>
+      <td>0.145859</td>
+      <td>3.943408</td>
+      <td>117</td>
+      <td>0.150078</td>
+      <td>107.081150</td>
+      <td>0.032835</td>
+      <td>0.004032</td>
+      <td>61.408748</td>
       <td>43</td>
       <td>Rev Bond</td>
       <td>True</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>25</th>
       <td>60</td>
       <td>100</td>
-      <td>66.326154</td>
-      <td>60.602481</td>
-      <td>5.723673</td>
-      <td>70.069174</td>
-      <td>-405.972848</td>
-      <td>476.042022</td>
-      <td>10007.566972</td>
+      <td>0.109392</td>
+      <td>5.465265</td>
+      <td>98</td>
+      <td>0.057756</td>
+      <td>142.411065</td>
+      <td>0.038449</td>
+      <td>0.001003</td>
+      <td>29.100532</td>
+      <td>32</td>
+      <td>Paygo</td>
+      <td>False</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.154192</td>
+      <td>4.918319</td>
+      <td>145</td>
+      <td>0.119689</td>
+      <td>130.162175</td>
+      <td>0.038841</td>
+      <td>0.001579</td>
+      <td>55.383965</td>
+      <td>37</td>
+      <td>GO Bond</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.106310</td>
+      <td>4.276815</td>
+      <td>106</td>
+      <td>0.093281</td>
+      <td>113.206445</td>
+      <td>0.036746</td>
+      <td>0.019623</td>
+      <td>87.269134</td>
+      <td>41</td>
+      <td>GO Bond</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.159061</td>
+      <td>3.630430</td>
+      <td>102</td>
+      <td>0.075284</td>
+      <td>135.066324</td>
+      <td>0.029875</td>
+      <td>0.015455</td>
+      <td>52.479431</td>
+      <td>47</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.190069</td>
+      <td>5.262368</td>
+      <td>101</td>
+      <td>0.125009</td>
+      <td>118.147867</td>
+      <td>0.026620</td>
+      <td>0.013234</td>
+      <td>67.884939</td>
+      <td>45</td>
+      <td>Paygo</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.123809</td>
+      <td>4.504676</td>
+      <td>124</td>
+      <td>0.029906</td>
+      <td>121.924833</td>
+      <td>0.037005</td>
+      <td>0.017495</td>
+      <td>39.255873</td>
+      <td>28</td>
+      <td>Rev Bond</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.141084</td>
+      <td>4.570515</td>
+      <td>85</td>
+      <td>0.214848</td>
+      <td>101.824130</td>
+      <td>0.028042</td>
+      <td>0.005303</td>
+      <td>42.644409</td>
+      <td>43</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.116030</td>
+      <td>4.772191</td>
+      <td>120</td>
+      <td>0.024683</td>
+      <td>119.915395</td>
+      <td>0.025253</td>
+      <td>0.011550</td>
+      <td>78.781012</td>
+      <td>50</td>
+      <td>Paygo</td>
+      <td>False</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<p>If we want to simply block the Python interpreter until the runs are done, we can do so by <code class="docutils literal notranslate"><span class="pre">await</span></code>ing the <code class="docutils literal notranslate"><span class="pre">final_results</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="k">await</span> <span class="n">background</span><span class="o">.</span><span class="n">final_results</span><span class="p">()</span>
 </pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "df86a0e2623b41e1a6b2a1d1ca075067", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[01:06.21] MainProcess/INFO: 15 cases completed
+[01:11.06] MainProcess/INFO: 18 cases completed
+[01:14.23] MainProcess/INFO: 21 cases completed
+[01:19.02] MainProcess/INFO: 24 cases completed
+[01:22.12] MainProcess/INFO: 27 cases completed
+[01:26.65] MainProcess/INFO: 30 cases completed
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>free_flow_time</th>
+      <th>initial_capacity</th>
+      <th>alpha</th>
+      <th>beta</th>
+      <th>input_flow</th>
+      <th>value_of_time</th>
+      <th>unit_cost_expansion</th>
+      <th>interest_rate</th>
+      <th>yield_curve</th>
+      <th>expand_capacity</th>
+      <th>amortization_period</th>
+      <th>debt_type</th>
+      <th>interest_rate_lock</th>
+      <th>no_build_travel_time</th>
+      <th>build_travel_time</th>
+      <th>time_savings</th>
+      <th>value_of_time_savings</th>
+      <th>net_benefits</th>
+      <th>cost_of_capacity_expansion</th>
+      <th>present_cost_expansion</th>
+    </tr>
+    <tr>
+      <th>experiment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>18</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.151341</td>
+      <td>3.676012</td>
+      <td>139</td>
+      <td>0.004817</td>
+      <td>128.627672</td>
+      <td>0.037682</td>
+      <td>0.012079</td>
+      <td>34.248792</td>
+      <td>48</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+      <td>90.467198</td>
+      <td>70.318877</td>
+      <td>20.148321</td>
+      <td>13.491094</td>
+      <td>-192.374479</td>
+      <td>205.865574</td>
+      <td>4405.342341</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.118509</td>
+      <td>5.309555</td>
+      <td>89</td>
+      <td>0.091859</td>
+      <td>125.994370</td>
+      <td>0.035629</td>
+      <td>0.005987</td>
+      <td>76.473048</td>
+      <td>41</td>
+      <td>Paygo</td>
+      <td>True</td>
+      <td>63.829895</td>
+      <td>60.187687</td>
+      <td>3.642208</td>
+      <td>29.776845</td>
+      <td>-243.694139</td>
+      <td>273.470984</td>
+      <td>9635.173464</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.174355</td>
+      <td>4.727608</td>
+      <td>131</td>
+      <td>0.076668</td>
+      <td>139.257007</td>
+      <td>0.030304</td>
+      <td>0.016896</td>
+      <td>94.255893</td>
+      <td>18</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+      <td>97.497064</td>
+      <td>61.624340</td>
+      <td>35.872724</td>
+      <td>360.289988</td>
+      <td>-600.998696</td>
+      <td>961.288684</td>
+      <td>13125.793539</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.188622</td>
+      <td>3.703274</td>
+      <td>125</td>
+      <td>0.110190</td>
+      <td>121.126672</td>
+      <td>0.036478</td>
+      <td>0.016048</td>
+      <td>96.919294</td>
+      <td>26</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>85.859973</td>
+      <td>62.102800</td>
+      <td>23.757173</td>
+      <td>327.226070</td>
+      <td>-334.329873</td>
+      <td>661.555942</td>
+      <td>11739.511583</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.160916</td>
+      <td>4.447292</td>
+      <td>149</td>
+      <td>0.040406</td>
+      <td>104.498216</td>
+      <td>0.034941</td>
+      <td>0.010364</td>
+      <td>64.247841</td>
+      <td>33</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>116.880236</td>
+      <td>66.259960</td>
+      <td>50.620276</td>
+      <td>304.758181</td>
+      <td>-30.577074</td>
+      <td>335.335254</td>
+      <td>6713.784698</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.148182</td>
+      <td>5.015381</td>
+      <td>128</td>
+      <td>0.061343</td>
+      <td>144.602977</td>
+      <td>0.027313</td>
+      <td>0.014137</td>
+      <td>83.286755</td>
+      <td>24</td>
+      <td>Paygo</td>
+      <td>False</td>
+      <td>90.665184</td>
+      <td>61.468734</td>
+      <td>29.196450</td>
+      <td>229.247199</td>
+      <td>-288.854311</td>
+      <td>518.101510</td>
+      <td>12043.512651</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.145859</td>
+      <td>3.943408</td>
+      <td>117</td>
+      <td>0.150078</td>
+      <td>107.081150</td>
+      <td>0.032835</td>
+      <td>0.004032</td>
+      <td>61.408748</td>
+      <td>43</td>
+      <td>Rev Bond</td>
+      <td>True</td>
+      <td>76.254321</td>
+      <td>62.460523</td>
+      <td>13.793797</td>
+      <td>242.207489</td>
+      <td>-70.587693</td>
+      <td>312.795183</td>
+      <td>6575.719357</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.109392</td>
+      <td>5.465265</td>
+      <td>98</td>
+      <td>0.057756</td>
+      <td>142.411065</td>
+      <td>0.038449</td>
+      <td>0.001003</td>
+      <td>29.100532</td>
+      <td>32</td>
+      <td>Paygo</td>
+      <td>False</td>
+      <td>65.877391</td>
+      <td>61.455236</td>
+      <td>4.422155</td>
+      <td>25.029593</td>
+      <td>-115.116663</td>
+      <td>140.146256</td>
+      <td>4144.237736</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.154192</td>
+      <td>4.918319</td>
+      <td>145</td>
+      <td>0.119689</td>
+      <td>130.162175</td>
+      <td>0.038841</td>
+      <td>0.001579</td>
+      <td>55.383965</td>
+      <td>37</td>
+      <td>GO Bond</td>
+      <td>True</td>
+      <td>117.527065</td>
+      <td>66.583783</td>
+      <td>50.943282</td>
+      <td>884.112291</td>
+      <td>539.879198</td>
+      <td>344.233094</td>
+      <td>7208.897323</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.106310</td>
+      <td>4.276815</td>
+      <td>106</td>
+      <td>0.093281</td>
+      <td>113.206445</td>
+      <td>0.036746</td>
+      <td>0.019623</td>
+      <td>87.269134</td>
+      <td>41</td>
+      <td>GO Bond</td>
+      <td>True</td>
+      <td>68.183795</td>
+      <td>60.559329</td>
+      <td>7.624466</td>
+      <td>75.389314</td>
+      <td>-381.495063</td>
+      <td>456.884376</td>
+      <td>9879.428427</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.159061</td>
+      <td>3.630430</td>
+      <td>102</td>
+      <td>0.075284</td>
+      <td>135.066324</td>
+      <td>0.029875</td>
+      <td>0.015455</td>
+      <td>52.479431</td>
+      <td>47</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>70.255064</td>
+      <td>62.217189</td>
+      <td>8.037875</td>
+      <td>61.722934</td>
+      <td>-256.677328</td>
+      <td>318.400262</td>
+      <td>7088.203858</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.190069</td>
+      <td>5.262368</td>
+      <td>101</td>
+      <td>0.125009</td>
+      <td>118.147867</td>
+      <td>0.026620</td>
+      <td>0.013234</td>
+      <td>67.884939</td>
+      <td>45</td>
+      <td>Paygo</td>
+      <td>True</td>
+      <td>72.017180</td>
+      <td>60.786517</td>
+      <td>11.230663</td>
+      <td>141.797161</td>
+      <td>-73.766382</td>
+      <td>215.563543</td>
+      <td>8020.460747</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.123809</td>
+      <td>4.504676</td>
+      <td>124</td>
+      <td>0.029906</td>
+      <td>121.924833</td>
+      <td>0.037005</td>
+      <td>0.017495</td>
+      <td>39.255873</td>
+      <td>28</td>
+      <td>Rev Bond</td>
+      <td>True</td>
+      <td>79.576635</td>
+      <td>64.404583</td>
+      <td>15.172052</td>
+      <td>56.263770</td>
+      <td>-210.531699</td>
+      <td>266.795469</td>
+      <td>4786.265822</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.141084</td>
+      <td>4.570515</td>
+      <td>85</td>
+      <td>0.214848</td>
+      <td>101.824130</td>
+      <td>0.028042</td>
+      <td>0.005303</td>
+      <td>42.644409</td>
+      <td>43</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>64.027525</td>
+      <td>60.794355</td>
+      <td>3.233170</td>
+      <td>59.044512</td>
+      <td>-139.377225</td>
+      <td>198.421737</td>
+      <td>4342.229844</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.116030</td>
+      <td>4.772191</td>
+      <td>120</td>
+      <td>0.024683</td>
+      <td>119.915395</td>
+      <td>0.025253</td>
+      <td>0.011550</td>
+      <td>78.781012</td>
+      <td>50</td>
+      <td>Paygo</td>
+      <td>False</td>
+      <td>76.618381</td>
+      <td>61.038635</td>
+      <td>15.579747</td>
+      <td>46.147516</td>
+      <td>-194.872685</td>
+      <td>241.020201</td>
+      <td>9447.056124</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.177997</td>
+      <td>4.097314</td>
+      <td>138</td>
+      <td>0.142603</td>
+      <td>108.782051</td>
+      <td>0.039246</td>
+      <td>0.004617</td>
+      <td>92.535470</td>
+      <td>22</td>
+      <td>GO Bond</td>
+      <td>True</td>
+      <td>99.966081</td>
+      <td>62.728737</td>
+      <td>37.237343</td>
+      <td>732.799774</td>
+      <td>104.331664</td>
+      <td>628.468110</td>
+      <td>10066.198296</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.121416</td>
+      <td>5.136051</td>
+      <td>112</td>
+      <td>0.113898</td>
+      <td>115.523335</td>
+      <td>0.029319</td>
+      <td>0.000314</td>
+      <td>48.793510</td>
+      <td>28</td>
+      <td>Rev Bond</td>
+      <td>False</td>
+      <td>73.038039</td>
+      <td>61.693605</td>
+      <td>11.344433</td>
+      <td>144.715681</td>
+      <td>-169.489549</td>
+      <td>314.205230</td>
+      <td>5636.788951</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.168046</td>
+      <td>3.822497</td>
+      <td>135</td>
+      <td>0.131430</td>
+      <td>127.210823</td>
+      <td>0.030787</td>
+      <td>0.006618</td>
+      <td>12.183780</td>
+      <td>47</td>
+      <td>Paygo</td>
+      <td>False</td>
+      <td>91.752596</td>
+      <td>80.460756</td>
+      <td>11.291840</td>
+      <td>200.351591</td>
+      <td>159.635389</td>
+      <td>40.716201</td>
+      <td>1549.908642</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.132624</td>
+      <td>3.978002</td>
+      <td>105</td>
+      <td>0.065724</td>
+      <td>98.871279</td>
+      <td>0.025537</td>
+      <td>0.007461</td>
+      <td>70.001596</td>
+      <td>30</td>
+      <td>Paygo</td>
+      <td>False</td>
+      <td>69.661928</td>
+      <td>61.170365</td>
+      <td>8.491563</td>
+      <td>58.600606</td>
+      <td>-187.746392</td>
+      <td>246.346998</td>
+      <td>6921.147330</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.139045</td>
+      <td>4.317356</td>
+      <td>148</td>
+      <td>0.045659</td>
+      <td>134.932609</td>
+      <td>0.035198</td>
+      <td>-0.002330</td>
+      <td>85.104877</td>
+      <td>25</td>
+      <td>Rev Bond</td>
+      <td>True</td>
+      <td>105.330218</td>
+      <td>63.175774</td>
+      <td>42.154444</td>
+      <td>284.861228</td>
+      <td>-395.777779</td>
+      <td>680.639007</td>
+      <td>11483.423089</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.196744</td>
+      <td>4.412799</td>
+      <td>91</td>
+      <td>0.082519</td>
+      <td>124.260667</td>
+      <td>0.026193</td>
+      <td>0.003482</td>
+      <td>3.928463</td>
+      <td>20</td>
+      <td>Paygo</td>
+      <td>False</td>
+      <td>67.785922</td>
+      <td>66.568468</td>
+      <td>1.217455</td>
+      <td>9.142197</td>
+      <td>-15.633244</td>
+      <td>24.775440</td>
+      <td>488.153405</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.164386</td>
+      <td>3.559705</td>
+      <td>114</td>
+      <td>0.069089</td>
+      <td>105.599016</td>
+      <td>0.027669</td>
+      <td>0.018237</td>
+      <td>2.563779</td>
+      <td>18</td>
+      <td>Rev Bond</td>
+      <td>True</td>
+      <td>75.724624</td>
+      <td>74.369604</td>
+      <td>1.355019</td>
+      <td>10.672342</td>
+      <td>-9.155192</td>
+      <td>19.827534</td>
+      <td>270.732536</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.171876</td>
+      <td>5.189379</td>
+      <td>134</td>
+      <td>0.102707</td>
+      <td>110.240305</td>
+      <td>0.033763</td>
+      <td>0.009666</td>
+      <td>43.416751</td>
+      <td>37</td>
+      <td>Rev Bond</td>
+      <td>True</td>
+      <td>107.093529</td>
+      <td>67.249450</td>
+      <td>39.844079</td>
+      <td>548.362942</td>
+      <td>311.279196</td>
+      <td>237.083746</td>
+      <td>4786.275850</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.102494</td>
+      <td>4.637645</td>
+      <td>90</td>
+      <td>0.036429</td>
+      <td>141.028735</td>
+      <td>0.028766</td>
+      <td>0.013430</td>
+      <td>20.219566</td>
+      <td>36</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>63.772612</td>
+      <td>61.606001</td>
+      <td>2.166611</td>
+      <td>7.103389</td>
+      <td>-130.417635</td>
+      <td>137.521024</td>
+      <td>2851.539859</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.128699</td>
+      <td>4.224275</td>
+      <td>82</td>
+      <td>0.135245</td>
+      <td>132.576526</td>
+      <td>0.033269</td>
+      <td>0.009204</td>
+      <td>31.087547</td>
+      <td>39</td>
+      <td>Rev Bond</td>
+      <td>True</td>
+      <td>63.339271</td>
+      <td>61.064241</td>
+      <td>2.275030</td>
+      <td>25.230374</td>
+      <td>-175.639567</td>
+      <td>200.869942</td>
+      <td>4121.478933</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.194011</td>
+      <td>4.119391</td>
+      <td>83</td>
+      <td>0.053824</td>
+      <td>137.502268</td>
+      <td>0.031359</td>
+      <td>0.008654</td>
+      <td>25.279767</td>
+      <td>17</td>
+      <td>Rev Bond</td>
+      <td>True</td>
+      <td>65.402926</td>
+      <td>62.135104</td>
+      <td>3.267821</td>
+      <td>14.598542</td>
+      <td>-250.630628</td>
+      <td>265.229169</td>
+      <td>3476.025296</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.112179</td>
+      <td>5.082739</td>
+      <td>119</td>
+      <td>0.087633</td>
+      <td>101.590247</td>
+      <td>0.039705</td>
+      <td>-0.001666</td>
+      <td>57.001926</td>
+      <td>35</td>
+      <td>Paygo</td>
+      <td>True</td>
+      <td>76.294739</td>
+      <td>61.645559</td>
+      <td>14.649179</td>
+      <td>152.766854</td>
+      <td>-30.252812</td>
+      <td>183.019666</td>
+      <td>5790.839697</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.185542</td>
+      <td>4.843869</td>
+      <td>143</td>
+      <td>0.169604</td>
+      <td>96.190623</td>
+      <td>0.034300</td>
+      <td>0.002675</td>
+      <td>18.339744</td>
+      <td>21</td>
+      <td>Paygo</td>
+      <td>True</td>
+      <td>122.953743</td>
+      <td>87.847511</td>
+      <td>35.106232</td>
+      <td>851.444399</td>
+      <td>765.845948</td>
+      <td>85.598451</td>
+      <td>1764.111444</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.182904</td>
+      <td>3.879664</td>
+      <td>96</td>
+      <td>0.100206</td>
+      <td>113.617685</td>
+      <td>0.032018</td>
+      <td>-0.000695</td>
+      <td>9.336654</td>
+      <td>31</td>
+      <td>GO Bond</td>
+      <td>False</td>
+      <td>69.366811</td>
+      <td>66.625117</td>
+      <td>2.741694</td>
+      <td>26.374431</td>
+      <td>-28.133075</td>
+      <td>54.507506</td>
+      <td>1060.809021</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>60</td>
+      <td>100</td>
+      <td>0.136037</td>
+      <td>5.422761</td>
+      <td>108</td>
+      <td>0.160056</td>
+      <td>97.768721</td>
+      <td>0.031707</td>
+      <td>0.018624</td>
+      <td>13.567899</td>
+      <td>15</td>
+      <td>GO Bond</td>
+      <td>True</td>
+      <td>72.389640</td>
+      <td>66.214709</td>
+      <td>6.174931</td>
+      <td>106.740422</td>
+      <td>-2.377699</td>
+      <td>109.118121</td>
+      <td>1326.516148</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
 </div>
 </div>
 </div>
@@ -3579,7 +4712,10 @@ other parallel workers.</p>
            
           </div>
           <footer>
-  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="table_parse_example.html" class="btn btn-neutral float-right" title="TableParser Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="files.html" class="btn btn-neutral float-left" title="Files-Based Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 
@@ -3591,14 +4727,13 @@ other parallel workers.</p>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

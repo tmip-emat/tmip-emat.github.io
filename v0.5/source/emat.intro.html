@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction to EMAT &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Installation and Configuration" href="emat.install.html" />
+    <link rel="prev" title="TMIP-EMAT documentation" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction to EMAT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#end-user-requirements">End User Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-inputs-outputs-and-configurations">Model Inputs, Outputs, and Configurations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inputs">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#outputs">Outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configurations">Configurations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="emat.metamodels/index.html">Meta Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="emat.database/index.html">Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="emat.analysis/index.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Introduction to EMAT</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/emat.intro.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
+documented are shown for illustration and are not guaranteed to be stable 
+in future releases of TMIP-EMAT.</p>
+<p class="last">The views expressed in this draft documentation do not necessarily 
+represent the opinions of FHWA, and do not constitute an endorsement, 
+recommendation, or specification by FHWA.</p>
+</div>
+<div class="section" id="introduction-to-emat">
+<h1>Introduction to EMAT<a class="headerlink" href="#introduction-to-emat" title="Permalink to this headline">¶</a></h1>
+<p>TMIP-EMAT is a methodological approach to exploratory modeling and analysis.
+It provides a window to rigorous analytical methods for handling uncertainty
+and making well informed decisions using travel forecasting models of all
+types. It is designed to integrate with an <strong>existing transportation model</strong> or
+tool to perform exploratory analysis of a range of possible scenarios.  In the
+documentation of TMIP-EMAT, we refer to the existing model or tool as the
+“core model”.</p>
+<p>The core model should take a collection of inputs and generate one or more
+outputs, or “performance metrics”, of interest.  Inputs can include variable
+inputs (e.g., fuel cost) as well as model parameter inputs (e.g., the elasticity
+of vehicle travel with respect to fuel cost).  Examples of a core model include,
+but are not necessarily limited to the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Regional or statewide travel demand models</li>
+<li>Activity-based travel models</li>
+<li>Trip-based travel models</li>
+<li>Sketch planning or spreadsheet model</li>
+<li>Microsimulation models</li>
+<li>Corridor-level travel model</li>
+</ul>
+</div></blockquote>
+<p>TMIP-EMAT can be used to systematically explore uncertainties in input variables
+and model parameters, and the impact that those uncertainties have on performance
+metrics.  It is useful for examining model forecasts as a range of model outcomes
+rather than a single outcome, and it provides a mechanism for defining
+uncertainties and visualizing outputs.</p>
+<p>TMIP-EMAT can also be used to understand how uncertainties interact with policy
+decisions (e.g., extending a transit line), where <em>uncertainties</em> relate to model
+inputs and variables that are outside of the policy-maker’s control, and policy
+<em>levers</em> are model inputs that are within the policy-maker’s control.</p>
+<p>If the existing tool or model is computationally expensive to run, TMIP-EMAT can
+generate meta-models of the core model that describe how a set of model inputs
+impact specific performance metrics.  These meta-models are formulated as
+regression models of core model outputs that run very quickly (microseconds)
+and allow model input uncertainties to be explored systematically while limiting
+the number of computationally expensive core model runs.</p>
+<div class="section" id="end-user-requirements">
+<h2>End User Requirements<a class="headerlink" href="#end-user-requirements" title="Permalink to this headline">¶</a></h2>
+<p>First and foremost, an existing core model is required, and there should exist
+a desire to explore the model systematically to better understand uncertainties
+and their impact on potential future outcomes.</p>
+<p>The core model should be <em>fully calibrated and validated</em> prior to integrating
+with TMIP-EMAT.  Since TMIP-EMAT uses the core model as the basis for analysis,
+any deficiencies with the core model will propagate to TMIP-EMAT results and
+potentially lead the user to draw inappropriate conclusions.</p>
+<p>The ability to run the core model programmatically, rather than manually, is
+strongly recommended.  Although it is possible to conduct this kind of analysis
+starting from manual operation of the core model, that process tends to be
+error-prone, and automating the execution of the core model will both reduce
+errors and increase overall modeling efficiency.</p>
+<p>Deploying TMIP-EMAT on a programmatically executable core model requires the
+existence or development of an application programming interface (API) to the
+existing core model.  The API enables TMIP-EMAT to programmatically define
+scenarios, launch and run the core model, retrieve errors and status, and
+import metrics from the core model.  This API must also have a Python-facing
+interface to connect with TMIP-EMAT, even if the core model itself does not
+use Python.</p>
+<p>Lastly, the core model should be directly sensitive to the policies under study,
+or capable of being adjusted in some manner to be sensitive to those policies.
+For example, a traditional travel demand model might be made sensitive to some
+of the impacts of the introduction of autonomous cars though adjustments to
+parameters for vehicle availability, highway capacity, or the value of in-vehicle
+travel time.  On the other hand, making such a model sensitive to the introduction
+of personal aerial vehicles might not be possible without major changes to the
+basic structure of the model.</p>
+</div>
+<div class="section" id="model-inputs-outputs-and-configurations">
+<h2>Model Inputs, Outputs, and Configurations<a class="headerlink" href="#model-inputs-outputs-and-configurations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="inputs">
+<h3>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Core Model</strong>.
+The core model is interfaced with TMIP-EMAT using an API.  The API enables
+TMIP-EMAT to programmatically define scenarios, launch, retrieve errors and
+status, and import metrics from the core model.  The API should allow for
+configuration of all uncertainties and policy levers that are input to the
+system as well as configuration of the desired performance metrics.  The
+core model should be well-validated to ensure model sensitivities are
+reasonable.</li>
+<li><strong>Uncertainty Definitions</strong>.
+Uncertainty definitions include the overall range, correlation, and
+distribution of the risk variables that were selected for the analysis.
+Uncertainties represent exogenous inputs to the core model that impact the
+forecasts of the core model, and may include input variables, model
+parameters, or model structures.  The set of uncertainties input to TMIP-EMAT
+will typically be smaller than the full domain of inputs to the core model.
+Uncertainties should be selected based on the importance of the variable in
+the context of the scope of the analysis (considering policy levers and
+metrics of interest) and the relative impact the variable has on relevant
+performance metrics.</li>
+<li><strong>Policy Lever Definitions</strong>.
+Policy lever definitions include the specification of specific strategies/choices
+to test in the analysis, including the range in potential lever options.
+Levers (i.e., policy levers) represent inputs to the core model that impact
+the model’s forecasts, but are controllable by planners or decision makers.
+They can include individual variable inputs to the model (e.g., toll price)
+or can represent a portfolio of changes to the model (e.g., a transit line
+extension).</li>
+<li><strong>Performance Metric Definitions</strong>.
+The set of metrics that will be analyzed must be defined.  A performance
+metric is an output of the core model and represents a gage by which the
+impact of changes in uncertainties and levers can be measured.  Often core
+models will have a large number of intermediate and final outputs that could
+be considered here.  Metrics should be selected based on their relevance to
+the analysis and for decision makers.</li>
+</ul>
+</div>
+<div class="section" id="outputs">
+<h3>Outputs<a class="headerlink" href="#outputs" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>A primary output of TMIP-EMAT is a database of simulation runs of
+the model, including the associated uncertainty and policy lever inputs for
+each simulation and the performance metric outputs for each run.
+TMIP-EMAT uses either a Monte Carlo or Latin Hypercube approach to sample across the uncertainty inputs
+from their defined distributions and to sample across the potential values of
+each lever.  For each simulation, the collection of model inputs is used along
+with the core model (or meta-model representations of the core model) to generate
+the set of performance metric outputs for that simulation.  The user has the
+ability to specify the number of simulations that are performed.</li>
+<li>The meta-models developed to describe the relationships between uncertainties,
+levers, and metrics are themselves outputs of TMIP-EMAT (this only applies when
+meta-models are used).  The meta-models serve as direct input to the EMA Workbench
+to support guided exploratory analysis and can be useful for validating the core
+model runs (e.g., to verify that model sensitivities to input variables and/or
+parameters are reasonable and appropriate).</li>
+<li>A variety of tools are built into TMIP-EMAT that can be used to generate
+visualizations and tables to better understand the outputs.  Such tools include
+the following:<ul>
+<li>Risk Analysis Visualizations<ul>
+<li>Tabulations of performance metrics can be generated showing percentile
+ranges of each metric.  Tabulations can be segmented across different
+values of levers included in the analysis.</li>
+<li>Two-way scatter plots of model run results can be produced, showing
+the impact of uncertainties on performance metrics for different policy
+levers.</li>
+<li>The relative importance/contribution of uncertainties to the overall
+range in metrics can be plotted to gain an understanding for which
+uncertainties carry the greatest impacts.</li>
+</ul>
+</li>
+<li>Open-Ended Exploratory Analysis Visualizations<ul>
+<li>Interactive tools are available in TMIP-EMAT to examine the relationships
+between performance metrics and policy levers.  Interactive sliders and
+toggle functions can be used to refine the exploratory analysis to
+specific sets of simulation runs.</li>
+<li>Conditional uncertainty distribution charts can be used to illustrate
+the importance (or lack thereof) of uncertainty variables for achieving
+specific targets in metrics under different policies.</li>
+</ul>
+</li>
+<li>Guided Exploratory Analysis Visualizations<ul>
+<li>Patient Rule Induction Method (<a class="reference internal" href="emat.glossary.html#term-PRIM"><span class="xref std std-term">PRIM</span></a>) tradeoff curves and
+performance tabulations illustrate the number of
+scenarios meeting specific performance metric criteria for scenario
+discovery.</li>
+<li>Other <a class="reference internal" href="emat.glossary.html#term-PRIM"><span class="xref std std-term">PRIM</span></a> visualizations indicate the restricted ranges of uncertainties
+and levers that were identified by the algorithm.</li>
+<li>Robust search outputs can be tabulated or plotted in parallel axis charts
+to show the relationships between different policies and corresponding
+objectives. Such visualizations illustrate the set of scenarios that represent
+the Pareto optimal solutions to achieve a set of optimization criteria
+specified by the user for the robust search algorithm.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="configurations">
+<h3>Configurations<a class="headerlink" href="#configurations" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>EMA Scoping File</strong>.
+A single input configuration file is used to specify the configurations for each
+TMIP-EMAT analysis.  The input configuration file uses a specific format to specify
+the required inputs TMIP-EMAT, including the following:<ul>
+<li>Uncertainty definitions.</li>
+<li>Lever definitions.</li>
+<li>Metric definitions.</li>
+</ul>
+</li>
+<li><strong>Guided Search Configurations</strong>.
+A number of configurations must be set by the analyst when working with the guided
+search tools, which are linked to the EMA Workbench.<ul>
+<li><em>PRIM Configurations</em>.
+PRIM requires that the analyst preselect a set of scenarios of interest.
+The set of scenarios can be defined based upon any of the uncertainties,
+levers, or metrics, though usually they are set based upon metrics to better
+understand the inputs that result in a particular set of scenarios meeting
+performance metric criteria.</li>
+<li><em>Robust Search Configurations</em>.  Robust search requires several configurations,
+including the following:<ul>
+<li>Robustness metrics define the multi-criteria optimization, specifying the
+set of metrics (or functions thereof) that should be optimized.</li>
+<li>Constraints define criteria for which a metric must meet (rather than
+be optimized).</li>
+<li>The maximum number of iterations define stopping criteria for the
+algorithm.</li>
+<li>The number of scenarios define how many draws the algorithm uses of the
+TMIP-EMAT model to perform the optimization.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="emat.install.html" class="btn btn-neutral float-right" title="Installation and Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="TMIP-EMAT documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

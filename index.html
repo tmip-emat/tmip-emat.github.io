@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>TMIP-EMAT documentation &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  <title>TMIP-EMAT documentation &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
   
 
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -31,12 +34,11 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script src="_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -57,7 +59,7 @@
           
 
           
-            <a href="#" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+            <a href="#" class="icon icon-home"> TMIP-EMAT
           
 
           
@@ -67,7 +69,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
             
           
@@ -144,6 +146,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -155,7 +159,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -288,7 +292,13 @@ you can view our TMIP Webinars:</p>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="source/emat.models/python_based.html">Python-Based Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/emat.models/excel.html">Excel-Based Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/emat.models/files.html">Files-Based Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/emat.models/files.html">Files-Based Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.models/interface-walkthrough.html">Writing and Using a Bespoke Model Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.models/table_parse_example.html">TableParser Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.models/mapping_parse_example.html">MappingParser Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.models/files-api.html">Files-Based Model API</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="source/emat.models/gbnrtc.html">GBNRTC Model</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="source/emat.models/gbnrtc.html#implementation-specific-methods">Implementation-Specific Methods</a></li>
 </ul>
@@ -314,6 +324,12 @@ you can view our TMIP Webinars:</p>
 <li class="toctree-l3"><a class="reference internal" href="source/emat.database/sqlitedb.html#boxes">Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="source/emat.database/sqlitedb.html#experiments">Experiments</a></li>
 <li class="toctree-l3"><a class="reference internal" href="source/emat.database/sqlitedb.html#meta-models">Meta-Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="source/emat.database/database-walkthrough.html">Database Walkthrough</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.database/database-walkthrough.html#Single-Design-Datasets">Single-Design Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.database/database-walkthrough.html#Multiple-Design-Datasets">Multiple-Design Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.database/database-walkthrough.html#Re-running-Experiments">Re-running Experiments</a></li>
 </ul>
 </li>
 </ul>
@@ -372,14 +388,9 @@ you can view our TMIP Webinars:</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="source/emat.intro.html" class="btn btn-neutral float-right" title="Introduction to EMAT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
+        <a href="source/emat.intro.html" class="btn btn-neutral float-right" title="Introduction to EMAT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
@@ -391,14 +402,13 @@ you can view our TMIP Webinars:</p>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

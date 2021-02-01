@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SQLite Database &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  <title>SQLite Database &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
   
 
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -31,19 +34,18 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
         <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Analysis" href="../emat.analysis/index.html" />
+    <link rel="next" title="Database Walkthrough" href="database-walkthrough.html" />
     <link rel="prev" title="Basic EMAT Database API" href="abstract.html" /> 
 </head>
 
@@ -58,7 +60,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
           
 
           
@@ -68,7 +70,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
             
           
@@ -112,6 +114,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#meta-models">Meta-Models</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="database-walkthrough.html">Database Walkthrough</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
@@ -158,6 +161,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -171,7 +176,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/source/emat.database/sqlitedb.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -295,6 +300,48 @@ experiments must be individually identified.</td>
 </dd></dl>
 
 <dl class="py method">
+<dt id="emat.database.SQLiteDB.existing_run_id">
+<code class="descname">existing_run_id</code><span class="sig-paren">(</span><em><span class="n">run_id</span></em>, <em><span class="n">scope_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">parameters</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">location</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">source</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.existing_run_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.existing_run_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store an existing run_id in the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>run_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a><em> or </em><em>UUID</em>) – run id to be stored</li>
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – keys are experiment parameters, values are the
+experimental values to look up.  Subsequent positional or keyword
+arguments are used to update parameters.</li>
+<li><strong>location</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>True</em><em>, </em><em>optional</em>) – An identifier for this location
+(i.e. this computer).  If set to True, the name of this node
+is found using the <cite>platform</cite> module.</li>
+<li><strong>experiment_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The experiment id associated
+with this run.  If given, the parameters are ignored.</li>
+<li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 0</em>) – The metamodel_id of the source for this
+run, or 0 for a core model run.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The run_id and experiment_id of the identified experiment</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Tuple[Int,Int]</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If scope name does not exist</li>
+<li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If multiple experiments match an experiment definition.
+    This can happen, for example, if the definition is incomplete.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
 <dt id="emat.database.SQLiteDB.get_db_info">
 <code class="descname">get_db_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.get_db_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.get_db_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a short string describing this Database</p>
@@ -373,18 +420,34 @@ See scope yaml file for all categories</li>
 
 <dl class="py method">
 <dt id="emat.database.SQLiteDB.invalidate_experiment_runs">
-<code class="descname">invalidate_experiment_runs</code><span class="sig-paren">(</span><em><span class="n">run_ids</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.invalidate_experiment_runs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.invalidate_experiment_runs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete experiment performance measure results.</p>
-<p>The method removes only the performance measures, not the
-parameters.  This can be useful if a set of corrupted model
-results was stored in the database.</p>
+<code class="descname">invalidate_experiment_runs</code><span class="sig-paren">(</span><em><span class="n">run_ids</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">queries</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.invalidate_experiment_runs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.invalidate_experiment_runs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invalidate experiment performance measure results.</p>
+<p>The method marks the performance measures as invalid, not the
+parameters.  It does not actually remove any data from the model.
+This can be useful if a set of corrupted model results was stored
+in the database, to be able to ignore them in analysis but also
+keep tabs on the results and know if they are attempted to be
+stored again.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>run_ids</strong> (<em>Collection</em><em>, </em><em>optional</em>) – A collection of run_id’s for which measures shall
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>run_ids</strong> (<em>Collection</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – A collection of run_id’s for which measures shall
 be deleted.  Note that no scope or design are given here,
-experiments must be individually identified.</td>
+experiments must be individually identified.</li>
+<li><strong>run_ids</strong> – A collection of query commands that will select invalid
+experiment runs.  The queries are run against a DataFrame
+of parameters and measures.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The number of runs that were actually invalidated in the
+database (total, if run_ids is given, otherwise per query)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">n_runs_invalidated (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a> or <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a>)</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -543,7 +606,7 @@ level or higher are printed.</li>
 
 <dl class="py method">
 <dt id="emat.database.SQLiteDB.read_all_experiment_ids">
-<code class="descname">read_all_experiment_ids</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_all_experiment_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_all_experiment_ids" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read_all_experiment_ids</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">grouped</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_all_experiment_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_all_experiment_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the experiment ids previously defined in the database</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -552,15 +615,21 @@ level or higher are printed.</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
 performance measures, and results associated with this run</li>
-<li><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a>) – experiment design name.  Set to None
-to find experiments across all designs.</li>
+<li><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a>) – Name of experiment design.  Set to None to find experiments
+across all designs in aggregate.  Set to ‘*’ to get a
+dictionary giving the experiment ids in each design
+individually.</li>
+<li><strong>grouped</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – The default return value is a list of all experiment id’s,
+but by setting this to True, this method instead returns
+a human-readable string giving contiguous ranges of
+experiment id’s.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the experiment id’s of the identified experiments</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> or <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a> or <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If scope name does not exist</p>
@@ -631,6 +700,38 @@ named scope and design.</li>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">List[Int]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="emat.database.SQLiteDB.set_experiment_id">
+<code class="descname">set_experiment_id</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.set_experiment_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.set_experiment_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set an experiment id in the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
+performance measures, and results associated with this run</li>
+<li><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – keys are experiment parameters, values are the
+experimental values to look up.  Subsequent positional or keyword
+arguments are used to update parameters.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the experiment id of the identified experiment</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If scope name does not exist, or another experiments
+    already has this id, or this experiment already has a
+    different id.</p>
 </td>
 </tr>
 </tbody>
@@ -932,7 +1033,7 @@ box.</li>
 
 <dl class="py method">
 <dt id="emat.database.SQLiteDB.read_boxes">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_boxes</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">scope</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_boxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_boxes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_boxes</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">scope</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_boxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_boxes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read Boxes from the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1022,7 +1123,7 @@ giving the respective Box parent names.</dd>
 <h2>Experiments<a class="headerlink" href="#experiments" title="Permalink to this headline">¶</a></h2>
 <dl class="py method">
 <dt id="emat.database.SQLiteDB.write_experiment_parameters">
-<code class="descclassname">SQLiteDB.</code><code class="descname">write_experiment_parameters</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span></em>, <em><span class="n">xl_df</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_experiment_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">SQLiteDB.</code><code class="descname">write_experiment_parameters</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span></em>, <em><span class="n">xl_df</span></em>, <em><span class="n">force_ids</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_experiment_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write experiment definitions the the database.</p>
 <p>This method records values for each experiment parameter,
 for each experiment in a design of one or more experiments.</p>
@@ -1042,9 +1143,14 @@ reference to the design sampler, for example:
 ‘lhs’ - generated by latin hypercube sample design
 The design_name is used primarily to load groups of
 related experiments together.</li>
-<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the experiment
+<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the experiment
 parameters (i.e. policy levers, uncertainties, and
 constants), and each row is an experiment.</li>
+<li><strong>force_ids</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – For the experiment id’s saved into the database to match
+the id’s in the index of <cite>xl_df</cite>, or raise an error if
+this cannot be completed, either because that id is in
+use for a different experiment, or because this experiment
+is already saved with a different id.</li>
 </ul>
 </td>
 </tr>
@@ -1058,6 +1164,10 @@ constants), and each row is an experiment.</li>
 <li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#UserWarning" title="(in Python v3.7)"><strong>UserWarning</strong></a> – If scope name does not exist</li>
 <li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If not all scope variables are defined in the
     exp_def</li>
+<li><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – If <cite>force_ids</cite> is True but the same experiment
+    already has a different id.</li>
+<li><a class="reference external" href="https://docs.python.org/3.7/library/sqlite3.html#sqlite3.IntegrityError" title="(in Python v3.7)"><strong>sqlite3.IntegrityError</strong></a> – If <cite>force_ids</cite> is True but a different
+    experiment is already using the given id.</li>
 </ul>
 </td>
 </tr>
@@ -1139,11 +1249,11 @@ already have been stored in this database.</li>
 <li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – An indicator of performance measure source. This should
 be 0 for a bona-fide run of the associated core models,
 or some non-zero metamodel_id number.</li>
-<li><strong>m_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The columns of this DataFrame are the performance
+<li><strong>m_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The columns of this DataFrame are the performance
 measure names, and row indexes are the experiment id’s.
 If given as a <cite>dict</cite> instead of a DataFrame, the keys are
 treated as columns and an <cite>experiment_id</cite> must be provided.</li>
-<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.1.4)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
+<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.2.1)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
 (UUIDs) for these results. The UUIDs can be used to help
 identify problems and organize model runs.</li>
 <li><strong>experiment_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Provide an experiment_id.  This is only used if the
@@ -1173,21 +1283,22 @@ results for each performance measure per experiment</p>
 performance measures, and results associated with this
 exploratory analysis. The scope with this name should
 already have been stored in this database.</li>
-<li><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – An experiment design name. This name should be unique
+<li><strong>design_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – An experiment design name. This name should be unique
 within the named scope, and typically will include a
 reference to the design sampler, for example:
 ‘uni’ - generated by univariate sensitivity test design
 ‘lhs’ - generated by latin hypercube sample design
 The design_name is used primarily to load groups of
-related experiments together.</li>
+related experiments together.
+TODO: document dict</li>
 <li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – An indicator of performance measure source. This should
 be 0 for a bona fide run of the associated core models,
 or some non-zero metamodel_id number.</li>
-<li><strong>xlm_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the experiment
+<li><strong>xlm_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the experiment
 parameters (i.e. policy levers, uncertainties, and
 constants) and performance measures, and each row
 is an experiment.</li>
-<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.1.4)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
+<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.2.1)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
 (UUIDs) for these results. The UUIDs can be used to help
 identify problems and organize model runs.</li>
 </ul>
@@ -1252,7 +1363,7 @@ the <cite>design_name</cite> as meta-data to the DataFrame.</p>
 
 <dl class="py method">
 <dt id="emat.database.SQLiteDB.read_experiment_measures">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_measures</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">design</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">runs</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">formulas</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">_debug</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_measures" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_measures</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">design</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">runs</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">formulas</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">with_validity</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_measures" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read experiment results from the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1275,12 +1386,14 @@ there are only results from a single source in the
 database, those results are returned.  If there are
 results from multiple sources, an error is raised.</li>
 <li><strong>design</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Deprecated, use <cite>design_name</cite>.</li>
-<li><strong>runs</strong> (<em>{None</em><em>, </em><em>'all'</em><em>, </em><em>'valid'</em><em>, </em><em>'invalid'}</em><em>, </em><em>default None</em>) – By default, this method fails if there is more than
-one valid model run matching the given <cite>design_name</cite>
-and <cite>source</cite> (if any) for any experiment.  Set this to
+<li><strong>runs</strong> (<em>{None</em><em>, </em><em>'all'</em><em>, </em><em>'valid'</em><em>, </em><em>'invalid'</em><em>, </em><em>'valid_mean'}</em><em>, </em><em>default None</em>) – By default, this method returns the most recent timestamped
+valid model run matching the given <cite>design_name</cite>
+and <cite>source</cite> (if any) for any experiment. Set this to
 ‘valid’ or ‘invalid’ to get all valid or invalid model
 runs (instead of raising an exception). Set to ‘all’ to get
-everything, including both valid and invalidated results.</li>
+everything, including both valid and invalidated results.
+Set to ‘valid_mean’ to get the average of all valid runs
+instead of the single most recent one.</li>
 <li><strong>formulas</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default True</em>) – If the scope includes
 formulaic measures (computed directly from other
 measures) then compute these values and include them in
@@ -1291,7 +1404,7 @@ the results.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">performance measures</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">results (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a>)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">results (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)">pandas.DataFrame</a>)</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – When the database contains multiple sets of results
@@ -1305,7 +1418,7 @@ the results.</li>
 
 <dl class="py method">
 <dt id="emat.database.SQLiteDB.read_experiment_all">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_all</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">only_pending</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_incomplete</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_complete</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_with_measures</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">ensure_dtypes</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">with_run_ids</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">runs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_all" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_all</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">only_pending</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_incomplete</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_complete</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_with_measures</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">ensure_dtypes</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">with_run_ids</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">runs</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">formulas</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read experiment definitions and results</p>
 <p>Read the values from each experiment variable and the
 results for each performance measure per experiment.</p>
@@ -1350,6 +1463,17 @@ two-level pd.MultiIndex that includes both the
 experiment_id (which always appears in the index)
 as well as the run_id (which only appears in the
 index if this argument is set to True).</li>
+<li><strong>runs</strong> (<em>{None</em><em>, </em><em>'all'</em><em>, </em><em>'valid'</em><em>, </em><em>'invalid'}</em><em>, </em><em>default None</em>) – By default, this method returns the one and only
+valid model run matching the given <cite>design_name</cite>
+and <cite>source</cite> (if any) for any experiment, and fails
+if there is more than one such valid run. Set this to
+‘valid’ or ‘invalid’ to get all valid or invalid model
+runs (instead of raising an exception). Set to ‘all’ to get
+everything, including both valid and invalidated results.</li>
+<li><strong>formulas</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default True</em>) – If the scope includes
+formulaic measures (computed directly from other
+measures) then compute these values and include them in
+the results.</li>
 </ul>
 </td>
 </tr>
@@ -1383,8 +1507,11 @@ is not known.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
 performance measures, and results associated with this run</li>
-<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – columns are experiment parameters,
-each row is a full experiment</li>
+<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are experiment parameters
+to lookup, and each row is a full experiment.  It is
+possible to include only a subset of the columns, and
+matches will be returned if that subset matches only one
+experiment.</li>
 </ul>
 </td>
 </tr>
@@ -1541,16 +1668,10 @@ will be returned.</li>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../emat.analysis/index.html" class="btn btn-neutral float-right" title="Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="abstract.html" class="btn btn-neutral float-left" title="Basic EMAT Database API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="database-walkthrough.html" class="btn btn-neutral float-right" title="Database Walkthrough" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="abstract.html" class="btn btn-neutral float-left" title="Basic EMAT Database API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
@@ -1562,14 +1683,13 @@ will be returned.</li>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

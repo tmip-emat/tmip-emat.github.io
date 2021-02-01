@@ -3,17 +3,13 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "/Users/jpn/anaconda/envs/EMAT/lib/python3.6/importlib/_bootstrap.py:219: ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__\n",
-      "  return f(*args, **kwds)\n"
-     ]
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.295640Z",
+     "start_time": "2021-02-01T02:09:10.332497Z"
     }
-   ],
+   },
+   "outputs": [],
    "source": [
     "import emat\n",
     "import pandas as pd"
@@ -32,7 +28,12 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.299916Z",
+     "start_time": "2021-02-01T02:09:12.297477Z"
+    }
+   },
    "outputs": [],
    "source": [
     "from emat.model.core_files.parsers import (\n",
@@ -56,7 +57,12 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.304749Z",
+     "start_time": "2021-02-01T02:09:12.302236Z"
+    }
+   },
    "outputs": [],
    "source": [
     "sample_file_labeled_table = \"\"\"\n",
@@ -81,7 +87,12 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.321278Z",
+     "start_time": "2021-02-01T02:09:12.306480Z"
+    }
+   },
    "outputs": [
     {
      "data": {
@@ -173,7 +184,12 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.326798Z",
+     "start_time": "2021-02-01T02:09:12.322633Z"
+    }
+   },
    "outputs": [
     {
      "data": {
@@ -206,7 +222,12 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.330645Z",
+     "start_time": "2021-02-01T02:09:12.328222Z"
+    }
+   },
    "outputs": [],
    "source": [
     "parser = TableParser(\n",
@@ -232,12 +253,17 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.337679Z",
+     "start_time": "2021-02-01T02:09:12.332020Z"
+    }
+   },
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "{'A': 3498, 'B': 4011, 'C': 1181, 'D': 1652.0}"
+       "{'A': 3498.0, 'B': 4011.0, 'C': 1181, 'D': 1652.0}"
       ]
      },
      "execution_count": 7,
@@ -262,7 +288,12 @@
   {
    "cell_type": "code",
    "execution_count": 8,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.343749Z",
+     "start_time": "2021-02-01T02:09:12.340837Z"
+    }
+   },
    "outputs": [
     {
      "data": {
@@ -294,7 +325,12 @@
   {
    "cell_type": "code",
    "execution_count": 9,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.347767Z",
+     "start_time": "2021-02-01T02:09:12.345623Z"
+    }
+   },
    "outputs": [],
    "source": [
     "sample_file_labeled_values = \"\"\"\n",
@@ -318,7 +354,12 @@
   {
    "cell_type": "code",
    "execution_count": 10,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.356208Z",
+     "start_time": "2021-02-01T02:09:12.349081Z"
+    }
+   },
    "outputs": [
     {
      "data": {
@@ -398,7 +439,12 @@
   {
    "cell_type": "code",
    "execution_count": 11,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.359940Z",
+     "start_time": "2021-02-01T02:09:12.357663Z"
+    }
+   },
    "outputs": [],
    "source": [
     "parser = TableParser(\n",
@@ -415,7 +461,12 @@
   {
    "cell_type": "code",
    "execution_count": 12,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.365705Z",
+     "start_time": "2021-02-01T02:09:12.361211Z"
+    }
+   },
    "outputs": [
     {
      "data": {
@@ -446,7 +497,12 @@
   {
    "cell_type": "code",
    "execution_count": 13,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.369321Z",
+     "start_time": "2021-02-01T02:09:12.367088Z"
+    }
+   },
    "outputs": [],
    "source": [
     "sample_file_unlabeled_array = \"\"\"\n",
@@ -470,7 +526,12 @@
   {
    "cell_type": "code",
    "execution_count": 14,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.377281Z",
+     "start_time": "2021-02-01T02:09:12.370627Z"
+    }
+   },
    "outputs": [
     {
      "data": {
@@ -551,7 +612,12 @@
   {
    "cell_type": "code",
    "execution_count": 15,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.381147Z",
+     "start_time": "2021-02-01T02:09:12.378649Z"
+    }
+   },
    "outputs": [],
    "source": [
     "parser = TableParser(\n",
@@ -569,12 +635,20 @@
   {
    "cell_type": "code",
    "execution_count": 16,
-   "metadata": {},
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2021-02-01T02:09:12.387498Z",
+     "start_time": "2021-02-01T02:09:12.382612Z"
+    }
+   },
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "{'upper_left': 11, 'lower_right': 99, 'partial_row': 55, 'top_corner_sum': 44}"
+       "{'upper_left': 11.0,\n",
+       " 'lower_right': 99.0,\n",
+       " 'partial_row': 55,\n",
+       " 'top_corner_sum': 44.0}"
       ]
      },
      "execution_count": 16,
@@ -589,9 +663,9 @@
  ],
  "metadata": {
   "kernelspec": {
-   "display_name": "Python [conda env:EMAT]",
+   "display_name": "Python 3",
    "language": "python",
-   "name": "conda-env-EMAT-py"
+   "name": "python3"
   },
   "language_info": {
    "codemirror_mode": {
@@ -603,7 +677,20 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.7"
+   "version": "3.8.6"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
   }
  },
  "nbformat": 4,

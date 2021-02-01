@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>emat.database.sqlite.sqlite_db &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  <title>emat.database.sqlite.sqlite_db &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
   
 
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -31,12 +34,11 @@
         <script src="../../../../_static/jquery.js"></script>
         <script src="../../../../_static/underscore.js"></script>
         <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/language_data.js"></script>
         <script src="../../../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
 
@@ -56,7 +58,7 @@
           
 
           
-            <a href="../../../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+            <a href="../../../../index.html" class="icon icon-home"> TMIP-EMAT
           
 
           
@@ -66,7 +68,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
             
           
@@ -143,6 +145,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -199,8 +203,16 @@
 
 <span class="k">def</span> <span class="nf">_to_uuid</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert a value to a UUID&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">b</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="nb">bytes</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">==</span><span class="mi">16</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="nb">bytes</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="nb">bytes</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xDE\xAD\xBE\xEF</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="nb">bytes</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="mi">16</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
@@ -787,6 +799,7 @@
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="p">,</span>
             <span class="n">xl_df</span><span class="p">,</span>
+            <span class="n">force_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write experiment definitions the the database.</span>
@@ -812,6 +825,12 @@
 <span class="sd">                The columns of this DataFrame are the experiment</span>
 <span class="sd">                parameters (i.e. policy levers, uncertainties, and</span>
 <span class="sd">                constants), and each row is an experiment.</span>
+<span class="sd">            force_ids (bool, default False):</span>
+<span class="sd">                For the experiment id&#39;s saved into the database to match</span>
+<span class="sd">                the id&#39;s in the index of `xl_df`, or raise an error if</span>
+<span class="sd">                this cannot be completed, either because that id is in</span>
+<span class="sd">                use for a different experiment, or because this experiment</span>
+<span class="sd">                is already saved with a different id.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list: the experiment id&#39;s of the newly recorded experiments</span>
@@ -820,11 +839,26 @@
 <span class="sd">            UserWarning: If scope name does not exist</span>
 <span class="sd">            TypeError: If not all scope variables are defined in the</span>
 <span class="sd">                exp_def</span>
+<span class="sd">            ValueError: If `force_ids` is True but the same experiment</span>
+<span class="sd">                already has a different id.</span>
+<span class="sd">            sqlite3.IntegrityError: If `force_ids` is True but a different</span>
+<span class="sd">                experiment is already using the given id.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">readonly</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ReadOnlyDatabaseError</span>
         <span class="k">if</span> <span class="n">design_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">design_name</span> <span class="o">=</span> <span class="s1">&#39;ad hoc&#39;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">design_name</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">design_name_map</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">design_name</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="kn">from</span> <span class="nn">...util.seq_grouping</span> <span class="kn">import</span> <span class="n">seq_int_group_expander</span>
+                    <span class="n">design_name_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">seq_int_group_expander</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">design_name_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">design_name_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">design_name</span><span class="p">:</span> <span class="n">xl_df</span><span class="o">.</span><span class="n">index</span><span class="p">}</span>
 
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
             <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="s1">&#39;design_name&#39;</span><span class="p">)</span>
@@ -837,10 +871,11 @@
                 <span class="k">raise</span> <span class="ne">UserWarning</span><span class="p">(</span><span class="s1">&#39;named scope </span><span class="si">{0}</span><span class="s1"> not found - experiments will </span><span class="se">\</span>
 <span class="s1">                                      not be recorded&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scope_name</span><span class="p">))</span>
 
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">INSERT_DESIGN</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">])</span>
-            <span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">OperationalError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">DatabaseError</span> <span class="kn">from</span> <span class="nn">err</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">design_name_map</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">INSERT_DESIGN</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
+                <span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">OperationalError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">DatabaseError</span> <span class="kn">from</span> <span class="nn">err</span>
 
             <span class="c1">### split experiments into novel and duplicate ###</span>
             <span class="c1"># first join to existing experiments</span>
@@ -849,18 +884,23 @@
                 <span class="n">existing_experiments</span><span class="p">,</span>
                 <span class="n">xl_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xl_df</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)),</span>
             <span class="p">])</span>
-            <span class="n">combined_experiments</span> <span class="o">=</span> <span class="n">reindex_duplicates</span><span class="p">(</span><span class="n">combined_experiments</span><span class="p">)</span>
-            <span class="n">xl_df_</span> <span class="o">=</span> <span class="n">combined_experiments</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">xl_df</span><span class="p">):]</span>
+            <span class="n">combined_experiments_reindexed</span> <span class="o">=</span> <span class="n">reindex_duplicates</span><span class="p">(</span><span class="n">combined_experiments</span><span class="p">)</span>
+            <span class="n">xl_df_</span> <span class="o">=</span> <span class="n">combined_experiments_reindexed</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">xl_df</span><span class="p">):]</span>
             <span class="n">novel_flag</span> <span class="o">=</span> <span class="n">xl_df_</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-            <span class="n">novel_experiments</span> <span class="o">=</span> <span class="n">xl_df_</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">novel_flag</span><span class="p">]</span>
+            <span class="n">novel_experiments</span> <span class="o">=</span> <span class="n">xl_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">novel_flag</span><span class="p">]</span>
             <span class="n">duplicate_experiments</span> <span class="o">=</span> <span class="n">xl_df_</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">novel_flag</span><span class="p">]</span>
 
             <span class="n">ex_ids</span> <span class="o">=</span> <span class="p">[]</span>
 
-            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">novel_experiments</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-                <span class="c1"># create new experiment and get id</span>
-                <span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">INSERT_EXPERIMENT</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">])</span>
-                <span class="n">ex_id</span> <span class="o">=</span> <span class="n">fcur</span><span class="o">.</span><span class="n">lastrowid</span>
+            <span class="k">for</span> <span class="n">ex_id_as_input</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">novel_experiments</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">force_ids</span><span class="p">:</span>
+                    <span class="c1"># create new experiment and set id</span>
+                    <span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">INSERT_EXPERIMENT_WITH_ID</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">ex_id_as_input</span><span class="p">])</span>
+                    <span class="n">ex_id</span> <span class="o">=</span> <span class="n">ex_id_as_input</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># create new experiment and get id</span>
+                    <span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">INSERT_EXPERIMENT</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">])</span>
+                    <span class="n">ex_id</span> <span class="o">=</span> <span class="n">fcur</span><span class="o">.</span><span class="n">lastrowid</span>
                 <span class="c1"># set each from experiment defitinion</span>
                 <span class="k">for</span> <span class="n">xl</span> <span class="ow">in</span> <span class="n">scp_xl</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
@@ -872,22 +912,28 @@
 
                 <span class="c1"># Add this experiment id to this design</span>
                 <span class="n">ex_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ex_id</span><span class="p">)</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">INSERT_DESIGN_EXPERIMENT</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">ex_id</span><span class="p">])</span>
-                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-                    <span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
-                    <span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scope_name, design_name, ex_id= </span><span class="si">{</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">ex_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                    <span class="k">raise</span>
+                <span class="k">for</span> <span class="n">design_name_</span><span class="p">,</span> <span class="n">design_experiment_ids</span> <span class="ow">in</span> <span class="n">design_name_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">ex_id_as_input</span> <span class="ow">in</span> <span class="n">design_experiment_ids</span><span class="p">:</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">INSERT_DESIGN_EXPERIMENT</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name_</span><span class="p">,</span> <span class="n">ex_id</span><span class="p">])</span>
+                        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                            <span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+                            <span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scope_name, design_name, ex_id= </span><span class="si">{</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name_</span><span class="p">,</span> <span class="n">ex_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="k">raise</span>
 
-            <span class="k">for</span> <span class="n">ex_id</span> <span class="ow">in</span> <span class="n">duplicate_experiments</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ex_id</span><span class="p">,</span> <span class="n">ex_id_as_input</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">duplicate_experiments</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">xl_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">novel_flag</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">force_ids</span> <span class="ow">and</span> <span class="n">ex_id</span> <span class="o">!=</span> <span class="n">ex_id_as_input</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cannot change experiment id </span><span class="si">{</span><span class="n">ex_id_as_input</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">ex_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="c1"># Add this experiment id to this design</span>
                 <span class="n">ex_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ex_id</span><span class="p">)</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">INSERT_DESIGN_EXPERIMENT</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">ex_id</span><span class="p">])</span>
-                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-                    <span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
-                    <span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scope_name, design_name, ex_id= </span><span class="si">{</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">ex_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                    <span class="k">raise</span>
+                <span class="k">for</span> <span class="n">design_name_</span><span class="p">,</span> <span class="n">design_experiment_ids</span> <span class="ow">in</span> <span class="n">design_name_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">ex_id_as_input</span> <span class="ow">in</span> <span class="n">design_experiment_ids</span><span class="p">:</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">INSERT_DESIGN_EXPERIMENT</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name_</span><span class="p">,</span> <span class="n">ex_id</span><span class="p">])</span>
+                        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                            <span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+                            <span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scope_name, design_name, ex_id= </span><span class="si">{</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name_</span><span class="p">,</span> <span class="n">ex_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="k">raise</span>
 
             <span class="k">return</span> <span class="n">ex_ids</span></div>
 
@@ -954,6 +1000,49 @@
             <span class="n">ex_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_experiment_parameters</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">df</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">ex_id</span></div>
 
+<div class="viewcode-block" id="SQLiteDB.set_experiment_id"><a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.set_experiment_id">[docs]</a>    <span class="k">def</span> <span class="nf">set_experiment_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set an experiment id in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            parameters (dict): keys are experiment parameters, values are the</span>
+<span class="sd">                experimental values to look up.  Subsequent positional or keyword</span>
+<span class="sd">                arguments are used to update parameters.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: the experiment id of the identified experiment</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError:</span>
+<span class="sd">                If scope name does not exist, or another experiments</span>
+<span class="sd">                already has this id, or this experiment already has a</span>
+<span class="sd">                different id.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="s1">&#39;design_name&#39;</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">...exceptions</span> <span class="kn">import</span> <span class="n">MissingIdWarning</span>
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">MissingIdWarning</span><span class="p">)</span>
+            <span class="n">ex_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_experiment_id</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ex_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># check the id is not yet used</span>
+            <span class="k">if</span> <span class="n">experiment_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_all_experiment_ids</span><span class="p">(</span><span class="n">scope_name</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;experiment_id </span><span class="si">{</span><span class="n">experiment_id</span><span class="si">}</span><span class="s2"> already exists&quot;</span><span class="p">)</span>
+
+            <span class="n">parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">)</span><span class="o">.</span><span class="n">get_parameter_defaults</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            <span class="n">parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">ex_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_experiment_parameters</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">df</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ex_id</span> <span class="o">!=</span> <span class="n">experiment_id</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;these parameters already have experiment_id &quot;</span>
+                                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ex_id</span><span class="si">}</span><span class="s2">, cannot change to </span><span class="si">{</span><span class="n">experiment_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ex_id</span></div>
+
 <div class="viewcode-block" id="SQLiteDB.new_run_id"><a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.new_run_id">[docs]</a>    <span class="k">def</span> <span class="nf">new_run_id</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1012,6 +1101,66 @@
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">run_id</span><span class="p">,</span> <span class="n">experiment_id</span></div>
 
+<div class="viewcode-block" id="SQLiteDB.existing_run_id"><a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.existing_run_id">[docs]</a>    <span class="k">def</span> <span class="nf">existing_run_id</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">run_id</span><span class="p">,</span>
+            <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">location</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Store an existing run_id in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            run_id (bytes or UUID): run id to be stored</span>
+<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this run</span>
+<span class="sd">            parameters (dict): keys are experiment parameters, values are the</span>
+<span class="sd">                experimental values to look up.  Subsequent positional or keyword</span>
+<span class="sd">                arguments are used to update parameters.</span>
+<span class="sd">            location (str or True, optional): An identifier for this location</span>
+<span class="sd">                (i.e. this computer).  If set to True, the name of this node</span>
+<span class="sd">                is found using the `platform` module.</span>
+<span class="sd">            experiment_id (int, optional): The experiment id associated</span>
+<span class="sd">                with this run.  If given, the parameters are ignored.</span>
+<span class="sd">            source (int, default 0): The metamodel_id of the source for this</span>
+<span class="sd">                run, or 0 for a core model run.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple[Int,Int]:</span>
+<span class="sd">                The run_id and experiment_id of the identified experiment</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If scope name does not exist</span>
+<span class="sd">            ValueError: If multiple experiments match an experiment definition.</span>
+<span class="sd">                This can happen, for example, if the definition is incomplete.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">readonly</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ReadOnlyDatabaseError</span>
+        <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="s1">&#39;design_name&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">experiment_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">parameters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;must give experiment_id or parameters&#39;</span><span class="p">)</span>
+            <span class="n">experiment_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_experiment_id</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+        <span class="n">run_id</span> <span class="o">=</span> <span class="n">_to_uuid</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span><span class="o">.</span><span class="n">bytes</span>
+        <span class="k">if</span> <span class="n">location</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">platform</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">node</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="n">sq</span><span class="o">.</span><span class="n">NEW_EXPERIMENT_RUN</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;INSERT&quot;</span><span class="p">,</span> <span class="s2">&quot;INSERT OR IGNORE&quot;</span><span class="p">),</span>
+                <span class="nb">dict</span><span class="p">(</span>
+                    <span class="n">run_id</span><span class="o">=</span><span class="n">run_id</span><span class="p">,</span>
+                    <span class="n">experiment_id</span><span class="o">=</span><span class="n">experiment_id</span><span class="p">,</span>
+                    <span class="n">run_location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span>
+                    <span class="n">run_source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">run_id</span><span class="p">,</span> <span class="n">experiment_id</span></div>
+
 
 
 <div class="viewcode-block" id="SQLiteDB.read_experiment_ids"><a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_ids">[docs]</a>    <span class="k">def</span> <span class="nf">read_experiment_ids</span><span class="p">(</span>
@@ -1029,8 +1178,12 @@
 <span class="sd">        Args:</span>
 <span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
 <span class="sd">                performance measures, and results associated with this run</span>
-<span class="sd">            xl_df (pandas.DataFrame): columns are experiment parameters,</span>
-<span class="sd">                each row is a full experiment</span>
+<span class="sd">            xl_df (pandas.DataFrame):</span>
+<span class="sd">                The columns of this DataFrame are experiment parameters</span>
+<span class="sd">                to lookup, and each row is a full experiment.  It is</span>
+<span class="sd">                possible to include only a subset of the columns, and</span>
+<span class="sd">                matches will be returned if that subset matches only one</span>
+<span class="sd">                experiment.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list: the experiment id&#39;s of the identified experiments</span>
@@ -1052,6 +1205,8 @@
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;named scope </span><span class="si">{0}</span><span class="s1"> not found - experiment ids </span><span class="se">\</span>
 <span class="s1">                                      not available&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scope_name</span><span class="p">))</span>
 
+            <span class="n">scp_xl</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">scp_xl</span><span class="p">]</span>
+            <span class="n">use_cols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">xl_df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">scp_xl</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">xl_df</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
@@ -1059,6 +1214,8 @@
 
                 <span class="c1"># get all ids by value</span>
                 <span class="k">for</span> <span class="n">par_name</span><span class="p">,</span> <span class="n">par_value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xl_df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">par_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">use_cols</span><span class="p">:</span>
+                        <span class="k">continue</span>
                     <span class="n">possible_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
                         <span class="n">sq</span><span class="o">.</span><span class="n">GET_EXPERIMENT_IDS_BY_VALUE</span><span class="p">,</span>
                         <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">par_name</span><span class="p">,</span> <span class="n">par_value</span><span class="p">],</span>
@@ -1087,6 +1244,7 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">grouped</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read the experiment ids previously defined in the database</span>
@@ -1094,16 +1252,33 @@
 <span class="sd">        Args:</span>
 <span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
 <span class="sd">                performance measures, and results associated with this run</span>
-<span class="sd">            design_name (str or None): experiment design name.  Set to None</span>
-<span class="sd">                to find experiments across all designs.</span>
+<span class="sd">            design_name (str or None):</span>
+<span class="sd">                Name of experiment design.  Set to None to find experiments</span>
+<span class="sd">                across all designs in aggregate.  Set to &#39;*&#39; to get a</span>
+<span class="sd">                dictionary giving the experiment ids in each design</span>
+<span class="sd">                individually.</span>
+<span class="sd">            grouped (bool, default False):</span>
+<span class="sd">                The default return value is a list of all experiment id&#39;s,</span>
+<span class="sd">                but by setting this to True, this method instead returns</span>
+<span class="sd">                a human-readable string giving contiguous ranges of</span>
+<span class="sd">                experiment id&#39;s.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list: the experiment id&#39;s of the identified experiments</span>
+<span class="sd">            list or dict or str: the experiment id&#39;s of the identified experiments</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError: If scope name does not exist</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">design_name</span> <span class="o">==</span> <span class="s2">&quot;*&quot;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">design_name_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_design_names</span><span class="p">(</span><span class="n">scope_name</span><span class="p">):</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">design_name_</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_all_experiment_ids</span><span class="p">(</span>
+                    <span class="n">scope_name</span><span class="o">=</span><span class="n">scope_name</span><span class="p">,</span>
+                    <span class="n">design_name</span><span class="o">=</span><span class="n">design_name_</span><span class="p">,</span>
+                    <span class="n">grouped</span><span class="o">=</span><span class="n">grouped</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
 
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="s1">&#39;design_name&#39;</span><span class="p">)</span>
@@ -1113,6 +1288,9 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">experiment_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_EXPERIMENT_IDS_IN_DESIGN</span><span class="p">,</span>
                                                              <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="n">grouped</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">...util.seq_grouping</span> <span class="kn">import</span> <span class="n">seq_int_grouper</span>
+            <span class="k">return</span> <span class="n">seq_int_grouper</span><span class="p">(</span><span class="n">experiment_ids</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">experiment_ids</span></div>
 
     <span class="k">def</span> <span class="nf">_validate_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_parameter_name</span><span class="o">=</span><span class="s2">&quot;design_name&quot;</span><span class="p">):</span>
@@ -1322,6 +1500,14 @@
                         <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
                     <span class="p">)</span>
                     <span class="n">run_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">run_id</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="n">m_df</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">existing_run_id</span><span class="p">(</span>
+                        <span class="n">run_id</span><span class="p">,</span>
+                        <span class="n">scope_name</span><span class="p">,</span>
+                        <span class="n">experiment_id</span><span class="o">=</span><span class="n">experiment_id</span><span class="p">,</span>
+                        <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+                    <span class="p">)</span>
 
             <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">scp_m</span><span class="p">:</span>
                 <span class="n">dataseries</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1339,15 +1525,14 @@
                 <span class="k">if</span> <span class="n">dataseries</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">for</span> <span class="p">(</span><span class="n">ex_id</span><span class="p">,</span> <span class="n">value</span><span class="p">),</span> <span class="n">uid</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dataseries</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(),</span><span class="n">run_ids</span><span class="p">):</span>
                         <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;write_experiment_measures: writing </span><span class="si">{</span><span class="n">measure_name</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2"> @ </span><span class="si">{</span><span class="n">ex_id</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">uid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">uid</span><span class="p">,</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">):</span>
-                            <span class="n">uid</span> <span class="o">=</span> <span class="n">uid</span><span class="o">.</span><span class="n">bytes</span>
+                        <span class="n">uid</span> <span class="o">=</span> <span class="n">_to_uuid</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span>
                         <span class="c1"># index is experiment id</span>
                         <span class="n">bindings</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
                             <span class="n">experiment_id</span><span class="o">=</span><span class="n">ex_id</span><span class="p">,</span>
                             <span class="n">measure_value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
                             <span class="n">measure_source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
                             <span class="n">measure_name</span><span class="o">=</span><span class="n">measure_name</span><span class="p">,</span>
-                            <span class="n">measure_run</span><span class="o">=</span><span class="n">uid</span><span class="p">,</span>
+                            <span class="n">measure_run</span><span class="o">=</span><span class="n">uid</span><span class="o">.</span><span class="n">bytes</span><span class="p">,</span>
                         <span class="p">)</span>
                         <span class="k">try</span><span class="p">:</span>
                             <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
@@ -1433,6 +1618,7 @@
             <span class="n">ensure_dtypes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">with_run_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">runs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">formulas</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read experiment definitions and results</span>
@@ -1479,6 +1665,18 @@
 <span class="sd">                experiment_id (which always appears in the index)</span>
 <span class="sd">                as well as the run_id (which only appears in the</span>
 <span class="sd">                index if this argument is set to True).</span>
+<span class="sd">            runs ({None, &#39;all&#39;, &#39;valid&#39;, &#39;invalid&#39;}, default None):</span>
+<span class="sd">                By default, this method returns the one and only</span>
+<span class="sd">                valid model run matching the given `design_name`</span>
+<span class="sd">                and `source` (if any) for any experiment, and fails</span>
+<span class="sd">                if there is more than one such valid run. Set this to</span>
+<span class="sd">                &#39;valid&#39; or &#39;invalid&#39; to get all valid or invalid model</span>
+<span class="sd">                runs (instead of raising an exception). Set to &#39;all&#39; to get</span>
+<span class="sd">                everything, including both valid and invalidated results.</span>
+<span class="sd">            formulas (bool, default True): If the scope includes</span>
+<span class="sd">                formulaic measures (computed directly from other</span>
+<span class="sd">                measures) then compute these values and include them in</span>
+<span class="sd">                the results.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            emat.ExperimentalDesign:</span>
@@ -1507,6 +1705,7 @@
             <span class="n">scope_name</span><span class="o">=</span><span class="n">scope</span> <span class="ow">or</span> <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="n">design_name</span><span class="p">,</span>
             <span class="n">runs</span><span class="o">=</span><span class="n">runs</span><span class="p">,</span>
+            <span class="n">formulas</span><span class="o">=</span><span class="n">formulas</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="n">ex_xlm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
@@ -1514,10 +1713,13 @@
             <span class="n">df_m</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;experiment&#39;</span><span class="p">),</span>
             <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span>
             <span class="n">on</span><span class="o">=</span><span class="s1">&#39;experiment&#39;</span><span class="p">,</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;experiment&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">])</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">with_run_ids</span><span class="p">:</span>
-            <span class="n">ex_xlm</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">ex_xlm</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">runs</span> <span class="o">==</span> <span class="s1">&#39;valid_mean&#39;</span><span class="p">:</span>
+            <span class="n">ex_xlm</span> <span class="o">=</span> <span class="n">ex_xlm</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;experiment&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ex_xlm</span> <span class="o">=</span> <span class="n">ex_xlm</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;experiment&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">with_run_ids</span><span class="p">:</span>
+                <span class="n">ex_xlm</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">ex_xlm</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">only_incomplete</span><span class="p">:</span>
             <span class="n">retain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ex_xlm</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
@@ -1578,7 +1780,7 @@
             <span class="n">design</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">runs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">formulas</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">_debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">with_validity</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read experiment results from the database.</span>
@@ -1601,13 +1803,15 @@
 <span class="sd">                database, those results are returned.  If there are</span>
 <span class="sd">                results from multiple sources, an error is raised.</span>
 <span class="sd">            design (str): Deprecated, use `design_name`.</span>
-<span class="sd">            runs ({None, &#39;all&#39;, &#39;valid&#39;, &#39;invalid&#39;}, default None):</span>
-<span class="sd">                By default, this method fails if there is more than</span>
-<span class="sd">                one valid model run matching the given `design_name`</span>
-<span class="sd">                and `source` (if any) for any experiment.  Set this to</span>
+<span class="sd">            runs ({None, &#39;all&#39;, &#39;valid&#39;, &#39;invalid&#39;, &#39;valid_mean&#39;}, default None):</span>
+<span class="sd">                By default, this method returns the most recent timestamped</span>
+<span class="sd">                valid model run matching the given `design_name`</span>
+<span class="sd">                and `source` (if any) for any experiment. Set this to</span>
 <span class="sd">                &#39;valid&#39; or &#39;invalid&#39; to get all valid or invalid model</span>
 <span class="sd">                runs (instead of raising an exception). Set to &#39;all&#39; to get</span>
 <span class="sd">                everything, including both valid and invalidated results.</span>
+<span class="sd">                Set to &#39;valid_mean&#39; to get the average of all valid runs</span>
+<span class="sd">                instead of the single most recent one.</span>
 <span class="sd">            formulas (bool, default True): If the scope includes</span>
 <span class="sd">                formulaic measures (computed directly from other</span>
 <span class="sd">                measures) then compute these values and include them in</span>
@@ -1623,7 +1827,7 @@
 <span class="sd">                (if any) for any experiment.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">assert</span> <span class="n">runs</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;valid&#39;</span><span class="p">,</span> <span class="s1">&#39;invalid&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore_validity&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">runs</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;valid&#39;</span><span class="p">,</span> <span class="s1">&#39;invalid&#39;</span><span class="p">,</span> <span class="s1">&#39;valid_mean&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">design</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">design_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1649,12 +1853,12 @@
             <span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;AND run_source = @measure_source&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">experiment_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;AND eem.experiment_id = @experiment_id&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">runs</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore_validity&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">runs</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="p">):</span>
             <span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;AND run_valid = 1&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">runs</span> <span class="o">==</span> <span class="s1">&#39;invalid&#39;</span><span class="p">:</span>
             <span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;AND run_valid = 1&quot;</span><span class="p">,</span>
                               <span class="s2">&quot;AND run_valid = 0&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">runs</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;valid&#39;</span><span class="p">,</span> <span class="s1">&#39;invalid&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">runs</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;valid&#39;</span><span class="p">,</span> <span class="s1">&#39;invalid&#39;</span><span class="p">,</span> <span class="s1">&#39;valid_mean&#39;</span><span class="p">):</span>
             <span class="n">sql</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
                 <span class="sa">r</span><span class="s2">&quot;/\* most recent .* end most recent \*/&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;ema_experiment_run&quot;</span><span class="p">,</span>
@@ -1669,16 +1873,12 @@
         <span class="p">)</span>
 
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">_debug</span> <span class="o">==</span> <span class="s1">&#39;sql&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">sql</span><span class="p">,</span> <span class="n">arg</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">ex_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ERROR ON READ MEASURES query=</span><span class="se">\n</span><span class="si">{</span><span class="n">sql</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ERROR ON READ MEASURES arg=</span><span class="se">\n</span><span class="si">{</span><span class="n">arg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">raise</span>
-        <span class="k">if</span> <span class="n">_debug</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">ex_m</span>
         <span class="k">if</span> <span class="n">ex_m</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">runs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="c1"># by default, raise a value error if there are runs from multiple sources</span>
@@ -1689,7 +1889,7 @@
                                      <span class="s2">&quot;from more than one model source are stored</span><span class="se">\n</span><span class="s2">&quot;</span>
                                      <span class="s2">&quot;set `runs=&#39;valid&#39;` to return results from all &quot;</span>
                                      <span class="s2">&quot;sources or set the `source` argument.&quot;</span><span class="p">)</span>
-            <span class="n">ex_m</span> <span class="o">=</span> <span class="n">ex_m</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">ex_m</span> <span class="o">=</span> <span class="n">ex_m</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ex_m</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="p">):</span>
             <span class="n">fix_levels</span> <span class="o">=</span> <span class="p">[</span><span class="n">_to_uuid</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ex_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">levels</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
             <span class="n">zero_uuid</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="nb">bytes</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="mi">16</span><span class="p">)</span>
@@ -1699,10 +1899,10 @@
                 <span class="n">zero_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fix_levels</span><span class="p">)</span>
                 <span class="n">fix_levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">zero_uuid</span><span class="p">)</span> <span class="c1"># add a zero level</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fix_levels</span><span class="p">):</span>
-                <span class="n">ex_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">set_levels</span><span class="p">(</span><span class="n">fix_levels</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">ex_m</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">ex_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">set_levels</span><span class="p">(</span><span class="n">fix_levels</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">fix_codes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ex_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">codes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">fix_codes</span><span class="p">[</span><span class="n">fix_codes</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">zero_index</span>
-            <span class="n">ex_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">set_codes</span><span class="p">(</span><span class="n">fix_codes</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">ex_m</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">ex_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">set_codes</span><span class="p">(</span><span class="n">fix_codes</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">ex_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">]</span>
         <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">ex_m</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">ex_m</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="p">(</span>
@@ -1727,7 +1927,10 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">column_order</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_measure_names</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">ex_m</span><span class="p">[[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">column_order</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ex_m</span><span class="o">.</span><span class="n">columns</span><span class="p">]]</span></div>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">ex_m</span><span class="p">[[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">column_order</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ex_m</span><span class="o">.</span><span class="n">columns</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="n">runs</span> <span class="o">==</span> <span class="s1">&#39;valid_mean&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;experiment&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="SQLiteDB.read_experiment_measure_sources"><a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_measure_sources">[docs]</a>    <span class="k">def</span> <span class="nf">read_experiment_measure_sources</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -1840,21 +2043,15 @@
             <span class="k">raise</span> <span class="n">ReadOnlyDatabaseError</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">):</span>
             <span class="n">run_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">run_ids</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
-            <span class="n">run_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="nb">bytes</span><span class="o">=</span><span class="n">run_ids</span><span class="p">)]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">run_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="n">run_ids</span><span class="p">)]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="p">(</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
+            <span class="n">run_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">_to_uuid</span><span class="p">(</span><span class="n">run_ids</span><span class="p">)]</span>
 
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
             <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">run_id</span> <span class="ow">in</span> <span class="n">run_ids</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_id</span><span class="p">,</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">):</span>
-                    <span class="n">b</span> <span class="o">=</span> <span class="n">run_id</span><span class="o">.</span><span class="n">bytes</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                    <span class="n">b</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span><span class="o">.</span><span class="n">bytes</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_id</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
-                    <span class="n">b</span> <span class="o">=</span> <span class="n">run_id</span>
-                <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">b</span> <span class="o">=</span> <span class="n">_to_uuid</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span><span class="o">.</span><span class="n">bytes</span>
+                <span class="k">except</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cannot interpret run_id &quot;</span><span class="si">{</span><span class="n">run_id</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
                 <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
                     <span class="n">sq</span><span class="o">.</span><span class="n">DELETE_RUN_ID</span><span class="p">,</span>
@@ -1864,29 +2061,64 @@
 <div class="viewcode-block" id="SQLiteDB.invalidate_experiment_runs"><a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.invalidate_experiment_runs">[docs]</a>    <span class="k">def</span> <span class="nf">invalidate_experiment_runs</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">run_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">queries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Delete experiment performance measure results.</span>
+<span class="sd">        Invalidate experiment performance measure results.</span>
 
-<span class="sd">        The method removes only the performance measures, not the</span>
-<span class="sd">        parameters.  This can be useful if a set of corrupted model</span>
-<span class="sd">        results was stored in the database.</span>
+<span class="sd">        The method marks the performance measures as invalid, not the</span>
+<span class="sd">        parameters.  It does not actually remove any data from the model.</span>
+<span class="sd">        This can be useful if a set of corrupted model results was stored</span>
+<span class="sd">        in the database, to be able to ignore them in analysis but also</span>
+<span class="sd">        keep tabs on the results and know if they are attempted to be</span>
+<span class="sd">        stored again.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            run_ids (Collection, optional):</span>
 <span class="sd">                A collection of run_id&#39;s for which measures shall</span>
 <span class="sd">                be deleted.  Note that no scope or design are given here,</span>
 <span class="sd">                experiments must be individually identified.</span>
+<span class="sd">            run_ids (Collection[str], optional):</span>
+<span class="sd">                A collection of query commands that will select invalid</span>
+<span class="sd">                experiment runs.  The queries are run against a DataFrame</span>
+<span class="sd">                of parameters and measures.</span>
 
+<span class="sd">        Returns:</span>
+<span class="sd">            n_runs_invalidated (int or list):</span>
+<span class="sd">                The number of runs that were actually invalidated in the</span>
+<span class="sd">                database (total, if run_ids is given, otherwise per query)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">queries</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">run_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must give run_ids or queries&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">queries</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">run_ids</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must give run_ids or queries, not both&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">queries</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">n_runs_invalidated</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="n">scope_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;scope_name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;with_run_ids&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;runs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;valid&#39;</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">queries</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">queries</span> <span class="o">=</span> <span class="p">[</span><span class="n">queries</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">queries</span><span class="p">:</span>
+                <span class="n">bad_runs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_experiment_all</span><span class="p">(</span>
+                    <span class="n">scope_name</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">bad_runs</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                    <span class="n">n_runs_invalidated</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">invalidate_experiment_runs</span><span class="p">(</span><span class="n">bad_runs</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">n_runs_invalidated</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">n_runs_invalidated</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">readonly</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ReadOnlyDatabaseError</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">):</span>
-            <span class="n">run_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">run_ids</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
-            <span class="n">run_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="nb">bytes</span><span class="o">=</span><span class="n">run_ids</span><span class="p">)]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">run_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="n">run_ids</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
+            <span class="n">run_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">_to_uuid</span><span class="p">(</span><span class="n">run_ids</span><span class="p">)]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="p">)</span> <span class="ow">and</span> <span class="n">run_ids</span><span class="o">.</span><span class="n">nlevels</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
             <span class="n">run_ids</span> <span class="o">=</span> <span class="n">run_ids</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="ow">and</span> <span class="n">run_ids</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">nlevels</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
@@ -1894,21 +2126,21 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="ow">and</span> <span class="n">run_ids</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">nlevels</span><span class="o">==</span><span class="mi">2</span> <span class="ow">and</span> <span class="n">run_ids</span><span class="o">.</span><span class="n">dtype</span><span class="o">==</span><span class="nb">bool</span><span class="p">:</span>
             <span class="n">run_ids</span> <span class="o">=</span> <span class="n">run_ids</span><span class="p">[</span><span class="n">run_ids</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
+        <span class="n">n_runs_invalidated</span> <span class="o">=</span> <span class="mi">0</span>
+
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
             <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">run_id</span> <span class="ow">in</span> <span class="n">run_ids</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_id</span><span class="p">,</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">):</span>
-                    <span class="n">b</span> <span class="o">=</span> <span class="n">run_id</span><span class="o">.</span><span class="n">bytes</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_ids</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                    <span class="n">b</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span><span class="o">.</span><span class="n">bytes</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_id</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
-                    <span class="n">b</span> <span class="o">=</span> <span class="n">run_id</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">run_id</span><span class="p">,</span> <span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)):</span>
+                    <span class="n">b</span> <span class="o">=</span> <span class="n">_to_uuid</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span><span class="o">.</span><span class="n">bytes</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error run_id type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">run_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
                     <span class="n">sq</span><span class="o">.</span><span class="n">INVALIDATE_RUN_ID</span><span class="p">,</span>
                     <span class="nb">dict</span><span class="p">(</span><span class="n">run_id</span><span class="o">=</span><span class="n">b</span><span class="p">),</span>
-                <span class="p">)</span></div>
+                <span class="p">)</span>
+                <span class="n">n_runs_invalidated</span> <span class="o">+=</span> <span class="n">cur</span><span class="o">.</span><span class="n">rowcount</span>
+        <span class="k">return</span> <span class="n">n_runs_invalidated</span></div>
 
 <div class="viewcode-block" id="SQLiteDB.write_experiment_all"><a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.write_experiment_all">[docs]</a>    <span class="k">def</span> <span class="nf">write_experiment_all</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -1930,7 +2162,7 @@
 <span class="sd">                performance measures, and results associated with this</span>
 <span class="sd">                exploratory analysis. The scope with this name should</span>
 <span class="sd">                already have been stored in this database.</span>
-<span class="sd">            design_name (str):</span>
+<span class="sd">            design_name (str or dict):</span>
 <span class="sd">                An experiment design name. This name should be unique</span>
 <span class="sd">                within the named scope, and typically will include a</span>
 <span class="sd">                reference to the design sampler, for example:</span>
@@ -1938,6 +2170,7 @@
 <span class="sd">                &#39;lhs&#39; - generated by latin hypercube sample design</span>
 <span class="sd">                The design_name is used primarily to load groups of</span>
 <span class="sd">                related experiments together.</span>
+<span class="sd">                TODO: document dict</span>
 <span class="sd">            source (int):</span>
 <span class="sd">                An indicator of performance measure source. This should</span>
 <span class="sd">                be 0 for a bona fide run of the associated core models,</span>
@@ -1964,17 +2197,23 @@
             <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="s1">&#39;design_name&#39;</span><span class="p">)</span>
             <span class="n">fcur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
 
-            <span class="n">exist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-                <span class="n">sq</span><span class="o">.</span><span class="n">GET_EXPERIMENT_PARAMETERS_AND_MEASURES</span><span class="p">,</span>
-                <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">],</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
-            <span class="k">if</span> <span class="n">exist</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-                <span class="kn">from</span> <span class="nn">...exceptions</span> <span class="kn">import</span> <span class="n">DesignExistsError</span>
-                <span class="k">raise</span> <span class="n">DesignExistsError</span><span class="p">(</span>
-                    <span class="s1">&#39;scope </span><span class="si">{0}</span><span class="s1"> with design </span><span class="si">{1}</span><span class="s1"> found, &#39;</span> 
-                    <span class="s1">&#39;must be deleted before recording&#39;</span>
-                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">)</span>
-                <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">design_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">design_name_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">design_name</span><span class="p">:</span> <span class="n">xlm_df</span><span class="o">.</span><span class="n">index</span><span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">design_name_map</span> <span class="o">=</span> <span class="n">design_name</span>
+
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">design_name_map</span><span class="p">:</span>
+                <span class="n">exist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                    <span class="n">sq</span><span class="o">.</span><span class="n">GET_EXPERIMENT_PARAMETERS_AND_MEASURES</span><span class="p">,</span>
+                    <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+                <span class="k">if</span> <span class="n">exist</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="kn">from</span> <span class="nn">...exceptions</span> <span class="kn">import</span> <span class="n">DesignExistsError</span>
+                    <span class="k">raise</span> <span class="n">DesignExistsError</span><span class="p">(</span>
+                        <span class="s1">&#39;scope </span><span class="si">{0}</span><span class="s1"> with design </span><span class="si">{1}</span><span class="s1"> found, &#39;</span> 
+                        <span class="s1">&#39;must be deleted before recording&#39;</span>
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+                    <span class="p">)</span>
 
             <span class="c1"># get list of experiment variables</span>
             <span class="n">scp_xl</span> <span class="o">=</span> <span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_SCOPE_XL</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">])</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
@@ -1982,7 +2221,7 @@
 
             <span class="n">experiment_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_experiment_parameters</span><span class="p">(</span>
                 <span class="n">scope_name</span><span class="p">,</span>
-                <span class="n">design_name</span><span class="p">,</span>
+                <span class="n">design_name_map</span><span class="p">,</span>
                 <span class="n">xlm_df</span><span class="p">[[</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">scp_xl</span><span class="p">]],</span>
             <span class="p">)</span>
             <span class="n">xlm_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">experiment_ids</span>
@@ -2571,7 +2810,6 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
@@ -2583,14 +2821,13 @@
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

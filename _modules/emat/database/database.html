@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>emat.database.database &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  <title>emat.database.database &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
   
 
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -31,12 +34,11 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
         <script src="../../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -56,7 +58,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+            <a href="../../../index.html" class="icon icon-home"> TMIP-EMAT
           
 
           
@@ -66,7 +68,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
             
           
@@ -128,6 +130,8 @@
         <div class="rst-content">
         
           
+
+
 
 
 
@@ -505,6 +509,8 @@
             <span class="n">only_complete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">only_with_measures</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">ensure_dtypes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">with_run_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">runs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read experiment definitions and results</span>
@@ -546,6 +552,19 @@
 <span class="sd">                of the database, and that scope file is used to</span>
 <span class="sd">                format experimental data consistently (i.e., as</span>
 <span class="sd">                float, integer, bool, or categorical).</span>
+<span class="sd">            with_run_ids (bool, default False): Whether to use a</span>
+<span class="sd">                two-level pd.MultiIndex that includes both the</span>
+<span class="sd">                experiment_id (which always appears in the index)</span>
+<span class="sd">                as well as the run_id (which only appears in the</span>
+<span class="sd">                index if this argument is set to True).</span>
+<span class="sd">            runs ({None, &#39;all&#39;, &#39;valid&#39;, &#39;invalid&#39;}, default None):</span>
+<span class="sd">                By default, this method returns the one and only</span>
+<span class="sd">                valid model run matching the given `design_name`</span>
+<span class="sd">                and `source` (if any) for any experiment, and fails</span>
+<span class="sd">                if there is more than one such valid run. Set this to</span>
+<span class="sd">                &#39;valid&#39; or &#39;invalid&#39; to get all valid or invalid model</span>
+<span class="sd">                runs (instead of raising an exception). Set to &#39;all&#39; to get</span>
+<span class="sd">                everything, including both valid and invalidated results.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            emat.ExperimentalDesign:</span>
@@ -1063,7 +1082,6 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
@@ -1075,14 +1093,13 @@
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

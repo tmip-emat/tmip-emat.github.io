@@ -1,0 +1,371 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Analysis &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Scatter Plot Matrix" href="splom.html" />
+    <link rel="prev" title="SQLite Database" href="../emat.database/sqlitedb.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#visualization">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="splom.html">Scatter Plot Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="corruption.html">Identifying Model Problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-explorer-v2.html">Interactive Visualizer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scenario-discovery">Scenario Discovery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="feature-scoring.html">Feature Scoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="prim.html">PRIM</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#directed-search">Directed Search</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html">Optimization Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#Mechanics-of-Using-Optimization">Mechanics of Using Optimization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TMIP-EMAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Analysis</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/source/emat.analysis/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
+documented are shown for illustration and are not guaranteed to be stable 
+in future releases of TMIP-EMAT.</p>
+<p class="last">The views expressed in this draft documentation do not necessarily 
+represent the opinions of FHWA, and do not constitute an endorsement, 
+recommendation, or specification by FHWA.</p>
+</div>
+<div class="section" id="analysis">
+<h1>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="visualization">
+<h2>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h2>
+<p>Visualization tools are an important part of the exploratory
+modeling process.  They allow analysts and other stakeholders
+to conceptualize the potentially complex relationships represented
+in transportation models.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="splom.html">Scatter Plot Matrix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="splom.html#Contrasting-Sets-of-Experiments">Contrasting Sets of Experiments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="splom.html#Scatter-Plot-Matrix-API">Scatter Plot Matrix API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="corruption.html">Identifying Model Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive-explorer-v2.html">Interactive Visualizer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interactive-explorer-v2.html#single-dimension-figures">Single Dimension Figures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactive-explorer-v2.html#changing-selections">Changing Selections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactive-explorer-v2.html#two-dimension-figures">Two Dimension Figures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactive-explorer-v2.html#dynamic-feature-scoring">Dynamic Feature Scoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactive-explorer-v2.html#interactive-prim">Interactive PRIM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactive-explorer-v2.html#visualizer-api">Visualizer API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interactive-explorer-v2.html#manipulating-selections">Manipulating Selections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-explorer-v2.html#single-dimension-views">Single Dimension Views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-explorer-v2.html#multi-dimension-views">Multi Dimension Views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interactive-explorer-v2.html#analytical-tools">Analytical Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="scenario-discovery">
+<h2>Scenario Discovery<a class="headerlink" href="#scenario-discovery" title="Permalink to this headline">¶</a></h2>
+<p>Scenario discovery in exploratory modeling is focused on finding
+scenarios that are interesting to the user.
+The process generally begins through the identification
+of particular outcomes that are “of interest”, and then discovering
+what factor or combination of factors can result in those outcomes.
+There are a variety of methods to use for scenario discovery.
+We illustrate a few here.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="feature-scoring.html">Feature Scoring</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="feature-scoring.html#Road-Test-Feature-Scores">Road Test Feature Scores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-scoring.html#Interpreting-Feature-Scores">Interpreting Feature Scores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-scoring.html#Threshold-Scoring">Threshold Scoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-scoring.html#Feature-Scoring-API">Feature Scoring API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prim.html">PRIM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prim.html#The-Mechanics-of-using-PRIM">The Mechanics of using PRIM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prim.html#Non-Rectangular-Boxes">Non-Rectangular Boxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prim.html#PRIM-API">PRIM API</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="directed-search">
+<h2>Directed Search<a class="headerlink" href="#directed-search" title="Permalink to this headline">¶</a></h2>
+<p>The scenario discovery tools outlined above are focused on
+exploring parameters and outcomes across a pre-set sample of
+model runs.  This sample can be small or quite large, but the
+tools only consider cases that have already been evaluated.
+In directed search, we transition to tools that will propose
+and execute <em>new</em> cases.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Multi-Objective-Optimization">Multi-Objective Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Robust-Optimization">Robust Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#Robustness-Functions">Robustness Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html#Mechanics-of-Using-Optimization">Mechanics of Using Optimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Policy-Optimization:-Search-over-Levers">Policy Optimization: Search over Levers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Worst-Case-Discovery:-Search-over-Uncertainties">Worst Case Discovery: Search over Uncertainties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Using-Robust-Optimization">Using Robust Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#Constraints">Constraints</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="splom.html" class="btn btn-neutral float-right" title="Scatter Plot Matrix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../emat.database/sqlitedb.html" class="btn btn-neutral float-left" title="SQLite Database" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Basic EMAT Database API &mdash; TMIP-EMAT 0.5.0, November 2020 documentation</title>
+  <title>Basic EMAT Database API &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
   
 
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -31,12 +34,11 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
         <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -58,7 +60,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> TMIP-EMAT
+            <a href="../../index.html" class="icon icon-home"> TMIP-EMAT
           
 
           
@@ -68,7 +70,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
             
           
@@ -112,6 +114,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="sqlitedb.html">SQLite Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database-walkthrough.html">Database Walkthrough</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
@@ -158,6 +161,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -171,7 +176,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/source/emat.database/abstract.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -687,7 +692,7 @@ box.</li>
 
 <dl class="py method">
 <dt id="emat.database.Database.read_boxes">
-<em class="property">abstract </em><code class="descclassname">Database.</code><code class="descname">read_boxes</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">scope</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/database.html#Database.read_boxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.Database.read_boxes" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="descclassname">Database.</code><code class="descname">read_boxes</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">scope</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/database.html#Database.read_boxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.Database.read_boxes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read Boxes from the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -894,9 +899,9 @@ already have been stored in this database.</li>
 <li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – An indicator of performance measure source. This should
 be 0 for a bona-fide run of the associated core models,
 or some non-zero metamodel_id number.</li>
-<li><strong>m_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the performance
+<li><strong>m_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the performance
 measure names, and row indexes are the experiment id’s.</li>
-<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.1.4)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
+<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.2.1)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
 (UUIDs) for these results. The UUIDs can be used to help
 identify problems and organize model runs.</li>
 </ul>
@@ -1039,7 +1044,7 @@ the results.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">performance measures</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">results (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)">pandas.DataFrame</a>)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">results (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)">pandas.DataFrame</a>)</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – When the database contains multiple sets of results
@@ -1053,7 +1058,7 @@ the results.</li>
 
 <dl class="py method">
 <dt id="emat.database.Database.read_experiment_all">
-<em class="property">abstract </em><code class="descclassname">Database.</code><code class="descname">read_experiment_all</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">only_pending</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_incomplete</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_complete</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_with_measures</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">ensure_dtypes</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/database.html#Database.read_experiment_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.Database.read_experiment_all" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="descclassname">Database.</code><code class="descname">read_experiment_all</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">only_pending</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_incomplete</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_complete</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_with_measures</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">ensure_dtypes</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">with_run_ids</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">runs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/database.html#Database.read_experiment_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.Database.read_experiment_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read experiment definitions and results</p>
 <p>Read the values from each experiment variable and the
 results for each performance measure per experiment.</p>
@@ -1093,6 +1098,18 @@ associated with these experiments is also read out
 of the database, and that scope file is used to
 format experimental data consistently (i.e., as
 float, integer, bool, or categorical).</li>
+<li><strong>with_run_ids</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Whether to use a
+two-level pd.MultiIndex that includes both the
+experiment_id (which always appears in the index)
+as well as the run_id (which only appears in the
+index if this argument is set to True).</li>
+<li><strong>runs</strong> (<em>{None</em><em>, </em><em>'all'</em><em>, </em><em>'valid'</em><em>, </em><em>'invalid'}</em><em>, </em><em>default None</em>) – By default, this method returns the one and only
+valid model run matching the given <cite>design_name</cite>
+and <cite>source</cite> (if any) for any experiment, and fails
+if there is more than one such valid run. Set this to
+‘valid’ or ‘invalid’ to get all valid or invalid model
+runs (instead of raising an exception). Set to ‘all’ to get
+everything, including both valid and invalidated results.</li>
 </ul>
 </td>
 </tr>
@@ -1126,7 +1143,7 @@ is not known.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
 performance measures, and results associated with this run</li>
-<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a>) – columns are experiment parameters,
+<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a>) – columns are experiment parameters,
 each row is a full experiment</li>
 </ul>
 </td>
@@ -1284,16 +1301,10 @@ will be returned.</li>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="sqlitedb.html" class="btn btn-neutral float-right" title="SQLite Database" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral float-left" title="Databases" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="sqlitedb.html" class="btn btn-neutral float-right" title="SQLite Database" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Databases" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
@@ -1305,14 +1316,13 @@ will be returned.</li>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
