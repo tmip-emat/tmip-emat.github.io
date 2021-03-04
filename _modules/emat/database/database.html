@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>emat.database.database &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
+  <title>emat.database.database &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.5.1
+                0.5.2
               </div>
             
           
@@ -183,6 +183,7 @@
 
 <span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 
 <div class="viewcode-block" id="Database"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database">[docs]</a><span class="k">class</span> <span class="nc">Database</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
     
@@ -194,6 +195,19 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">readonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">readonly</span> <span class="o">=</span> <span class="n">readonly</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__locked</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@contextmanager</span>
+    <span class="k">def</span> <span class="nf">lock</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Context manager to temporarily mark this database as locked.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__locked</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">yield</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__locked</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_locked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">readonly</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">__locked</span>
 
 <div class="viewcode-block" id="Database.get_db_info"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.get_db_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_db_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -208,43 +222,53 @@
     <span class="k">def</span> <span class="nf">init_xlm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_list</span><span class="p">,</span> <span class="n">measure_list</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize or extend set of experiment variables and measures</span>
-<span class="sd">        </span>
-<span class="sd">        Initialize database with universe of risk variables, </span>
+
+<span class="sd">        Initialize database with universe of risk variables,</span>
 <span class="sd">        policy variables, and performance measures. All variables and measures</span>
 <span class="sd">        defined in scopes must be defined in this set.</span>
 <span class="sd">        This method only needs to be run</span>
 <span class="sd">        once after creating a new database.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            parameter_list (List[tuple]): Experiment variable tuples</span>
-<span class="sd">                (variable name, type)</span>
+<span class="sd">            parameter_list (List[tuple]):</span>
+<span class="sd">                Experiment variable tuples (variable name, type)</span>
 <span class="sd">                where variable name is a string and</span>
 <span class="sd">                type is &#39;uncertainty&#39;, &#39;lever&#39;, or &#39;constant&#39;</span>
-<span class="sd">            measure_list (List[tuple]): Performance measure tuples</span>
-<span class="sd">                (performance measure name, type)</span>
-<span class="sd">                where type is &#39;regional&#39;, &#39;transit&#39;, &#39;corridor&#39;, etc.</span>
-<span class="sd">                See scope yaml file for all categories</span>
+<span class="sd">            measure_list (List[tuple]):</span>
+<span class="sd">                Performance measure tuples (name, transform), where</span>
+<span class="sd">                name is a string and transform is a defined transformation</span>
+<span class="sd">                used in metamodeling, currently supported include {&#39;log&#39;, None}.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>   </div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
     
-<div class="viewcode-block" id="Database.write_scope"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_scope">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">write_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">scp_xl</span><span class="p">,</span> <span class="n">scp_m</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Save the emat scope information to the database.</span>
-<span class="sd">          </span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_write_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">scp_xl</span><span class="p">,</span> <span class="n">scp_m</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the emat scope information to the database.</span>
+
+<span class="sd">        Generally users should not call this function directly,</span>
+<span class="sd">        use `store_scope` instead.</span>
+
 <span class="sd">        Args:</span>
-<span class="sd">            scope_name (str): scope name, used to identify experiments,</span>
-<span class="sd">                performance measures, and results associated with this run</span>
-<span class="sd">            sheet (str): yaml file name with scope definition</span>
-<span class="sd">            scp_m (List[str]): scope variables - risk variables and </span>
-<span class="sd">                strategy variables</span>
-<span class="sd">            m_list (List[str]): scope performance measures</span>
-<span class="sd">            content (Scope): scope object</span>
+<span class="sd">            scope_name (str):</span>
+<span class="sd">                The scope name, used to identify experiments,</span>
+<span class="sd">                performance measures, and results associated with this model.</span>
+<span class="sd">                Multiple scopes can be stored in the same database.</span>
+<span class="sd">            sheet (str):</span>
+<span class="sd">                Yaml file name with scope definition.</span>
+<span class="sd">            scp_xl (List[str]):</span>
+<span class="sd">                Scope parameter names - both uncertainties and policy levers</span>
+<span class="sd">            scp_m (List[str]):</span>
+<span class="sd">                Scope performance measure names</span>
+<span class="sd">            content (Scope, optional):</span>
+<span class="sd">                Scope object to be pickled and stored in the database.</span>
 <span class="sd">        Raises:</span>
-<span class="sd">            KeyError: If scope name already exists, the scp_vars are not</span>
+<span class="sd">            KeyError:</span>
+<span class="sd">                If scope name already exists, the scp_vars are not</span>
 <span class="sd">                available, or the performance measures are not initialized</span>
 <span class="sd">                in the database.</span>
-<span class="sd">        </span>
-<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<span class="sd">        &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Database.update_scope"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.update_scope">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">update_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
@@ -268,18 +292,20 @@
 
 <div class="viewcode-block" id="Database.read_scope"><a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_scope">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">read_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Load the pickled scope from the database.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load the pickled scope from the database.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            scope_name (str, optional):</span>
 <span class="sd">                The name of the scope to load.  If not</span>
 <span class="sd">                given and there is only one scope stored</span>
 <span class="sd">                in the database, that scope is loaded. If not</span>
-<span class="sd">                given and  there are multiple scopes stored in</span>
+<span class="sd">                given and there are multiple scopes stored in</span>
 <span class="sd">                the database, a KeyError is raised.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Scope</span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            KeyError: If a name is given but is not found in</span>
 <span class="sd">                the database, or if no name is given but there</span>

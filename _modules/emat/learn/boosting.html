@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>emat.learn.boosting &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
+  <title>emat.learn.boosting &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.5.1
+                0.5.2
               </div>
             
           
@@ -649,6 +649,8 @@
 <span class="k">def</span> <span class="nf">LinearPossibleInteractAndGaussian</span><span class="p">(</span>
 		<span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
 		<span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+		<span class="n">k_search</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="kc">None</span><span class="p">),</span>
+		<span class="n">degree_search</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
 		<span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 
@@ -659,8 +661,10 @@
 		<span class="n">GridSearchCV</span><span class="p">(</span>
 			<span class="n">LinearInteractAndGaussian</span><span class="p">(</span><span class="n">single_target</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
 			<span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
-			<span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;lr__KBestPoly__k&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="kc">None</span><span class="p">]},</span>
-			<span class="n">iid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+			<span class="n">param_grid</span><span class="o">=</span><span class="p">{</span>
+				<span class="s1">&#39;lr__KBestPoly__k&#39;</span><span class="p">:</span> <span class="n">k_search</span><span class="p">,</span>
+				<span class="s1">&#39;lr__KBestPoly__degree&#39;</span><span class="p">:</span> <span class="n">degree_search</span><span class="p">,</span>
+			<span class="p">},</span>
 		<span class="p">),</span>
 		<span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
 	<span class="p">)</span>

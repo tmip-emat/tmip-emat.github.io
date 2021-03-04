@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Meta-Model API &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
+  <title>Meta-Model API &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
   
 
   
@@ -70,7 +70,7 @@
             
             
               <div class="version">
-                0.5.1
+                0.5.2
               </div>
             
           
@@ -243,7 +243,7 @@ core or mathematical structures.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>scope</strong> (<a class="reference internal" href="../emat.scope/scope.html#emat.Scope" title="emat.Scope"><em>emat.Scope</em></a>) – The scope for this model.</li>
-<li><strong>experiments</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a>) – This dataframe
+<li><strong>experiments</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a>) – This dataframe
 should contain all of the experimental inputs and outputs,
 including values for each uncertainty, level, constant, and
 performance measure.</li>
@@ -261,7 +261,7 @@ output performance measures with names in this set will be included.</li>
 output performance measures with names not in this set will be included.</li>
 <li><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – A random state to use in the metamodel
 regression fitting.</li>
-<li><strong>experiment_stratification</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.2.1)"><em>pandas.Series</em></a><em>, </em><em>optional</em>) – A stratification of experiments, used in cross-validation.</li>
+<li><strong>experiment_stratification</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.2.3)"><em>pandas.Series</em></a><em>, </em><em>optional</em>) – A stratification of experiments, used in cross-validation.</li>
 <li><strong>suppress_converge_warnings</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Suppress convergence warnings during metamodel fitting.</li>
 <li><strong>regressor</strong> (<em>Estimator</em><em>, </em><em>optional</em>) – A scikit-learn estimator implementing a
 multi-target regression.  If not given, a detrended simple Gaussian
@@ -305,11 +305,11 @@ dictionary of named outcomes.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>input_sample</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a>) – A set of experimental parameters, where
+<li><strong>input_sample</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a>) – A set of experimental parameters, where
 each row in the dataframe is an experiment that has already been evaluated
 using the core model.  Each column will be a required keyword parameter
 when calling this meta-model.</li>
-<li><strong>output_sample</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a>) – A set of experimental performance measures, where
+<li><strong>output_sample</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a>) – A set of experimental performance measures, where
 each row in the dataframe is the results of the experiment evaluated using the
 core model.  Each column of this dataframe will be a named output value
 in the returned dictionary from calling this meta-model.</li>
@@ -380,7 +380,7 @@ arguments, including both uncertainties and levers.</td>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – </li>
+<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – </li>
 <li><strong>**kwargs</strong> – All defined (meta)model parameters are passed as keyword
 arguments, including both uncertainties and levers.</li>
 </ul>
@@ -412,7 +412,7 @@ quite slow.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The cross-validated predictions.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)">pandas.DataFrame</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)">pandas.DataFrame</a></td>
 </tr>
 </tbody>
 </table>
@@ -420,7 +420,7 @@ quite slow.</td>
 
 <dl class="py method">
 <dt id="emat.MetaModel.cross_val_scores">
-<code class="descname">cross_val_scores</code><span class="sig-paren">(</span><em><span class="n">cv</span><span class="o">=</span><span class="default_value">5</span></em>, <em><span class="n">gpr_only</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">use_cache</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">return_type</span><span class="o">=</span><span class="default_value">'styled'</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.cross_val_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.cross_val_scores" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cross_val_scores</code><span class="sig-paren">(</span><em><span class="n">cv</span><span class="o">=</span><span class="default_value">5</span></em>, <em><span class="n">gpr_only</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">use_cache</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">return_type</span><span class="o">=</span><span class="default_value">'styled'</span></em>, <em><span class="n">shortnames</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/model/meta_model.html#MetaModel.cross_val_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.MetaModel.cross_val_scores" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the cross validation scores for this meta-model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -439,13 +439,17 @@ validation results if available.  All other arguments
 are ignored if a cached results if available.</li>
 <li><strong>return_type</strong> (<em>{'styled'</em><em>, </em><em>'raw'}</em>) – How to return the
 results.</li>
+<li><strong>shortnames</strong> (<a class="reference internal" href="../emat.scope/scope.html#emat.Scope" title="emat.Scope"><em>Scope</em></a><em> or </em><em>callable</em>) – If given, use this function to convert the measure
+names into more readable <cite>shortname</cite> values from the
+scope, or by using a function that maps measures
+names to something else.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The cross-validation scores, by output.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.2.1)">pandas.Series</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.2.3)">pandas.Series</a></p>
 </td>
 </tr>
 </tbody>
@@ -467,7 +471,7 @@ instantiated.</p>
 input (not raw input) and the rows correspond to the
 outputs.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)">pandas.DataFrame</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)">pandas.DataFrame</a></td>
 </tr>
 </tbody>
 </table>
@@ -550,7 +554,7 @@ debugging.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A subset of rows from <cite>possible_experiments</cite></p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)">pandas.DataFrame</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)">pandas.DataFrame</a></p>
 </td>
 </tr>
 </tbody>
@@ -574,7 +578,7 @@ for computer experiments.” Journal of Statistical Planning and Inference 140,
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – </li>
+<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – </li>
 <li><strong>trend_only</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – </li>
 <li><strong>residual_only</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – </li>
 <li><strong>**kwargs</strong> – All defined (meta)model parameters are passed as keyword
@@ -604,7 +608,7 @@ raw data input DataFrame into the format used for regression.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a>) – The raw input data to process, which can include input
+<li><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a>) – The raw input data to process, which can include input
 values for multiple experiments.</li>
 <li><strong>to_type</strong> (<em>dtype</em><em>, </em><em>optional</em>) – If given, the entire resulting DataFrame is cast to
 this data type.</li>

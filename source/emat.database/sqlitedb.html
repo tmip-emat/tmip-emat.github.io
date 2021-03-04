@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SQLite Database &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
+  <title>SQLite Database &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
   
 
   
@@ -70,7 +70,7 @@
             
             
               <div class="version">
-                0.5.1
+                0.5.2
               </div>
             
           
@@ -249,6 +249,8 @@ shared across multiple threads.  The dask distributed evaluator has
 workers that run code in a separate thread from the model class object,
 so setting this to False is necessary to enable SQLite connections on
 the workers.</li>
+<li><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default True</em>) – Whether to attempt a database schema update if the open file appears
+to be an out-of-date database format.</li>
 </ul>
 </td>
 </tr>
@@ -391,7 +393,7 @@ arguments are used to update parameters.</li>
 
 <dl class="py method">
 <dt id="emat.database.SQLiteDB.init_xlm">
-<code class="descname">init_xlm</code><span class="sig-paren">(</span><em><span class="n">parameter_list</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a><span class="p">]</span></span></em>, <em><span class="n">measure_list</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.init_xlm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.init_xlm" title="Permalink to this definition">¶</a></dt>
+<code class="descname">init_xlm</code><span class="sig-paren">(</span><em><span class="n">parameter_list</span></em>, <em><span class="n">measure_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.init_xlm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.init_xlm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize or extend set of experiment variables and measures</p>
 <p>Initialize database with universe of risk variables,
 policy variables, and performance measures. All variables and measures
@@ -403,14 +405,12 @@ once after creating a new database.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>parameter_list</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>]</em>) – Experiment variable tuples
-(variable name, type)
+<li><strong>parameter_list</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>]</em>) – Experiment variable tuples (variable name, type)
 where variable name is a string and
 type is ‘uncertainty’, ‘lever’, or ‘constant’</li>
-<li><strong>measure_list</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>]</em>) – Performance measure tuples
-(performance measure name, type)
-where type is ‘regional’, ‘transit’, ‘corridor’, etc.
-See scope yaml file for all categories</li>
+<li><strong>measure_list</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>]</em>) – Performance measure tuples (name, transform), where
+name is a string and transform is a defined transformation
+used in metamodeling, currently supported include {‘log’, None}.</li>
 </ul>
 </td>
 </tr>
@@ -752,12 +752,31 @@ arguments are used to update parameters.</li>
 </tr>
 </tbody>
 </table>
+<p>Save an emat.Scope directly to the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope</strong> (<a class="reference internal" href="../emat.scope/scope.html#emat.Scope" title="emat.Scope"><em>Scope</em></a>) – The scope object to store.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#KeyError" title="(in Python v3.7)"><strong>KeyError</strong></a> – If scope name already exists.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="py method">
 <dt id="emat.database.SQLiteDB.update_database">
 <code class="descname">update_database</code><span class="sig-paren">(</span><em><span class="n">queries</span></em>, <em><span class="n">on_error</span><span class="o">=</span><span class="default_value">'ignore'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.update_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.update_database" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update database for compatability with tmip-emat 0.4</p>
+<dd><p>Update database for compatability with tmip-emat 0.4 and later</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="emat.database.SQLiteDB.update_database_for_run_ids">
+<code class="descname">update_database_for_run_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.update_database_for_run_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.update_database_for_run_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add run_id to runs that do not have one.</p>
+<p>This command is for updating older files, and  should not be needed
+on recently created database files.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -772,6 +791,15 @@ arguments are used to update parameters.</li>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="emat.database.SQLiteDB.vacuum">
+<code class="descname">vacuum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.vacuum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.vacuum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vacuum the SQLite database.</p>
+<p>SQLite files grow over time, and may have inefficient allocation of data
+as more rows are added.  This command may make the database file run faster
+or be smaller on disk.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -810,34 +838,6 @@ identify problems and organize model runs.</li>
 <div class="section" id="scopes">
 <h2>Scopes<a class="headerlink" href="#scopes" title="Permalink to this headline">¶</a></h2>
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.write_scope">
-<code class="descclassname">SQLiteDB.</code><code class="descname">write_scope</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">sheet</span></em>, <em><span class="n">scp_xl</span></em>, <em><span class="n">scp_m</span></em>, <em><span class="n">content</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_scope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_scope" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save the emat scope information to the database.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
-performance measures, and results associated with this run</li>
-<li><strong>sheet</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – yaml file name with scope definition</li>
-<li><strong>scp_m</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – scope variables - risk variables and
-strategy variables</li>
-<li><strong>m_list</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – scope performance measures</li>
-<li><strong>content</strong> (<a class="reference internal" href="../emat.scope/scope.html#emat.Scope" title="emat.Scope"><em>Scope</em></a>) – scope object</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#KeyError" title="(in Python v3.7)"><strong>KeyError</strong></a> – If scope name already exists, the scp_vars are not
-    available, or the performance measures are not initialized
-    in the database.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="py method">
 <dt id="emat.database.SQLiteDB.read_scope">
 <code class="descclassname">SQLiteDB.</code><code class="descname">read_scope</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_scope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_scope" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the pickled scope from the database.</p>
@@ -848,7 +848,7 @@ strategy variables</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the scope to load.  If not
 given and there is only one scope stored
 in the database, that scope is loaded. If not
-given and  there are multiple scopes stored in
+given and there are multiple scopes stored in
 the database, a KeyError is raised.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Scope</td>
@@ -1143,7 +1143,7 @@ reference to the design sampler, for example:
 ‘lhs’ - generated by latin hypercube sample design
 The design_name is used primarily to load groups of
 related experiments together.</li>
-<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the experiment
+<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the experiment
 parameters (i.e. policy levers, uncertainties, and
 constants), and each row is an experiment.</li>
 <li><strong>force_ids</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – For the experiment id’s saved into the database to match
@@ -1249,11 +1249,11 @@ already have been stored in this database.</li>
 <li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – An indicator of performance measure source. This should
 be 0 for a bona-fide run of the associated core models,
 or some non-zero metamodel_id number.</li>
-<li><strong>m_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The columns of this DataFrame are the performance
+<li><strong>m_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The columns of this DataFrame are the performance
 measure names, and row indexes are the experiment id’s.
 If given as a <cite>dict</cite> instead of a DataFrame, the keys are
 treated as columns and an <cite>experiment_id</cite> must be provided.</li>
-<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.2.1)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
+<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.2.3)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
 (UUIDs) for these results. The UUIDs can be used to help
 identify problems and organize model runs.</li>
 <li><strong>experiment_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Provide an experiment_id.  This is only used if the
@@ -1294,11 +1294,11 @@ TODO: document dict</li>
 <li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – An indicator of performance measure source. This should
 be 0 for a bona fide run of the associated core models,
 or some non-zero metamodel_id number.</li>
-<li><strong>xlm_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the experiment
+<li><strong>xlm_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the experiment
 parameters (i.e. policy levers, uncertainties, and
 constants) and performance measures, and each row
 is an experiment.</li>
-<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.2.1)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
+<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.2.3)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
 (UUIDs) for these results. The UUIDs can be used to help
 identify problems and organize model runs.</li>
 </ul>
@@ -1404,7 +1404,7 @@ the results.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">performance measures</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">results (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)">pandas.DataFrame</a>)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">results (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)">pandas.DataFrame</a>)</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – When the database contains multiple sets of results
@@ -1507,7 +1507,7 @@ is not known.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
 performance measures, and results associated with this run</li>
-<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.1)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are experiment parameters
+<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are experiment parameters
 to lookup, and each row is a full experiment.  It is
 possible to include only a subset of the columns, and
 matches will be returned if that subset matches only one

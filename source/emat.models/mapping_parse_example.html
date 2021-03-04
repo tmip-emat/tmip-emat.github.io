@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>MappingParser Example &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
+  <title>MappingParser Example &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
   
 
   
@@ -70,7 +70,7 @@
             
             
               <div class="version">
-                0.5.1
+                0.5.2
               </div>
             
           
@@ -105,7 +105,6 @@
 <li class="toctree-l2"><a class="reference internal" href="python_based.html">Python-Based Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="excel.html">Excel-Based Models</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="files.html">Files-Based Model</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="interface-walkthrough.html">Writing and Using a Bespoke Model Interface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="table_parse_example.html">TableParser Example</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">MappingParser Example</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Parsing-a-YAML-File">Parsing a YAML File</a></li>
@@ -601,7 +600,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;AM&#39;: 3498, &#39;PM&#39;: 3821, &#39;OffPeak&#39;: 4160}
+{&#39;AM&#39;: 3498.0, &#39;PM&#39;: 3821.0, &#39;OffPeak&#39;: 4160.0}
 </pre></div></div>
 </div>
 <p>Using the <code class="docutils literal notranslate"><span class="pre">MappingParser</span></code> has some advantages over just writing a custom function for each table to be processed. The most important is that we do not need to actually parse anything to access the names of the keys available in the parser’s output.</p>
@@ -668,7 +667,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;AM&#39;: 3498, &#39;PM&#39;: 3821, &#39;OffPeak&#39;: 4160}
+{&#39;AM&#39;: 3498.0, &#39;PM&#39;: 3821.0, &#39;OffPeak&#39;: 4160.0}
 </pre></div></div>
 </div>
 </div>
@@ -733,10 +732,12 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;AM&#39;: 3498, &#39;PM&#39;: 3821, &#39;OffPeak&#39;: 4160}
+{&#39;AM&#39;: 3498.0, &#39;PM&#39;: 3821.0, &#39;OffPeak&#39;: 4160.0}
 </pre></div></div>
 </div>
-</div>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"59810ffebb2846cc98e49fc8dcbc0fb1": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "250px"}}, "38798d08bd954e95906d911bf4794bb8": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}}, "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 
 

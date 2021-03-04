@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>emat.model.core_python.core_python_examples &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
+  <title>emat.model.core_python.core_python_examples &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.5.1
+                0.5.2
               </div>
             
           
@@ -173,7 +173,7 @@
   <h1>Source code for emat.model.core_python.core_python_examples</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">class</span> <span class="nc">Dummy</span><span class="p">():</span>
 
@@ -211,8 +211,8 @@
     <span class="n">lever1</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lever1&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">lever2</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lever2&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">uncertain1</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uncertain1&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="n">uncertain2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uncertain2&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7</span><span class="p">))</span>
-    <span class="n">uncertain3</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uncertain3&#39;</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">))</span>
+    <span class="n">uncertain2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uncertain2&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7</span><span class="p">))</span>
+    <span class="n">uncertain3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uncertain3&#39;</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">))</span>
     <span class="n">certain4</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;certain4&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
     <span class="n">noise_amplitude</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;noise_amplitude&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
@@ -221,31 +221,101 @@
     <span class="n">pm_1</span> <span class="o">=</span> <span class="p">(</span>
         <span class="o">-</span> <span class="n">uncertain2</span> <span class="o">*</span> <span class="n">lever1</span> <span class="o">*</span> <span class="n">lever1</span>
         <span class="o">+</span> <span class="p">(</span><span class="n">uncertain1</span> <span class="o">+</span> <span class="n">certain4</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">lever1</span> <span class="o">+</span> <span class="n">lever2</span><span class="p">)</span>
-        <span class="o">+</span> <span class="n">noise_amplitude</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">noise_frequency</span> <span class="o">*</span> <span class="n">lever1</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">noise_amplitude</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">noise_frequency</span> <span class="o">*</span> <span class="n">lever1</span><span class="p">)</span>
     <span class="p">)</span>
 
-    <span class="n">pm_2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span>
+    <span class="n">pm_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span>
         <span class="mf">1.11e+111</span> <span class="o">*</span> <span class="n">uncertain1</span><span class="p">,</span>
-        <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
             <span class="n">uncertain3</span> <span class="o">*</span> <span class="n">lever1</span> <span class="o">*</span> <span class="p">(</span><span class="n">lever1</span> <span class="o">+</span> <span class="n">lever2</span><span class="p">)</span>
             <span class="o">+</span> <span class="n">uncertain1</span> <span class="o">*</span> <span class="n">lever1</span>
-            <span class="o">+</span> <span class="n">noise_amplitude</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">noise_frequency</span> <span class="o">*</span> <span class="n">lever2</span><span class="p">)</span>
+            <span class="o">+</span> <span class="n">noise_amplitude</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">noise_frequency</span> <span class="o">*</span> <span class="n">lever2</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="p">)</span>
 
     <span class="n">pm_3</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">noise_amplitude</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">noise_frequency</span> <span class="o">*</span> <span class="n">lever1</span><span class="p">)</span>
-        <span class="o">+</span> <span class="n">noise_amplitude</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">noise_frequency</span> <span class="o">*</span> <span class="n">lever2</span><span class="p">)</span>
+        <span class="n">noise_amplitude</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">noise_frequency</span> <span class="o">*</span> <span class="n">lever1</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">noise_amplitude</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">noise_frequency</span> <span class="o">*</span> <span class="n">lever2</span><span class="p">)</span>
         <span class="o">+</span> <span class="n">certain4</span>
     <span class="p">)</span>
 
-    <span class="n">pm_4</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
+    <span class="n">pm_4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
             <span class="n">uncertain1</span> <span class="o">+</span> <span class="n">certain4</span>
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;pm_1&#39;</span><span class="p">:</span><span class="n">pm_1</span><span class="p">,</span> <span class="s1">&#39;pm_2&#39;</span><span class="p">:</span> <span class="n">pm_2</span><span class="p">,</span> <span class="s1">&#39;pm_3&#39;</span><span class="p">:</span> <span class="n">pm_3</span><span class="p">,</span> <span class="s1">&#39;pm_4&#39;</span><span class="p">:</span><span class="n">pm_4</span><span class="p">}</span>
 
 
+<span class="k">def</span> <span class="nf">pmt</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="n">nper</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">fv</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="s1">&#39;end&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the payment against loan principal plus interest.</span>
+
+<span class="sd">    Given:</span>
+<span class="sd">     * a present value, `pv` (e.g., an amount borrowed)</span>
+<span class="sd">     * a future value, `fv` (e.g., 0)</span>
+<span class="sd">     * an interest `rate` compounded once per period, of which</span>
+<span class="sd">       there are</span>
+<span class="sd">     * `nper` total</span>
+<span class="sd">     * and (optional) specification of whether payment is made</span>
+<span class="sd">       at the beginning (`when` = {&#39;begin&#39;, 1}) or the end</span>
+<span class="sd">       (`when` = {&#39;end&#39;, 0}) of each period</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       the (fixed) periodic payment.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    rate : array_like</span>
+<span class="sd">        Rate of interest (per period)</span>
+<span class="sd">    nper : array_like</span>
+<span class="sd">        Number of compounding periods</span>
+<span class="sd">    pv : array_like</span>
+<span class="sd">        Present value</span>
+<span class="sd">    fv : array_like,  optional</span>
+<span class="sd">        Future value (default = 0)</span>
+<span class="sd">    when : {{&#39;begin&#39;, 1}, {&#39;end&#39;, 0}}, {string, int}</span>
+<span class="sd">        When payments are due (&#39;begin&#39; (1) or &#39;end&#39; (0))</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : ndarray</span>
+<span class="sd">        Payment against loan plus interest.  If all input is scalar, returns a</span>
+<span class="sd">        scalar float.  If any input is array_like, returns payment for each</span>
+<span class="sd">        input element. If multiple inputs are array_like, they all must have</span>
+<span class="sd">        the same shape.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function is replicated from the numpy_financial package, under the same</span>
+<span class="sd">    LICENSE as the TMIP-EMAT repository.</span>
+<span class="sd">    Copyright (c) 2005-2019, NumPy Developers. All rights reserved.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_when_to_num</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;end&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;begin&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;beginning&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;finish&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_convert_when</span><span class="p">(</span><span class="n">when</span><span class="p">):</span>
+        <span class="c1"># Test to see if when has already been converted to ndarray</span>
+        <span class="c1"># This will happen if one function calls another, for example ppmt</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">when</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">when</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_when_to_num</span><span class="p">[</span><span class="n">when</span><span class="p">]</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">_when_to_num</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">when</span><span class="p">]</span>
+    <span class="n">when</span> <span class="o">=</span> <span class="n">_convert_when</span><span class="p">(</span><span class="n">when</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="n">nper</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">fv</span><span class="p">,</span> <span class="n">when</span><span class="p">)</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="p">[</span><span class="n">rate</span><span class="p">,</span> <span class="n">nper</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">fv</span><span class="p">,</span> <span class="n">when</span><span class="p">])</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rate</span><span class="p">)</span><span class="o">**</span><span class="n">nper</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">rate</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">masked_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rate</span><span class="p">)</span>
+    <span class="n">fact</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nper</span><span class="p">,</span>
+                    <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">masked_rate</span><span class="o">*</span><span class="n">when</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">temp</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">masked_rate</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">fv</span> <span class="o">+</span> <span class="n">pv</span><span class="o">*</span><span class="n">temp</span><span class="p">)</span> <span class="o">/</span> <span class="n">fact</span>
 
 <div class="viewcode-block" id="Road_Capacity_Investment"><a class="viewcode-back" href="../../../../source/emat.examples/RoadTest/road_test_yaml.html#emat.model.core_python.core_python_examples.Road_Capacity_Investment">[docs]</a><span class="k">def</span> <span class="nf">Road_Capacity_Investment</span><span class="p">(</span>
         <span class="c1"># constant</span>
@@ -344,8 +414,8 @@
     <span class="n">average_travel_time0</span> <span class="o">=</span> <span class="n">free_flow_time</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">alpha</span><span class="o">*</span><span class="p">(</span><span class="n">input_flow</span><span class="o">/</span><span class="n">initial_capacity</span><span class="p">)</span><span class="o">**</span><span class="n">beta</span><span class="p">)</span>
     <span class="n">capacity</span> <span class="o">=</span> <span class="n">initial_capacity</span> <span class="o">+</span> <span class="n">expand_capacity</span>
     <span class="n">average_travel_time1</span> <span class="o">=</span> <span class="n">free_flow_time</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">alpha</span><span class="o">*</span><span class="p">(</span><span class="n">input_flow</span><span class="o">/</span><span class="n">capacity</span><span class="p">)</span><span class="o">**</span><span class="n">beta</span><span class="p">)</span>
-    <span class="n">oops</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">lane_width</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">average_travel_time1</span> <span class="o">+=</span> <span class="p">(</span><span class="n">oops</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">input_flow</span><span class="p">)</span><span class="o">*</span><span class="n">oops</span><span class="o">*</span><span class="mi">2</span>
+    <span class="n">oops</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">lane_width</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">average_travel_time1</span> <span class="o">+=</span> <span class="p">(</span><span class="n">oops</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">input_flow</span><span class="p">)</span><span class="o">*</span><span class="n">oops</span><span class="o">*</span><span class="mi">2</span>
     <span class="n">travel_time_savings</span> <span class="o">=</span> <span class="n">average_travel_time0</span> <span class="o">-</span> <span class="n">average_travel_time1</span>
     <span class="n">value_of_time_savings</span> <span class="o">=</span> <span class="n">value_of_time</span> <span class="o">*</span> <span class="n">travel_time_savings</span> <span class="o">*</span> <span class="n">input_flow</span>
     <span class="n">present_cost_of_capacity_expansion</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">unit_cost_expansion</span> <span class="o">*</span> <span class="n">expand_capacity</span><span class="p">)</span>
@@ -361,9 +431,11 @@
 
     <span class="n">effective_interest_rate</span> <span class="o">=</span> <span class="n">interest_rate</span> <span class="o">+</span> <span class="n">yield_curve</span> <span class="o">*</span> <span class="p">(</span><span class="n">amortization_period</span><span class="o">-</span><span class="mi">15</span><span class="p">)</span> <span class="o">/</span> <span class="mi">35</span>
 
-    <span class="n">cost_of_capacity_expansion</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pmt</span><span class="p">(</span><span class="n">effective_interest_rate</span><span class="p">,</span>
-                                           <span class="n">amortization_period</span><span class="p">,</span>
-                                           <span class="n">present_cost_of_capacity_expansion</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">cost_of_capacity_expansion</span> <span class="o">=</span> <span class="n">pmt</span><span class="p">(</span>
+        <span class="n">effective_interest_rate</span><span class="p">,</span>
+        <span class="n">amortization_period</span><span class="p">,</span>
+        <span class="n">present_cost_of_capacity_expansion</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
         <span class="n">no_build_travel_time</span><span class="o">=</span><span class="n">average_travel_time0</span><span class="p">,</span>
@@ -381,7 +453,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is a demo for calling a core model function on the command line.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">argparse</span><span class="o">,</span> <span class="nn">pandas</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">numpy</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">warnings</span>
+    <span class="kn">import</span> <span class="nn">argparse</span><span class="o">,</span> <span class="nn">pandas</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">warnings</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--levers&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;levers.yml&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Levers Yaml File&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--uncs&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;uncs.yml&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Uncertainties Yaml File&#39;</span><span class="p">)</span>
@@ -451,10 +523,10 @@
 
         <span class="n">result1</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span><span class="nb">float</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;no_build_travel_time&#39;</span><span class="p">,</span><span class="s1">&#39;build_travel_time&#39;</span><span class="p">,</span><span class="s1">&#39;time_savings&#39;</span><span class="p">]}</span>
         <span class="n">result2</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-            <span class="s1">&#39;value_of_time_savings&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;value_of_time_savings&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
-            <span class="s1">&#39;present_cost_expansion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;present_cost_expansion&#39;</span><span class="p">]],</span>
-            <span class="s1">&#39;cost_of_capacity_expansion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;cost_of_capacity_expansion&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
-            <span class="s1">&#39;net_benefits&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;net_benefits&#39;</span><span class="p">]],</span>
+            <span class="s1">&#39;value_of_time_savings&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;value_of_time_savings&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+            <span class="s1">&#39;present_cost_expansion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;present_cost_expansion&#39;</span><span class="p">]],</span>
+            <span class="s1">&#39;cost_of_capacity_expansion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;cost_of_capacity_expansion&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+            <span class="s1">&#39;net_benefits&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;net_benefits&#39;</span><span class="p">]],</span>
         <span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;exp&#39;</span><span class="p">,</span><span class="s1">&#39;plain&#39;</span><span class="p">])</span>
 
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;output.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;wt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>

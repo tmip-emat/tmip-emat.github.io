@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>emat.analysis.feature_scoring &mdash; TMIP-EMAT 0.5.1, January 2021 documentation</title>
+  <title>emat.analysis.feature_scoring &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.5.1
+                0.5.2
               </div>
             
           
@@ -191,6 +191,7 @@
 		<span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
 		<span class="n">measures</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+		<span class="n">shortnames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Calculate feature scores based on a design of experiments.</span>
@@ -214,6 +215,11 @@
 <span class="sd">		measures (Collection, optional): The performance measures</span>
 <span class="sd">			on which feature scores are to be generated.  By default,</span>
 <span class="sd">			all measures are included.</span>
+<span class="sd">		shortnames (Scope or callable):</span>
+<span class="sd">			If given, use this function to convert the measure</span>
+<span class="sd">			names into more readable `shortname` values from the</span>
+<span class="sd">			scope, or by using a function that maps measures</span>
+<span class="sd">			names to something else.</span>
 
 <span class="sd">	Returns:</span>
 <span class="sd">		xmle.Elem or pandas.DataFrame:</span>
@@ -283,6 +289,15 @@
 	<span class="n">drop_r</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">index</span><span class="p">[(</span><span class="o">~</span><span class="n">pandas</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">fs</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
 	<span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">drop_r</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">drop_c</span><span class="p">)</span>
 
+	<span class="k">if</span> <span class="n">shortnames</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">shortnames</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+			<span class="n">shortnames</span> <span class="o">=</span> <span class="n">scope</span>
+		<span class="kn">from</span> <span class="nn">..scope.scope</span> <span class="kn">import</span> <span class="n">Scope</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shortnames</span><span class="p">,</span> <span class="n">Scope</span><span class="p">):</span>
+			<span class="n">fs</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">shortnames</span><span class="o">.</span><span class="n">shortname</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">fs</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">shortnames</span><span class="p">)</span>
+
 	<span class="c1"># convert colormap to a light color palette for rendered outputs</span>
 	<span class="k">if</span> <span class="s1">&#39;figure&#39;</span> <span class="ow">in</span> <span class="n">return_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="s1">&#39;styled&#39;</span> <span class="ow">in</span> <span class="n">return_type</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
 		<span class="k">try</span><span class="p">:</span>
@@ -299,7 +314,8 @@
 			<span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
 		<span class="p">)</span>
 	<span class="k">elif</span> <span class="n">return_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;styled&#39;</span><span class="p">:</span>
-		<span class="k">return</span> <span class="n">fs</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text_color_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+		<span class="kn">from</span> <span class="nn">..util.styling</span> <span class="kn">import</span> <span class="n">feature_score_styling</span>
+		<span class="k">return</span> <span class="n">feature_score_styling</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
 	<span class="k">else</span><span class="p">:</span>
 		<span class="k">return</span> <span class="n">fs</span><span class="o">.</span><span class="n">T</span></div>
 
@@ -535,6 +551,7 @@
 <span class="sd">				- &#39;styled&#39; gives a colorized pandas.DataFrame,</span>
 <span class="sd">				- &#39;figure&#39; gives a plotly violin plot,</span>
 <span class="sd">				- &#39;ridge figure&#39; gives a plotly ridgeline figure.</span>
+
 <span class="sd">			Either plotly result can optionally have &quot;.svg&quot;</span>
 <span class="sd">			or &quot;.png&quot; added to render a static image in those</span>
 <span class="sd">			formats.</span>
