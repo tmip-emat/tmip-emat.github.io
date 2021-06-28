@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Boxes &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
+  <title>Boxes &mdash; TMIP-EMAT 0.5.3, June 2021 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
@@ -70,7 +73,7 @@
             
             
               <div class="version">
-                0.5.2
+                0.5.3
               </div>
             
           
@@ -112,12 +115,14 @@
 <li class="toctree-l2"><a class="reference internal" href="scope.file.html">Scope File</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.design/emat.design.html">Experimental Designs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.method-index.html">Methodology Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
 </ul>
 
@@ -212,15 +217,6 @@
     text-align: unset;
 }
 </style>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
-documented are shown for illustration and are not guaranteed to be stable 
-in future releases of TMIP-EMAT.</p>
-<p class="last">The views expressed in this draft documentation do not necessarily 
-represent the opinions of FHWA, and do not constitute an endorsement, 
-recommendation, or specification by FHWA.</p>
-</div>
 <div class="section" id="boxes">
 <h1>Boxes<a class="headerlink" href="#boxes" title="Permalink to this headline">¶</a></h1>
 <p>A <a class="reference internal" href="#emat.Box" title="emat.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">Box</span></code></a> represents a constrained subset of experiments, containing
@@ -245,8 +241,8 @@ values.</p>
 <div class="section" id="box">
 <h2>Box<a class="headerlink" href="#box" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="emat.Box">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Box</code><span class="sig-paren">(</span><em><span class="n">name</span></em>, <em><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">scope</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">upper_bounds</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">lower_bounds</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">bounds</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">allowed</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">relevant</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Box" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Box">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">emat.</span></code><code class="sig-name descname"><span class="pre">Box</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">upper_bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">lower_bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">allowed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">relevant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.Box" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Box defines a set of restricted dimensions for a Scope.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -275,8 +271,8 @@ each feature.</li>
 </tbody>
 </table>
 <dl class="py attribute">
-<dt id="emat.Box.thresholds">
-<code class="descname">thresholds</code><a class="headerlink" href="#emat.Box.thresholds" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Box.thresholds">
+<code class="sig-name descname"><span class="pre">thresholds</span></code><a class="headerlink" href="#emat.Box.thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>The restricted dimensions in this Box, with feature names as
 keys and <a class="reference internal" href="#emat.Bounds" title="emat.Bounds"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bounds</span></code></a> or a <code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code> of available discrete
 values as the dictionary values.</p>
@@ -291,8 +287,8 @@ values as the dictionary values.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="emat.Box.relevant_features">
-<code class="descname">relevant_features</code><a class="headerlink" href="#emat.Box.relevant_features" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Box.relevant_features">
+<code class="sig-name descname"><span class="pre">relevant_features</span></code><a class="headerlink" href="#emat.Box.relevant_features" title="Permalink to this definition">¶</a></dt>
 <dd><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code> of features that are relevant for this Box.
 These are features, which are not themselves constrained,
 but should be considered in any analytical report developed
@@ -307,9 +303,9 @@ based on this Box.</p>
 </table>
 </dd></dl>
 
-<dl class="py method">
-<dt id="emat.Box.scope">
-<em class="property">property </em><code class="descname">scope</code><a class="headerlink" href="#emat.Box.scope" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="emat.Box.scope">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">scope</span></code><a class="headerlink" href="#emat.Box.scope" title="Permalink to this definition">¶</a></dt>
 <dd><p>A scope associated with this Box.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -321,25 +317,25 @@ based on this Box.</p>
 </table>
 </dd></dl>
 
-<dl class="py method">
-<dt id="emat.Box.measure_thresholds">
-<em class="property">property </em><code class="descname">measure_thresholds</code><a class="headerlink" href="#emat.Box.measure_thresholds" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="emat.Box.measure_thresholds">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">measure_thresholds</span></code><a class="headerlink" href="#emat.Box.measure_thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dict[str,Union[Bounds,Set]]:
 The thresholds in this Box associated with performance measures.</p>
 <p>A Scope must be associated with this Box to access this property.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="emat.Box.uncertainty_thresholds">
-<em class="property">property </em><code class="descname">uncertainty_thresholds</code><a class="headerlink" href="#emat.Box.uncertainty_thresholds" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="emat.Box.uncertainty_thresholds">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">uncertainty_thresholds</span></code><a class="headerlink" href="#emat.Box.uncertainty_thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dict[str,Union[Bounds,Set]]:
 The thresholds in this Box associated with exogenous uncertainties.</p>
 <p>A Scope must be associated with this Box to access this property.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="emat.Box.lever_thresholds">
-<em class="property">property </em><code class="descname">lever_thresholds</code><a class="headerlink" href="#emat.Box.lever_thresholds" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="emat.Box.lever_thresholds">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">lever_thresholds</span></code><a class="headerlink" href="#emat.Box.lever_thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dict[str,Union[Bounds,Set]]:
 The thresholds in this Box associated with policy levers.</p>
 <p>A Scope must be associated with this Box to access this property.</p>
@@ -348,8 +344,8 @@ The thresholds in this Box associated with policy levers.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.Box.set_lower_bound">
-<code class="descclassname">Box.</code><code class="descname">set_lower_bound</code><span class="sig-paren">(</span><em><span class="n">key</span></em>, <em><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Box.set_lower_bound" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Box.set_lower_bound">
+<code class="sig-prename descclassname"><span class="pre">Box.</span></code><code class="sig-name descname"><span class="pre">set_lower_bound</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">key</span></span></em>, <em><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Box.set_lower_bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a lower bound, retaining existing upper bound.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -372,8 +368,8 @@ leave unbounded from below.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.Box.set_upper_bound">
-<code class="descclassname">Box.</code><code class="descname">set_upper_bound</code><span class="sig-paren">(</span><em><span class="n">key</span></em>, <em><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Box.set_upper_bound" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Box.set_upper_bound">
+<code class="sig-prename descclassname"><span class="pre">Box.</span></code><code class="sig-name descname"><span class="pre">set_upper_bound</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">key</span></span></em>, <em><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Box.set_upper_bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set an upper bound, retaining existing lower bound.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -396,8 +392,8 @@ leave unbounded from above.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.Box.set_bounds">
-<code class="descclassname">Box.</code><code class="descname">set_bounds</code><span class="sig-paren">(</span><em><span class="n">key</span></em>, <em><span class="n">lowerbound</span></em>, <em><span class="n">upperbound</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Box.set_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Box.set_bounds" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Box.set_bounds">
+<code class="sig-prename descclassname"><span class="pre">Box.</span></code><code class="sig-name descname"><span class="pre">set_bounds</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">key</span></span></em>, <em><span class="n"><span class="pre">lowerbound</span></span></em>, <em><span class="n"><span class="pre">upperbound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Box.set_bounds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.Box.set_bounds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set both lower and upper bounds.</p>
 <p>If values are both set to None and this key becomes
 unbounded but it was not previously unbounded, it is moved from
@@ -429,8 +425,8 @@ leave unbounded from above.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.Box.add_to_allowed_set">
-<code class="descclassname">Box.</code><code class="descname">add_to_allowed_set</code><span class="sig-paren">(</span><em><span class="n">key</span></em>, <em><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Box.add_to_allowed_set" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Box.add_to_allowed_set">
+<code class="sig-prename descclassname"><span class="pre">Box.</span></code><code class="sig-name descname"><span class="pre">add_to_allowed_set</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">key</span></span></em>, <em><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Box.add_to_allowed_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a value to the allowed set</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -455,8 +451,8 @@ will be attached.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.Box.remove_from_allowed_set">
-<code class="descclassname">Box.</code><code class="descname">remove_from_allowed_set</code><span class="sig-paren">(</span><em><span class="n">key</span></em>, <em><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Box.remove_from_allowed_set" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Box.remove_from_allowed_set">
+<code class="sig-prename descclassname"><span class="pre">Box.</span></code><code class="sig-name descname"><span class="pre">remove_from_allowed_set</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">key</span></span></em>, <em><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Box.remove_from_allowed_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove a value from the allowed set</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -484,8 +480,8 @@ will be attached.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.Box.replace_allowed_set">
-<code class="descclassname">Box.</code><code class="descname">replace_allowed_set</code><span class="sig-paren">(</span><em><span class="n">key</span></em>, <em><span class="n">values</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Box.replace_allowed_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Box.replace_allowed_set" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Box.replace_allowed_set">
+<code class="sig-prename descclassname"><span class="pre">Box.</span></code><code class="sig-name descname"><span class="pre">replace_allowed_set</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">key</span></span></em>, <em><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Box.replace_allowed_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.Box.replace_allowed_set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace the allowed set.</p>
 <p>If the new allowed set is the same as the complete set of
 possible values defined in the scope, this key becomes
@@ -514,8 +510,8 @@ values are allowed.</li>
 <div class="section" id="id1">
 <h2>Boxes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="emat.Boxes">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Boxes</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="n">scope</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Boxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Boxes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Boxes">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">emat.</span></code><code class="sig-name descname"><span class="pre">Boxes</span></code><span class="sig-paren">(</span><em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#Boxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.Boxes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.MutableMapping" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.MutableMapping</span></code></a></p>
 </dd></dl>
 
@@ -523,8 +519,8 @@ values are allowed.</li>
 <div class="section" id="chainedbox">
 <h2>ChainedBox<a class="headerlink" href="#chainedbox" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="emat.ChainedBox">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">ChainedBox</code><span class="sig-paren">(</span><em><span class="n">boxes</span></em>, <em><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.ChainedBox" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.ChainedBox">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">emat.</span></code><code class="sig-name descname"><span class="pre">ChainedBox</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">boxes</span></span></em>, <em><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.ChainedBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Box defines a set of restricted dimensions for a Scope.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -542,8 +538,8 @@ of each box in the chain, until a box is found with no parent.</li>
 </tbody>
 </table>
 <dl class="py method">
-<dt id="emat.ChainedBox.measure_thresholds">
-<code class="descname">measure_thresholds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox.measure_thresholds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.ChainedBox.measure_thresholds" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.ChainedBox.measure_thresholds">
+<code class="sig-name descname"><span class="pre">measure_thresholds</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox.measure_thresholds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.ChainedBox.measure_thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>The thresholds in this Box or its ancestor(s) associated with performance measures.</p>
 <p>A Scope must be associated with each Box in the chain to access this property.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -557,8 +553,8 @@ of each box in the chain, until a box is found with no parent.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.ChainedBox.uncertainty_thresholds">
-<code class="descname">uncertainty_thresholds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox.uncertainty_thresholds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.ChainedBox.uncertainty_thresholds" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.ChainedBox.uncertainty_thresholds">
+<code class="sig-name descname"><span class="pre">uncertainty_thresholds</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox.uncertainty_thresholds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.ChainedBox.uncertainty_thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>The thresholds in this Box or its ancestor(s) associated with exogenous uncertainties.</p>
 <p>A Scope must be associated with each Box in the chain to access this property.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -572,8 +568,8 @@ of each box in the chain, until a box is found with no parent.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.ChainedBox.lever_thresholds">
-<code class="descname">lever_thresholds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox.lever_thresholds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.ChainedBox.lever_thresholds" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.ChainedBox.lever_thresholds">
+<code class="sig-name descname"><span class="pre">lever_thresholds</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox.lever_thresholds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.ChainedBox.lever_thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>The thresholds in this Box or its ancestor(s) associated with policy levers.</p>
 <p>A Scope must be associated with each Box in the chain to access this property.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -589,8 +585,8 @@ of each box in the chain, until a box is found with no parent.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="id0">
-<code class="descclassname">ChainedBox.</code><code class="descname">uncertainty_thresholds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox.uncertainty_thresholds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id0">
+<code class="sig-prename descclassname"><span class="pre">ChainedBox.</span></code><code class="sig-name descname"><span class="pre">uncertainty_thresholds</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox.uncertainty_thresholds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
 <dd><p>The thresholds in this Box or its ancestor(s) associated with exogenous uncertainties.</p>
 <p>A Scope must be associated with each Box in the chain to access this property.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -604,8 +600,8 @@ of each box in the chain, until a box is found with no parent.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="id2">
-<code class="descclassname">ChainedBox.</code><code class="descname">lever_thresholds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox.lever_thresholds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id2">
+<code class="sig-prename descclassname"><span class="pre">ChainedBox.</span></code><code class="sig-name descname"><span class="pre">lever_thresholds</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox.lever_thresholds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
 <dd><p>The thresholds in this Box or its ancestor(s) associated with policy levers.</p>
 <p>A Scope must be associated with each Box in the chain to access this property.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -619,8 +615,8 @@ of each box in the chain, until a box is found with no parent.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="id3">
-<code class="descclassname">ChainedBox.</code><code class="descname">measure_thresholds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox.measure_thresholds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id3">
+<code class="sig-prename descclassname"><span class="pre">ChainedBox.</span></code><code class="sig-name descname"><span class="pre">measure_thresholds</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/box.html#ChainedBox.measure_thresholds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
 <dd><p>The thresholds in this Box or its ancestor(s) associated with performance measures.</p>
 <p>A Scope must be associated with each Box in the chain to access this property.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -634,8 +630,8 @@ of each box in the chain, until a box is found with no parent.</li>
 </dd></dl>
 
 <dl class="py class">
-<dt id="emat.Bounds">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Bounds</code><span class="sig-paren">(</span><em><span class="n">lowerbound</span></em>, <em><span class="n">upperbound</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Bounds" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Bounds">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">emat.</span></code><code class="sig-name descname"><span class="pre">Bounds</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">lowerbound</span></span></em>, <em><span class="n"><span class="pre">upperbound</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.Bounds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
 <p>A lower and upper bound as a 2-tuple.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -653,14 +649,14 @@ if there is no upper bound.</li>
 </tbody>
 </table>
 <dl class="py attribute">
-<dt id="emat.Bounds.lowerbound">
-<code class="descname">lowerbound</code><a class="headerlink" href="#emat.Bounds.lowerbound" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Bounds.lowerbound">
+<code class="sig-name descname"><span class="pre">lowerbound</span></code><a class="headerlink" href="#emat.Bounds.lowerbound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 0</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="emat.Bounds.upperbound">
-<code class="descname">upperbound</code><a class="headerlink" href="#emat.Bounds.upperbound" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Bounds.upperbound">
+<code class="sig-name descname"><span class="pre">upperbound</span></code><a class="headerlink" href="#emat.Bounds.upperbound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 1</p>
 </dd></dl>
 

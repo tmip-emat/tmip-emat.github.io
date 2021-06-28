@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Uniform Distribution &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
+  <title>Uniform Distribution &mdash; TMIP-EMAT 0.5.3, June 2021 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
@@ -70,7 +73,7 @@
             
             
               <div class="version">
-                0.5.2
+                0.5.3
               </div>
             
           
@@ -116,12 +119,14 @@
 <li class="toctree-l2"><a class="reference internal" href="scope.file.html">Scope File</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.design/emat.design.html">Experimental Designs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.method-index.html">Methodology Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
 </ul>
 
@@ -485,7 +490,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <p>This page reviews some common continuous distributions used for exploratory and risk analysis.
-EMAT can also use any named continuous distribution from the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.6.1)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> module.</p>
+EMAT can also use any named continuous distribution from the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/reference/stats.html#module-scipy.stats" title="(in SciPy v1.7.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> module.</p>
 <div class="section" id="Uniform-Distribution">
 <h1>Uniform Distribution<a class="headerlink" href="#Uniform-Distribution" title="Permalink to this headline">¶</a></h1>
 <p>The uniform distribution is defined by a probability density function that is a rectangle. It is parameterized using two parameters (minimum, maximum). It is a simple distribution that is easy to understand and explain, and is often assumed as the implied default distribution for exploratory analysis.</p>
@@ -570,8 +575,8 @@ EMAT can also use any named continuous distribution from the <a class="reference
 </div>
 </div>
 <dl class="py function">
-<dt id="emat.util.distributions.triangle">
-<code class="descclassname">emat.util.distributions.</code><code class="descname">triangle</code><span class="sig-paren">(</span><em><span class="n">lower_bound</span></em>, <em><span class="n">upper_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">rel_peak</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">peak</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/util/distributions.html#triangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.util.distributions.triangle" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.util.distributions.triangle">
+<code class="sig-prename descclassname"><span class="pre">emat.util.distributions.</span></code><code class="sig-name descname"><span class="pre">triangle</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">lower_bound</span></span></em>, <em><span class="n"><span class="pre">upper_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">*</span></span></em>, <em><span class="n"><span class="pre">rel_peak</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">peak</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/util/distributions.html#triangle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.util.distributions.triangle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a frozen scipy.stats.triang distribution.</p>
 <p>This function provides the same actual distribution as <code class="docutils literal notranslate"><span class="pre">triang</span></code>,
 but offers multiple intuitive ways to identify the peak and upper bound of the
@@ -699,8 +704,8 @@ Can be inferred from those values if not given.</li>
 </div>
 </div>
 <dl class="py function">
-<dt id="emat.util.distributions.pert">
-<code class="descclassname">emat.util.distributions.</code><code class="descname">pert</code><span class="sig-paren">(</span><em><span class="n">lower_bound</span></em>, <em><span class="n">upper_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">rel_peak</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">peak</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">gamma</span><span class="o">=</span><span class="default_value">4.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/util/distributions.html#pert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.util.distributions.pert" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.util.distributions.pert">
+<code class="sig-prename descclassname"><span class="pre">emat.util.distributions.</span></code><code class="sig-name descname"><span class="pre">pert</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">lower_bound</span></span></em>, <em><span class="n"><span class="pre">upper_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">*</span></span></em>, <em><span class="n"><span class="pre">rel_peak</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">peak</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/util/distributions.html#pert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.util.distributions.pert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a frozen scipy.stats.beta PERT distribution.</p>
 <p>For details on the PERT distribution see
 <a class="reference external" href="https://en.wikipedia.org/wiki/PERT_distribution">wikipedia</a>.</p>
@@ -798,10 +803,10 @@ Can be inferred from those values if not given.</li>
 </div>
 <div class="section" id="Other-Distributions">
 <h1>Other Distributions<a class="headerlink" href="#Other-Distributions" title="Permalink to this headline">¶</a></h1>
-<p>It is possible to use any other continuous distribution provided in the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.6.1)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> module.
+<p>It is possible to use any other continuous distribution provided in the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/reference/stats.html#module-scipy.stats" title="(in SciPy v1.7.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> module.
 As a demonstration, below we define a trapezoidal distribution for an uncertainty.  Instead of
 using the more intuitively named keys shown above, it is necessary to fall back to the standard
-<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.6.1)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> names for each of the distribution parameters, and they must all be defined within
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/reference/stats.html#module-scipy.stats" title="(in SciPy v1.7.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> names for each of the distribution parameters, and they must all be defined within
 the <cite>dist</cite> key, which may be less intuitive than the suggested distributions above.  For example,
 note in the example below that the upper bound of the distribution is implictly set to 7 based
 on the parameters, and that upper bound is not explicitly identified in the yaml file.</p>
@@ -838,7 +843,7 @@ on the parameters, and that upper bound is not explicitly identified in the yaml
 </div>
 </div>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"d70f6f4408e84b87bde29293b6ee37e5": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "250px"}}, "4aea6d0aec0f4e04bfe2ad66cb2aa679": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}}, "version_major": 2, "version_minor": 0}
+{"state": {"25ea8eb8576944f2bbf67e51db020e74": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "250px"}}, "9362e02662e0453395b298d7a966a1e4": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}}, "version_major": 2, "version_minor": 0}
 </script></div>
 
 

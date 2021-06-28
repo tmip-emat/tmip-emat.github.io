@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Performance Measures &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
+  <title>Performance Measures &mdash; TMIP-EMAT 0.5.3, June 2021 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
@@ -70,7 +73,7 @@
             
             
               <div class="version">
-                0.5.2
+                0.5.3
               </div>
             
           
@@ -107,12 +110,14 @@
 <li class="toctree-l2"><a class="reference internal" href="scope.file.html">Scope File</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.design/emat.design.html">Experimental Designs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.method-index.html">Methodology Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
 </ul>
 
@@ -207,22 +212,13 @@
     text-align: unset;
 }
 </style>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
-documented are shown for illustration and are not guaranteed to be stable 
-in future releases of TMIP-EMAT.</p>
-<p class="last">The views expressed in this draft documentation do not necessarily 
-represent the opinions of FHWA, and do not constitute an endorsement, 
-recommendation, or specification by FHWA.</p>
-</div>
 <div class="section" id="performance-measures">
 <span id="output-measures"></span><h1>Performance Measures<a class="headerlink" href="#performance-measures" title="Permalink to this headline">¶</a></h1>
 <p>A <a class="reference internal" href="#emat.Measure" title="emat.Measure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Measure</span></code></a> is used to provide scoping information for
 a single model output.</p>
 <dl class="py class">
-<dt id="emat.Measure">
-<em class="property">class </em><code class="descclassname">emat.</code><code class="descname">Measure</code><span class="sig-paren">(</span><em><span class="n">name</span></em>, <em><span class="n">kind</span><span class="o">=</span><span class="default_value">0</span></em>, <em><span class="n">min</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">max</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">address</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">dtype</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">function</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">transform</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">variable_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">metamodeltype</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">shortname</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">desc</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">formula</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">parser</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/measure.html#Measure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Measure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Measure">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">emat.</span></code><code class="sig-name descname"><span class="pre">Measure</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name</span></span></em>, <em><span class="n"><span class="pre">kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em><span class="n"><span class="pre">min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">metamodeltype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">shortname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">formula</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">parser</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/measure.html#Measure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.Measure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.workbench.em_framework.outcomes.ScalarOutcome</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.names.ShortnameMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.scope.names.TaggableMixin</span></code></p>
 <p>Measure represents an outcome measure of the model.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -295,8 +291,8 @@ regression intercept to a point other than 0.</li>
 </tbody>
 </table>
 <dl class="py attribute">
-<dt id="emat.Measure.name">
-<code class="descname">name</code><a class="headerlink" href="#emat.Measure.name" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Measure.name">
+<code class="sig-name descname"><span class="pre">name</span></code><a class="headerlink" href="#emat.Measure.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name of the measure.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -309,8 +305,8 @@ regression intercept to a point other than 0.</li>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="emat.Measure.kind">
-<code class="descname">kind</code><a class="headerlink" href="#emat.Measure.kind" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Measure.kind">
+<code class="sig-name descname"><span class="pre">kind</span></code><a class="headerlink" href="#emat.Measure.kind" title="Permalink to this definition">¶</a></dt>
 <dd><p>{MINIMIZE, MAXIMIZE, INFO}</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -323,8 +319,8 @@ regression intercept to a point other than 0.</li>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="emat.Measure.transform">
-<code class="descname">transform</code><a class="headerlink" href="#emat.Measure.transform" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Measure.transform">
+<code class="sig-name descname"><span class="pre">transform</span></code><a class="headerlink" href="#emat.Measure.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>The name of the transform function, if any.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -337,8 +333,8 @@ regression intercept to a point other than 0.</li>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="emat.Measure.address">
-<code class="descname">address</code><a class="headerlink" href="#emat.Measure.address" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Measure.address">
+<code class="sig-name descname"><span class="pre">address</span></code><a class="headerlink" href="#emat.Measure.address" title="Permalink to this definition">¶</a></dt>
 <dd><p>The address or instruction for how to
 extract this measure from the model.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -352,8 +348,8 @@ extract this measure from the model.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="emat.Measure.metamodeltype">
-<code class="descname">metamodeltype</code><a class="headerlink" href="#emat.Measure.metamodeltype" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Measure.metamodeltype">
+<code class="sig-name descname"><span class="pre">metamodeltype</span></code><a class="headerlink" href="#emat.Measure.metamodeltype" title="Permalink to this definition">¶</a></dt>
 <dd><p>The transformation type to use for
 metamodel estimation.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -367,8 +363,8 @@ metamodel estimation.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="emat.Measure.desc">
-<code class="descname">desc</code><a class="headerlink" href="#emat.Measure.desc" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Measure.desc">
+<code class="sig-name descname"><span class="pre">desc</span></code><a class="headerlink" href="#emat.Measure.desc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Human readable description of this performance measure, for reference only</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -381,8 +377,8 @@ metamodel estimation.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="emat.Measure.formula">
-<code class="descname">formula</code><a class="headerlink" href="#emat.Measure.formula" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Measure.formula">
+<code class="sig-name descname"><span class="pre">formula</span></code><a class="headerlink" href="#emat.Measure.formula" title="Permalink to this definition">¶</a></dt>
 <dd><p>An eval-able expression to compute this performance measure from other measures</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -395,8 +391,8 @@ metamodel estimation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.Measure.info">
-<code class="descname">info</code><span class="sig-paren">(</span><em><span class="n">return_string</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/measure.html#Measure.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.Measure.info" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Measure.info">
+<code class="sig-name descname"><span class="pre">info</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">return_string</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/scope/measure.html#Measure.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.Measure.info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print some information about this measure</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -410,8 +406,8 @@ then this function returns the string instead of printing it.</td>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="emat.Measure.parser">
-<code class="descname">parser</code><a class="headerlink" href="#emat.Measure.parser" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.Measure.parser">
+<code class="sig-name descname"><span class="pre">parser</span></code><a class="headerlink" href="#emat.Measure.parser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instructions for how to parse this performance measure from raw output files</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -423,9 +419,9 @@ then this function returns the string instead of printing it.</td>
 </table>
 </dd></dl>
 
-<dl class="py method">
-<dt id="emat.Measure.shortname">
-<em class="property">property </em><code class="descname">shortname</code><a class="headerlink" href="#emat.Measure.shortname" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="emat.Measure.shortname">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">shortname</span></code><a class="headerlink" href="#emat.Measure.shortname" title="Permalink to this definition">¶</a></dt>
 <dd><p>An abbreviated name, or the full name if not otherwise defined.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -437,9 +433,9 @@ then this function returns the string instead of printing it.</td>
 </table>
 </dd></dl>
 
-<dl class="py method">
-<dt id="emat.Measure.shortname_if_any">
-<em class="property">property </em><code class="descname">shortname_if_any</code><a class="headerlink" href="#emat.Measure.shortname_if_any" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="emat.Measure.shortname_if_any">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">shortname_if_any</span></code><a class="headerlink" href="#emat.Measure.shortname_if_any" title="Permalink to this definition">¶</a></dt>
 <dd><p>The abbreviated name, or None.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -451,9 +447,9 @@ then this function returns the string instead of printing it.</td>
 </table>
 </dd></dl>
 
-<dl class="py method">
-<dt id="emat.Measure.tags">
-<em class="property">property </em><code class="descname">tags</code><a class="headerlink" href="#emat.Measure.tags" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="emat.Measure.tags">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">tags</span></code><a class="headerlink" href="#emat.Measure.tags" title="Permalink to this definition">¶</a></dt>
 <dd><p>A set of tags attached to this object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

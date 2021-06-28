@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
+  <title>Index &mdash; TMIP-EMAT 0.5.3, June 2021 documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                0.5.2
+                0.5.3
               </div>
             
           
@@ -98,12 +101,14 @@
 <li class="toctree-l1"><a class="reference internal" href="source/emat.intro.html">Introduction to EMAT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/emat.design/emat.design.html">Experimental Designs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.database/index.html">Databases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.examples/index.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/emat.method-index.html">Methodology Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.references.html">References</a></li>
 </ul>
 
@@ -211,7 +216,17 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.scope/parameters.html#emat.Parameter.abbrev">abbrev (emat.Parameter attribute)</a>
+
+      <ul>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.abbrev">(emat.scope.parameter.BooleanParameter attribute)</a>
 </li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.abbrev">(emat.scope.parameter.CategoricalParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.IntegerParameter.abbrev">(emat.scope.parameter.IntegerParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.RealParameter.abbrev">(emat.scope.parameter.RealParameter attribute)</a>
+</li>
+      </ul></li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel">AbstractCoreModel (class in emat.model)</a>
 </li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.add_box">add_box() (emat.analysis.Visualizer method)</a>
@@ -235,8 +250,16 @@
 </li>
         <li><a href="source/emat.scope/parameters.html#emat.Parameter.address">(emat.Parameter attribute)</a>
 </li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.address">(emat.scope.parameter.BooleanParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.address">(emat.scope.parameter.CategoricalParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.IntegerParameter.address">(emat.scope.parameter.IntegerParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.RealParameter.address">(emat.scope.parameter.RealParameter attribute)</a>
+</li>
       </ul></li>
-      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.allow_short_circuit">allow_short_circuit() (emat.model.AbstractCoreModel property)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.allow_short_circuit">allow_short_circuit (emat.model.AbstractCoreModel property)</a>
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.archive">archive() (emat.model.AbstractCoreModel method)</a>
 
@@ -260,15 +283,27 @@
 </li>
       <li><a href="source/emat.glossary.html#term-box"><strong>box</strong></a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.scope/boxes.html#emat.Box">Box (class in emat)</a>
 </li>
+      <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.box_number">box_number() (emat.analysis.PrimBox method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.scope/boxes.html#emat.Boxes">Boxes (class in emat)</a>
 </li>
-      <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.boxes">boxes() (emat.analysis.Prim property)</a>
+      <li><a href="source/emat.analysis/cart.html#emat.analysis.CART.boxes">boxes (emat.analysis.CART property)</a>
+
+      <ul>
+        <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.boxes">(emat.analysis.Prim property)</a>
 </li>
-      <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.boxes_to_dataframe">boxes_to_dataframe() (emat.analysis.Prim method)</a>
+      </ul></li>
+      <li><a href="source/emat.analysis/cart.html#emat.analysis.CART.boxes_to_dataframe">boxes_to_dataframe() (emat.analysis.CART method)</a>
+
+      <ul>
+        <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.boxes_to_dataframe">(emat.analysis.Prim method)</a>
+</li>
+      </ul></li>
+      <li><a href="source/emat.analysis/cart.html#emat.analysis.CART.build_tree">build_tree() (emat.analysis.CART method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -277,7 +312,11 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.glossary.html#term-CART"><strong>CART</strong></a>
+
+      <ul>
+        <li><a href="source/emat.analysis/cart.html#emat.analysis.CART">(class in emat.analysis)</a>
 </li>
+      </ul></li>
       <li><a href="source/emat.glossary.html#term-case"><strong>case</strong></a>
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.cat_for_index">cat_for_index() (emat.scope.parameter.BooleanParameter method)</a>
@@ -290,22 +329,36 @@
 </li>
       <li><a href="source/emat.scope/boxes.html#emat.ChainedBox">ChainedBox (class in emat)</a>
 </li>
+      <li><a href="source/emat.method-index.html#term-Classification-and-Regression-Trees-CART"><strong>Classification and Regression Trees (CART)</strong></a>
+</li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.clear_box">clear_box() (emat.analysis.Visualizer method)</a>
 </li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.complete">complete() (emat.analysis.Visualizer method)</a>
 </li>
       <li><a href="source/emat.metamodels/api.html#emat.MetaModel.compute_std">compute_std() (emat.MetaModel method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.scope/parameters.html#emat.Constant">Constant (class in emat)</a>
 </li>
+      <li><a href="source/emat.method-index.html#term-Contrast-Experiments"><strong>Contrast Experiments</strong></a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.analysis/splom.html#emat.analysis.contrast_experiments">contrast_experiments() (in module emat.analysis)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-core-model"><strong>core model</strong></a>
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.Parameter.corr">corr (emat.Parameter attribute)</a>
+
+      <ul>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.corr">(emat.scope.parameter.BooleanParameter attribute)</a>
 </li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.corr">(emat.scope.parameter.CategoricalParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.IntegerParameter.corr">(emat.scope.parameter.IntegerParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.RealParameter.corr">(emat.scope.parameter.RealParameter attribute)</a>
+</li>
+      </ul></li>
       <li><a href="source/emat.metamodels/api.html#emat.create_metamodel">create_metamodel() (in module emat)</a>
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_data">create_metamodel_from_data() (emat.model.AbstractCoreModel method)</a>
@@ -326,7 +379,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.database/abstract.html#emat.database.Database">Database (class in emat.database)</a>
 </li>
-      <li><a href="source/emat.scope/parameters.html#emat.Constant.default">default() (emat.Constant property)</a>
+      <li><a href="source/emat.scope/parameters.html#emat.Constant.default">default (emat.Constant property)</a>
 </li>
       <li><a href="source/emat.database/abstract.html#emat.database.Database.delete_experiment_measures">delete_experiment_measures() (emat.database.Database method)</a>
 
@@ -355,24 +408,52 @@
 </li>
         <li><a href="source/emat.scope/parameters.html#emat.Parameter.desc">(emat.Parameter attribute)</a>
 </li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.desc">(emat.scope.parameter.BooleanParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.desc">(emat.scope.parameter.CategoricalParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.IntegerParameter.desc">(emat.scope.parameter.IntegerParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.RealParameter.desc">(emat.scope.parameter.RealParameter attribute)</a>
+</li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.glossary.html#term-design"><strong>design</strong></a>
 </li>
+      <li><a href="source/emat.method-index.html#term-Design-of-Experiments"><strong>Design of Experiments</strong></a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.design_experiments">design_experiments() (emat.model.AbstractCoreModel method)</a>
 
       <ul>
         <li><a href="source/emat.scope/scope.html#emat.Scope.design_experiments">(emat.Scope method)</a>
 </li>
+        <li><a href="source/emat.design/emat.design.html#emat.experiment.experimental_design.design_experiments">(in module emat.experiment.experimental_design)</a>
+</li>
       </ul></li>
+      <li><a href="source/emat.design/emat.design.html#emat.experiment.experimental_design.design_refpoint_test">design_refpoint_test() (in module emat.experiment.experimental_design)</a>
+</li>
+      <li><a href="source/emat.design/emat.design.html#emat.experiment.experimental_design.design_sensitivity_tests">design_sensitivity_tests() (in module emat.experiment.experimental_design)</a>
+</li>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.determine_coi">determine_coi() (emat.analysis.Prim method)</a>
+</li>
+      <li><a href="source/emat.method-index.html#term-Display-Experiments"><strong>Display Experiments</strong></a>
 </li>
       <li><a href="source/emat.analysis/splom.html#emat.analysis.display_experiments">display_experiments() (in module emat.analysis)</a>
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.Parameter.dist_def">dist_def (emat.Parameter attribute)</a>
+
+      <ul>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.dist_def">(emat.scope.parameter.BooleanParameter attribute)</a>
 </li>
-      <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.distdef">distdef() (emat.scope.parameter.CategoricalParameter property)</a>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.dist_def">(emat.scope.parameter.CategoricalParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.IntegerParameter.dist_def">(emat.scope.parameter.IntegerParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.RealParameter.dist_def">(emat.scope.parameter.RealParameter attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.distdef">distdef (emat.scope.parameter.CategoricalParameter property)</a>
 </li>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.drop_restriction">drop_restriction() (emat.analysis.PrimBox method)</a>
 </li>
@@ -396,15 +477,21 @@
       </ul></li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.enter_run_model">enter_run_model() (emat.model.AbstractCoreModel method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.models/excel.html#emat.model.ExcelCoreModel">ExcelCoreModel (class in emat.model)</a>
 </li>
       <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.existing_run_id">existing_run_id() (emat.database.SQLiteDB method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.exit_run_model">exit_run_model() (emat.model.AbstractCoreModel method)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-experiment"><strong>experiment</strong></a>
+</li>
+      <li><a href="source/emat.method-index.html#term-Experimental-Design"><strong>Experimental Design</strong></a>
+</li>
+      <li><a href="source/emat.method-index.html#term-Exploratory-Scoping"><strong>Exploratory Scoping</strong></a>
+</li>
+      <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.explore">explore() (emat.analysis.PrimBox method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -412,16 +499,18 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.method-index.html#term-Feature-Scoring"><strong>Feature Scoring</strong></a>
+</li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.feature_scores">feature_scores() (emat.model.AbstractCoreModel method)</a>
 
       <ul>
         <li><a href="source/emat.analysis/feature-scoring.html#emat.analysis.feature_scoring.feature_scores">(in module emat.analysis.feature_scoring)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.models/files-api.html#emat.model.core_files.parsers.FileParser">FileParser (class in emat.model.core_files.parsers)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.models/files-api.html#emat.model.core_files.parsers.FileParser">FileParser (class in emat.model.core_files.parsers)</a>
+</li>
       <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel">FilesCoreModel (class in emat.model)</a>
 </li>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.find_box">find_box() (emat.analysis.Prim method)</a>
@@ -508,15 +597,19 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.hmm">hmm() (emat.analysis.Visualizer method)</a>
+      <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.hmm">hmm() (emat.analysis.PrimBox method)</a>
+
+      <ul>
+        <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.hmm">(emat.analysis.Visualizer method)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.ignore_crash">ignore_crash() (emat.model.AbstractCoreModel property)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.ignore_crash">ignore_crash (emat.model.AbstractCoreModel property)</a>
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.index_for_cat">index_for_cat() (emat.scope.parameter.BooleanParameter method)</a>
 
@@ -544,6 +637,8 @@
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.IntegerParameter">IntegerParameter (class in emat.scope.parameter)</a>
 </li>
+      <li><a href="source/emat.method-index.html#term-Interactive-Visualizer"><strong>Interactive Visualizer</strong></a>
+</li>
       <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.invalidate_experiment_runs">invalidate_experiment_runs() (emat.database.SQLiteDB method)</a>
 </li>
       <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.invert">invert() (emat.scope.parameter.BooleanParameter method)</a>
@@ -560,7 +655,7 @@
 <h2 id="K">K</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.killed_indicator">killed_indicator() (emat.model.AbstractCoreModel property)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.killed_indicator">killed_indicator (emat.model.AbstractCoreModel property)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -572,16 +667,16 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.method-index.html#term-Latin-Hypercube-Design-of-Experiments"><strong>Latin Hypercube Design of Experiments</strong></a>
+</li>
       <li><a href="source/emat.glossary.html#term-lever"><strong>lever</strong></a>
 </li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.lever_selectors">lever_selectors() (emat.analysis.Visualizer method)</a>
 </li>
-      <li><a href="source/emat.scope/boxes.html#emat.Box.lever_thresholds">lever_thresholds() (emat.Box property)</a>
-
-      <ul>
-        <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.lever_thresholds">(emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#id2">[1]</a>
+      <li><a href="source/emat.scope/boxes.html#emat.Box.lever_thresholds">lever_thresholds (emat.Box property)</a>
 </li>
-      </ul></li>
+      <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.lever_thresholds">lever_thresholds() (emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#id2">[1]</a>
+</li>
       <li><a href="source/emat.metamodels/regression.html#emat.learn.LinearAndGaussian">LinearAndGaussian() (in module emat.learn)</a>
 </li>
       <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.load_archived_measures">load_archived_measures() (emat.model.FilesCoreModel method)</a>
@@ -596,13 +691,13 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.local_directory">local_directory() (emat.model.AbstractCoreModel property)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.local_directory">local_directory (emat.model.AbstractCoreModel property)</a>
 
       <ul>
         <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.local_directory">(emat.model.FilesCoreModel property)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.database/abstract.html#emat.database.Database.lock">lock() (emat.database.Database property)</a>
+      <li><a href="source/emat.database/abstract.html#emat.database.Database.lock">lock (emat.database.Database property)</a>
 </li>
       <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.log">log() (emat.database.SQLiteDB method)</a>
 
@@ -624,13 +719,13 @@
 </li>
       <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.mark_run_invalid">mark_run_invalid() (emat.database.SQLiteDB method)</a>
 </li>
-      <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.max">max() (emat.scope.parameter.CategoricalParameter property)</a>
+      <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.max">max (emat.scope.parameter.CategoricalParameter property)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-measure"><strong>measure</strong></a>
 </li>
       <li><a href="source/emat.scope/measures.html#emat.Measure">Measure (class in emat)</a>
 </li>
-      <li><a href="source/emat.models/files-api.html#emat.model.core_files.parsers.FileParser.measure_names">measure_names() (emat.model.core_files.parsers.FileParser property)</a>
+      <li><a href="source/emat.models/files-api.html#emat.model.core_files.parsers.FileParser.measure_names">measure_names (emat.model.core_files.parsers.FileParser property)</a>
 
       <ul>
         <li><a href="source/emat.models/files-api.html#emat.model.core_files.parsers.MappingParser.measure_names">(emat.model.core_files.parsers.MappingParser property)</a>
@@ -640,31 +735,35 @@
       </ul></li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.measure_selectors">measure_selectors() (emat.analysis.Visualizer method)</a>
 </li>
+      <li><a href="source/emat.scope/boxes.html#emat.Box.measure_thresholds">measure_thresholds (emat.Box property)</a>
+</li>
+      <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.measure_thresholds">measure_thresholds() (emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#id3">[1]</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.scope/boxes.html#emat.Box.measure_thresholds">measure_thresholds() (emat.Box property)</a>
-
-      <ul>
-        <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.measure_thresholds">(emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#id3">[1]</a>
-</li>
-      </ul></li>
       <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.merge_database">merge_database() (emat.database.SQLiteDB method)</a>
 </li>
       <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.merge_log">merge_log() (emat.database.SQLiteDB method)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-meta-model"><strong>meta-model</strong></a>
 </li>
+      <li><a href="source/emat.method-index.html#term-Meta-model-Creation"><strong>Meta-model Creation</strong></a>
+</li>
       <li><a href="source/emat.metamodels/api.html#emat.MetaModel">MetaModel (class in emat)</a>
 </li>
       <li><a href="source/emat.scope/measures.html#emat.Measure.metamodeltype">metamodeltype (emat.Measure attribute)</a>
 </li>
-      <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.min">min() (emat.scope.parameter.CategoricalParameter property)</a>
+      <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.min">min (emat.scope.parameter.CategoricalParameter property)</a>
 </li>
       <li><a href="source/emat.metamodels/api.html#emat.MetaModel.mix_length_scales">mix_length_scales() (emat.MetaModel method)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-model"><strong>model</strong></a>
 </li>
       <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.model_path">model_path (emat.model.FilesCoreModel attribute)</a>
+</li>
+      <li><a href="source/emat.method-index.html#term-Monte-Carlo-Simulation"><strong>Monte Carlo Simulation</strong></a>
+</li>
+      <li><a href="source/emat.method-index.html#term-Multi-objective-Optimization"><strong>Multi-objective Optimization</strong></a>
 </li>
   </ul></td>
 </tr></table>
@@ -712,11 +811,15 @@
 </li>
       <li><a href="source/emat.scope/measures.html#emat.Measure.parser">parser (emat.Measure attribute)</a>
 </li>
+      <li><a href="source/emat.method-index.html#term-Patient-Rule-Induction-Method-PRIM"><strong>Patient Rule Induction Method (PRIM)</strong></a>
+</li>
       <li><a href="source/emat.scope/continuous_distributions.html#emat.util.distributions.pert">pert() (in module emat.util.distributions)</a>
 </li>
       <li><a href="source/emat.metamodels/api.html#emat.MetaModel.pick_new_experiments">pick_new_experiments() (emat.MetaModel method)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-policy"><strong>policy</strong></a>
+</li>
+      <li><a href="source/emat.method-index.html#term-Policy-Contrast"><strong>Policy Contrast</strong></a>
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.post_process">post_process() (emat.model.AbstractCoreModel method)</a>
 
@@ -724,10 +827,10 @@
         <li><a href="source/emat.models/gbnrtc.html#emat.model.GBNRTCModel.post_process">(emat.model.GBNRTCModel method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.metamodels/api.html#emat.MetaModel.predict">predict() (emat.MetaModel method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.metamodels/api.html#emat.MetaModel.preprocess_raw_input">preprocess_raw_input() (emat.MetaModel method)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-PRIM"><strong>PRIM</strong></a>
@@ -744,6 +847,14 @@
 
       <ul>
         <li><a href="source/emat.scope/parameters.html#emat.Parameter.ptype">(emat.Parameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.ptype">(emat.scope.parameter.BooleanParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.CategoricalParameter.ptype">(emat.scope.parameter.CategoricalParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.IntegerParameter.ptype">(emat.scope.parameter.IntegerParameter attribute)</a>
+</li>
+        <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.RealParameter.ptype">(emat.scope.parameter.RealParameter attribute)</a>
 </li>
       </ul></li>
       <li><a href="source/emat.models/python_based.html#emat.model.PythonCoreModel">PythonCoreModel (class in emat.model)</a>
@@ -900,6 +1011,8 @@
       </ul></li>
       <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.RealParameter">RealParameter (class in emat.scope.parameter)</a>
 </li>
+      <li><a href="source/emat.method-index.html#term-Reference-Experiment"><strong>Reference Experiment</strong></a>
+</li>
       <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.rel_output_path">rel_output_path (emat.model.FilesCoreModel attribute)</a>
 </li>
       <li><a href="source/emat.scope/boxes.html#emat.Box.relevant_features">relevant_features (emat.Box attribute)</a>
@@ -910,15 +1023,17 @@
 </li>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.resample">resample() (emat.analysis.PrimBox method)</a>
 </li>
-      <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.resolved_archive_path">resolved_archive_path() (emat.model.FilesCoreModel property)</a>
+      <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.resolved_archive_path">resolved_archive_path (emat.model.FilesCoreModel property)</a>
 </li>
-      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.resolved_model_path">resolved_model_path() (emat.model.AbstractCoreModel property)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.resolved_model_path">resolved_model_path (emat.model.AbstractCoreModel property)</a>
 
       <ul>
         <li><a href="source/emat.models/files-api.html#emat.model.FilesCoreModel.resolved_model_path">(emat.model.FilesCoreModel property)</a>
 </li>
       </ul></li>
       <li><a href="source/emat.examples/RoadTest/road_test_yaml.html#emat.model.core_python.core_python_examples.Road_Capacity_Investment">Road_Capacity_Investment() (in module emat.model.core_python.core_python_examples)</a>
+</li>
+      <li><a href="source/emat.method-index.html#term-Robust-Optimization"><strong>Robust Optimization</strong></a>
 </li>
       <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.robust_evaluate">robust_evaluate() (emat.model.AbstractCoreModel method)</a>
 </li>
@@ -944,20 +1059,30 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.method-index.html#term-Scatter-Plot-Matrix-SPLOM"><strong>Scatter Plot Matrix (SPLOM)</strong></a>
+</li>
       <li><a href="source/emat.analysis/splom.html#emat.viz.scatter_graphs">scatter_graphs() (in module emat.viz)</a>
 </li>
       <li><a href="source/emat.analysis/splom.html#emat.viz.scatter_graphs_2">scatter_graphs_2() (in module emat.viz)</a>
 </li>
       <li><a href="source/emat.glossary.html#term-scenario"><strong>scenario</strong></a>
 </li>
+      <li><a href="source/emat.method-index.html#term-Scenario-Discovery"><strong>Scenario Discovery</strong></a>
+</li>
       <li><a href="source/emat.glossary.html#term-scope"><strong>scope</strong></a>
 </li>
       <li><a href="source/emat.scope/scope.html#emat.Scope">Scope (class in emat)</a>
 </li>
-      <li><a href="source/emat.scope/boxes.html#emat.Box.scope">scope() (emat.Box property)</a>
+      <li><a href="source/emat.scope/boxes.html#emat.Box.scope">scope (emat.Box property)</a>
 </li>
-      <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.select">select() (emat.analysis.PrimBox method)</a>
+      <li><a href="source/emat.method-index.html#term-Search-over-Levers"><strong>Search over Levers</strong></a>
 </li>
+      <li><a href="source/emat.analysis/cart.html#emat.analysis.CART.select">select() (emat.analysis.CART method)</a>
+
+      <ul>
+        <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.select">(emat.analysis.PrimBox method)</a>
+</li>
+      </ul></li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.selection_feature_scores">selection_feature_scores() (emat.analysis.Visualizer method)</a>
 </li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.selectors">selectors() (emat.analysis.Visualizer method)</a>
@@ -978,7 +1103,7 @@
         <li><a href="source/emat.models/gbnrtc.html#emat.model.GBNRTCModel.setup">(emat.model.GBNRTCModel method)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.scope/measures.html#emat.Measure.shortname">shortname() (emat.Measure property)</a>
+      <li><a href="source/emat.scope/measures.html#emat.Measure.shortname">shortname (emat.Measure property)</a>
 
       <ul>
         <li><a href="source/emat.scope/parameters.html#emat.Parameter.shortname">(emat.Parameter property)</a>
@@ -994,7 +1119,7 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/emat.scope/measures.html#emat.Measure.shortname_if_any">shortname_if_any() (emat.Measure property)</a>
+      <li><a href="source/emat.scope/measures.html#emat.Measure.shortname_if_any">shortname_if_any (emat.Measure property)</a>
 
       <ul>
         <li><a href="source/emat.scope/parameters.html#emat.Parameter.shortname_if_any">(emat.Parameter property)</a>
@@ -1008,24 +1133,44 @@
         <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.RealParameter.shortname_if_any">(emat.scope.parameter.RealParameter property)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.show_boxes">show_boxes() (emat.analysis.Prim method)</a>
+      <li><a href="source/emat.analysis/cart.html#emat.analysis.CART.show_boxes">show_boxes() (emat.analysis.CART method)</a>
+
+      <ul>
+        <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.show_boxes">(emat.analysis.Prim method)</a>
 </li>
+      </ul></li>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.show_pairs_scatter">show_pairs_scatter() (emat.analysis.PrimBox method)</a>
 </li>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.show_ppt">show_ppt() (emat.analysis.PrimBox method)</a>
 </li>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.show_tradeoff">show_tradeoff() (emat.analysis.PrimBox method)</a>
 </li>
-      <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.splom">splom() (emat.analysis.Visualizer method)</a>
+      <li><a href="source/emat.analysis/cart.html#emat.analysis.CART.show_tree">show_tree() (emat.analysis.CART method)</a>
 </li>
+      <li><a href="source/emat.glossary.html#term-SPLOM"><strong>SPLOM</strong></a>
+</li>
+      <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.splom">splom() (emat.analysis.PrimBox method)</a>
+
+      <ul>
+        <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.splom">(emat.analysis.Visualizer method)</a>
+</li>
+      </ul></li>
       <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB">SQLiteDB (class in emat.database)</a>
 </li>
       <li><a href="source/emat.models/gbnrtc.html#emat.model.GBNRTCModel.start_transcad">start_transcad() (emat.model.GBNRTCModel method)</a>
 </li>
-      <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.stats">stats() (emat.analysis.Prim property)</a>
+      <li><a href="source/emat.analysis/cart.html#emat.analysis.CART.stats">stats (emat.analysis.CART property)</a>
+
+      <ul>
+        <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.stats">(emat.analysis.Prim property)</a>
 </li>
-      <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.stats_to_dataframe">stats_to_dataframe() (emat.analysis.Prim method)</a>
+      </ul></li>
+      <li><a href="source/emat.analysis/cart.html#emat.analysis.CART.stats_to_dataframe">stats_to_dataframe() (emat.analysis.CART method)</a>
+
+      <ul>
+        <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.stats_to_dataframe">(emat.analysis.Prim method)</a>
 </li>
+      </ul></li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.status">status() (emat.analysis.Visualizer method)</a>
 </li>
       <li><a href="source/emat.database/abstract.html#emat.database.Database.store_scope">store_scope() (emat.database.Database method)</a>
@@ -1036,7 +1181,7 @@
         <li><a href="source/emat.scope/scope.html#emat.Scope.store_scope">(emat.Scope method)</a>
 </li>
       </ul></li>
-      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.success_indicator">success_indicator() (emat.model.AbstractCoreModel property)</a>
+      <li><a href="source/emat.models/abstract.html#emat.model.AbstractCoreModel.success_indicator">success_indicator (emat.model.AbstractCoreModel property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1046,7 +1191,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.models/files-api.html#emat.model.core_files.parsers.TableParser">TableParser (class in emat.model.core_files.parsers)</a>
 </li>
-      <li><a href="source/emat.scope/measures.html#emat.Measure.tags">tags() (emat.Measure property)</a>
+      <li><a href="source/emat.scope/measures.html#emat.Measure.tags">tags (emat.Measure property)</a>
 
       <ul>
         <li><a href="source/emat.scope/parameters.html#emat.Parameter.tags">(emat.Parameter property)</a>
@@ -1062,13 +1207,19 @@
       </ul></li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.three_way">three_way() (emat.analysis.Visualizer method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.method-index.html#term-Threshold-Scoring"><strong>Threshold Scoring</strong></a>
+</li>
       <li><a href="source/emat.analysis/feature-scoring.html#emat.analysis.feature_scoring.threshold_feature_scores">threshold_feature_scores() (in module emat.analysis.feature_scoring)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.scope/boxes.html#emat.Box.thresholds">thresholds (emat.Box attribute)</a>
 </li>
+      <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.to_emat_box">to_emat_box() (emat.analysis.PrimBox method)</a>
+</li>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.to_emat_boxes">to_emat_boxes() (emat.analysis.Prim method)</a>
+</li>
+      <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.to_json">to_json() (emat.analysis.PrimBox method)</a>
 </li>
       <li><a href="source/emat.analysis/prim.html#emat.analysis.Prim.tradeoff_selector">tradeoff_selector() (emat.analysis.Prim method)</a>
 
@@ -1077,6 +1228,8 @@
 </li>
       </ul></li>
       <li><a href="source/emat.scope/measures.html#emat.Measure.transform">transform (emat.Measure attribute)</a>
+</li>
+      <li><a href="source/emat.analysis/cart.html#emat.analysis.CART.tree_chooser">tree_chooser() (emat.analysis.CART method)</a>
 </li>
       <li><a href="source/emat.scope/continuous_distributions.html#emat.util.distributions.triangle">triangle() (in module emat.util.distributions)</a>
 </li>
@@ -1094,16 +1247,16 @@
 </li>
       <li><a href="source/emat.analysis/interactive-explorer-v2.html#emat.analysis.Visualizer.uncertainty_selectors">uncertainty_selectors() (emat.analysis.Visualizer method)</a>
 </li>
-      <li><a href="source/emat.scope/boxes.html#emat.Box.uncertainty_thresholds">uncertainty_thresholds() (emat.Box property)</a>
-
-      <ul>
-        <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.uncertainty_thresholds">(emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#id0">[1]</a>
+      <li><a href="source/emat.scope/boxes.html#emat.Box.uncertainty_thresholds">uncertainty_thresholds (emat.Box property)</a>
 </li>
-      </ul></li>
-      <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.update">update() (emat.analysis.PrimBox method)</a>
+      <li><a href="source/emat.scope/boxes.html#emat.ChainedBox.uncertainty_thresholds">uncertainty_thresholds() (emat.ChainedBox method)</a>, <a href="source/emat.scope/boxes.html#id0">[1]</a>
+</li>
+      <li><a href="source/emat.method-index.html#term-Univariate-Sensitivity-Testing"><strong>Univariate Sensitivity Testing</strong></a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.analysis/prim.html#emat.analysis.PrimBox.update">update() (emat.analysis.PrimBox method)</a>
+</li>
       <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.update_database">update_database() (emat.database.SQLiteDB method)</a>
 </li>
       <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.update_database_for_run_ids">update_database_for_run_ids() (emat.database.SQLiteDB method)</a>
@@ -1124,7 +1277,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.vacuum">vacuum() (emat.database.SQLiteDB method)</a>
 </li>
-      <li><a href="source/emat.scope/parameters.html#emat.Constant.values">values() (emat.Constant property)</a>
+      <li><a href="source/emat.scope/parameters.html#emat.Constant.values">values (emat.Constant property)</a>
 
       <ul>
         <li><a href="source/emat.scope/parameters.html#emat.scope.parameter.BooleanParameter.values">(emat.scope.parameter.BooleanParameter property)</a>
@@ -1142,6 +1295,8 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/emat.method-index.html#term-Worst-Case-Discovery"><strong>Worst Case Discovery</strong></a>
+</li>
       <li><a href="source/emat.database/abstract.html#emat.database.Database.write_box">write_box() (emat.database.Database method)</a>
 
       <ul>
@@ -1162,14 +1317,14 @@
         <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.write_experiment_all">(emat.database.SQLiteDB method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.database/abstract.html#emat.database.Database.write_experiment_measures">write_experiment_measures() (emat.database.Database method)</a>
 
       <ul>
         <li><a href="source/emat.database/sqlitedb.html#emat.database.SQLiteDB.write_experiment_measures">(emat.database.SQLiteDB method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/emat.database/abstract.html#emat.database.Database.write_experiment_parameters">write_experiment_parameters() (emat.database.Database method)</a>
 
       <ul>

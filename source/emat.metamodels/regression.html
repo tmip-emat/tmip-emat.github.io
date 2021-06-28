@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Meta-Model Regression &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
+  <title>Meta-Model Regression &mdash; TMIP-EMAT 0.5.3, June 2021 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
@@ -70,7 +73,7 @@
             
             
               <div class="version">
-                0.5.2
+                0.5.3
               </div>
             
           
@@ -100,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.design/emat.design.html">Experimental Designs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Meta Models</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="creation.html">Meta-Model Creation</a></li>
@@ -111,6 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.method-index.html">Methodology Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
 </ul>
 
@@ -205,15 +210,6 @@
     text-align: unset;
 }
 </style>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
-documented are shown for illustration and are not guaranteed to be stable 
-in future releases of TMIP-EMAT.</p>
-<p class="last">The views expressed in this draft documentation do not necessarily 
-represent the opinions of FHWA, and do not constitute an endorsement, 
-recommendation, or specification by FHWA.</p>
-</div>
 <div class="section" id="meta-model-regression">
 <h1>Meta-Model Regression<a class="headerlink" href="#meta-model-regression" title="Permalink to this headline">¶</a></h1>
 <p>TMIP-EMAT currently implements meta-modeling by default using a de-trended multi-target
@@ -222,8 +218,8 @@ transparently for inspection and review as desired, and documentation is provide
 here to facilitate this.  Alternate regressors can be used by passing any <cite>scikit-learn</cite>
 compatible regressor object as the <cite>regressor</cite> argument in the <cite>create_metamodel</cite> function.</p>
 <dl class="py function">
-<dt id="emat.learn.LinearAndGaussian">
-<code class="descclassname">emat.learn.</code><code class="descname">LinearAndGaussian</code><span class="sig-paren">(</span><em><span class="n">fit_intercept</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">n_jobs</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">stats_on_fit</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">kernel_generator</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">alpha</span><span class="o">=</span><span class="default_value">1e-10</span></em>, <em><span class="n">optimizer</span><span class="o">=</span><span class="default_value">'fmin_l_bfgs_b'</span></em>, <em><span class="n">n_restarts_optimizer</span><span class="o">=</span><span class="default_value">250</span></em>, <em><span class="n">normalize_y</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">standardize_before_fit</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">copy_X_train</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">use_cv_predict</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">single_target</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/learn/boosting.html#LinearAndGaussian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.learn.LinearAndGaussian" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.learn.LinearAndGaussian">
+<code class="sig-prename descclassname"><span class="pre">emat.learn.</span></code><code class="sig-name descname"><span class="pre">LinearAndGaussian</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">stats_on_fit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">kernel_generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em>, <em><span class="n"><span class="pre">optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fmin_l_bfgs_b'</span></span></em>, <em><span class="n"><span class="pre">n_restarts_optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">250</span></span></em>, <em><span class="n"><span class="pre">normalize_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">standardize_before_fit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">copy_X_train</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">use_cv_predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">single_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/learn/boosting.html#LinearAndGaussian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.learn.LinearAndGaussian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a detrended Gaussian process regressor.</p>
 <p>This is the default regressor used in TMIP-EMAT.
 This two stage regressor first fits a simple linear regression

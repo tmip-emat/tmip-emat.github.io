@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SQLite Database &mdash; TMIP-EMAT 0.5.2, March 2021 documentation</title>
+  <title>SQLite Database &mdash; TMIP-EMAT 0.5.3, June 2021 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/tmip_emat.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
@@ -70,7 +73,7 @@
             
             
               <div class="version">
-                0.5.2
+                0.5.3
               </div>
             
           
@@ -100,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.design/emat.design.html">Experimental Designs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Databases</a><ul class="current">
@@ -120,6 +124,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../emat.analysis/index.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.examples/index.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.method-index.html">Methodology Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.references.html">References</a></li>
 </ul>
 
@@ -214,21 +219,12 @@
     text-align: unset;
 }
 </style>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p>This is <strong>DRAFT</strong> documentation under development.  The interfaces
-documented are shown for illustration and are not guaranteed to be stable 
-in future releases of TMIP-EMAT.</p>
-<p class="last">The views expressed in this draft documentation do not necessarily 
-represent the opinions of FHWA, and do not constitute an endorsement, 
-recommendation, or specification by FHWA.</p>
-</div>
 <div class="section" id="sqlite-database">
 <h1>SQLite Database<a class="headerlink" href="#sqlite-database" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="emat.database.SQLiteDB">
-<em class="property">class </em><code class="descclassname">emat.database.</code><code class="descname">SQLiteDB</code><span class="sig-paren">(</span><em><span class="n">database_path</span><span class="o">=</span><span class="default_value">':memory:'</span></em>, <em><span class="n">initialize</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">readonly</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">check_same_thread</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">update</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">emat.database.database.Database</span></code></p>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">emat.database.</span></code><code class="sig-name descname"><span class="pre">SQLiteDB</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">database_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">':memory:'</span></span></em>, <em><span class="n"><span class="pre">initialize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">readonly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">check_same_thread</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="abstract.html#emat.database.Database" title="emat.database.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">emat.database.database.Database</span></code></a></p>
 <p>SQLite implementation of the <a class="reference internal" href="abstract.html#emat.database.Database" title="emat.database.Database"><code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code></a> abstract base class.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -257,8 +253,8 @@ to be an out-of-date database format.</li>
 </tbody>
 </table>
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.add_scope_meas">
-<code class="descname">add_scope_meas</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">scp_m</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.add_scope_meas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.add_scope_meas" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.add_scope_meas">
+<code class="sig-name descname"><span class="pre">add_scope_meas</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">scp_m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.add_scope_meas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.add_scope_meas" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the set of performance measures associated with the scope</p>
 <p>Use this function when the core model runs are complete to add
 performance measures to the scope and post-process against the
@@ -283,8 +279,8 @@ performance measures, and results associated with this run</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.delete_experiment_measures">
-<code class="descname">delete_experiment_measures</code><span class="sig-paren">(</span><em><span class="n">run_ids</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.delete_experiment_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.delete_experiment_measures" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.delete_experiment_measures">
+<code class="sig-name descname"><span class="pre">delete_experiment_measures</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">run_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.delete_experiment_measures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.delete_experiment_measures" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete experiment performance measure results.</p>
 <p>The method removes only the performance measures, not the
 parameters.  This can be useful if a set of corrupted model
@@ -302,8 +298,8 @@ experiments must be individually identified.</td>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.existing_run_id">
-<code class="descname">existing_run_id</code><span class="sig-paren">(</span><em><span class="n">run_id</span></em>, <em><span class="n">scope_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">parameters</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">location</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">source</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.existing_run_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.existing_run_id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.existing_run_id">
+<code class="sig-name descname"><span class="pre">existing_run_id</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">run_id</span></span></em>, <em><span class="n"><span class="pre">scope_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">experiment_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.existing_run_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.existing_run_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Store an existing run_id in the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -344,8 +340,8 @@ run, or 0 for a core model run.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.get_db_info">
-<code class="descname">get_db_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.get_db_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.get_db_info" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.get_db_info">
+<code class="sig-name descname"><span class="pre">get_db_info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.get_db_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.get_db_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a short string describing this Database</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -358,8 +354,8 @@ run, or 0 for a core model run.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.get_experiment_id">
-<code class="descname">get_experiment_id</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.get_experiment_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.get_experiment_id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.get_experiment_id">
+<code class="sig-name descname"><span class="pre">get_experiment_id</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.get_experiment_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.get_experiment_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read or create an experiment id in the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -392,8 +388,8 @@ arguments are used to update parameters.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.init_xlm">
-<code class="descname">init_xlm</code><span class="sig-paren">(</span><em><span class="n">parameter_list</span></em>, <em><span class="n">measure_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.init_xlm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.init_xlm" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.init_xlm">
+<code class="sig-name descname"><span class="pre">init_xlm</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">parameter_list</span></span></em>, <em><span class="n"><span class="pre">measure_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.init_xlm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.init_xlm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize or extend set of experiment variables and measures</p>
 <p>Initialize database with universe of risk variables,
 policy variables, and performance measures. All variables and measures
@@ -419,8 +415,8 @@ used in metamodeling, currently supported include {‘log’, None}.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.invalidate_experiment_runs">
-<code class="descname">invalidate_experiment_runs</code><span class="sig-paren">(</span><em><span class="n">run_ids</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">queries</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.invalidate_experiment_runs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.invalidate_experiment_runs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.invalidate_experiment_runs">
+<code class="sig-name descname"><span class="pre">invalidate_experiment_runs</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">run_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">queries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.invalidate_experiment_runs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.invalidate_experiment_runs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invalidate experiment performance measure results.</p>
 <p>The method marks the performance measures as invalid, not the
 parameters.  It does not actually remove any data from the model.
@@ -454,8 +450,8 @@ database (total, if run_ids is given, otherwise per query)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.log">
-<code class="descname">log</code><span class="sig-paren">(</span><em><span class="n">message</span></em>, <em><span class="n">level</span><span class="o">=</span><span class="default_value">20</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.log" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.log">
+<code class="sig-name descname"><span class="pre">log</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">message</span></span></em>, <em><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.log" title="Permalink to this definition">¶</a></dt>
 <dd><p>Log a message into the SQLite database</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -472,8 +468,8 @@ database (total, if run_ids is given, otherwise per query)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.mark_run_invalid">
-<code class="descname">mark_run_invalid</code><span class="sig-paren">(</span><em><span class="n">run_id</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.mark_run_invalid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.mark_run_invalid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.mark_run_invalid">
+<code class="sig-name descname"><span class="pre">mark_run_invalid</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">run_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.mark_run_invalid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.mark_run_invalid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mark a particular run_id as invalid.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -486,8 +482,8 @@ database (total, if run_ids is given, otherwise per query)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.merge_database">
-<code class="descname">merge_database</code><span class="sig-paren">(</span><em><span class="n">other</span></em>, <em><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">dryrun</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">on_conflict</span><span class="o">=</span><span class="default_value">'ignore'</span></em>, <em><span class="n">max_diffs_in_log</span><span class="o">=</span><span class="default_value">50</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.merge_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.merge_database" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.merge_database">
+<code class="sig-name descname"><span class="pre">merge_database</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">other</span></span></em>, <em><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">dryrun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">on_conflict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ignore'</span></span></em>, <em><span class="n"><span class="pre">max_diffs_in_log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.merge_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.merge_database" title="Permalink to this definition">¶</a></dt>
 <dd><p>Merge results from another database.</p>
 <p>Only results from a matching identical scope are
 merged.  Metamodels are copied without checking
@@ -527,8 +523,8 @@ that have been changed are reported.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.merge_log">
-<code class="descname">merge_log</code><span class="sig-paren">(</span><em><span class="n">other</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.merge_log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.merge_log" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.merge_log">
+<code class="sig-name descname"><span class="pre">merge_log</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.merge_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.merge_log" title="Permalink to this definition">¶</a></dt>
 <dd><p>Merge the log from another SQLiteDB into this database log.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -541,8 +537,8 @@ that have been changed are reported.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.new_run_id">
-<code class="descname">new_run_id</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">parameters</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">location</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">source</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.new_run_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.new_run_id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.new_run_id">
+<code class="sig-name descname"><span class="pre">new_run_id</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">experiment_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.new_run_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.new_run_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new run_id in the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -582,8 +578,8 @@ run, or 0 for a core model run.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.print_log">
-<code class="descname">print_log</code><span class="sig-paren">(</span><em><span class="n">file</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">limit</span><span class="o">=</span><span class="default_value">20</span></em>, <em><span class="n">order</span><span class="o">=</span><span class="default_value">'DESC'</span></em>, <em><span class="n">level</span><span class="o">=</span><span class="default_value">20</span></em>, <em><span class="n">like</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.print_log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.print_log" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.print_log">
+<code class="sig-name descname"><span class="pre">print_log</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DESC'</span></span></em>, <em><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em><span class="n"><span class="pre">like</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.print_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.print_log" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print logged messages from the SQLite database</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -605,8 +601,8 @@ level or higher are printed.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_all_experiment_ids">
-<code class="descname">read_all_experiment_ids</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">grouped</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_all_experiment_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_all_experiment_ids" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_all_experiment_ids">
+<code class="sig-name descname"><span class="pre">read_all_experiment_ids</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">design_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">grouped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_all_experiment_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_all_experiment_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the experiment ids previously defined in the database</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -640,8 +636,8 @@ experiment id’s.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_experiment_id">
-<code class="descname">read_experiment_id</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_experiment_id">
+<code class="sig-name descname"><span class="pre">read_experiment_id</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the experiment id previously defined in the database</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -674,8 +670,8 @@ arguments are used to update parameters.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_experiment_measure_sources">
-<code class="descname">read_experiment_measure_sources</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">design</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_measure_sources"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_measure_sources" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_experiment_measure_sources">
+<code class="sig-name descname"><span class="pre">read_experiment_measure_sources</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">design_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">experiment_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">design</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_measure_sources"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_measure_sources" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read all source ids from the results stored in the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -707,8 +703,8 @@ named scope and design.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.set_experiment_id">
-<code class="descname">set_experiment_id</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.set_experiment_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.set_experiment_id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.set_experiment_id">
+<code class="sig-name descname"><span class="pre">set_experiment_id</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">experiment_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.set_experiment_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.set_experiment_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set an experiment id in the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -739,8 +735,8 @@ arguments are used to update parameters.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.store_scope">
-<code class="descname">store_scope</code><span class="sig-paren">(</span><em><span class="n">scope</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.store_scope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.store_scope" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.store_scope">
+<code class="sig-name descname"><span class="pre">store_scope</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.store_scope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.store_scope" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save an emat.Scope directly to the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -766,22 +762,22 @@ arguments are used to update parameters.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.update_database">
-<code class="descname">update_database</code><span class="sig-paren">(</span><em><span class="n">queries</span></em>, <em><span class="n">on_error</span><span class="o">=</span><span class="default_value">'ignore'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.update_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.update_database" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.update_database">
+<code class="sig-name descname"><span class="pre">update_database</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">queries</span></span></em>, <em><span class="n"><span class="pre">on_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ignore'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.update_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.update_database" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update database for compatability with tmip-emat 0.4 and later</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.update_database_for_run_ids">
-<code class="descname">update_database_for_run_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.update_database_for_run_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.update_database_for_run_ids" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.update_database_for_run_ids">
+<code class="sig-name descname"><span class="pre">update_database_for_run_ids</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.update_database_for_run_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.update_database_for_run_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add run_id to runs that do not have one.</p>
 <p>This command is for updating older files, and  should not be needed
 on recently created database files.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.update_scope">
-<code class="descname">update_scope</code><span class="sig-paren">(</span><em><span class="n">scope</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.update_scope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.update_scope" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.update_scope">
+<code class="sig-name descname"><span class="pre">update_scope</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.update_scope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.update_scope" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the emat scope information in the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -794,8 +790,8 @@ on recently created database files.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.vacuum">
-<code class="descname">vacuum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.vacuum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.vacuum" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.vacuum">
+<code class="sig-name descname"><span class="pre">vacuum</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.vacuum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.vacuum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Vacuum the SQLite database.</p>
 <p>SQLite files grow over time, and may have inefficient allocation of data
 as more rows are added.  This command may make the database file run faster
@@ -803,8 +799,8 @@ or be smaller on disk.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.write_ex_m_1">
-<code class="descname">write_ex_m_1</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">source</span></em>, <em><span class="n">ex_id</span></em>, <em><span class="n">m_name</span></em>, <em><span class="n">m_value</span></em>, <em><span class="n">run_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_ex_m_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_ex_m_1" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.write_ex_m_1">
+<code class="sig-name descname"><span class="pre">write_ex_m_1</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">source</span></span></em>, <em><span class="n"><span class="pre">ex_id</span></span></em>, <em><span class="n"><span class="pre">m_name</span></span></em>, <em><span class="n"><span class="pre">m_value</span></span></em>, <em><span class="n"><span class="pre">run_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_ex_m_1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_ex_m_1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write a single performance measure result for an experiment</p>
 <p>Write the performance measure result for an experiment
 in the scope - if the scope does not exist, nothing is recorded</p>
@@ -838,8 +834,8 @@ identify problems and organize model runs.</li>
 <div class="section" id="scopes">
 <h2>Scopes<a class="headerlink" href="#scopes" title="Permalink to this headline">¶</a></h2>
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_scope">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_scope</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_scope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_scope" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_scope">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_scope</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_scope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_scope" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the pickled scope from the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -862,8 +858,8 @@ the database, a KeyError is raised.</td>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.delete_scope">
-<code class="descclassname">SQLiteDB.</code><code class="descname">delete_scope</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.delete_scope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.delete_scope" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.delete_scope">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">delete_scope</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.delete_scope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.delete_scope" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete the scope from the database</p>
 <p>Deletes the scope as well as any experiments and results associated
 with the scope</p>
@@ -879,8 +875,8 @@ performance measures, and results associated with this run</td>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_scope_names">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_scope_names</code><span class="sig-paren">(</span><em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_scope_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_scope_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_scope_names">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_scope_names</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">design_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><span class="pre">list</span></a><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_scope_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_scope_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of all available scopes in the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -898,8 +894,8 @@ scopes containing a design with this name are returned.</td>
 <div class="section" id="scope-features">
 <h3>Scope Features<a class="headerlink" href="#scope-features" title="Permalink to this headline">¶</a></h3>
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_uncertainties">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_uncertainties</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_uncertainties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_uncertainties" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_uncertainties">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_uncertainties</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><span class="pre">list</span></a><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_uncertainties"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_uncertainties" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of all uncertainties for a given scope.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -912,8 +908,8 @@ scopes containing a design with this name are returned.</td>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_levers">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_levers</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_levers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_levers" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_levers">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_levers</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><span class="pre">list</span></a><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_levers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_levers" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of all levers for a given scope.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -926,8 +922,8 @@ scopes containing a design with this name are returned.</td>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_constants">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_constants</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_constants"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_constants" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_constants">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_constants</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><span class="pre">list</span></a><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_constants"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_constants" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of all constants for a given scope.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -940,8 +936,8 @@ scopes containing a design with this name are returned.</td>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_measures">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_measures</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_measures" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_measures">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_measures</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><span class="pre">list</span></a><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_measures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_measures" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of all performance measures for a given scope.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -958,8 +954,8 @@ scopes containing a design with this name are returned.</td>
 <div class="section" id="boxes">
 <h2>Boxes<a class="headerlink" href="#boxes" title="Permalink to this headline">¶</a></h2>
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.write_box">
-<code class="descclassname">SQLiteDB.</code><code class="descname">write_box</code><span class="sig-paren">(</span><em><span class="n">box</span></em>, <em><span class="n">scope_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_box" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.write_box">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">write_box</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">box</span></span></em>, <em><span class="n"><span class="pre">scope_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_box" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write a single box to the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -983,8 +979,8 @@ of that scope is used.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.write_boxes">
-<code class="descclassname">SQLiteDB.</code><code class="descname">write_boxes</code><span class="sig-paren">(</span><em><span class="n">boxes</span></em>, <em><span class="n">scope_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_boxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_boxes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.write_boxes">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">write_boxes</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">boxes</span></span></em>, <em><span class="n"><span class="pre">scope_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_boxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_boxes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write Boxes to the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1008,8 +1004,8 @@ of that scope is used.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_box">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_box</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em>, <em><span class="n">box_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em>, <em><span class="n">scope</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_box" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_box">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_box</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em>, <em><span class="n"><span class="pre">box_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em>, <em><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_box" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read a Box from the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1032,8 +1028,8 @@ box.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_boxes">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_boxes</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em><span class="n">scope</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_boxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_boxes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_boxes">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_boxes</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_boxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_boxes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read Boxes from the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1058,8 +1054,8 @@ no Scope object is assigned.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_box_names">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_box_names</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_box_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_box_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_box_names">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_box_names</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_box_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_box_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the names of all boxes associated with a particular scope.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1074,8 +1070,8 @@ no Scope object is assigned.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_box_parent_name">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_box_parent_name</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em>, <em><span class="n">box_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_box_parent_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_box_parent_name" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_box_parent_name">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_box_parent_name</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em>, <em><span class="n"><span class="pre">box_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_box_parent_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_box_parent_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the name of the parent box for a particular box in the database</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1099,8 +1095,8 @@ parent, otherwise None is returned.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_box_parent_names">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_box_parent_names</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_box_parent_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_box_parent_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_box_parent_names">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_box_parent_names</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_box_parent_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_box_parent_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the name of the parent box for each box in the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1122,8 +1118,8 @@ giving the respective Box parent names.</dd>
 <div class="section" id="experiments">
 <h2>Experiments<a class="headerlink" href="#experiments" title="Permalink to this headline">¶</a></h2>
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.write_experiment_parameters">
-<code class="descclassname">SQLiteDB.</code><code class="descname">write_experiment_parameters</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span></em>, <em><span class="n">xl_df</span></em>, <em><span class="n">force_ids</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_experiment_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_parameters" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.write_experiment_parameters">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">write_experiment_parameters</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">design_name</span></span></em>, <em><span class="n"><span class="pre">xl_df</span></span></em>, <em><span class="n"><span class="pre">force_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_experiment_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write experiment definitions the the database.</p>
 <p>This method records values for each experiment parameter,
 for each experiment in a design of one or more experiments.</p>
@@ -1143,7 +1139,7 @@ reference to the design sampler, for example:
 ‘lhs’ - generated by latin hypercube sample design
 The design_name is used primarily to load groups of
 related experiments together.</li>
-<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the experiment
+<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.5)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the experiment
 parameters (i.e. policy levers, uncertainties, and
 constants), and each row is an experiment.</li>
 <li><strong>force_ids</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – For the experiment id’s saved into the database to match
@@ -1176,8 +1172,8 @@ is already saved with a different id.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.write_experiment_parameters_1">
-<code class="descclassname">SQLiteDB.</code><code class="descname">write_experiment_parameters_1</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em>, <em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_parameters_1" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.write_experiment_parameters_1">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">write_experiment_parameters_1</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">design_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_parameters_1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write experiment definitions for a single experiment.</p>
 <p>This method records values for each experiment parameter,
 for a single experiment only.</p>
@@ -1229,8 +1225,8 @@ the parameters.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.write_experiment_measures">
-<code class="descclassname">SQLiteDB.</code><code class="descname">write_experiment_measures</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">source</span></em>, <em><span class="n">m_df</span></em>, <em><span class="n">run_ids</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_experiment_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_measures" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.write_experiment_measures">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">write_experiment_measures</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">source</span></span></em>, <em><span class="n"><span class="pre">m_df</span></span></em>, <em><span class="n"><span class="pre">run_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">experiment_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_experiment_measures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_measures" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write experiment results to the database.</p>
 <p>Write the performance measure results for each experiment
 in the scope - if the scope does not exist, nothing is recorded.</p>
@@ -1249,11 +1245,11 @@ already have been stored in this database.</li>
 <li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – An indicator of performance measure source. This should
 be 0 for a bona-fide run of the associated core models,
 or some non-zero metamodel_id number.</li>
-<li><strong>m_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The columns of this DataFrame are the performance
+<li><strong>m_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.5)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The columns of this DataFrame are the performance
 measure names, and row indexes are the experiment id’s.
 If given as a <cite>dict</cite> instead of a DataFrame, the keys are
 treated as columns and an <cite>experiment_id</cite> must be provided.</li>
-<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.2.3)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
+<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.2.5)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
 (UUIDs) for these results. The UUIDs can be used to help
 identify problems and organize model runs.</li>
 <li><strong>experiment_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Provide an experiment_id.  This is only used if the
@@ -1269,8 +1265,8 @@ identify problems and organize model runs.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.write_experiment_all">
-<code class="descclassname">SQLiteDB.</code><code class="descname">write_experiment_all</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span></em>, <em><span class="n">source</span></em>, <em><span class="n">xlm_df</span></em>, <em><span class="n">run_ids</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_experiment_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_all" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.write_experiment_all">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">write_experiment_all</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">design_name</span></span></em>, <em><span class="n"><span class="pre">source</span></span></em>, <em><span class="n"><span class="pre">xlm_df</span></span></em>, <em><span class="n"><span class="pre">run_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_experiment_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_experiment_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write experiment definitions and results</p>
 <p>Writes the values from each experiment variable and the
 results for each performance measure per experiment</p>
@@ -1294,11 +1290,11 @@ TODO: document dict</li>
 <li><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – An indicator of performance measure source. This should
 be 0 for a bona fide run of the associated core models,
 or some non-zero metamodel_id number.</li>
-<li><strong>xlm_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the experiment
+<li><strong>xlm_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.5)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are the experiment
 parameters (i.e. policy levers, uncertainties, and
 constants) and performance measures, and each row
 is an experiment.</li>
-<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.2.3)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
+<li><strong>run_ids</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="(in pandas v1.2.5)"><em>pandas.Index</em></a><em>, </em><em>optional</em>) – Provide an optional index of universally unique run ids
 (UUIDs) for these results. The UUIDs can be used to help
 identify problems and organize model runs.</li>
 </ul>
@@ -1316,8 +1312,8 @@ identify problems and organize model runs.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_experiment_parameters">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_parameters</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">only_pending</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">design</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">experiment_ids</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">ensure_dtypes</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_parameters" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_experiment_parameters">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_experiment_parameters</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">design_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">only_pending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">design</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">*</span></span></em>, <em><span class="n"><span class="pre">experiment_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">ensure_dtypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read experiment definitions from the database.</p>
 <p>Read the values for each experiment parameter per experiment.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1362,8 +1358,8 @@ the <cite>design_name</cite> as meta-data to the DataFrame.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_experiment_measures">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_measures</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">design</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">runs</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">formulas</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">with_validity</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_measures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_measures" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_experiment_measures">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_experiment_measures</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">design_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">experiment_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">design</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">runs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">formulas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">with_validity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_measures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_measures" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read experiment results from the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1404,7 +1400,7 @@ the results.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">performance measures</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">results (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)">pandas.DataFrame</a>)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">results (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.5)">pandas.DataFrame</a>)</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – When the database contains multiple sets of results
@@ -1417,8 +1413,8 @@ the results.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_experiment_all">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_all</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="o">*</span></em>, <em><span class="n">only_pending</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_incomplete</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_complete</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">only_with_measures</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">ensure_dtypes</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">with_run_ids</span><span class="o">=</span><span class="default_value">False</span></em>, <em><span class="n">runs</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">formulas</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_all" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_experiment_all">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_experiment_all</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">design_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">*</span></span></em>, <em><span class="n"><span class="pre">only_pending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">only_incomplete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">only_complete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">only_with_measures</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">ensure_dtypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">with_run_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">runs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">formulas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read experiment definitions and results</p>
 <p>Read the values from each experiment variable and the
 results for each performance measure per experiment.</p>
@@ -1494,8 +1490,8 @@ the <cite>design_name</cite> as meta-data to the DataFrame.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_experiment_ids">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_experiment_ids</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">xl_df</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_ids" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_experiment_ids">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_experiment_ids</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">xl_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_experiment_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_experiment_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the experiment ids previously defined in the database.</p>
 <p>This method is used to recover the experiment id, if the
 set of parameter values is known but the id of the experiment
@@ -1507,7 +1503,7 @@ is not known.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – scope name, used to identify experiments,
 performance measures, and results associated with this run</li>
-<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are experiment parameters
+<li><strong>xl_df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.5)"><em>pandas.DataFrame</em></a>) – The columns of this DataFrame are experiment parameters
 to lookup, and each row is a full experiment.  It is
 possible to include only a subset of the columns, and
 matches will be returned if that subset matches only one
@@ -1533,8 +1529,8 @@ experiment.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_design_names">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_design_names</code><span class="sig-paren">(</span><em><span class="n">scope_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_design_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_design_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_design_names">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_design_names</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><span class="pre">list</span></a><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_design_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_design_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of all available designs for a given scope.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1548,8 +1544,8 @@ performance measures, and results associated with this run</td>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.delete_experiments">
-<code class="descclassname">SQLiteDB.</code><code class="descname">delete_experiments</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">design_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">design</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.delete_experiments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.delete_experiments" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.delete_experiments">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">delete_experiments</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">design_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">design</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.delete_experiments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.delete_experiments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete experiment definitions and results.</p>
 <p>The method removes the linkage between experiments and the
 identified experimental design.  Experiment parameters and results
@@ -1577,8 +1573,8 @@ are deleted.</li>
 <div class="section" id="meta-models">
 <h2>Meta-Models<a class="headerlink" href="#meta-models" title="Permalink to this headline">¶</a></h2>
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.get_new_metamodel_id">
-<code class="descclassname">SQLiteDB.</code><code class="descname">get_new_metamodel_id</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.get_new_metamodel_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.get_new_metamodel_id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.get_new_metamodel_id">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">get_new_metamodel_id</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.get_new_metamodel_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.get_new_metamodel_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a new unused metamodel id for a given scope.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1593,8 +1589,8 @@ are deleted.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.write_metamodel">
-<code class="descclassname">SQLiteDB.</code><code class="descname">write_metamodel</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">metamodel</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">metamodel_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">metamodel_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_metamodel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_metamodel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.write_metamodel">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">write_metamodel</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">metamodel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">metamodel_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">metamodel_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.write_metamodel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.write_metamodel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Store a meta-model in the database</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1620,8 +1616,8 @@ inferred from <cite>metamodel</cite>, an empty string is used.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_metamodel_ids">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_metamodel_ids</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_metamodel_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_metamodel_ids" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_metamodel_ids">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_metamodel_ids</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_metamodel_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_metamodel_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of all metamodel id’s for a given scope.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1634,8 +1630,8 @@ inferred from <cite>metamodel</cite>, an empty string is used.</li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="emat.database.SQLiteDB.read_metamodel">
-<code class="descclassname">SQLiteDB.</code><code class="descname">read_metamodel</code><span class="sig-paren">(</span><em><span class="n">scope_name</span></em>, <em><span class="n">metamodel_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_metamodel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_metamodel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="emat.database.SQLiteDB.read_metamodel">
+<code class="sig-prename descclassname"><span class="pre">SQLiteDB.</span></code><code class="sig-name descname"><span class="pre">read_metamodel</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">scope_name</span></span></em>, <em><span class="n"><span class="pre">metamodel_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/emat/database/sqlite/sqlite_db.html#SQLiteDB.read_metamodel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#emat.database.SQLiteDB.read_metamodel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a meta-model from the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
